@@ -5,3 +5,6 @@
 ## 決策列表
 
 *   [ADR-001: 移除 DGL 依賴並遷移至純 PyTorch 實作](ADR-001-remove-dgl-for-pure-pytorch.md)
+*   [ADR-002: 使用純 PyTorch 實作真實注意力機制](ADR-002-implement-real-attention-mechanism.md)
+*   [ADR-003: Google Colab 訓練環境優化與記憶體管理策略](ADR-003-optimize-colab-memory-training.md)
+

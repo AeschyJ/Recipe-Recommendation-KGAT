@@ -15,15 +15,19 @@ Experiment/
 │   └── api_reference.md    # API 說明
 ├── notebooks/            # Jupyter Notebooks (實驗與訓練)
 │   ├── inference_xai.ipynb # 推論與解釋 Demo
-│   └── train_colab.ipynb   # 訓練流程 Demo
+│   ├── train_colab.ipynb   # 訓練流程 Demo (舊版)
+│   └── train_attention_colab.ipynb # 真實注意力機制訓練 Demo (Colab 專用) [NEW]
 ├── src/                    # 原始程式碼
 │    ├── data/               # 資料處理模組
     │   ├── download_data.py  # 資料下載指引
     │   └── preprocess.py     # 資料預處理與 KG 建構
     ├── model/              # 模型定義
-    │   ├── explainer.py      # GNN 解釋器 (XAI)
-    │   └── kgat.py           # KGAT 模型主體
-    └── train.py            # 本地訓練腳本
+    │   ├── explainer.py      # GNN 解釋器 (Gradient-based)
+    │   ├── explainer_attention.py # GNN 解釋器 (Weight-based) [NEW]
+    │   ├── kgat.py           # KGAT 模型主體 (Static)
+    │   └── kgat_attention.py # KGAT 模型主體 (Attention) [NEW]
+    ├── train.py            # 本地訓練腳本 (Default)
+    └── train_xpu.py        # 本地訓練腳本 (Intel Arc) [NEW]
 ├── main.py                 # 程式進入點 (開發中)
 ├── pyproject.toml          # 專案設定與依賴管理
 └── requirements.txt        # Python 依賴列表
@@ -62,7 +66,8 @@ Experiment/
 
 提供實驗性與互動式的開發環境，方便在 Colab 或本地環境執行。
 
-*   **訓練流程 (`train_colab.ipynb`)**: 展示如何載入預處理資料、建構 Graph、以及訓練 KGAT 模型迴圈。
+*   **訓練流程 (`train_colab.ipynb`)**: 展示如何載入預處理資料、建構 Graph、以及訓練靜態 KGAT 模型。
+*   **注意力訓練 (`train_attention_colab.ipynb`)**: 針對新版 `KGATAttention` 最佳化的訓練腳本，包含完整的訓練迴圈實作，方便在 Colab GPU 環境直接執行。
 *   **推論與解釋 (`inference_xai.ipynb`)**: 展示如何載入訓練好的模型，對特定使用者-物品對進行推論，並呼叫 Explainer 產出推薦解釋。
 
 ## 資料流 (Data Flow)
