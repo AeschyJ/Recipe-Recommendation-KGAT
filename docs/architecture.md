@@ -55,7 +55,7 @@ Experiment/
     *   **目標**: 透過傳播知識圖譜中的高階連結資訊，優化使用者與物品的 Embedding。
 
 *   **Explainer (`explainer.py`)**:
-    *   **KGATExplainer**: 作為 `dgl.nn.GNNExplainer` 的包裝器 (Wrapper)。
+    *   **KGATExplainer**: (待重構) 用於解釋推薦結果的各項權重。
     *   **目標**: 給定一個推薦 (User -> Item)，找出導致該推薦最重要的子圖 (Subgraph)，例如「因為該使用者喜歡包含『巧克力』的食譜，所以推薦了這個蛋糕」。
 
 ### 3. Notebooks (`notebooks/`)
@@ -72,8 +72,8 @@ Experiment/
 3.  ➡️ **Processed Data** 💾 (`data/processed/*.pkl`)
     *   包含：Interaction Matrix, Knowledge Graph Triples, ID Maps
 4.  ➡️ **Model Training** (`src/model/kgat.py`)
-    *   建構 DGL Graph
-    *   訓練 KGAT 模型優化 Embeddings
+    *   建構 Graph Adjacency Matrix (Sparse Tensor)
+    *   訓練 KGAT 模型優化 Embeddings (Pure PyTorch)
 5.  ➡️ **Inference & Explanation** (`src/model/explainer.py`)
     *   產出推薦列表
     *   解釋推薦原因

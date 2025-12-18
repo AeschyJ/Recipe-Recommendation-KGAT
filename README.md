@@ -13,7 +13,6 @@
 本專案使用 `uv` 進行套件管理。主要依賴包括：
 
 *   `torch` (PyTorch)
-*   `dgl` (Deep Graph Library)
 *   `pandas`, `numpy`, `scikit-learn` (資料處理)
 
 詳細列表請參閱 `pyproject.toml` 或 `requirements.txt`。
