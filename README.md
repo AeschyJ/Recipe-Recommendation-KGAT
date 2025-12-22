@@ -56,12 +56,28 @@
     ```
     *(完整的訓練腳本 `main.py` 仍在開發中)*
 
-3.  **本地模型訓練**:
-    如果您想在本地環境執行訓練（支援 GPU 自動偵測）：
-    ```bash
-    python src/train.py
-    ```
-    *該腳本會實作 BPR Loss 負採樣，並每 5 個 Epoch 將模型權重儲存至 `models/` 目錄。*
+3.  **模型訓練**:
+    本專案支援多種訓練模式，包含傳統的 KGAT 以及帶有注意力和機制的 KGAT-Attention。
+
+    *   **Intel Arc GPU (XPU) 加速模式** (建議，需 8GB+ VRAM):
+        ```bash
+        # 大 Batch Size (20480) 搭配 BFloat16 優化與重計算技術
+        python src/train.py --use_bf16 --batch_size 20480 --lr 0.001
+        ```
+    
+    *   **CPU 穩定模式** (若無 GPU 或顯存不足):
+        ```bash
+        python src/train_att.py --cpu --batch_size 1024
+        ```
+
+    *   **斷點續訓 (Resume Training)**:
+        ```bash
+        python src/train.py --resume models/kgat_checkpoint_e10.pth --batch_size 20480
+        ```
+
+    *訓練說明：*
+    - **VRAM 優化**：針對大規模圖譜（15M 邊），模型已實作重計算（Recomputation）策略，有效解決 8GB 顯示卡溢位問題。
+    - **格式**：Checkpoint 會自動儲存包含 Epoch、優化器狀態與超參數的完整資料。
 
 4.  **Notebook 實驗**:
     您也可以使用 Jupyter Notebook 進行互動式開發與觀察：

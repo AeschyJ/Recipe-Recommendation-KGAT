@@ -1,12 +1,11 @@
 [project]
 name = "experiment"
-version = "1.0.0"
+version = "1.1.0"
 description = "Recipe Recommendation with KGAT and GraphExplainer"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "torch",
-    "dgl",
+    "torch==2.9.1+xpu",
     "pandas",
     "numpy",
     "scikit-learn",
@@ -15,6 +14,16 @@ dependencies = [
     "networkx",
     "ipykernel"
 ]
+
+[[tool.uv.index]]
+name = "pytorch-xpu"
+url = "https://download.pytorch.org/whl/xpu"
+
+[tool.uv.sources]
+torch = { index = "pytorch-xpu" }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
 
 [build-system]
 requires = ["hatchling"]

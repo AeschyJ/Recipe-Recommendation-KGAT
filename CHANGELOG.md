@@ -4,6 +4,21 @@
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-12-23
+
+### Added
+- **Graph**: 在鄰接矩陣中引入 User-Item 互動邊，使解釋器能追蹤從使用者出發的路徑邏輯 (ADR-005)。
+- **Setup**: `pyproject.toml` 新增 `torch-xpu` 專用索引，鎖定 `torch==2.9.1+xpu`。
+- **Training**: `train.py` 與 `train_att.py` 新增完整的 Checkpoint 儲存與恢復功能 (`--resume`)。
+- **Training**: 訓練腳本新增 `--cpu` 參數，支援在 GPU 環境下強制使用 CPU 訓練。
+
+### Changed
+- **XPU**: 遷移至 PyTorch 原生 XPU 支援，移除 IPEX 依賴 (ADR-004)。
+- **Optimization**: 實作 GNN 聚合重計算策略 (Recomputation)，解決千萬級邊規模下的 VRAM 溢位與系統 Swapping 問題 (ADR-006)。
+- **Training**: 優化模型 `forward` 介面，將正樣本與負樣本分數合併計算，減少 50% 的圖遍歷開銷。
+- **Training**: 更新 `src/train.py` 與 `src/train_att.py` 以支援原生 XPU 偵測與大型 Batch Size 優化。
+
+
 ## [1.0.0] - 2025-12-19
 
 ### Added

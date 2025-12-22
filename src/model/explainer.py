@@ -1,6 +1,59 @@
+import types
+
 import matplotlib.pyplot as plt
 import networkx as nx
 import torch
+
+
+class SparseMMFunction(torch.autograd.Function):
+    """
+    Memory-efficient Sparse x Dense Matrix Multiplication for Gradient Calculation.
+    Avoids materializing (N, N) dense gradient matrix for the sparse adjacency.
+    """
+
+    @staticmethod
+    def forward(ctx, adj, features):
+        # adj: Sparse Tensor
+        # features: Dense Tensor
+        ctx.save_for_backward(adj, features)
+        return torch.sparse.mm(adj, features)
+
+    @staticmethod
+    def backward(ctx, grad_output):
+        adj, features = ctx.saved_tensors
+        grad_adj = None
+        grad_features = None
+
+        # 1. Gradient w.r.t features (Dense)
+        # dL/dX = A^T * dL/dY
+        if ctx.needs_input_grad[1]:
+            grad_features = torch.sparse.mm(adj.t(), grad_output)
+
+        # 2. Gradient w.r.t adj (Sparse)
+        # We compute gradient only for the non-zero elements (indices) of adj.
+        if ctx.needs_input_grad[0]:
+            indices = adj._indices()
+            row, col = indices
+
+            # Efficient computation: dot product of rows
+            # grad_val[k] = sum(grad_output[row[k]] * features[col[k]])
+            # This avoids creating (N, N) dense matrix
+
+            # Gather relevant rows
+            grad_out_rows = grad_output[row]  # (E, out_dim)
+            feat_rows = features[
+                col
+            ]  # (E, in_dim) aka (E, out_dim since W is applied later) wait mm is first.
+            # features is (N, in_dim). grad_output is (N, in_dim) (result of sparse.mm)
+
+            vals_grad = (grad_out_rows * feat_rows).sum(dim=1)
+
+            # Create sparse gradient tensor
+            grad_adj = torch.sparse_coo_tensor(
+                indices, vals_grad, adj.shape, device=adj.device
+            )
+
+        return grad_adj, grad_features
 
 
 class KGATExplainer:
@@ -13,6 +66,28 @@ class KGATExplainer:
         """
         self.model = model
         self.model.eval()
+        self._patch_model()
+
+    def _patch_model(self):
+        """
+        Monkey-patch GNN layers to use memory-efficient SparseMM.
+        """
+        for layer in self.model.aggregator_layers:
+            layer.forward = types.MethodType(self._manual_gnn_forward, layer)
+
+    @staticmethod
+    def _manual_gnn_forward(self, adj, features):
+        """
+        Patched forward method for GNNLayer.
+        """
+        # Original: h_neigh = torch.sparse.mm(adj, features)
+        h_neigh = SparseMMFunction.apply(adj, features)
+
+        term1 = self.W1(features + h_neigh)
+        term2 = self.W2(features * h_neigh)
+
+        h_out = self.leaky_relu(term1 + term2)
+        return h_out
 
     def explain(self, adj, user_ids, item_ids, n_hops=2, top_k=10):
         """
@@ -30,10 +105,11 @@ class KGATExplainer:
             explanation (dict): 包含 'subgraph' (nx.DiGraph), 'important_edges' (list), 'score'
         """
         # 確保輸入是 Tensor
-        if isinstance(user_ids, int):
-            user_ids = torch.LongTensor([user_ids])
-        if isinstance(item_ids, int):
-            item_ids = torch.LongTensor([item_ids])
+        # 確保輸入是 Tensor
+        if not torch.is_tensor(user_ids):
+            user_ids = torch.as_tensor(user_ids, dtype=torch.long).view(-1)
+        if not torch.is_tensor(item_ids):
+            item_ids = torch.as_tensor(item_ids, dtype=torch.long).view(-1)
 
         user_ids = user_ids.to(adj.device)
         item_ids = item_ids.to(adj.device)

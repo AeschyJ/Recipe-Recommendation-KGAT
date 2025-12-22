@@ -1,67 +1,104 @@
 import os
+import pickle
 import sys
 
-# 將腳本的上層目錄（即專案根目錄）加入 sys.path
-# 假設 verify_explainer.py 位於 src/ 下
+import torch
+
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if project_root not in sys.path:
     sys.path.append(project_root)
 
-import torch
+# Main script logic
+data_dir = os.path.join(project_root, "data", "processed")
+print(f"Data dir: {data_dir}")
 
-from src.model.explainer import KGATExplainer
-from src.model.kgat import KGAT
+# CACHE WARMING / DEBUG LOAD
+interactions_path = os.path.join(data_dir, "interactions.pkl")
+print("Pre-loading interactions to avoid OOM...")
+try:
+    with open(interactions_path, "rb") as f:
+        df = pickle.load(f)
+    print(f"Pre-load successful. Shape: {df.shape}")
+except Exception as e:
+    print(f"Error pre-loading: {e}")
+
+# Now import modules
 from src.train import construct_adj, load_data
 
-# 1. 載入資料與統計
-data_dir = os.path.join(project_root, "data", "processed")
+print("Calling load_data...")
 interactions, kg_triples, stats = load_data(data_dir)
+print("load_data done.")
 
 n_users = stats["n_users"]
 n_items = stats["n_items"]
 n_entities = stats["n_entities"]
 n_relations = stats["n_relations"]
 
-# 2. 建立 Adjacency Matrix
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"Using device: {device}")
+print("Calling construct_adj...")
+adj = construct_adj(kg_triples, interactions, n_users, n_items, n_entities)
+print("construct_adj done.")
 
-adj = construct_adj(kg_triples, n_users, n_items, n_entities).to(device)
+if hasattr(torch, "xpu") and torch.xpu.is_available():
+    device = torch.device("xpu")
+    print("Using Native Intel Arc GPU (XPU)!")
+elif torch.cuda.is_available():
+    device = torch.device("cuda")
+    print("Using NVIDIA GPU (CUDA)")
+else:
+    device = torch.device("cpu")
+    print(f"Device: {device}")
+adj = adj.to(device)
+print("adj.to(device) done.")
 
-# 3. 載入模型
+print("Initializing model...")
+from src.model.kgat import KGAT
+
 # 確保 n_all_entities 與訓練時一致
 n_all_entities = n_items + n_entities
 model = KGAT(n_users, n_all_entities, n_relations).to(device)
+print("Model initialized.")
 
-# 嘗試載入最新的 checkpoint
+# Load checkpoint
 model_path = os.path.join(project_root, "models", "kgat_epoch_20.pth")
 if not os.path.exists(model_path):
-    print(f"Warning: {model_path} not found. Using initialized model for demo.")
+    print(f"Warning: {model_path} not found. Using initialized model.")
 else:
     print(f"Loading model from {model_path}...")
-    model.load_state_dict(torch.load(model_path, map_location=device))
+    model.load_state_dict(
+        torch.load(model_path, map_location=device, weights_only=True)
+    )
 
-# 4. 執行解釋
+# Explainer
+print("Initializing Explainer...")
+from src.model.explainer import KGATExplainer
+
 explainer = KGATExplainer(model)
 
-# 選擇一個測試案例
-# 例如: User 0 與他互動過的第一個 Item
-target_user = 0
+target_user = 5
+
+# 檢測 User 節點在圖中的連通性
+user_idx_in_adj = target_user  # User ID is 0~n_users-1
+row_indices = adj._indices()[0]
+user_degree = (row_indices == user_idx_in_adj).sum()
+print(f"Debug: User {target_user} degree in adj: {user_degree}")
+if user_degree <= 1:  # 1 for self-loop
+    print(
+        "Warning: User node seems isolated (only self-loop?). Standard KGAT expects User-Item edges in adj."
+    )
+
+target_user = 5
 user_interactions = interactions[interactions[:, 0] == target_user]
 
 if len(user_interactions) > 0:
     target_item = user_interactions[0][1]  # recipe_id
-
-    print(f"Explaining recommendation for User {target_user} -> Item {target_item}")
+    print(
+        f"Explaining recommendation for User {target_user} -> Item {target_item} (Type: {type(target_item)})"
+    )
 
     try:
         explanation = explainer.explain(adj, target_user, target_item, top_k=5)
         print("Scored:", explanation["target_score"])
         print("Top Paths:", explanation["top_paths"])
-
-        # Visualize (如果是在非圖形介面環境，這可能會跳出視窗或報錯)
-        # 為了驗證腳本順暢，我們只在能夠繪圖時繪圖，或是儲存圖片
-        # explainer.visualize(explanation)
         print("Explanation extraction successful!")
 
     except Exception as e:
@@ -69,6 +106,5 @@ if len(user_interactions) > 0:
         import traceback
 
         traceback.print_exc()
-
 else:
     print("User 0 has no interactions.")

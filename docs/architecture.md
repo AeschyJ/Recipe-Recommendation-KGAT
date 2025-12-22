@@ -23,11 +23,11 @@ Experiment/
     │   └── preprocess.py     # 資料預處理與 KG 建構
     ├── model/              # 模型定義
     │   ├── explainer.py      # GNN 解釋器 (Gradient-based)
-    │   ├── explainer_attention.py # GNN 解釋器 (Weight-based) [NEW]
+    │   ├── explainer_attention.py # GNN 解釋器 (Weight-based)
     │   ├── kgat.py           # KGAT 模型主體 (Static)
-    │   └── kgat_attention.py # KGAT 模型主體 (Attention) [NEW]
-    ├── train.py            # 本地訓練腳本 (Default)
-    └── train_xpu.py        # 本地訓練腳本 (Intel Arc) [NEW]
+    │   └── kgat_attention.py # KGAT 模型主體 (Attention)
+    ├── train.py            # 本地訓練腳本 (支援 XPU/CUDA/CPU)
+    └── train_att.py        # 注意力機制訓練腳本 (支援 XPU/CUDA/CPU)
 ├── main.py                 # 程式進入點 (開發中)
 ├── pyproject.toml          # 專案設定與依賴管理
 └── requirements.txt        # Python 依賴列表
@@ -46,39 +46,41 @@ Experiment/
     3.  **Triple Construction**: 建立 `(Recipe, Relation, Entity)` 形式的三元組。
         *   Relation 0: Recipe -> Ingredient
         *   Relation 1: Recipe -> Tag
+    4.  **Graph Construction (Collaborative Knowledge Graph)**:
+        *   將 User-Item 互動與 Item-Entity 關聯整合入單一全域圖譜。
+        *   節點偏移規則：Users (0~N-1), Items (N~N+M-1), Entities (N+M~End)。
 *   **輸出**: 處理後的 Pickle 檔案 (`interactions.pkl`, `kg_triples.pkl`, `stats.pkl`) 存放在 `data/processed/`。
 
 ### 2. 模型核心 (`src/model`)
 
 包含推薦模型與解釋器。
 
-*   **KGAT (`kgat.py`)**:
-    *   實作了 Knowledge Graph Attention Network。
+*   **KGAT (`kgat.py`) / KGATAttention (`kgat_attention.py`)**:
+    *   實作了 Knowledge Graph Attention Network 與其注意力變體。
     *   **GNNLayer**: 定義了單層圖神經網路的聚合邏輯 (Bi-Interaction Aggregation)。
-    *   **KGAT Class**: 整合 Embedding 層與多層 GNNLayer，計算使用者與物品的匹配分數。
-    *   **目標**: 透過傳播知識圖譜中的高階連結資訊，優化使用者與物品的 Embedding。
+    *   **優化 (ADR-006)**: 實作自定義 `SparseAggregateFunction`，透過 **「重計算策略 (Recomputation)」** 替換原本的快取機制，大幅降低 15M 邊規模下的 VRAM 佔用。
+    *   **跨平台支援**: 支援原生 Intel XPU (Arc GPU) 加速、BFloat16 混合精度訓練以及 `--cpu` 強制運算模式。
+    *   **目標**: 透過傳播知識圖譜（含使用者互動）中的高階連結資訊，優化使用者與物品的 Embedding。
 
 *   **Explainer (`explainer.py`)**:
-    *   **KGATExplainer**: (待重構) 用於解釋推薦結果的各項權重。
-    *   **目標**: 給定一個推薦 (User -> Item)，找出導致該推薦最重要的子圖 (Subgraph)，例如「因為該使用者喜歡包含『巧克力』的食譜，所以推薦了這個蛋糕」。
+    *   **KGATExplainer**: 使用梯度法 (Gradient-based Saliency) 提取重要路徑。
+    *   **記憶體優化**: 實作了自定義 `SparseMMFunction` 以避免大型稀疏矩陣求導時產生的 dense 梯度造成 OOM。
 
 ### 3. Notebooks (`notebooks/`)
 
 提供實驗性與互動式的開發環境，方便在 Colab 或本地環境執行。
 
-*   **訓練流程 (`train_colab.ipynb`)**: 展示如何載入預處理資料、建構 Graph、以及訓練靜態 KGAT 模型。
-*   **注意力訓練 (`train_attention_colab.ipynb`)**: 針對新版 `KGATAttention` 最佳化的訓練腳本，包含完整的訓練迴圈實作，方便在 Colab GPU 環境直接執行。
-*   **推論與解釋 (`inference_xai.ipynb`)**: 展示如何載入訓練好的模型，對特定使用者-物品對進行推論，並呼叫 Explainer 產出推薦解釋。
+*   **訓練流程 (`train_colab.ipynb`)**: 展示如何載入預處理資料、建構 Graph、以及訓練模型。
+*   **推論與解釋 (`inference_xai.ipynb`)**: 展示如何載入訓練好的模型，對特定使用者-物品對進行推論，並透過解釋器產回路徑圖，實現可解釋性。
 
 ## 資料流 (Data Flow)
 
 1.  **Raw Data** 📥 (`data/raw/*.csv`)
 2.  ➡️ **Preprocessing** (`src/data/preprocess.py`)
 3.  ➡️ **Processed Data** 💾 (`data/processed/*.pkl`)
-    *   包含：Interaction Matrix, Knowledge Graph Triples, ID Maps
-4.  ➡️ **Model Training** (`src/model/kgat.py`)
-    *   建構 Graph Adjacency Matrix (Sparse Tensor)
-    *   訓練 KGAT 模型優化 Embeddings (Pure PyTorch)
+4.  ➡️ **Model Training** (`src/train.py` / `src/train_att.py`)
+    *   建構 Collaborative KG Adjacency Matrix (含 User-Item 邊)
+    *   訓練模型並優化 Embeddings (支援原生 XPU 加速)
 5.  ➡️ **Inference & Explanation** (`src/model/explainer.py`)
     *   產出推薦列表
     *   解釋推薦原因
