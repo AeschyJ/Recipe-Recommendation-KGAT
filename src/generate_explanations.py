@@ -15,7 +15,9 @@ if project_root not in sys.path:
     sys.path.append(project_root)
 
 from src.model.explainer import KGATExplainer
+from src.model.explainer_attention import KGATAttentionExplainer
 from src.model.kgat import KGAT
+from src.model.kgat_attention import KGATAttention
 from src.train import construct_adj, load_data
 
 
@@ -26,7 +28,7 @@ def parse_args():
     parser.add_argument(
         "--model_path",
         type=str,
-        default=os.path.join(project_root, "models", "kgat_checkpoint_e20.pth"),
+        default=os.path.join(project_root, "models", "kgat_att_checkpoint_e20.pth"),
         help="模型 Checkpoint 路徑",
     )
     parser.add_argument(
@@ -75,11 +77,7 @@ def load_names_and_maps(data_dir, raw_data_dir):
     with open(stats_path, "rb") as f:
         stats = pickle.load(f)
 
-    # stats 中包含 LabelEncoder (user_map, item_map) 和 dict (ingredient_map, tag_map)
-    # 我們需要反向對應：Remapped ID -> Original ID -> Name
-
     # User / Item LabelEncoders
-    # classes_[i] 就是 Remapped ID i 對應的 Original ID (String or Int)
     user_le = stats["user_map"]
     item_le = stats["item_map"]
 
@@ -92,15 +90,12 @@ def load_names_and_maps(data_dir, raw_data_dir):
     id_to_tag = {v: k for k, v in tag_map.items()}
 
     # 2. Load Recipe Names from RAW_recipes.csv
-    # 我們需要 mapping: Original Recipe ID -> Recipe Name
     recipes_path = os.path.join(raw_data_dir, "RAW_recipes.csv")
     recipe_name_map = {}
 
     if os.path.exists(recipes_path):
         print(f"正在讀取食譜名稱: {recipes_path}")
         df_recipes = pd.read_csv(recipes_path)
-        # 建立 Original Recipe ID -> Name 的對應
-        # 假設 csv 有 "id" 和 "name" 欄位
         for _, row in df_recipes.iterrows():
             recipe_name_map[row["id"]] = row["name"]
     else:
@@ -140,10 +135,6 @@ def get_node_name(
     # 3. Entity (Ingredient or Tag)
     else:
         entity_id = node_id - n_users - n_items
-        # 我們不知道這個 entity_id 是 ingredient 還是 tag，因為 ID 空間是共用的 (0 ~ n_entities-1)
-        # 根據 preprocess.py，ingredient 和 tag 的 ID 是統一分配的 (next_entity_id += 1)
-        # 所以直接查兩個 map 即可
-
         id_to_ing, id_to_tag = entity_maps if entity_maps else ({}, {})
 
         if entity_id in id_to_ing:
@@ -179,12 +170,7 @@ def run():
         device = torch.device("cpu")
     print(f"使用裝置: {device}")
 
-    # 3. 建構圖 (Construct Graph)
-    print("正在建構鄰接矩陣...")
-    adj = construct_adj(kg_triples, interactions, n_users, n_items, n_entities)
-    adj = adj.to(device)
-
-    # 4. 初始化模型與載入權重
+    # 3. 準備模型與權重
     print(f"正在載入模型：{args.model_path} ...")
     if not os.path.exists(args.model_path):
         print(f"錯誤：找不到模型檔案 {args.model_path}")
@@ -192,15 +178,61 @@ def run():
 
     checkpoint = torch.load(args.model_path, map_location=device, weights_only=False)
 
+    # 判斷是否為 Attention 模型
+    is_attention = False
+    if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
+        state_dict = checkpoint["model_state_dict"]
+        # 檢查是否有 W_att 這個只有 Attention 模型才有的 key
+        if any("W_att" in k for k in state_dict.keys()):
+            is_attention = True
+            print("檢測到 Attention 模型權重。")
+
+    # 提取超參數
     embed_dim = 64
+    layers = [64, 32]
     if isinstance(checkpoint, dict) and "args" in checkpoint:
         saved_args = checkpoint["args"]
-        embed_dim = getattr(saved_args, "embed_dim", 64)
-        print(f"從 Checkpoint 載入超參數: embed_dim={embed_dim}")
+        embed_dim = getattr(saved_args, "embed_dim", embed_dim)
+        layers = getattr(saved_args, "layers", layers)
+        print(f"從 Checkpoint 載入超參數: embed_dim={embed_dim}, layers={layers}")
 
     n_all_entities = n_items + n_entities
-    model = KGAT(n_users, n_all_entities, n_relations, embed_dim=embed_dim).to(device)
 
+    # 初始化模型與解釋器
+    if is_attention:
+        model = KGATAttention(
+            n_users, n_all_entities, n_relations, embed_dim=embed_dim, layers=layers
+        ).to(device)
+        explainer = KGATAttentionExplainer(model)
+
+        # 準備 Graph Indices (Attention 模型使用)
+        print("正在準備圖索引 (for Attention Mode)...")
+        num_nodes = n_users + n_items + n_entities
+        kg_src = kg_triples[:, 0] + n_users
+        kg_dst = kg_triples[:, 2] + n_users + n_items
+        int_src = interactions[:, 0]
+        int_dst = interactions[:, 1] + n_users
+        all_src = np.concatenate(
+            [kg_src, kg_dst, int_src, int_dst, np.arange(num_nodes)]
+        )
+        all_dst = np.concatenate(
+            [kg_dst, kg_src, int_dst, int_src, np.arange(num_nodes)]
+        )
+        indices = torch.LongTensor(np.vstack([all_src, all_dst])).to(device)
+        graph_input = (indices, num_nodes)
+    else:
+        model = KGAT(
+            n_users, n_all_entities, n_relations, embed_dim=embed_dim, layers=layers
+        ).to(device)
+        explainer = KGATExplainer(model)
+
+        # 準備鄰接矩陣 (標準 KGAT 使用)
+        print("正在建構鄰接矩陣 (for Standard Mode)...")
+        adj = construct_adj(kg_triples, interactions, n_users, n_items, n_entities)
+        adj = adj.to(device)
+        graph_input = adj
+
+    # 載入權重
     if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
         model.load_state_dict(checkpoint["model_state_dict"])
     else:
@@ -209,10 +241,7 @@ def run():
     model.eval()
     print("模型載入成功。")
 
-    # 5. 初始化 Explainer
-    explainer = KGATExplainer(model)
-
-    # 6. 挑選使用者
+    # 4. 挑選使用者
     if args.user_ids:
         try:
             target_users = [int(uid.strip()) for uid in args.user_ids.split(",")]
@@ -231,27 +260,28 @@ def run():
 
     print(f"將對以下使用者進行推理與解釋: {target_users}")
 
-    # 7. 推理與解釋迴圈
+    # 5. 推理與解釋迴圈
     results = []
-
-    # 準備所有 item IDs 用於預測
     all_items = torch.arange(n_items, device=device)
 
     for user_id in tqdm(target_users, desc="處理使用者"):
         # --- (A) 推理 ---
         u_batch = torch.full((n_items,), user_id, dtype=torch.long, device=device)
         i_batch = all_items
-        j_batch = torch.zeros_like(i_batch)  # Dummy
 
         with torch.no_grad():
-            pos_scores, _ = model(adj, u_batch, i_batch, j_batch)
+            if is_attention:
+                # KGATAttention.forward(indices, num_nodes, u, i)
+                pos_scores = model(graph_input[0], graph_input[1], u_batch, i_batch)
+            else:
+                # KGAT.forward(adj, u, i, j)
+                pos_scores = model(graph_input, u_batch, i_batch)
 
         best_item_idx = torch.argmax(pos_scores).item()
         best_score = pos_scores[best_item_idx].item()
-
         recommended_item_id = int(best_item_idx)
 
-        # 獲取推薦物品的名稱資訊
+        # 獲取名稱資訊
         _, rec_real_id, rec_name = get_node_name(
             n_users + recommended_item_id,
             n_users,
@@ -261,16 +291,24 @@ def run():
             entity_maps,
             recipe_name_map,
         )
-
-        # 獲取使用者名稱資訊
         _, user_real_id, user_name = get_node_name(
             user_id, n_users, n_items, user_le, item_le, entity_maps, recipe_name_map
         )
 
         # --- (B) 解釋 ---
-        explanation_data = explainer.explain(
-            adj, user_id, recommended_item_id, top_k=args.top_k_explain
-        )
+        if is_attention:
+            # KGATAttentionExplainer 使用不同 signature
+            explanation_data = explainer.explain(
+                graph_input[0],
+                graph_input[1],
+                user_id,
+                recommended_item_id,
+                top_k=args.top_k_explain,
+            )
+        else:
+            explanation_data = explainer.explain(
+                graph_input, user_id, recommended_item_id, top_k=args.top_k_explain
+            )
 
         user_result = {
             "user_id_remapped": user_id,
@@ -325,12 +363,11 @@ def run():
 
         results.append(user_result)
 
-    # 8. 儲存結果
-    import os
-
+    # 6. 儲存結果
     output_dir = "output"
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, args.output)
+
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
 
