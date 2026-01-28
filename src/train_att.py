@@ -148,7 +148,7 @@ def train(args):
     start_epoch = 0
     if args.resume and os.path.exists(args.resume):
         print(f"Loading checkpoint: {args.resume}")
-        checkpoint = torch.load(args.resume, map_location=device)
+        checkpoint = torch.load(args.resume, map_location=device, weights_only=False)
 
         # Determine if it's a full checkpoint or state_dict
         if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
@@ -254,7 +254,7 @@ def train(args):
             torch.xpu.empty_cache()
 
         # Save Checkpoint
-        if (epoch + 1) % 5 == 0 or (epoch + 1) == args.epochs:
+        if (epoch + 1) % 2 == 0 or (epoch + 1) == args.epochs:
             ckpt_path = os.path.join(
                 args.model_dir, f"kgat_att_local_ckpt_e{epoch + 1}.pth"
             )

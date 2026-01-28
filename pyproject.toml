@@ -12,7 +12,8 @@ dependencies = [
     "tqdm",
     "matplotlib",
     "networkx",
-    "ipykernel"
+    "ipykernel",
+    "markupsafe<3.0.0"
 ]
 
 [[tool.uv.index]]

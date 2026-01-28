@@ -1,0 +1,136 @@
+[
+  {
+    "user_id_remapped": 136205,
+    "user_id_original": "2206691",
+    "user_name": "User 2206691",
+    "recommended_item_id_remapped": 105060,
+    "recommended_item_id_original": "185892",
+    "recommended_item_name": "honey barbecue chicken wings",
+    "score": 2.0254244804382324,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2206691 -> great pumpkin cookie -> easy -> honey barbecue chicken wings",
+        "path_details": [
+          {
+            "id_remapped": 136205,
+            "id_original": "2206691",
+            "type": "USER",
+            "name": "User 2206691"
+          },
+          {
+            "id_remapped": 250892,
+            "id_original": "43560",
+            "type": "RECIPE",
+            "name": "great pumpkin cookie"
+          },
+          {
+            "id_remapped": 473160,
+            "id_original": "14953",
+            "type": "TAG",
+            "name": "easy"
+          },
+          {
+            "id_remapped": 331630,
+            "id_original": "185892",
+            "type": "RECIPE",
+            "name": "honey barbecue chicken wings"
+          }
+        ],
+        "contribution_score": 0.0013662928249686956
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2206691 -> great pumpkin cookie -> preparation -> honey barbecue chicken wings",
+        "path_details": [
+          {
+            "id_remapped": 136205,
+            "id_original": "2206691",
+            "type": "USER",
+            "name": "User 2206691"
+          },
+          {
+            "id_remapped": 250892,
+            "id_original": "43560",
+            "type": "RECIPE",
+            "name": "great pumpkin cookie"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 331630,
+            "id_original": "185892",
+            "type": "RECIPE",
+            "name": "honey barbecue chicken wings"
+          }
+        ],
+        "contribution_score": 0.001323278178460896
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2206691 -> great pumpkin cookie -> time-to-make -> honey barbecue chicken wings",
+        "path_details": [
+          {
+            "id_remapped": 136205,
+            "id_original": "2206691",
+            "type": "USER",
+            "name": "User 2206691"
+          },
+          {
+            "id_remapped": 250892,
+            "id_original": "43560",
+            "type": "RECIPE",
+            "name": "great pumpkin cookie"
+          },
+          {
+            "id_remapped": 473150,
+            "id_original": "14943",
+            "type": "TAG",
+            "name": "time-to-make"
+          },
+          {
+            "id_remapped": 331630,
+            "id_original": "185892",
+            "type": "RECIPE",
+            "name": "honey barbecue chicken wings"
+          }
+        ],
+        "contribution_score": 0.0012921785237267613
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 194703,
+    "user_id_original": "2001272784",
+    "user_name": "User 2001272784",
+    "recommended_item_id_remapped": 3416,
+    "recommended_item_id_original": "9054",
+    "recommended_item_name": "leftover mashed potato pancakes",
+    "score": 1.9782298803329468,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 2001272784 -> leftover mashed potato pancakes",
+        "path_details": [
+          {
+            "id_remapped": 194703,
+            "id_original": "2001272784",
+            "type": "USER",
+            "name": "User 2001272784"
+          },
+          {
+            "id_remapped": 229986,
+            "id_original": "9054",
+            "type": "RECIPE",
+            "name": "leftover mashed potato pancakes"
+          }
+        ],
+        "contribution_score": 0.0050251972861588
+      }
+    ]
+  }
+]

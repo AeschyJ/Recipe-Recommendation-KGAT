@@ -79,7 +79,15 @@
     - **VRAM 優化**：針對大規模圖譜（15M 邊），模型已實作重計算（Recomputation）策略，有效解決 8GB 顯示卡溢位問題。
     - **格式**：Checkpoint 會自動儲存包含 Epoch、優化器狀態與超參數的完整資料。
 
-4.  **Notebook 實驗**:
+4.  **生成推薦與解釋 (Inference & Explanation)**:
+    使用 `src/generate_explanations.py` 腳本對隨機使用者進行推理並生成解釋 JSON 檔：
+    ```bash
+    # 對 5 個隨機使用者生成解釋，結果存至 output/explanations.json
+    python src/generate_explanations.py --num_users 5 --output explanations.json
+    ```
+    *結果將包含實際的使用者 ID、食譜名稱與解釋路徑。*
+
+5.  **Notebook 實驗**:
     您也可以使用 Jupyter Notebook 進行互動式開發與觀察：
     *   `notebooks/train_colab.ipynb`: 包含完整的模型訓練流程。
     *   `notebooks/inference_xai.ipynb`: 展示如何使用 Explainer 解釋推薦結果。

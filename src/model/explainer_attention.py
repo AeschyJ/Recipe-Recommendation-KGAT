@@ -15,12 +15,13 @@ class KGATAttentionExplainer:
         self.model = model
         self.model.eval()
 
-    def explain(self, adj, user_ids, item_ids, n_hops=2, top_k=10):
+    def explain(self, indices, num_nodes, user_ids, item_ids, n_hops=2, top_k=10):
         """
         解釋推薦原因。
 
         Args:
-            adj: torch.sparse_coo_tensor (只用到 indices)
+            indices: torch.LongTensor (2, E)
+            num_nodes: int
             user_ids: int or tensor
             item_ids: int or tensor
             n_hops: int
@@ -35,14 +36,14 @@ class KGATAttentionExplainer:
         if isinstance(item_ids, int):
             item_ids = torch.LongTensor([item_ids])
 
-        user_ids = user_ids.to(adj.device)
-        item_ids = item_ids.to(adj.device)
+        user_ids = user_ids.to(indices.device)
+        item_ids = item_ids.to(indices.device)
 
         # 1. 取得 Attention Weights
         # KGATAttention.forward(..., return_attention=True) 會回傳 (scores, attentions)
         with torch.no_grad():
             scores, attentions = self.model(
-                adj, user_ids, item_ids, return_attention=True
+                indices, num_nodes, user_ids, item_ids, return_attention=True
             )
 
         # attentions 是一個 list，包含每一層 GNN 的 attention weights
@@ -59,7 +60,6 @@ class KGATAttentionExplainer:
             return None
 
         # 2. 構建解釋圖 (使用 Attention 作為權重)
-        indices = adj._indices()
         u_id = user_ids.item()
         # 注意: KGATAttention 預期輸入的 item_ids 是原始 ID，但在圖中已偏移
         i_id_global = self.model.n_users + item_ids.item()

@@ -16,7 +16,8 @@ Experiment/
 ├── notebooks/            # Jupyter Notebooks (實驗與訓練)
 │   ├── inference_xai.ipynb # 推論與解釋 Demo
 │   ├── train_colab.ipynb   # 訓練流程 Demo (舊版)
-│   └── train_attention_colab.ipynb # 真實注意力機制訓練 Demo (Colab 專用) [NEW]
+│   ├── train_attention_colab.ipynb # 真實注意力機制訓練 Demo (Colab 專用) [NEW]
+├── output/                 # 輸出結果 (如解釋 JSON) [NEW]
 ├── src/                    # 原始程式碼
 │    ├── data/               # 資料處理模組
     │   ├── download_data.py  # 資料下載指引
@@ -27,7 +28,8 @@ Experiment/
     │   ├── kgat.py           # KGAT 模型主體 (Static)
     │   └── kgat_attention.py # KGAT 模型主體 (Attention)
     ├── train.py            # 本地訓練腳本 (支援 XPU/CUDA/CPU)
-    └── train_att.py        # 注意力機制訓練腳本 (支援 XPU/CUDA/CPU)
+    ├── train_att.py        # 注意力機制訓練腳本 (支援 XPU/CUDA/CPU)
+    └── generate_explanations.py # 推論與解釋生成腳本 [NEW]
 ├── main.py                 # 程式進入點 (開發中)
 ├── pyproject.toml          # 專案設定與依賴管理
 └── requirements.txt        # Python 依賴列表
@@ -84,3 +86,6 @@ Experiment/
 5.  ➡️ **Inference & Explanation** (`src/model/explainer.py`)
     *   產出推薦列表
     *   解釋推薦原因
+6.  ➡️ **Inference Script** (`src/generate_explanations.py`)
+    *   批量推理
+    *   輸出 JSON 至 `output/`

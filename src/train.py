@@ -196,7 +196,7 @@ def train():
     start_epoch = 0
     if args.resume and os.path.exists(args.resume):
         print(f"Loading checkpoint: {args.resume}")
-        checkpoint = torch.load(args.resume, map_location=device)
+        checkpoint = torch.load(args.resume, map_location=device, weights_only=False)
 
         if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
             # 智慧恢復參數：若使用者沒在命令列指定，則從 Checkpoint 恢復

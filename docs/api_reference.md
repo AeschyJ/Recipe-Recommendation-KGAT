@@ -101,6 +101,22 @@
     1.  **環境設定**: 引入 `KGAT` 與 `KGATExplainer`。
     2.  **載入模型**: (範例程式碼) 初始化模型並載入權重。
     3.  **產生解釋**:
-        *   初始化 `KGATExplainer(model)`.
         *   針對特定 `user_id` 與 `item_id` 呼叫 `explain()`。
         *   呼叫 `visualize()` 顯示結果。
+
+---
+
+## Scripts
+
+### `src/generate_explanations.py`
+
+*   **功能**: 自動化推理與解釋生成工具。
+*   **用途**: 載入訓練好的模型，對隨機或指定的使用者進行推理，找出最佳推薦項目，並生成包含實際名稱（User ID, Recipe Name, Ingredients/Tags）的解釋路徑 JSON。
+*   **參數**:
+    *   `--model_path`: 模型權重路徑 (Default: `models/kgat_checkpoint_e20.pth`)。
+    *   `--data_dir`: 處理後資料目錄 (Default: `data/processed`)。
+    *   `--raw_data_dir`: 原始資料目錄 (Default: `data/raw`)，用於讀取實際名稱。
+    *   `--output`: 輸出檔名 (Default: `explanations.json`)，檔案將儲存於 `output/` 目錄下。
+    *   `--num_users`: 隨機挑選的使用者數量 (Default: 5)。
+    *   `--user_ids`: 指定的使用者 ID 列表 (例如 `"123,456"`)，若指定則忽略 `num_users`。
+    *   `--top_k_explain`: 每個推薦結果保留的解釋路徑數量 (Default: 3)。

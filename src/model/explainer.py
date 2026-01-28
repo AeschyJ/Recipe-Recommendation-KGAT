@@ -76,18 +76,35 @@ class KGATExplainer:
             layer.forward = types.MethodType(self._manual_gnn_forward, layer)
 
     @staticmethod
-    def _manual_gnn_forward(self, adj, features):
+    def _manual_gnn_forward(self, all_embed, target, neighbor, values):
         """
-        Patched forward method for GNNLayer.
+        最佳化的 Patch 版 forward，減少記憶體占用。
         """
-        # Original: h_neigh = torch.sparse.mm(adj, features)
-        h_neigh = SparseMMFunction.apply(adj, features)
+        num_nodes = all_embed.shape[0]
+        num_edges = target.shape[0]
+        h_neigh = torch.zeros(
+            num_nodes,
+            all_embed.shape[1],
+            device=all_embed.device,
+            dtype=all_embed.dtype,
+        )
 
-        term1 = self.W1(features + h_neigh)
-        term2 = self.W2(features * h_neigh)
+        # 核心優化：分批處理邊 (Chunking)
+        # 避免一次產生巨大的 msg (num_edges, embed_dim) 矩陣導致 OOM
+        chunk_size = 1000000  # 每次處理 100 萬條邊
+        for i in range(0, num_edges, chunk_size):
+            end = min(i + chunk_size, num_edges)
+            t_chunk = target[i:end]
+            n_chunk = neighbor[i:end]
+            v_chunk = values[i:end]
 
-        h_out = self.leaky_relu(term1 + term2)
-        return h_out
+            # 只有這一塊會暫時占用記憶體，加法完後會釋放
+            h_neigh.index_add_(0, t_chunk, all_embed[n_chunk] * v_chunk.unsqueeze(1))
+
+        # Bi-Interaction Aggregation
+        return self.leaky_relu(
+            self.W1(all_embed + h_neigh) + self.W2(all_embed * h_neigh)
+        )
 
     def explain(self, adj, user_ids, item_ids, n_hops=2, top_k=10):
         """
@@ -123,11 +140,21 @@ class KGATExplainer:
         adj_grad = torch.sparse_coo_tensor(indices, values, adj.shape).to(adj.device)
 
         # 2. Forward Pass
-        # 將模型設為 train 模式以啟用梯度追蹤 (但不更新權重)
-        self.model.eval()  # 保持 eval 以關閉 dropout
-        # 雖然是 eval，但我們手動對 input (adj_grad) 求導是允許的
+        # 直接調用模型的內部 logic，但傳入帶梯度的 values
+        all_embed = torch.cat(
+            [self.model.user_embed.weight, self.model.entity_embed.weight], dim=0
+        )
+        ego_embeddings = [all_embed]
 
-        scores = self.model(adj_grad, user_ids, item_ids)
+        for layer in self.model.aggregator_layers:
+            all_embed = layer(all_embed, indices[0], indices[1], values)
+            all_embed = torch.nn.functional.normalize(all_embed, p=2, dim=1)
+            ego_embeddings.append(all_embed)
+
+        final_embed = torch.cat(ego_embeddings, dim=1)
+        u_embed = final_embed[user_ids]
+        i_embed = final_embed[self.model.n_users + item_ids]
+        scores = torch.sum(u_embed * i_embed, dim=1)
 
         # 3. Backward Pass (計算梯度)
         # 我們只關心目標分數對 adj values 的梯度

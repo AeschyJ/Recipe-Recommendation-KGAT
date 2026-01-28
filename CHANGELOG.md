@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+### Added
+- **Inference**: `src/generate_explanations.py` - 新增批量推理與解釋生成腳本，支援自動將內部 ID 轉換為原始 ID 與實際名稱（如食譜名稱、標籤名），以便於 LLM 進行解釋。
+- **Inference**: 自動建立 `output/` 目錄並將解釋結果儲存為 JSON 格式。
+- **Documentation**: 更新 `README.md`、`docs/architecture.md` 與 `docs/api_reference.md` 以包含新腳本的使用說明。
+
+### Fixed
+- **Environment**: 修改 `pyproject.toml` 引進 `markupsafe<3.0.0` 並鎖定 Python 3.12，解決 Windows 環境下的依賴衝突問題。
+- **Inference**: 修復 JSON 序列化時 `float32` 型別不相容的問題，確保推理結果能正確輸出。
+
 ## [1.1.0] - 2025-12-23
 
 ### Added
