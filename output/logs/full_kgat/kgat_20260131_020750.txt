@@ -1,0 +1,58 @@
+2026-01-31 02:07:50,691 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, resume=None, data_dir='data/processed', model_dir='models', embed_dim=32, layers=[32], cpu=False, debug=False, use_bf16=True, lr=0.001, no_compile=True, log_dir='models/logs')
+2026-01-31 02:07:50,691 [INFO] Log file: models/logs\kgat_att_20260131_020750.txt
+2026-01-31 02:07:50,691 [INFO] Using Native Intel Arc GPU (XPU)
+2026-01-31 02:07:53,218 [INFO] Train samples: 905893, Test samples: 226474
+2026-01-31 02:07:53,218 [INFO] Expected iterations per epoch: 884
+2026-01-31 02:07:53,377 [INFO] Initializing KGATAttention with embed_dim=32, layers=[32]
+2026-01-31 02:07:53,514 [INFO] Enabled BFloat16 precision
+2026-01-31 02:07:57,736 [INFO] Model compilation disabled by user.
+2026-01-31 02:40:17,961 [INFO] Epoch 1 done. Avg Loss: 0.4397
+2026-01-31 02:47:02,046 [INFO] Epoch 1 Evaluation - Recall@10: 0.5817, Recall@20: 0.7137, Recall@50: 0.8921
+2026-01-31 03:23:20,780 [INFO] Epoch 2 done. Avg Loss: 0.3850
+2026-01-31 03:29:46,290 [INFO] Epoch 2 Evaluation - Recall@10: 0.5859, Recall@20: 0.7157, Recall@50: 0.8896
+2026-01-31 03:29:47,501 [INFO] Saved checkpoint: models\kgat_checkpoint_e2.pth
+2026-01-31 04:05:24,233 [INFO] Epoch 3 done. Avg Loss: 0.3698
+2026-01-31 04:11:48,641 [INFO] Epoch 3 Evaluation - Recall@10: 0.5893, Recall@20: 0.7172, Recall@50: 0.8867
+2026-01-31 04:47:18,232 [INFO] Epoch 4 done. Avg Loss: 0.3591
+2026-01-31 04:53:44,981 [INFO] Epoch 4 Evaluation - Recall@10: 0.5912, Recall@20: 0.7168, Recall@50: 0.8832
+2026-01-31 04:53:45,653 [INFO] Saved checkpoint: models\kgat_checkpoint_e4.pth
+2026-01-31 05:29:19,393 [INFO] Epoch 5 done. Avg Loss: 0.3523
+2026-01-31 05:35:57,252 [INFO] Epoch 5 Evaluation - Recall@10: 0.5923, Recall@20: 0.7167, Recall@50: 0.8810
+2026-01-31 06:12:23,188 [INFO] Epoch 6 done. Avg Loss: 0.3464
+2026-01-31 06:18:43,315 [INFO] Epoch 6 Evaluation - Recall@10: 0.5921, Recall@20: 0.7164, Recall@50: 0.8780
+2026-01-31 06:18:44,000 [INFO] Saved checkpoint: models\kgat_checkpoint_e6.pth
+2026-01-31 06:55:17,503 [INFO] Epoch 7 done. Avg Loss: 0.3420
+2026-01-31 07:01:36,153 [INFO] Epoch 7 Evaluation - Recall@10: 0.5936, Recall@20: 0.7164, Recall@50: 0.8761
+2026-01-31 07:38:03,370 [INFO] Epoch 8 done. Avg Loss: 0.3378
+2026-01-31 07:44:23,767 [INFO] Epoch 8 Evaluation - Recall@10: 0.5934, Recall@20: 0.7165, Recall@50: 0.8741
+2026-01-31 07:44:24,293 [INFO] Saved checkpoint: models\kgat_checkpoint_e8.pth
+2026-01-31 08:21:00,918 [INFO] Epoch 9 done. Avg Loss: 0.3355
+2026-01-31 08:27:21,716 [INFO] Epoch 9 Evaluation - Recall@10: 0.5938, Recall@20: 0.7171, Recall@50: 0.8722
+2026-01-31 09:03:41,229 [INFO] Epoch 10 done. Avg Loss: 0.3327
+2026-01-31 09:10:01,792 [INFO] Epoch 10 Evaluation - Recall@10: 0.5948, Recall@20: 0.7171, Recall@50: 0.8704
+2026-01-31 09:10:02,332 [INFO] Saved checkpoint: models\kgat_checkpoint_e10.pth
+2026-01-31 09:46:30,840 [INFO] Epoch 11 done. Avg Loss: 0.3302
+2026-01-31 09:52:51,769 [INFO] Epoch 11 Evaluation - Recall@10: 0.5952, Recall@20: 0.7167, Recall@50: 0.8695
+2026-01-31 10:29:19,486 [INFO] Epoch 12 done. Avg Loss: 0.3282
+2026-01-31 10:35:38,672 [INFO] Epoch 12 Evaluation - Recall@10: 0.5951, Recall@20: 0.7170, Recall@50: 0.8682
+2026-01-31 10:35:39,192 [INFO] Saved checkpoint: models\kgat_checkpoint_e12.pth
+2026-01-31 11:12:14,247 [INFO] Epoch 13 done. Avg Loss: 0.3263
+2026-01-31 11:18:35,723 [INFO] Epoch 13 Evaluation - Recall@10: 0.5963, Recall@20: 0.7170, Recall@50: 0.8670
+2026-01-31 11:55:15,135 [INFO] Epoch 14 done. Avg Loss: 0.3251
+2026-01-31 12:01:35,274 [INFO] Epoch 14 Evaluation - Recall@10: 0.5962, Recall@20: 0.7169, Recall@50: 0.8665
+2026-01-31 12:01:35,808 [INFO] Saved checkpoint: models\kgat_checkpoint_e14.pth
+2026-01-31 12:38:01,983 [INFO] Epoch 15 done. Avg Loss: 0.3234
+2026-01-31 12:44:24,080 [INFO] Epoch 15 Evaluation - Recall@10: 0.5949, Recall@20: 0.7166, Recall@50: 0.8658
+2026-01-31 13:21:06,223 [INFO] Epoch 16 done. Avg Loss: 0.3224
+2026-01-31 13:27:28,481 [INFO] Epoch 16 Evaluation - Recall@10: 0.5962, Recall@20: 0.7168, Recall@50: 0.8653
+2026-01-31 13:27:29,037 [INFO] Saved checkpoint: models\kgat_checkpoint_e16.pth
+2026-01-31 14:03:54,747 [INFO] Epoch 17 done. Avg Loss: 0.3210
+2026-01-31 14:10:16,110 [INFO] Epoch 17 Evaluation - Recall@10: 0.5975, Recall@20: 0.7165, Recall@50: 0.8646
+2026-01-31 14:46:59,351 [INFO] Epoch 18 done. Avg Loss: 0.3208
+2026-01-31 14:53:21,828 [INFO] Epoch 18 Evaluation - Recall@10: 0.5977, Recall@20: 0.7162, Recall@50: 0.8637
+2026-01-31 14:53:22,552 [INFO] Saved checkpoint: models\kgat_checkpoint_e18.pth
+2026-01-31 15:25:55,840 [INFO] Epoch 19 done. Avg Loss: 0.3193
+2026-01-31 15:31:48,143 [INFO] Epoch 19 Evaluation - Recall@10: 0.5974, Recall@20: 0.7164, Recall@50: 0.8634
+2026-01-31 16:07:15,443 [INFO] Epoch 20 done. Avg Loss: 0.3182
+2026-01-31 16:13:44,094 [INFO] Epoch 20 Evaluation - Recall@10: 0.5968, Recall@20: 0.7160, Recall@50: 0.8630
+2026-01-31 16:13:45,541 [INFO] Saved checkpoint: models\kgat_checkpoint_e20.pth

@@ -25,9 +25,9 @@ Experiment/
     ├── model/              # 模型定義
     │   ├── explainer.py      # GNN 解釋器 (Gradient-based)
     │   ├── explainer_attention.py # GNN 解釋器 (Weight-based)
-    │   ├── kgat.py           # KGAT 模型主體 (Static)
+    │   ├── kgat_bi_interaction.py # KGAT 模型主體 (無 Attention 版)
     │   └── kgat_attention.py # KGAT 模型主體 (Attention)
-    ├── train.py            # 本地訓練腳本 (支援 XPU/CUDA/CPU)
+    ├── train_bi_interaction.py # 本地訓練腳本 (Bi-Interaction 版)
     ├── train_att.py        # 注意力機制訓練腳本 (支援 XPU/CUDA/CPU)
     └── generate_explanations.py # 推論與解釋生成腳本 [NEW]
 ├── main.py                 # 程式進入點 (開發中)
@@ -48,7 +48,10 @@ Experiment/
     3.  **Triple Construction**: 建立 `(Recipe, Relation, Entity)` 形式的三元組。
         *   Relation 0: Recipe -> Ingredient
         *   Relation 1: Recipe -> Tag
-    4.  **Graph Construction (Collaborative Knowledge Graph)**:
+    4.  **Pruning (剪枝)**:
+        *   統計 Ingredients 與 Tags 的出現頻率。
+        *   過濾掉前 1% 最常出現的高頻 Ingredient 節點 (Super Nodes)、前 5% 的高頻 TAG 節點，減少雜訊並迫使模型學習更具特色的食材組合 (ADR-007)。
+    5.  **Graph Construction (Collaborative Knowledge Graph)**:
         *   將 User-Item 互動與 Item-Entity 關聯整合入單一全域圖譜。
         *   節點偏移規則：Users (0~N-1), Items (N~N+M-1), Entities (N+M~End)。
 *   **輸出**: 處理後的 Pickle 檔案 (`interactions.pkl`, `kg_triples.pkl`, `stats.pkl`) 存放在 `data/processed/`。
@@ -57,7 +60,7 @@ Experiment/
 
 包含推薦模型與解釋器。
 
-*   **KGAT (`kgat.py`) / KGATAttention (`kgat_attention.py`)**:
+*   **KGAT_BiInteraction (`kgat_bi_interaction.py`) / KGATAttention (`kgat_attention.py`)**:
     *   實作了 Knowledge Graph Attention Network 與其注意力變體。
     *   **GNNLayer**: 定義了單層圖神經網路的聚合邏輯 (Bi-Interaction Aggregation)。
     *   **優化 (ADR-006)**: 實作自定義 `SparseAggregateFunction`，透過 **「重計算策略 (Recomputation)」** 替換原本的快取機制，大幅降低 15M 邊規模下的 VRAM 佔用。

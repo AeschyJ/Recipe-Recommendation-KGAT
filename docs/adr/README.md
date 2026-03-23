@@ -10,4 +10,7 @@
 *   [ADR-004: 遷移至 PyTorch 原生 XPU 支援以優化 Intel Arc GPU 訓練](ADR-004-migrate-to-native-xpu-support.md)
 *   [ADR-005: 在圖結構中整合使用者互動邊以支援路徑解釋](ADR-005-integrate-interactions-into-graph.md)
 *   [ADR-006: 針對大規模圖譜的 VRAM 顯存優化 (XPU/GPU)](ADR-006-vram-optimization-recomputation.md)
+*   [ADR-007: 去除超級節點、提高權重與 Attention 數值穩定性](ADR-007-data-pruning-and-stability.md)
+*   [ADR-008: 統一超參數、擴展召回指標與日誌系統](ADR-008-metrics-and-logging-standardization.md)
+*   [ADR-009: 支援多維度消融實驗與基礎模型重新命名](ADR-009-ablation-design-and-model-renaming.md)
 

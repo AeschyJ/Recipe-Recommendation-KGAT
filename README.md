@@ -66,9 +66,10 @@
         ```
     
     *   **CPU 穩定模式** (若無 GPU 或顯存不足):
-        ```bash
-        python src/train_att.py --cpu --batch_size 1024
-        ```
+         ```bash
+         # 支援 Recall@10/20/50 評估與日誌記錄 (預設 logs/)
+         python src/train_att.py --cpu --batch_size 1024 --log_dir models/logs
+         ```
 
     *   **斷點續訓 (Resume Training)**:
         ```bash

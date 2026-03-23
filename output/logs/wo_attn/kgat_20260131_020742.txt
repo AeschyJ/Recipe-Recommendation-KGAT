@@ -1,0 +1,29 @@
+2026-01-31 02:07:42,272 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, lr=0.001, embed_dim=64, use_bf16=True, resume=None, model_dir='models', cpu=True, debug=False, log_dir='models/logs')
+2026-01-31 02:07:42,272 [INFO] Log file: models/logs\kgat_base_20260131_020742.txt
+2026-01-31 02:07:42,272 [INFO] Forced to use CPU
+2026-01-31 02:07:43,838 [INFO] Data Split - Train: 905893, Test: 226474
+2026-01-31 02:07:43,839 [INFO] Constructing adjacency matrix (CPU)...
+2026-01-31 02:07:47,367 [INFO] Adjacency matrix created. Edges: 8079645
+2026-01-31 02:07:47,367 [INFO] Moving adjacency matrix to cpu...
+2026-01-31 02:07:47,367 [INFO] Done. Coalesced: True
+2026-01-31 02:07:47,367 [INFO] Initializing KGAT model...
+2026-01-31 02:07:47,574 [INFO] Model moved to device.
+2026-01-31 02:07:50,695 [INFO] Starting training from epoch 0 to 20...
+2026-01-31 03:22:47,620 [INFO] Epoch 1 Complete. Average Loss: 0.3898
+2026-01-31 03:50:41,158 [INFO] Epoch 1 Evaluation - Recall@10: 0.5987, Recall@20: 0.7263, Recall@50: 0.8728
+2026-01-31 05:05:14,504 [INFO] Epoch 2 Complete. Average Loss: 0.3299
+2026-01-31 05:33:09,437 [INFO] Epoch 2 Evaluation - Recall@10: 0.6006, Recall@20: 0.7274, Recall@50: 0.8653
+2026-01-31 06:48:00,264 [INFO] Epoch 3 Complete. Average Loss: 0.3148
+2026-01-31 07:15:47,246 [INFO] Epoch 3 Evaluation - Recall@10: 0.6066, Recall@20: 0.7300, Recall@50: 0.8684
+2026-01-31 08:30:37,797 [INFO] Epoch 4 Complete. Average Loss: 0.3053
+2026-01-31 08:58:43,940 [INFO] Epoch 4 Evaluation - Recall@10: 0.6126, Recall@20: 0.7326, Recall@50: 0.8659
+2026-01-31 10:13:33,239 [INFO] Epoch 5 Complete. Average Loss: 0.2992
+2026-01-31 10:41:15,102 [INFO] Epoch 5 Evaluation - Recall@10: 0.6170, Recall@20: 0.7362, Recall@50: 0.8688
+2026-01-31 11:56:18,608 [INFO] Epoch 6 Complete. Average Loss: 0.2946
+2026-01-31 12:23:58,206 [INFO] Epoch 6 Evaluation - Recall@10: 0.6204, Recall@20: 0.7421, Recall@50: 0.8704
+2026-01-31 13:38:46,744 [INFO] Epoch 7 Complete. Average Loss: 0.2905
+2026-01-31 14:06:44,157 [INFO] Epoch 7 Evaluation - Recall@10: 0.6233, Recall@20: 0.7454, Recall@50: 0.8748
+2026-01-31 15:21:09,031 [INFO] Epoch 8 Complete. Average Loss: 0.2879
+2026-01-31 15:48:14,573 [INFO] Epoch 8 Evaluation - Recall@10: 0.6291, Recall@20: 0.7516, Recall@50: 0.8804
+2026-01-31 16:59:02,590 [INFO] Epoch 9 Complete. Average Loss: 0.2834
+2026-01-31 17:25:44,072 [INFO] Epoch 9 Evaluation - Recall@10: 0.6316, Recall@20: 0.7538, Recall@50: 0.8764

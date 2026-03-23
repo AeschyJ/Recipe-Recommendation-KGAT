@@ -16,8 +16,8 @@ if project_root not in sys.path:
 
 from src.model.explainer import KGATExplainer
 from src.model.explainer_attention import KGATAttentionExplainer
-from src.model.kgat import KGAT
 from src.model.kgat_attention import KGATAttention
+from src.model.kgat_bi_interaction import KGAT_BiInteraction
 from src.train import construct_adj, load_data
 
 
@@ -25,6 +25,7 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="生成 KGAT 模型推薦解釋 (Generate KGAT Explanations)"
     )
+    parser.add_argument("--cpu", action="store_true", help="Force training on CPU")
     parser.add_argument(
         "--model_path",
         type=str,
@@ -162,7 +163,9 @@ def run():
     )
 
     # 2. 設定裝置 (Device Setup)
-    if hasattr(torch, "xpu") and torch.xpu.is_available():
+    if args.cpu:
+        device = torch.device("cpu")
+    elif hasattr(torch, "xpu") and torch.xpu.is_available():
         device = torch.device("xpu")
     elif torch.cuda.is_available():
         device = torch.device("cuda")
@@ -200,8 +203,9 @@ def run():
 
     # 初始化模型與解釋器
     if is_attention:
+        # Note: train_att.py adds 2 to n_relations (for Interatction and Self-loop)
         model = KGATAttention(
-            n_users, n_all_entities, n_relations, embed_dim=embed_dim, layers=layers
+            n_users, n_all_entities, n_relations + 2, embed_dim=embed_dim, layers=layers
         ).to(device)
         explainer = KGATAttentionExplainer(model)
 
@@ -219,9 +223,32 @@ def run():
             [kg_dst, kg_src, int_dst, int_src, np.arange(num_nodes)]
         )
         indices = torch.LongTensor(np.vstack([all_src, all_dst])).to(device)
-        graph_input = (indices, num_nodes)
+
+        # Construct Edge Types for Attention
+        # KG Relations: 0, 1
+        # Inverse KG: 0, 1 (Symetric)
+        # Interaction: 2
+        # Inverse Interaction: 2
+        # Self-loop: 3
+        # Must match logic in train_att.py get_adj_indices
+        kg_rels = kg_triples[:, 1]
+        n_int = len(int_src)
+        n_self = num_nodes
+
+        rels_kg = kg_rels
+        rels_kg_inv = kg_rels
+        rels_int = np.full(n_int, 2)
+        rels_int_inv = np.full(n_int, 2)
+        rels_self = np.full(n_self, 3)
+
+        all_rels = np.concatenate(
+            [rels_kg, rels_kg_inv, rels_int, rels_int_inv, rels_self]
+        )
+        edge_types = torch.LongTensor(all_rels).to(device)
+
+        graph_input = (indices, edge_types, num_nodes)
     else:
-        model = KGAT(
+        model = KGAT_BiInteraction(
             n_users, n_all_entities, n_relations, embed_dim=embed_dim, layers=layers
         ).to(device)
         explainer = KGATExplainer(model)
@@ -271,8 +298,10 @@ def run():
 
         with torch.no_grad():
             if is_attention:
-                # KGATAttention.forward(indices, num_nodes, u, i)
-                pos_scores = model(graph_input[0], graph_input[1], u_batch, i_batch)
+                # KGATAttention.forward(indices, edge_types, num_nodes, u, i)
+                pos_scores = model(
+                    graph_input[0], graph_input[1], graph_input[2], u_batch, i_batch
+                )
             else:
                 # KGAT.forward(adj, u, i, j)
                 pos_scores = model(graph_input, u_batch, i_batch)
@@ -301,6 +330,7 @@ def run():
             explanation_data = explainer.explain(
                 graph_input[0],
                 graph_input[1],
+                graph_input[2],
                 user_id,
                 recommended_item_id,
                 top_k=args.top_k_explain,
@@ -364,7 +394,7 @@ def run():
         results.append(user_result)
 
     # 6. 儲存結果
-    output_dir = "output"
+    output_dir = "output/explanations"
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, args.output)
 

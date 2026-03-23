@@ -15,7 +15,9 @@ class KGATAttentionExplainer:
         self.model = model
         self.model.eval()
 
-    def explain(self, indices, num_nodes, user_ids, item_ids, n_hops=2, top_k=10):
+    def explain(
+        self, indices, edge_types, num_nodes, user_ids, item_ids, n_hops=2, top_k=10
+    ):
         """
         解釋推薦原因。
 
@@ -43,7 +45,12 @@ class KGATAttentionExplainer:
         # KGATAttention.forward(..., return_attention=True) 會回傳 (scores, attentions)
         with torch.no_grad():
             scores, attentions = self.model(
-                indices, num_nodes, user_ids, item_ids, return_attention=True
+                indices,
+                edge_types,
+                num_nodes,
+                user_ids,
+                item_ids,
+                return_attention=True,
             )
 
         # attentions 是一個 list，包含每一層 GNN 的 attention weights

@@ -1,0 +1,2225 @@
+[
+  {
+    "user_id_remapped": 206634,
+    "user_id_original": "2001638549",
+    "user_name": "User 2001638549",
+    "recommended_item_id_remapped": 4251,
+    "recommended_item_id_original": "10744",
+    "recommended_item_name": "delicious chicken pot pie",
+    "score": 1.8677661418914795,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 12556,
+    "user_id_original": "106785",
+    "user_name": "User 106785",
+    "recommended_item_id_remapped": 15894,
+    "recommended_item_id_original": "29679",
+    "recommended_item_name": "reeses squares   5 ingredients   no bake  reese s",
+    "score": 1.9868214130401611,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 106785 -> dave s  special  black forest cake -> User 58515 -> reeses squares   5 ingredients   no bake  reese s",
+        "path_details": [
+          {
+            "id_remapped": 12556,
+            "id_original": "106785",
+            "type": "USER",
+            "name": "User 106785"
+          },
+          {
+            "id_remapped": 236367,
+            "id_original": "19667",
+            "type": "RECIPE",
+            "name": "dave s  special  black forest cake"
+          },
+          {
+            "id_remapped": 7023,
+            "id_original": "58515",
+            "type": "USER",
+            "name": "User 58515"
+          },
+          {
+            "id_remapped": 242464,
+            "id_original": "29679",
+            "type": "RECIPE",
+            "name": "reeses squares   5 ingredients   no bake  reese s"
+          }
+        ],
+        "contribution_score": 0.0017702768999244705
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 106785 -> dave s  special  black forest cake -> chocolate -> reeses squares   5 ingredients   no bake  reese s",
+        "path_details": [
+          {
+            "id_remapped": 12556,
+            "id_original": "106785",
+            "type": "USER",
+            "name": "User 106785"
+          },
+          {
+            "id_remapped": 236367,
+            "id_original": "19667",
+            "type": "RECIPE",
+            "name": "dave s  special  black forest cake"
+          },
+          {
+            "id_remapped": 473128,
+            "id_original": "14921",
+            "type": "TAG",
+            "name": "chocolate"
+          },
+          {
+            "id_remapped": 242464,
+            "id_original": "29679",
+            "type": "RECIPE",
+            "name": "reeses squares   5 ingredients   no bake  reese s"
+          }
+        ],
+        "contribution_score": 2.7591675389801286e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 106785 -> dave s  special  black forest cake -> User 35701 -> reeses squares   5 ingredients   no bake  reese s",
+        "path_details": [
+          {
+            "id_remapped": 12556,
+            "id_original": "106785",
+            "type": "USER",
+            "name": "User 106785"
+          },
+          {
+            "id_remapped": 236367,
+            "id_original": "19667",
+            "type": "RECIPE",
+            "name": "dave s  special  black forest cake"
+          },
+          {
+            "id_remapped": 3560,
+            "id_original": "35701",
+            "type": "USER",
+            "name": "User 35701"
+          },
+          {
+            "id_remapped": 242464,
+            "id_original": "29679",
+            "type": "RECIPE",
+            "name": "reeses squares   5 ingredients   no bake  reese s"
+          }
+        ],
+        "contribution_score": 1.745788049097482e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 91499,
+    "user_id_original": "1134773",
+    "user_name": "User 1134773",
+    "recommended_item_id_remapped": 231255,
+    "recommended_item_id_original": "531108",
+    "recommended_item_name": "cake mix  up sizer",
+    "score": 1.2748479843139648,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 113563,
+    "user_id_original": "1584891",
+    "user_name": "User 1584891",
+    "recommended_item_id_remapped": 190376,
+    "recommended_item_id_original": "376135",
+    "recommended_item_name": "pistachio cherry cookies",
+    "score": 2.0679895877838135,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 161199,
+    "user_id_original": "1800847804",
+    "user_name": "User 1800847804",
+    "recommended_item_id_remapped": 31553,
+    "recommended_item_id_original": "55768",
+    "recommended_item_name": "baja black beans  corn and rice",
+    "score": 1.5748745203018188,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 225121,
+    "user_id_original": "2002294030",
+    "user_name": "User 2002294030",
+    "recommended_item_id_remapped": 44385,
+    "recommended_item_id_original": "77397",
+    "recommended_item_name": "kittencal s 5 minute cinnamon flop brunch cake",
+    "score": 2.6318206787109375,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2002294030 -> kittencal s extreme chocolate brownies -> User 151750 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "path_details": [
+          {
+            "id_remapped": 225121,
+            "id_original": "2002294030",
+            "type": "USER",
+            "name": "User 2002294030"
+          },
+          {
+            "id_remapped": 277086,
+            "id_original": "87925",
+            "type": "RECIPE",
+            "name": "kittencal s extreme chocolate brownies"
+          },
+          {
+            "id_remapped": 17880,
+            "id_original": "151750",
+            "type": "USER",
+            "name": "User 151750"
+          },
+          {
+            "id_remapped": 270955,
+            "id_original": "77397",
+            "type": "RECIPE",
+            "name": "kittencal s 5 minute cinnamon flop brunch cake"
+          }
+        ],
+        "contribution_score": 0.014436511423253567
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2002294030 -> kittencal s italian melt in your mouth meatballs -> User 1800091321 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "path_details": [
+          {
+            "id_remapped": 225121,
+            "id_original": "2002294030",
+            "type": "USER",
+            "name": "User 2002294030"
+          },
+          {
+            "id_remapped": 266283,
+            "id_original": "69173",
+            "type": "RECIPE",
+            "name": "kittencal s italian melt in your mouth meatballs"
+          },
+          {
+            "id_remapped": 158863,
+            "id_original": "1800091321",
+            "type": "USER",
+            "name": "User 1800091321"
+          },
+          {
+            "id_remapped": 270955,
+            "id_original": "77397",
+            "type": "RECIPE",
+            "name": "kittencal s 5 minute cinnamon flop brunch cake"
+          }
+        ],
+        "contribution_score": 0.004825462023259926
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2002294030 -> kittencal s italian melt in your mouth meatballs -> User 191790 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "path_details": [
+          {
+            "id_remapped": 225121,
+            "id_original": "2002294030",
+            "type": "USER",
+            "name": "User 2002294030"
+          },
+          {
+            "id_remapped": 266283,
+            "id_original": "69173",
+            "type": "RECIPE",
+            "name": "kittencal s italian melt in your mouth meatballs"
+          },
+          {
+            "id_remapped": 22746,
+            "id_original": "191790",
+            "type": "USER",
+            "name": "User 191790"
+          },
+          {
+            "id_remapped": 270955,
+            "id_original": "77397",
+            "type": "RECIPE",
+            "name": "kittencal s 5 minute cinnamon flop brunch cake"
+          }
+        ],
+        "contribution_score": 0.00196543533140307
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 202202,
+    "user_id_original": "2001498878",
+    "user_name": "User 2001498878",
+    "recommended_item_id_remapped": 15894,
+    "recommended_item_id_original": "29679",
+    "recommended_item_name": "reeses squares   5 ingredients   no bake  reese s",
+    "score": 2.0849733352661133,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2001498878 -> lupo s   chicken spiedies -> User 182358 -> reeses squares   5 ingredients   no bake  reese s",
+        "path_details": [
+          {
+            "id_remapped": 202202,
+            "id_original": "2001498878",
+            "type": "USER",
+            "name": "User 2001498878"
+          },
+          {
+            "id_remapped": 348721,
+            "id_original": "219681",
+            "type": "RECIPE",
+            "name": "lupo s   chicken spiedies"
+          },
+          {
+            "id_remapped": 21584,
+            "id_original": "182358",
+            "type": "USER",
+            "name": "User 182358"
+          },
+          {
+            "id_remapped": 242464,
+            "id_original": "29679",
+            "type": "RECIPE",
+            "name": "reeses squares   5 ingredients   no bake  reese s"
+          }
+        ],
+        "contribution_score": 1.2356696988981458e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 63388,
+    "user_id_original": "646002",
+    "user_name": "User 646002",
+    "recommended_item_id_remapped": 47031,
+    "recommended_item_id_original": "82102",
+    "recommended_item_name": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 3.480180263519287,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 3820,
+    "user_id_original": "37408",
+    "user_name": "User 37408",
+    "recommended_item_id_remapped": 35504,
+    "recommended_item_id_original": "62237",
+    "recommended_item_name": "plain lentil soup  vegan   and low fat too",
+    "score": 1.1737275123596191,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 46934,
+    "user_id_original": "432411",
+    "user_name": "User 432411",
+    "recommended_item_id_remapped": 30413,
+    "recommended_item_id_original": "53914",
+    "recommended_item_name": "mama s supper club tilapia parmesan",
+    "score": 2.1056456565856934,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 432411 -> tilapia -> User 68236 -> mama s supper club tilapia parmesan",
+        "path_details": [
+          {
+            "id_remapped": 46934,
+            "id_original": "432411",
+            "type": "USER",
+            "name": "User 432411"
+          },
+          {
+            "id_remapped": 229954,
+            "id_original": "9004",
+            "type": "RECIPE",
+            "name": "tilapia"
+          },
+          {
+            "id_remapped": 8287,
+            "id_original": "68236",
+            "type": "USER",
+            "name": "User 68236"
+          },
+          {
+            "id_remapped": 256983,
+            "id_original": "53914",
+            "type": "RECIPE",
+            "name": "mama s supper club tilapia parmesan"
+          }
+        ],
+        "contribution_score": 0.00025387670900857743
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 432411 -> stir fried garlic beef with broccoli -> User 1064617 -> mama s supper club tilapia parmesan",
+        "path_details": [
+          {
+            "id_remapped": 46934,
+            "id_original": "432411",
+            "type": "USER",
+            "name": "User 432411"
+          },
+          {
+            "id_remapped": 231257,
+            "id_original": "11489",
+            "type": "RECIPE",
+            "name": "stir fried garlic beef with broccoli"
+          },
+          {
+            "id_remapped": 88291,
+            "id_original": "1064617",
+            "type": "USER",
+            "name": "User 1064617"
+          },
+          {
+            "id_remapped": 256983,
+            "id_original": "53914",
+            "type": "RECIPE",
+            "name": "mama s supper club tilapia parmesan"
+          }
+        ],
+        "contribution_score": 3.40074687862754e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 432411 -> tilapia -> User 2041603 -> mama s supper club tilapia parmesan",
+        "path_details": [
+          {
+            "id_remapped": 46934,
+            "id_original": "432411",
+            "type": "USER",
+            "name": "User 432411"
+          },
+          {
+            "id_remapped": 229954,
+            "id_original": "9004",
+            "type": "RECIPE",
+            "name": "tilapia"
+          },
+          {
+            "id_remapped": 131500,
+            "id_original": "2041603",
+            "type": "USER",
+            "name": "User 2041603"
+          },
+          {
+            "id_remapped": 256983,
+            "id_original": "53914",
+            "type": "RECIPE",
+            "name": "mama s supper club tilapia parmesan"
+          }
+        ],
+        "contribution_score": 1.3482890602873519e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 30322,
+    "user_id_original": "257087",
+    "user_name": "User 257087",
+    "recommended_item_id_remapped": 196629,
+    "recommended_item_id_original": "392273",
+    "recommended_item_name": "passover miniature potato kugel",
+    "score": 1.2319954633712769,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 14072,
+    "user_id_original": "119097",
+    "user_name": "User 119097",
+    "recommended_item_id_remapped": 44385,
+    "recommended_item_id_original": "77397",
+    "recommended_item_name": "kittencal s 5 minute cinnamon flop brunch cake",
+    "score": 2.331892967224121,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 119097 -> tuscan cream cheese spread -> User 229605 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "path_details": [
+          {
+            "id_remapped": 14072,
+            "id_original": "119097",
+            "type": "USER",
+            "name": "User 119097"
+          },
+          {
+            "id_remapped": 276216,
+            "id_original": "86512",
+            "type": "RECIPE",
+            "name": "tuscan cream cheese spread"
+          },
+          {
+            "id_remapped": 27104,
+            "id_original": "229605",
+            "type": "USER",
+            "name": "User 229605"
+          },
+          {
+            "id_remapped": 270955,
+            "id_original": "77397",
+            "type": "RECIPE",
+            "name": "kittencal s 5 minute cinnamon flop brunch cake"
+          }
+        ],
+        "contribution_score": 4.514939366933006e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 88200,
+    "user_id_original": "1063030",
+    "user_name": "User 1063030",
+    "recommended_item_id_remapped": 47031,
+    "recommended_item_id_original": "82102",
+    "recommended_item_name": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 3.2782247066497803,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1063030 -> boston market meatloaf by todd wilbur -> User 149043 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 88200,
+            "id_original": "1063030",
+            "type": "USER",
+            "name": "User 1063030"
+          },
+          {
+            "id_remapped": 241980,
+            "id_original": "28927",
+            "type": "RECIPE",
+            "name": "boston market meatloaf by todd wilbur"
+          },
+          {
+            "id_remapped": 17677,
+            "id_original": "149043",
+            "type": "USER",
+            "name": "User 149043"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 9.75749523448332e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1063030 -> boston market meatloaf by todd wilbur -> User 246936 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 88200,
+            "id_original": "1063030",
+            "type": "USER",
+            "name": "User 1063030"
+          },
+          {
+            "id_remapped": 241980,
+            "id_original": "28927",
+            "type": "RECIPE",
+            "name": "boston market meatloaf by todd wilbur"
+          },
+          {
+            "id_remapped": 29228,
+            "id_original": "246936",
+            "type": "USER",
+            "name": "User 246936"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 2.655022126411016e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1063030 -> boston market meatloaf by todd wilbur -> User 42337 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 88200,
+            "id_original": "1063030",
+            "type": "USER",
+            "name": "User 1063030"
+          },
+          {
+            "id_remapped": 241980,
+            "id_original": "28927",
+            "type": "RECIPE",
+            "name": "boston market meatloaf by todd wilbur"
+          },
+          {
+            "id_remapped": 4635,
+            "id_original": "42337",
+            "type": "USER",
+            "name": "User 42337"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 2.6254629505899627e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 194037,
+    "user_id_original": "2001247153",
+    "user_name": "User 2001247153",
+    "recommended_item_id_remapped": 133714,
+    "recommended_item_id_original": "243894",
+    "recommended_item_name": "fitz s 10  of heaven shake  strawberry cheesecake",
+    "score": 1.5551351308822632,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 153585,
+    "user_id_original": "2894401",
+    "user_name": "User 2894401",
+    "recommended_item_id_remapped": 133714,
+    "recommended_item_id_original": "243894",
+    "recommended_item_name": "fitz s 10  of heaven shake  strawberry cheesecake",
+    "score": 3.440744400024414,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 181961,
+    "user_id_original": "2000532661",
+    "user_name": "User 2000532661",
+    "recommended_item_id_remapped": 10366,
+    "recommended_item_id_original": "20573",
+    "recommended_item_name": "farmhouse scallop",
+    "score": 1.1373369693756104,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 206510,
+    "user_id_original": "2001635187",
+    "user_name": "User 2001635187",
+    "recommended_item_id_remapped": 104756,
+    "recommended_item_id_original": "185342",
+    "recommended_item_name": "weight watchers parmesan chicken cutlets",
+    "score": 1.6809971332550049,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2001635187 -> moroccan pork mince -> User 204024 -> weight watchers parmesan chicken cutlets",
+        "path_details": [
+          {
+            "id_remapped": 206510,
+            "id_original": "2001635187",
+            "type": "USER",
+            "name": "User 2001635187"
+          },
+          {
+            "id_remapped": 430724,
+            "id_original": "415397",
+            "type": "RECIPE",
+            "name": "moroccan pork mince"
+          },
+          {
+            "id_remapped": 24189,
+            "id_original": "204024",
+            "type": "USER",
+            "name": "User 204024"
+          },
+          {
+            "id_remapped": 331326,
+            "id_original": "185342",
+            "type": "RECIPE",
+            "name": "weight watchers parmesan chicken cutlets"
+          }
+        ],
+        "contribution_score": 1.3624329700693996e-07
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 221612,
+    "user_id_original": "2002181987",
+    "user_name": "User 2002181987",
+    "recommended_item_id_remapped": 1909,
+    "recommended_item_id_original": "5170",
+    "recommended_item_name": "pete s scratch pancakes",
+    "score": 2.9156854152679443,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2002181987 -> white pizza sauce -> User 969481 -> pete s scratch pancakes",
+        "path_details": [
+          {
+            "id_remapped": 221612,
+            "id_original": "2002181987",
+            "type": "USER",
+            "name": "User 2002181987"
+          },
+          {
+            "id_remapped": 376338,
+            "id_original": "279060",
+            "type": "RECIPE",
+            "name": "white pizza sauce"
+          },
+          {
+            "id_remapped": 83576,
+            "id_original": "969481",
+            "type": "USER",
+            "name": "User 969481"
+          },
+          {
+            "id_remapped": 228479,
+            "id_original": "5170",
+            "type": "RECIPE",
+            "name": "pete s scratch pancakes"
+          }
+        ],
+        "contribution_score": 1.1647144721965964e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2002181987 -> white pizza sauce -> high-calcium -> pete s scratch pancakes",
+        "path_details": [
+          {
+            "id_remapped": 221612,
+            "id_original": "2002181987",
+            "type": "USER",
+            "name": "User 2002181987"
+          },
+          {
+            "id_remapped": 376338,
+            "id_original": "279060",
+            "type": "RECIPE",
+            "name": "white pizza sauce"
+          },
+          {
+            "id_remapped": 473157,
+            "id_original": "14950",
+            "type": "TAG",
+            "name": "high-calcium"
+          },
+          {
+            "id_remapped": 228479,
+            "id_original": "5170",
+            "type": "RECIPE",
+            "name": "pete s scratch pancakes"
+          }
+        ],
+        "contribution_score": 1.0743603164246415e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2002181987 -> white pizza sauce -> high-in-something -> pete s scratch pancakes",
+        "path_details": [
+          {
+            "id_remapped": 221612,
+            "id_original": "2002181987",
+            "type": "USER",
+            "name": "User 2002181987"
+          },
+          {
+            "id_remapped": 376338,
+            "id_original": "279060",
+            "type": "RECIPE",
+            "name": "white pizza sauce"
+          },
+          {
+            "id_remapped": 473158,
+            "id_original": "14951",
+            "type": "TAG",
+            "name": "high-in-something"
+          },
+          {
+            "id_remapped": 228479,
+            "id_original": "5170",
+            "type": "RECIPE",
+            "name": "pete s scratch pancakes"
+          }
+        ],
+        "contribution_score": 9.907188924236691e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 179303,
+    "user_id_original": "2000396299",
+    "user_name": "User 2000396299",
+    "recommended_item_id_remapped": 192734,
+    "recommended_item_id_original": "382343",
+    "recommended_item_name": "egg salad club sandwiches  or shrimp salad club",
+    "score": 1.5458149909973145,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 92548,
+    "user_id_original": "1155476",
+    "user_name": "User 1155476",
+    "recommended_item_id_remapped": 47031,
+    "recommended_item_id_original": "82102",
+    "recommended_item_name": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 3.095041275024414,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1155476 -> copycat applebee s hot artichoke and spinach dip -> User 2002114474 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 92548,
+            "id_original": "1155476",
+            "type": "USER",
+            "name": "User 1155476"
+          },
+          {
+            "id_remapped": 291668,
+            "id_original": "111797",
+            "type": "RECIPE",
+            "name": "copycat applebee s hot artichoke and spinach dip"
+          },
+          {
+            "id_remapped": 219668,
+            "id_original": "2002114474",
+            "type": "USER",
+            "name": "User 2002114474"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 0.030877759893101923
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1155476 -> copycat applebee s hot artichoke and spinach dip -> User 1298826 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 92548,
+            "id_original": "1155476",
+            "type": "USER",
+            "name": "User 1155476"
+          },
+          {
+            "id_remapped": 291668,
+            "id_original": "111797",
+            "type": "RECIPE",
+            "name": "copycat applebee s hot artichoke and spinach dip"
+          },
+          {
+            "id_remapped": 99928,
+            "id_original": "1298826",
+            "type": "USER",
+            "name": "User 1298826"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 0.0006309649339333384
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1155476 -> copycat applebee s hot artichoke and spinach dip -> User 136369 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 92548,
+            "id_original": "1155476",
+            "type": "USER",
+            "name": "User 1155476"
+          },
+          {
+            "id_remapped": 291668,
+            "id_original": "111797",
+            "type": "RECIPE",
+            "name": "copycat applebee s hot artichoke and spinach dip"
+          },
+          {
+            "id_remapped": 16022,
+            "id_original": "136369",
+            "type": "USER",
+            "name": "User 136369"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 0.00017830293533764122
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 159354,
+    "user_id_original": "1800134059",
+    "user_name": "User 1800134059",
+    "recommended_item_id_remapped": 47031,
+    "recommended_item_id_original": "82102",
+    "recommended_item_name": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 2.8744096755981445,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1800134059 -> new york style pizza crust -> User 491970 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 159354,
+            "id_original": "1800134059",
+            "type": "USER",
+            "name": "User 1800134059"
+          },
+          {
+            "id_remapped": 233525,
+            "id_original": "15194",
+            "type": "RECIPE",
+            "name": "new york style pizza crust"
+          },
+          {
+            "id_remapped": 51831,
+            "id_original": "491970",
+            "type": "USER",
+            "name": "User 491970"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 0.00010818252900298672
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1800134059 -> new york style pizza crust -> User 637486 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 159354,
+            "id_original": "1800134059",
+            "type": "USER",
+            "name": "User 1800134059"
+          },
+          {
+            "id_remapped": 233525,
+            "id_original": "15194",
+            "type": "RECIPE",
+            "name": "new york style pizza crust"
+          },
+          {
+            "id_remapped": 62810,
+            "id_original": "637486",
+            "type": "USER",
+            "name": "User 637486"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 6.78200263302116e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1800134059 -> new york style pizza crust -> User 646304 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 159354,
+            "id_original": "1800134059",
+            "type": "USER",
+            "name": "User 1800134059"
+          },
+          {
+            "id_remapped": 233525,
+            "id_original": "15194",
+            "type": "RECIPE",
+            "name": "new york style pizza crust"
+          },
+          {
+            "id_remapped": 63408,
+            "id_original": "646304",
+            "type": "USER",
+            "name": "User 646304"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 6.500695182683631e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 101824,
+    "user_id_original": "1336126",
+    "user_name": "User 1336126",
+    "recommended_item_id_remapped": 47031,
+    "recommended_item_id_original": "82102",
+    "recommended_item_name": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 2.609339714050293,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1336126 -> homemade beef jerky -> User 765437 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 101824,
+            "id_original": "1336126",
+            "type": "USER",
+            "name": "User 1336126"
+          },
+          {
+            "id_remapped": 250147,
+            "id_original": "42272",
+            "type": "RECIPE",
+            "name": "homemade beef jerky"
+          },
+          {
+            "id_remapped": 71226,
+            "id_original": "765437",
+            "type": "USER",
+            "name": "User 765437"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 2.37955036078737e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1336126 -> homemade beef jerky -> User 574936 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 101824,
+            "id_original": "1336126",
+            "type": "USER",
+            "name": "User 1336126"
+          },
+          {
+            "id_remapped": 250147,
+            "id_original": "42272",
+            "type": "RECIPE",
+            "name": "homemade beef jerky"
+          },
+          {
+            "id_remapped": 58205,
+            "id_original": "574936",
+            "type": "USER",
+            "name": "User 574936"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 1.4124774963146952e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1336126 -> homemade beef jerky -> User 847160 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 101824,
+            "id_original": "1336126",
+            "type": "USER",
+            "name": "User 1336126"
+          },
+          {
+            "id_remapped": 250147,
+            "id_original": "42272",
+            "type": "RECIPE",
+            "name": "homemade beef jerky"
+          },
+          {
+            "id_remapped": 76557,
+            "id_original": "847160",
+            "type": "USER",
+            "name": "User 847160"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 1.4001770289854493e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 118154,
+    "user_id_original": "1675733",
+    "user_name": "User 1675733",
+    "recommended_item_id_remapped": 31553,
+    "recommended_item_id_original": "55768",
+    "recommended_item_name": "baja black beans  corn and rice",
+    "score": 1.3152239322662354,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1675733 -> copycat olive garden peaches and cream cheesecake -> potluck -> baja black beans  corn and rice",
+        "path_details": [
+          {
+            "id_remapped": 118154,
+            "id_original": "1675733",
+            "type": "USER",
+            "name": "User 1675733"
+          },
+          {
+            "id_remapped": 260652,
+            "id_original": "59915",
+            "type": "RECIPE",
+            "name": "copycat olive garden peaches and cream cheesecake"
+          },
+          {
+            "id_remapped": 473138,
+            "id_original": "14931",
+            "type": "TAG",
+            "name": "potluck"
+          },
+          {
+            "id_remapped": 258123,
+            "id_original": "55768",
+            "type": "RECIPE",
+            "name": "baja black beans  corn and rice"
+          }
+        ],
+        "contribution_score": 1.344209929692155e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1675733 -> copycat olive garden peaches and cream cheesecake -> to-go -> baja black beans  corn and rice",
+        "path_details": [
+          {
+            "id_remapped": 118154,
+            "id_original": "1675733",
+            "type": "USER",
+            "name": "User 1675733"
+          },
+          {
+            "id_remapped": 260652,
+            "id_original": "59915",
+            "type": "RECIPE",
+            "name": "copycat olive garden peaches and cream cheesecake"
+          },
+          {
+            "id_remapped": 473139,
+            "id_original": "14932",
+            "type": "TAG",
+            "name": "to-go"
+          },
+          {
+            "id_remapped": 258123,
+            "id_original": "55768",
+            "type": "RECIPE",
+            "name": "baja black beans  corn and rice"
+          }
+        ],
+        "contribution_score": 1.2616369256565455e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1675733 -> copycat applebee s hot artichoke and spinach dip -> User 418915 -> baja black beans  corn and rice",
+        "path_details": [
+          {
+            "id_remapped": 118154,
+            "id_original": "1675733",
+            "type": "USER",
+            "name": "User 1675733"
+          },
+          {
+            "id_remapped": 291668,
+            "id_original": "111797",
+            "type": "RECIPE",
+            "name": "copycat applebee s hot artichoke and spinach dip"
+          },
+          {
+            "id_remapped": 45849,
+            "id_original": "418915",
+            "type": "USER",
+            "name": "User 418915"
+          },
+          {
+            "id_remapped": 258123,
+            "id_original": "55768",
+            "type": "RECIPE",
+            "name": "baja black beans  corn and rice"
+          }
+        ],
+        "contribution_score": 1.252910514111235e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 198362,
+    "user_id_original": "2001384945",
+    "user_name": "User 2001384945",
+    "recommended_item_id_remapped": 47031,
+    "recommended_item_id_original": "82102",
+    "recommended_item_name": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 2.284693717956543,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2001384945 -> polish pierogies  potato cheese -> User 73988 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 198362,
+            "id_original": "2001384945",
+            "type": "USER",
+            "name": "User 2001384945"
+          },
+          {
+            "id_remapped": 240144,
+            "id_original": "25849",
+            "type": "RECIPE",
+            "name": "polish pierogies  potato cheese"
+          },
+          {
+            "id_remapped": 8931,
+            "id_original": "73988",
+            "type": "USER",
+            "name": "User 73988"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 8.017645205183517e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001384945 -> polish pierogies  potato cheese -> cheese -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 198362,
+            "id_original": "2001384945",
+            "type": "USER",
+            "name": "User 2001384945"
+          },
+          {
+            "id_remapped": 240144,
+            "id_original": "25849",
+            "type": "RECIPE",
+            "name": "polish pierogies  potato cheese"
+          },
+          {
+            "id_remapped": 473089,
+            "id_original": "14882",
+            "type": "TAG",
+            "name": "cheese"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 1.337541737449028e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2001384945 -> polish pierogies  potato cheese -> User 36128 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 198362,
+            "id_original": "2001384945",
+            "type": "USER",
+            "name": "User 2001384945"
+          },
+          {
+            "id_remapped": 240144,
+            "id_original": "25849",
+            "type": "RECIPE",
+            "name": "polish pierogies  potato cheese"
+          },
+          {
+            "id_remapped": 3614,
+            "id_original": "36128",
+            "type": "USER",
+            "name": "User 36128"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 4.217558912269774e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 80815,
+    "user_id_original": "918910",
+    "user_name": "User 918910",
+    "recommended_item_id_remapped": 86655,
+    "recommended_item_id_original": "150473",
+    "recommended_item_name": "scrum diddly umptious vegan brownies",
+    "score": 1.4819964170455933,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 918910 -> weight watchers chocolate  cupcakes -> chocolate -> scrum diddly umptious vegan brownies",
+        "path_details": [
+          {
+            "id_remapped": 80815,
+            "id_original": "918910",
+            "type": "USER",
+            "name": "User 918910"
+          },
+          {
+            "id_remapped": 362609,
+            "id_original": "249061",
+            "type": "RECIPE",
+            "name": "weight watchers chocolate  cupcakes"
+          },
+          {
+            "id_remapped": 473128,
+            "id_original": "14921",
+            "type": "TAG",
+            "name": "chocolate"
+          },
+          {
+            "id_remapped": 313225,
+            "id_original": "150473",
+            "type": "RECIPE",
+            "name": "scrum diddly umptious vegan brownies"
+          }
+        ],
+        "contribution_score": 4.8209358096669015e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 211251,
+    "user_id_original": "2001802746",
+    "user_name": "User 2001802746",
+    "recommended_item_id_remapped": 99900,
+    "recommended_item_id_original": "175950",
+    "recommended_item_name": "sindhi biryani",
+    "score": 1.4584481716156006,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 210299,
+    "user_id_original": "2001767296",
+    "user_name": "User 2001767296",
+    "recommended_item_id_remapped": 133714,
+    "recommended_item_id_original": "243894",
+    "recommended_item_name": "fitz s 10  of heaven shake  strawberry cheesecake",
+    "score": 1.6767768859863281,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 144198,
+    "user_id_original": "2515349",
+    "user_name": "User 2515349",
+    "recommended_item_id_remapped": 47031,
+    "recommended_item_id_original": "82102",
+    "recommended_item_name": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 3.2847859859466553,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2515349 -> dear abby s famous pecan pie -> User 149363 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 144198,
+            "id_original": "2515349",
+            "type": "USER",
+            "name": "User 2515349"
+          },
+          {
+            "id_remapped": 287460,
+            "id_original": "104729",
+            "type": "RECIPE",
+            "name": "dear abby s famous pecan pie"
+          },
+          {
+            "id_remapped": 17715,
+            "id_original": "149363",
+            "type": "USER",
+            "name": "User 149363"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 5.43225805707599e-07
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 186416,
+    "user_id_original": "2000854866",
+    "user_name": "User 2000854866",
+    "recommended_item_id_remapped": 79549,
+    "recommended_item_id_original": "137530",
+    "recommended_item_name": "easy crock pot moroccan chicken  chickpea and apricot tagine",
+    "score": 1.1370800733566284,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2000854866 -> homemade seitan barbecue  bbq  ribs   vegan -> User 673444 -> easy crock pot moroccan chicken  chickpea and apricot tagine",
+        "path_details": [
+          {
+            "id_remapped": 186416,
+            "id_original": "2000854866",
+            "type": "USER",
+            "name": "User 2000854866"
+          },
+          {
+            "id_remapped": 383826,
+            "id_original": "295097",
+            "type": "RECIPE",
+            "name": "homemade seitan barbecue  bbq  ribs   vegan"
+          },
+          {
+            "id_remapped": 65083,
+            "id_original": "673444",
+            "type": "USER",
+            "name": "User 673444"
+          },
+          {
+            "id_remapped": 306119,
+            "id_original": "137530",
+            "type": "RECIPE",
+            "name": "easy crock pot moroccan chicken  chickpea and apricot tagine"
+          }
+        ],
+        "contribution_score": 4.40045029140675e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 36018,
+    "user_id_original": "314719",
+    "user_name": "User 314719",
+    "recommended_item_id_remapped": 13723,
+    "recommended_item_id_original": "26110",
+    "recommended_item_name": "southern buttermilk biscuits",
+    "score": 2.040229320526123,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 314719 -> pasta with garlic and oil  aglio e olio -> User 879769 -> southern buttermilk biscuits",
+        "path_details": [
+          {
+            "id_remapped": 36018,
+            "id_original": "314719",
+            "type": "USER",
+            "name": "User 314719"
+          },
+          {
+            "id_remapped": 318033,
+            "id_original": "159894",
+            "type": "RECIPE",
+            "name": "pasta with garlic and oil  aglio e olio"
+          },
+          {
+            "id_remapped": 78540,
+            "id_original": "879769",
+            "type": "USER",
+            "name": "User 879769"
+          },
+          {
+            "id_remapped": 240293,
+            "id_original": "26110",
+            "type": "RECIPE",
+            "name": "southern buttermilk biscuits"
+          }
+        ],
+        "contribution_score": 0.00038599469438142293
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 314719 -> chewy granola bars -> User 244872 -> southern buttermilk biscuits",
+        "path_details": [
+          {
+            "id_remapped": 36018,
+            "id_original": "314719",
+            "type": "USER",
+            "name": "User 314719"
+          },
+          {
+            "id_remapped": 236694,
+            "id_original": "20184",
+            "type": "RECIPE",
+            "name": "chewy granola bars"
+          },
+          {
+            "id_remapped": 28986,
+            "id_original": "244872",
+            "type": "USER",
+            "name": "User 244872"
+          },
+          {
+            "id_remapped": 240293,
+            "id_original": "26110",
+            "type": "RECIPE",
+            "name": "southern buttermilk biscuits"
+          }
+        ],
+        "contribution_score": 0.00032167317423442053
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 314719 -> chewy granola bars -> User 380358 -> southern buttermilk biscuits",
+        "path_details": [
+          {
+            "id_remapped": 36018,
+            "id_original": "314719",
+            "type": "USER",
+            "name": "User 314719"
+          },
+          {
+            "id_remapped": 236694,
+            "id_original": "20184",
+            "type": "RECIPE",
+            "name": "chewy granola bars"
+          },
+          {
+            "id_remapped": 42992,
+            "id_original": "380358",
+            "type": "USER",
+            "name": "User 380358"
+          },
+          {
+            "id_remapped": 240293,
+            "id_original": "26110",
+            "type": "RECIPE",
+            "name": "southern buttermilk biscuits"
+          }
+        ],
+        "contribution_score": 0.00013525787959130695
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 107396,
+    "user_id_original": "1449240",
+    "user_name": "User 1449240",
+    "recommended_item_id_remapped": 47031,
+    "recommended_item_id_original": "82102",
+    "recommended_item_name": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 2.469174385070801,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1449240 -> hawaiian chicken kabobs -> User 108995 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 107396,
+            "id_original": "1449240",
+            "type": "USER",
+            "name": "User 1449240"
+          },
+          {
+            "id_remapped": 244229,
+            "id_original": "32503",
+            "type": "RECIPE",
+            "name": "hawaiian chicken kabobs"
+          },
+          {
+            "id_remapped": 12804,
+            "id_original": "108995",
+            "type": "USER",
+            "name": "User 108995"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 0.013404088662087291
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1449240 -> hawaiian chicken kabobs -> User 75890 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 107396,
+            "id_original": "1449240",
+            "type": "USER",
+            "name": "User 1449240"
+          },
+          {
+            "id_remapped": 244229,
+            "id_original": "32503",
+            "type": "RECIPE",
+            "name": "hawaiian chicken kabobs"
+          },
+          {
+            "id_remapped": 9139,
+            "id_original": "75890",
+            "type": "USER",
+            "name": "User 75890"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 0.0033158751602187873
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1449240 -> hawaiian chicken kabobs -> User 696423 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 107396,
+            "id_original": "1449240",
+            "type": "USER",
+            "name": "User 1449240"
+          },
+          {
+            "id_remapped": 244229,
+            "id_original": "32503",
+            "type": "RECIPE",
+            "name": "hawaiian chicken kabobs"
+          },
+          {
+            "id_remapped": 66491,
+            "id_original": "696423",
+            "type": "USER",
+            "name": "User 696423"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 4.914629811800719e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 77820,
+    "user_id_original": "867436",
+    "user_name": "User 867436",
+    "recommended_item_id_remapped": 1909,
+    "recommended_item_id_original": "5170",
+    "recommended_item_name": "pete s scratch pancakes",
+    "score": 2.1560492515563965,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 867436 -> the best  no kidding  buttermilk pancakes -> pancakes-and-waffles -> pete s scratch pancakes",
+        "path_details": [
+          {
+            "id_remapped": 77820,
+            "id_original": "867436",
+            "type": "USER",
+            "name": "User 867436"
+          },
+          {
+            "id_remapped": 325103,
+            "id_original": "173284",
+            "type": "RECIPE",
+            "name": "the best  no kidding  buttermilk pancakes"
+          },
+          {
+            "id_remapped": 473223,
+            "id_original": "15016",
+            "type": "TAG",
+            "name": "pancakes-and-waffles"
+          },
+          {
+            "id_remapped": 228479,
+            "id_original": "5170",
+            "type": "RECIPE",
+            "name": "pete s scratch pancakes"
+          }
+        ],
+        "contribution_score": 1.1454020197980528e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 867436 -> the best  no kidding  buttermilk pancakes -> breakfast -> pete s scratch pancakes",
+        "path_details": [
+          {
+            "id_remapped": 77820,
+            "id_original": "867436",
+            "type": "USER",
+            "name": "User 867436"
+          },
+          {
+            "id_remapped": 325103,
+            "id_original": "173284",
+            "type": "RECIPE",
+            "name": "the best  no kidding  buttermilk pancakes"
+          },
+          {
+            "id_remapped": 473081,
+            "id_original": "14874",
+            "type": "TAG",
+            "name": "breakfast"
+          },
+          {
+            "id_remapped": 228479,
+            "id_original": "5170",
+            "type": "RECIPE",
+            "name": "pete s scratch pancakes"
+          }
+        ],
+        "contribution_score": 1.114969646550249e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 867436 -> the best  no kidding  buttermilk pancakes -> high-calcium -> pete s scratch pancakes",
+        "path_details": [
+          {
+            "id_remapped": 77820,
+            "id_original": "867436",
+            "type": "USER",
+            "name": "User 867436"
+          },
+          {
+            "id_remapped": 325103,
+            "id_original": "173284",
+            "type": "RECIPE",
+            "name": "the best  no kidding  buttermilk pancakes"
+          },
+          {
+            "id_remapped": 473157,
+            "id_original": "14950",
+            "type": "TAG",
+            "name": "high-calcium"
+          },
+          {
+            "id_remapped": 228479,
+            "id_original": "5170",
+            "type": "RECIPE",
+            "name": "pete s scratch pancakes"
+          }
+        ],
+        "contribution_score": 1.0456714538454026e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 191592,
+    "user_id_original": "2001139991",
+    "user_name": "User 2001139991",
+    "recommended_item_id_remapped": 47031,
+    "recommended_item_id_original": "82102",
+    "recommended_item_name": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 2.7255587577819824,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2001139991 -> honey roasted peanuts -> User 308721 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 191592,
+            "id_original": "2001139991",
+            "type": "USER",
+            "name": "User 2001139991"
+          },
+          {
+            "id_remapped": 311847,
+            "id_original": "147856",
+            "type": "RECIPE",
+            "name": "honey roasted peanuts"
+          },
+          {
+            "id_remapped": 35413,
+            "id_original": "308721",
+            "type": "USER",
+            "name": "User 308721"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 0.0015544338699909313
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 214133,
+    "user_id_original": "2001912678",
+    "user_name": "User 2001912678",
+    "recommended_item_id_remapped": 59769,
+    "recommended_item_id_original": "102909",
+    "recommended_item_name": "simple fried egg sandwich",
+    "score": 1.7466951608657837,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2001912678 -> crock pot beef with mushroom and red wine gravy -> User 383346 -> simple fried egg sandwich",
+        "path_details": [
+          {
+            "id_remapped": 214133,
+            "id_original": "2001912678",
+            "type": "USER",
+            "name": "User 2001912678"
+          },
+          {
+            "id_remapped": 373276,
+            "id_original": "272308",
+            "type": "RECIPE",
+            "name": "crock pot beef with mushroom and red wine gravy"
+          },
+          {
+            "id_remapped": 43248,
+            "id_original": "383346",
+            "type": "USER",
+            "name": "User 383346"
+          },
+          {
+            "id_remapped": 286339,
+            "id_original": "102909",
+            "type": "RECIPE",
+            "name": "simple fried egg sandwich"
+          }
+        ],
+        "contribution_score": 2.353577862613829e-08
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 163712,
+    "user_id_original": "1802551981",
+    "user_name": "User 1802551981",
+    "recommended_item_id_remapped": 1909,
+    "recommended_item_id_original": "5170",
+    "recommended_item_name": "pete s scratch pancakes",
+    "score": 3.154879570007324,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1802551981 -> barilla no boil lasagna -> User 529278 -> pete s scratch pancakes",
+        "path_details": [
+          {
+            "id_remapped": 163712,
+            "id_original": "1802551981",
+            "type": "USER",
+            "name": "User 1802551981"
+          },
+          {
+            "id_remapped": 272663,
+            "id_original": "80435",
+            "type": "RECIPE",
+            "name": "barilla no boil lasagna"
+          },
+          {
+            "id_remapped": 54807,
+            "id_original": "529278",
+            "type": "USER",
+            "name": "User 529278"
+          },
+          {
+            "id_remapped": 228479,
+            "id_original": "5170",
+            "type": "RECIPE",
+            "name": "pete s scratch pancakes"
+          }
+        ],
+        "contribution_score": 1.211471419921724e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1802551981 -> barilla no boil lasagna -> User 140132 -> pete s scratch pancakes",
+        "path_details": [
+          {
+            "id_remapped": 163712,
+            "id_original": "1802551981",
+            "type": "USER",
+            "name": "User 1802551981"
+          },
+          {
+            "id_remapped": 272663,
+            "id_original": "80435",
+            "type": "RECIPE",
+            "name": "barilla no boil lasagna"
+          },
+          {
+            "id_remapped": 16523,
+            "id_original": "140132",
+            "type": "USER",
+            "name": "User 140132"
+          },
+          {
+            "id_remapped": 228479,
+            "id_original": "5170",
+            "type": "RECIPE",
+            "name": "pete s scratch pancakes"
+          }
+        ],
+        "contribution_score": 1.217916659248182e-07
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 76585,
+    "user_id_original": "847749",
+    "user_name": "User 847749",
+    "recommended_item_id_remapped": 47031,
+    "recommended_item_id_original": "82102",
+    "recommended_item_name": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 1.8503268957138062,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 847749 -> celery  milan style -> User 284922 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 76585,
+            "id_original": "847749",
+            "type": "USER",
+            "name": "User 847749"
+          },
+          {
+            "id_remapped": 271383,
+            "id_original": "78145",
+            "type": "RECIPE",
+            "name": "celery  milan style"
+          },
+          {
+            "id_remapped": 32989,
+            "id_original": "284922",
+            "type": "USER",
+            "name": "User 284922"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 1.843455592165311e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 847749 -> celery  milan style -> User 207176 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 76585,
+            "id_original": "847749",
+            "type": "USER",
+            "name": "User 847749"
+          },
+          {
+            "id_remapped": 271383,
+            "id_original": "78145",
+            "type": "RECIPE",
+            "name": "celery  milan style"
+          },
+          {
+            "id_remapped": 24547,
+            "id_original": "207176",
+            "type": "USER",
+            "name": "User 207176"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 1.8511343711024167e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 847749 -> celery  milan style -> User 632249 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "path_details": [
+          {
+            "id_remapped": 76585,
+            "id_original": "847749",
+            "type": "USER",
+            "name": "User 847749"
+          },
+          {
+            "id_remapped": 271383,
+            "id_original": "78145",
+            "type": "RECIPE",
+            "name": "celery  milan style"
+          },
+          {
+            "id_remapped": 62456,
+            "id_original": "632249",
+            "type": "USER",
+            "name": "User 632249"
+          },
+          {
+            "id_remapped": 273601,
+            "id_original": "82102",
+            "type": "RECIPE",
+            "name": "kittencal s moist cheddar garlic oven fried chicken breast"
+          }
+        ],
+        "contribution_score": 6.196074313644696e-07
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 46975,
+    "user_id_original": "432927",
+    "user_name": "User 432927",
+    "recommended_item_id_remapped": 44385,
+    "recommended_item_id_original": "77397",
+    "recommended_item_name": "kittencal s 5 minute cinnamon flop brunch cake",
+    "score": 2.867809534072876,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 432927 -> pork chops yum yum -> User 192450 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "path_details": [
+          {
+            "id_remapped": 46975,
+            "id_original": "432927",
+            "type": "USER",
+            "name": "User 432927"
+          },
+          {
+            "id_remapped": 281586,
+            "id_original": "95222",
+            "type": "RECIPE",
+            "name": "pork chops yum yum"
+          },
+          {
+            "id_remapped": 22839,
+            "id_original": "192450",
+            "type": "USER",
+            "name": "User 192450"
+          },
+          {
+            "id_remapped": 270955,
+            "id_original": "77397",
+            "type": "RECIPE",
+            "name": "kittencal s 5 minute cinnamon flop brunch cake"
+          }
+        ],
+        "contribution_score": 0.006491606786830103
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 432927 -> creamy cajun chicken pasta -> User 1800091321 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "path_details": [
+          {
+            "id_remapped": 46975,
+            "id_original": "432927",
+            "type": "USER",
+            "name": "User 432927"
+          },
+          {
+            "id_remapped": 248209,
+            "id_original": "39087",
+            "type": "RECIPE",
+            "name": "creamy cajun chicken pasta"
+          },
+          {
+            "id_remapped": 158863,
+            "id_original": "1800091321",
+            "type": "USER",
+            "name": "User 1800091321"
+          },
+          {
+            "id_remapped": 270955,
+            "id_original": "77397",
+            "type": "RECIPE",
+            "name": "kittencal s 5 minute cinnamon flop brunch cake"
+          }
+        ],
+        "contribution_score": 0.0033994863733970066
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 432927 -> pork chops yum yum -> User 103395 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "path_details": [
+          {
+            "id_remapped": 46975,
+            "id_original": "432927",
+            "type": "USER",
+            "name": "User 432927"
+          },
+          {
+            "id_remapped": 281586,
+            "id_original": "95222",
+            "type": "RECIPE",
+            "name": "pork chops yum yum"
+          },
+          {
+            "id_remapped": 12156,
+            "id_original": "103395",
+            "type": "USER",
+            "name": "User 103395"
+          },
+          {
+            "id_remapped": 270955,
+            "id_original": "77397",
+            "type": "RECIPE",
+            "name": "kittencal s 5 minute cinnamon flop brunch cake"
+          }
+        ],
+        "contribution_score": 0.00167029344934484
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 22154,
+    "user_id_original": "186637",
+    "user_name": "User 186637",
+    "recommended_item_id_remapped": 610,
+    "recommended_item_id_original": "2306",
+    "recommended_item_name": "chicken fried rice ii",
+    "score": 1.182740330696106,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 47773,
+    "user_id_original": "442790",
+    "user_name": "User 442790",
+    "recommended_item_id_remapped": 11695,
+    "recommended_item_id_original": "22782",
+    "recommended_item_name": "jo mama s world famous spaghetti",
+    "score": 3.0378499031066895,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 442790 -> olive garden garlic alfredo sauce -> User 1170119 -> jo mama s world famous spaghetti",
+        "path_details": [
+          {
+            "id_remapped": 47773,
+            "id_original": "442790",
+            "type": "USER",
+            "name": "User 442790"
+          },
+          {
+            "id_remapped": 256341,
+            "id_original": "52892",
+            "type": "RECIPE",
+            "name": "olive garden garlic alfredo sauce"
+          },
+          {
+            "id_remapped": 93323,
+            "id_original": "1170119",
+            "type": "USER",
+            "name": "User 1170119"
+          },
+          {
+            "id_remapped": 238265,
+            "id_original": "22782",
+            "type": "RECIPE",
+            "name": "jo mama s world famous spaghetti"
+          }
+        ],
+        "contribution_score": 0.006160425723618686
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 442790 -> olive garden garlic alfredo sauce -> User 1467777 -> jo mama s world famous spaghetti",
+        "path_details": [
+          {
+            "id_remapped": 47773,
+            "id_original": "442790",
+            "type": "USER",
+            "name": "User 442790"
+          },
+          {
+            "id_remapped": 256341,
+            "id_original": "52892",
+            "type": "RECIPE",
+            "name": "olive garden garlic alfredo sauce"
+          },
+          {
+            "id_remapped": 108180,
+            "id_original": "1467777",
+            "type": "USER",
+            "name": "User 1467777"
+          },
+          {
+            "id_remapped": 238265,
+            "id_original": "22782",
+            "type": "RECIPE",
+            "name": "jo mama s world famous spaghetti"
+          }
+        ],
+        "contribution_score": 0.000854872226431545
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 442790 -> olive garden garlic alfredo sauce -> User 39946 -> jo mama s world famous spaghetti",
+        "path_details": [
+          {
+            "id_remapped": 47773,
+            "id_original": "442790",
+            "type": "USER",
+            "name": "User 442790"
+          },
+          {
+            "id_remapped": 256341,
+            "id_original": "52892",
+            "type": "RECIPE",
+            "name": "olive garden garlic alfredo sauce"
+          },
+          {
+            "id_remapped": 4226,
+            "id_original": "39946",
+            "type": "USER",
+            "name": "User 39946"
+          },
+          {
+            "id_remapped": 238265,
+            "id_original": "22782",
+            "type": "RECIPE",
+            "name": "jo mama s world famous spaghetti"
+          }
+        ],
+        "contribution_score": 0.0005080669566055377
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 185958,
+    "user_id_original": "2000824447",
+    "user_name": "User 2000824447",
+    "recommended_item_id_remapped": 151129,
+    "recommended_item_id_original": "281937",
+    "recommended_item_name": "vegetable and pasta soup",
+    "score": 3.6358890533447266,
+    "explanations": []
+  }
+]

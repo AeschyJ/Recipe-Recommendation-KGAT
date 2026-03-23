@@ -4,6 +4,21 @@
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-03-23
+
+### Added
+- **Data**: `src/data/preprocess.py` 新增剪枝邏輯，過濾前 1% 高頻 Ingredient 和 Tag 節點，提升模型收斂與解釋性 (ADR-007)。
+- **Training**: 擴展訓練指標，支援 Recall@10, @20, @50 多階層評估 (ADR-008)。
+- **Training**: `train_att.py` 新增 `--without_kg` 參數，用於驗證知識圖譜效益 (ADR-009)。
+- **Logging**: 新增與統一訓練日誌系統 (`src/train.py` & `src/train_att.py`)，支援輸出至檔案與終端機 (ADR-008)。
+- **Experiments**: 建立自動化消融實驗平台 `run_experiments.bat`，支援 w/o Attention、w/o KG 等 5 種配置 (ADR-009)。
+
+### Changed
+- **Model**: `KGATAttention` 中的 Softmax 改用 `scatter_reduce(reduce='amax')` 實作 **Shifted Softmax**，大幅提升數值穩定性 (ADR-007)。
+- **Model**: 將 `kgat_base` 相關檔案統一重命名為 `kgat_bi_interaction`，以反映不帶 Attention 機制但保留 Bi-Interaction 運算之本質 (ADR-009)。
+- **Model**: 在 Attention 中加入 Ingredient 關係偏置，引導模型關注食材特徵 (ADR-007)。
+- **Training**: 統一 Base 與 Attention 模型的超參數 (LR=1e-3, Batch=1024)，確保實驗具備可比較性 (ADR-008)。
+
 ### Added
 - **Inference**: `src/generate_explanations.py` - 新增批量推理與解釋生成腳本，支援自動將內部 ID 轉換為原始 ID 與實際名稱（如食譜名稱、標籤名）。
 - **Inference**: 支援多模型架構（Standard KGAT 與 KGATAttention），能自動偵測 Checkpoint 類型並切換對應的推理與解釋邏輯。

@@ -1,0 +1,1552 @@
+[
+  {
+    "user_id_remapped": 4384,
+    "user_id_original": "40939",
+    "user_name": "User 40939",
+    "recommended_item_id_remapped": 145635,
+    "recommended_item_id_original": "269909",
+    "recommended_item_name": "it smells like christmas  pumpkin bread",
+    "score": 1.7395570278167725,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 40939 -> low fat mocha chocolate chip muffins -> quick-breads -> it smells like christmas  pumpkin bread",
+        "path_details": [
+          {
+            "id_remapped": 4384,
+            "id_original": "40939",
+            "type": "USER",
+            "name": "User 40939"
+          },
+          {
+            "id_remapped": 245613,
+            "id_original": "34803",
+            "type": "RECIPE",
+            "name": "low fat mocha chocolate chip muffins"
+          },
+          {
+            "id_remapped": 473070,
+            "id_original": "14863",
+            "type": "TAG",
+            "name": "quick-breads"
+          },
+          {
+            "id_remapped": 372205,
+            "id_original": "269909",
+            "type": "RECIPE",
+            "name": "it smells like christmas  pumpkin bread"
+          }
+        ],
+        "contribution_score": 5.182039191711602e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 40939 -> mom s italian  hamburger helper -> holiday-event -> it smells like christmas  pumpkin bread",
+        "path_details": [
+          {
+            "id_remapped": 4384,
+            "id_original": "40939",
+            "type": "USER",
+            "name": "User 40939"
+          },
+          {
+            "id_remapped": 248361,
+            "id_original": "39335",
+            "type": "RECIPE",
+            "name": "mom s italian  hamburger helper"
+          },
+          {
+            "id_remapped": 473003,
+            "id_original": "14796",
+            "type": "TAG",
+            "name": "holiday-event"
+          },
+          {
+            "id_remapped": 372205,
+            "id_original": "269909",
+            "type": "RECIPE",
+            "name": "it smells like christmas  pumpkin bread"
+          }
+        ],
+        "contribution_score": 5.0995313649061654e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 40939 -> frozen jello pops -> holiday-event -> it smells like christmas  pumpkin bread",
+        "path_details": [
+          {
+            "id_remapped": 4384,
+            "id_original": "40939",
+            "type": "USER",
+            "name": "User 40939"
+          },
+          {
+            "id_remapped": 243329,
+            "id_original": "31082",
+            "type": "RECIPE",
+            "name": "frozen jello pops"
+          },
+          {
+            "id_remapped": 473003,
+            "id_original": "14796",
+            "type": "TAG",
+            "name": "holiday-event"
+          },
+          {
+            "id_remapped": 372205,
+            "id_original": "269909",
+            "type": "RECIPE",
+            "name": "it smells like christmas  pumpkin bread"
+          }
+        ],
+        "contribution_score": 5.0480693875756885e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 90689,
+    "user_id_original": "1118404",
+    "user_name": "User 1118404",
+    "recommended_item_id_remapped": 220412,
+    "recommended_item_id_original": "470181",
+    "recommended_item_name": "chinese barbecued pork tenderloin",
+    "score": 1.6513044834136963,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> INGREDIENT -> RECIPE",
+        "path_description": "User 1118404 -> fish and sour cream bake -> ground red pepper -> chinese barbecued pork tenderloin",
+        "path_details": [
+          {
+            "id_remapped": 90689,
+            "id_original": "1118404",
+            "type": "USER",
+            "name": "User 1118404"
+          },
+          {
+            "id_remapped": 433938,
+            "id_original": "424933",
+            "type": "RECIPE",
+            "name": "fish and sour cream bake"
+          },
+          {
+            "id_remapped": 458724,
+            "id_original": "517",
+            "type": "INGREDIENT",
+            "name": "ground red pepper"
+          },
+          {
+            "id_remapped": 446982,
+            "id_original": "470181",
+            "type": "RECIPE",
+            "name": "chinese barbecued pork tenderloin"
+          }
+        ],
+        "contribution_score": 0.00022833267879959857
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1118404 -> fish and sour cream bake -> weeknight -> chinese barbecued pork tenderloin",
+        "path_details": [
+          {
+            "id_remapped": 90689,
+            "id_original": "1118404",
+            "type": "USER",
+            "name": "User 1118404"
+          },
+          {
+            "id_remapped": 433938,
+            "id_original": "424933",
+            "type": "RECIPE",
+            "name": "fish and sour cream bake"
+          },
+          {
+            "id_remapped": 473033,
+            "id_original": "14826",
+            "type": "TAG",
+            "name": "weeknight"
+          },
+          {
+            "id_remapped": 446982,
+            "id_original": "470181",
+            "type": "RECIPE",
+            "name": "chinese barbecued pork tenderloin"
+          }
+        ],
+        "contribution_score": 0.0002147293219644299
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1118404 -> kittencal s sausage sawmill gravy  with biscuits -> holiday-event -> chinese barbecued pork tenderloin",
+        "path_details": [
+          {
+            "id_remapped": 90689,
+            "id_original": "1118404",
+            "type": "USER",
+            "name": "User 1118404"
+          },
+          {
+            "id_remapped": 367001,
+            "id_original": "258508",
+            "type": "RECIPE",
+            "name": "kittencal s sausage sawmill gravy  with biscuits"
+          },
+          {
+            "id_remapped": 473003,
+            "id_original": "14796",
+            "type": "TAG",
+            "name": "holiday-event"
+          },
+          {
+            "id_remapped": 446982,
+            "id_original": "470181",
+            "type": "RECIPE",
+            "name": "chinese barbecued pork tenderloin"
+          }
+        ],
+        "contribution_score": 0.00014907802368784883
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 99971,
+    "user_id_original": "1300070",
+    "user_name": "User 1300070",
+    "recommended_item_id_remapped": 49999,
+    "recommended_item_id_original": "87085",
+    "recommended_item_name": "southwestern baked spaghetti",
+    "score": 1.2917791604995728,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1300070 -> easy banana muffins -> User 28604 -> southwestern baked spaghetti",
+        "path_details": [
+          {
+            "id_remapped": 99971,
+            "id_original": "1300070",
+            "type": "USER",
+            "name": "User 1300070"
+          },
+          {
+            "id_remapped": 229711,
+            "id_original": "8603",
+            "type": "RECIPE",
+            "name": "easy banana muffins"
+          },
+          {
+            "id_remapped": 2569,
+            "id_original": "28604",
+            "type": "USER",
+            "name": "User 28604"
+          },
+          {
+            "id_remapped": 276569,
+            "id_original": "87085",
+            "type": "RECIPE",
+            "name": "southwestern baked spaghetti"
+          }
+        ],
+        "contribution_score": 1.79757526500669e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1300070 -> double chocolate cake eggless -> kid-friendly -> southwestern baked spaghetti",
+        "path_details": [
+          {
+            "id_remapped": 99971,
+            "id_original": "1300070",
+            "type": "USER",
+            "name": "User 1300070"
+          },
+          {
+            "id_remapped": 310407,
+            "id_original": "145125",
+            "type": "RECIPE",
+            "name": "double chocolate cake eggless"
+          },
+          {
+            "id_remapped": 473013,
+            "id_original": "14806",
+            "type": "TAG",
+            "name": "kid-friendly"
+          },
+          {
+            "id_remapped": 276569,
+            "id_original": "87085",
+            "type": "RECIPE",
+            "name": "southwestern baked spaghetti"
+          }
+        ],
+        "contribution_score": 1.0686253149643044e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1300070 -> mini vegan wellingtons -> pasta-rice-and-grains -> southwestern baked spaghetti",
+        "path_details": [
+          {
+            "id_remapped": 99971,
+            "id_original": "1300070",
+            "type": "USER",
+            "name": "User 1300070"
+          },
+          {
+            "id_remapped": 413772,
+            "id_original": "368717",
+            "type": "RECIPE",
+            "name": "mini vegan wellingtons"
+          },
+          {
+            "id_remapped": 473133,
+            "id_original": "14926",
+            "type": "TAG",
+            "name": "pasta-rice-and-grains"
+          },
+          {
+            "id_remapped": 276569,
+            "id_original": "87085",
+            "type": "RECIPE",
+            "name": "southwestern baked spaghetti"
+          }
+        ],
+        "contribution_score": 8.454385932129405e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 75601,
+    "user_id_original": "832629",
+    "user_name": "User 832629",
+    "recommended_item_id_remapped": 107898,
+    "recommended_item_id_original": "191151",
+    "recommended_item_name": "brined and roasted thanksgiving turkey with simple gravy",
+    "score": 1.0310215950012207,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 832629 -> mrs  stewart s pecan pie w  meringue -> thanksgiving -> brined and roasted thanksgiving turkey with simple gravy",
+        "path_details": [
+          {
+            "id_remapped": 75601,
+            "id_original": "832629",
+            "type": "USER",
+            "name": "User 832629"
+          },
+          {
+            "id_remapped": 366735,
+            "id_original": "257929",
+            "type": "RECIPE",
+            "name": "mrs  stewart s pecan pie w  meringue"
+          },
+          {
+            "id_remapped": 473024,
+            "id_original": "14817",
+            "type": "TAG",
+            "name": "thanksgiving"
+          },
+          {
+            "id_remapped": 334468,
+            "id_original": "191151",
+            "type": "RECIPE",
+            "name": "brined and roasted thanksgiving turkey with simple gravy"
+          }
+        ],
+        "contribution_score": 0.0014841655102525457
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 832629 -> mrs  stewart s pecan pie w  meringue -> holiday-event -> brined and roasted thanksgiving turkey with simple gravy",
+        "path_details": [
+          {
+            "id_remapped": 75601,
+            "id_original": "832629",
+            "type": "USER",
+            "name": "User 832629"
+          },
+          {
+            "id_remapped": 366735,
+            "id_original": "257929",
+            "type": "RECIPE",
+            "name": "mrs  stewart s pecan pie w  meringue"
+          },
+          {
+            "id_remapped": 473003,
+            "id_original": "14796",
+            "type": "TAG",
+            "name": "holiday-event"
+          },
+          {
+            "id_remapped": 334468,
+            "id_original": "191151",
+            "type": "RECIPE",
+            "name": "brined and roasted thanksgiving turkey with simple gravy"
+          }
+        ],
+        "contribution_score": 0.0011210379879715174
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 832629 -> mrs  stewart s pecan pie w  meringue -> american -> brined and roasted thanksgiving turkey with simple gravy",
+        "path_details": [
+          {
+            "id_remapped": 75601,
+            "id_original": "832629",
+            "type": "USER",
+            "name": "User 832629"
+          },
+          {
+            "id_remapped": 366735,
+            "id_original": "257929",
+            "type": "RECIPE",
+            "name": "mrs  stewart s pecan pie w  meringue"
+          },
+          {
+            "id_remapped": 473011,
+            "id_original": "14804",
+            "type": "TAG",
+            "name": "american"
+          },
+          {
+            "id_remapped": 334468,
+            "id_original": "191151",
+            "type": "RECIPE",
+            "name": "brined and roasted thanksgiving turkey with simple gravy"
+          }
+        ],
+        "contribution_score": 0.0010889490399503482
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 26008,
+    "user_id_original": "220685",
+    "user_name": "User 220685",
+    "recommended_item_id_remapped": 112355,
+    "recommended_item_id_original": "200296",
+    "recommended_item_name": "kittencal s easy and delicious ranch parmesan chicken",
+    "score": 1.4319385290145874,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 220685 -> ranch dip and dressing mix -> User 790962 -> kittencal s easy and delicious ranch parmesan chicken",
+        "path_details": [
+          {
+            "id_remapped": 26008,
+            "id_original": "220685",
+            "type": "USER",
+            "name": "User 220685"
+          },
+          {
+            "id_remapped": 241621,
+            "id_original": "28324",
+            "type": "RECIPE",
+            "name": "ranch dip and dressing mix"
+          },
+          {
+            "id_remapped": 72921,
+            "id_original": "790962",
+            "type": "USER",
+            "name": "User 790962"
+          },
+          {
+            "id_remapped": 338925,
+            "id_original": "200296",
+            "type": "RECIPE",
+            "name": "kittencal s easy and delicious ranch parmesan chicken"
+          }
+        ],
+        "contribution_score": 8.578797521809047e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 220685 -> chewy double chocolate chip cookies -> User 486888 -> kittencal s easy and delicious ranch parmesan chicken",
+        "path_details": [
+          {
+            "id_remapped": 26008,
+            "id_original": "220685",
+            "type": "USER",
+            "name": "User 220685"
+          },
+          {
+            "id_remapped": 256589,
+            "id_original": "53301",
+            "type": "RECIPE",
+            "name": "chewy double chocolate chip cookies"
+          },
+          {
+            "id_remapped": 51414,
+            "id_original": "486888",
+            "type": "USER",
+            "name": "User 486888"
+          },
+          {
+            "id_remapped": 338925,
+            "id_original": "200296",
+            "type": "RECIPE",
+            "name": "kittencal s easy and delicious ranch parmesan chicken"
+          }
+        ],
+        "contribution_score": 2.7722411592546842e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 220685 -> cayenne cheese crackers -> cheese -> kittencal s easy and delicious ranch parmesan chicken",
+        "path_details": [
+          {
+            "id_remapped": 26008,
+            "id_original": "220685",
+            "type": "USER",
+            "name": "User 220685"
+          },
+          {
+            "id_remapped": 289664,
+            "id_original": "108486",
+            "type": "RECIPE",
+            "name": "cayenne cheese crackers"
+          },
+          {
+            "id_remapped": 473021,
+            "id_original": "14814",
+            "type": "TAG",
+            "name": "cheese"
+          },
+          {
+            "id_remapped": 338925,
+            "id_original": "200296",
+            "type": "RECIPE",
+            "name": "kittencal s easy and delicious ranch parmesan chicken"
+          }
+        ],
+        "contribution_score": 9.45554668529632e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 34212,
+    "user_id_original": "296902",
+    "user_name": "User 296902",
+    "recommended_item_id_remapped": 145635,
+    "recommended_item_id_original": "269909",
+    "recommended_item_name": "it smells like christmas  pumpkin bread",
+    "score": 1.5129196643829346,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 296902 -> calico potato latkes with applesauce -> holiday-event -> it smells like christmas  pumpkin bread",
+        "path_details": [
+          {
+            "id_remapped": 34212,
+            "id_original": "296902",
+            "type": "USER",
+            "name": "User 296902"
+          },
+          {
+            "id_remapped": 326220,
+            "id_original": "175414",
+            "type": "RECIPE",
+            "name": "calico potato latkes with applesauce"
+          },
+          {
+            "id_remapped": 473003,
+            "id_original": "14796",
+            "type": "TAG",
+            "name": "holiday-event"
+          },
+          {
+            "id_remapped": 372205,
+            "id_original": "269909",
+            "type": "RECIPE",
+            "name": "it smells like christmas  pumpkin bread"
+          }
+        ],
+        "contribution_score": 0.0006662917113101749
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 296902 -> biscotti al cioccolato e noce  double chocolate walnut biscotti -> christmas -> it smells like christmas  pumpkin bread",
+        "path_details": [
+          {
+            "id_remapped": 34212,
+            "id_original": "296902",
+            "type": "USER",
+            "name": "User 296902"
+          },
+          {
+            "id_remapped": 363114,
+            "id_original": "250167",
+            "type": "RECIPE",
+            "name": "biscotti al cioccolato e noce  double chocolate walnut biscotti"
+          },
+          {
+            "id_remapped": 473006,
+            "id_original": "14799",
+            "type": "TAG",
+            "name": "christmas"
+          },
+          {
+            "id_remapped": 372205,
+            "id_original": "269909",
+            "type": "RECIPE",
+            "name": "it smells like christmas  pumpkin bread"
+          }
+        ],
+        "contribution_score": 0.0003874613306675718
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 296902 -> biscotti al cioccolato e noce  double chocolate walnut biscotti -> holiday-event -> it smells like christmas  pumpkin bread",
+        "path_details": [
+          {
+            "id_remapped": 34212,
+            "id_original": "296902",
+            "type": "USER",
+            "name": "User 296902"
+          },
+          {
+            "id_remapped": 363114,
+            "id_original": "250167",
+            "type": "RECIPE",
+            "name": "biscotti al cioccolato e noce  double chocolate walnut biscotti"
+          },
+          {
+            "id_remapped": 473003,
+            "id_original": "14796",
+            "type": "TAG",
+            "name": "holiday-event"
+          },
+          {
+            "id_remapped": 372205,
+            "id_original": "269909",
+            "type": "RECIPE",
+            "name": "it smells like christmas  pumpkin bread"
+          }
+        ],
+        "contribution_score": 0.0003796839049177075
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 181633,
+    "user_id_original": "2000508003",
+    "user_name": "User 2000508003",
+    "recommended_item_id_remapped": 208010,
+    "recommended_item_id_original": "426805",
+    "recommended_item_name": "spicy moroccan butter",
+    "score": 1.4116805791854858,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 29761,
+    "user_id_original": "251873",
+    "user_name": "User 251873",
+    "recommended_item_id_remapped": 226772,
+    "recommended_item_id_original": "497382",
+    "recommended_item_name": "cheddar stuffed potato cake and egg  5fix",
+    "score": 1.2093565464019775,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 251873 -> sweet potato   pear soup -> potatoes -> cheddar stuffed potato cake and egg  5fix",
+        "path_details": [
+          {
+            "id_remapped": 29761,
+            "id_original": "251873",
+            "type": "USER",
+            "name": "User 251873"
+          },
+          {
+            "id_remapped": 293792,
+            "id_original": "115291",
+            "type": "RECIPE",
+            "name": "sweet potato   pear soup"
+          },
+          {
+            "id_remapped": 473019,
+            "id_original": "14812",
+            "type": "TAG",
+            "name": "potatoes"
+          },
+          {
+            "id_remapped": 453342,
+            "id_original": "497382",
+            "type": "RECIPE",
+            "name": "cheddar stuffed potato cake and egg  5fix"
+          }
+        ],
+        "contribution_score": 0.00035795234088365624
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 251873 -> maple oatmeal bread  bread maker -> weeknight -> cheddar stuffed potato cake and egg  5fix",
+        "path_details": [
+          {
+            "id_remapped": 29761,
+            "id_original": "251873",
+            "type": "USER",
+            "name": "User 251873"
+          },
+          {
+            "id_remapped": 270606,
+            "id_original": "76791",
+            "type": "RECIPE",
+            "name": "maple oatmeal bread  bread maker"
+          },
+          {
+            "id_remapped": 473033,
+            "id_original": "14826",
+            "type": "TAG",
+            "name": "weeknight"
+          },
+          {
+            "id_remapped": 453342,
+            "id_original": "497382",
+            "type": "RECIPE",
+            "name": "cheddar stuffed potato cake and egg  5fix"
+          }
+        ],
+        "contribution_score": 0.00032729754215314876
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 179636,
+    "user_id_original": "2000410270",
+    "user_name": "User 2000410270",
+    "recommended_item_id_remapped": 53100,
+    "recommended_item_id_original": "92095",
+    "recommended_item_name": "authentic italian meatballs",
+    "score": 1.5041522979736328,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2000410270 -> panera broccoli cheese soup -> User 2533143 -> authentic italian meatballs",
+        "path_details": [
+          {
+            "id_remapped": 179636,
+            "id_original": "2000410270",
+            "type": "USER",
+            "name": "User 2000410270"
+          },
+          {
+            "id_remapped": 313173,
+            "id_original": "150384",
+            "type": "RECIPE",
+            "name": "panera broccoli cheese soup"
+          },
+          {
+            "id_remapped": 144573,
+            "id_original": "2533143",
+            "type": "USER",
+            "name": "User 2533143"
+          },
+          {
+            "id_remapped": 279670,
+            "id_original": "92095",
+            "type": "RECIPE",
+            "name": "authentic italian meatballs"
+          }
+        ],
+        "contribution_score": 0.0038164048249776793
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2000410270 -> panera broccoli cheese soup -> User 3288 -> authentic italian meatballs",
+        "path_details": [
+          {
+            "id_remapped": 179636,
+            "id_original": "2000410270",
+            "type": "USER",
+            "name": "User 2000410270"
+          },
+          {
+            "id_remapped": 313173,
+            "id_original": "150384",
+            "type": "RECIPE",
+            "name": "panera broccoli cheese soup"
+          },
+          {
+            "id_remapped": 72,
+            "id_original": "3288",
+            "type": "USER",
+            "name": "User 3288"
+          },
+          {
+            "id_remapped": 279670,
+            "id_original": "92095",
+            "type": "RECIPE",
+            "name": "authentic italian meatballs"
+          }
+        ],
+        "contribution_score": 3.130517569647321e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2000410270 -> panera broccoli cheese soup -> User 1581225 -> authentic italian meatballs",
+        "path_details": [
+          {
+            "id_remapped": 179636,
+            "id_original": "2000410270",
+            "type": "USER",
+            "name": "User 2000410270"
+          },
+          {
+            "id_remapped": 313173,
+            "id_original": "150384",
+            "type": "RECIPE",
+            "name": "panera broccoli cheese soup"
+          },
+          {
+            "id_remapped": 113391,
+            "id_original": "1581225",
+            "type": "USER",
+            "name": "User 1581225"
+          },
+          {
+            "id_remapped": 279670,
+            "id_original": "92095",
+            "type": "RECIPE",
+            "name": "authentic italian meatballs"
+          }
+        ],
+        "contribution_score": 2.8926268201758888e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 158074,
+    "user_id_original": "1800037754",
+    "user_name": "User 1800037754",
+    "recommended_item_id_remapped": 145635,
+    "recommended_item_id_original": "269909",
+    "recommended_item_name": "it smells like christmas  pumpkin bread",
+    "score": 2.4003987312316895,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1800037754 -> shredded chicken for enchiladas  tostadas  tacos -> User 140132 -> it smells like christmas  pumpkin bread",
+        "path_details": [
+          {
+            "id_remapped": 158074,
+            "id_original": "1800037754",
+            "type": "USER",
+            "name": "User 1800037754"
+          },
+          {
+            "id_remapped": 322981,
+            "id_original": "169500",
+            "type": "RECIPE",
+            "name": "shredded chicken for enchiladas  tostadas  tacos"
+          },
+          {
+            "id_remapped": 16523,
+            "id_original": "140132",
+            "type": "USER",
+            "name": "User 140132"
+          },
+          {
+            "id_remapped": 372205,
+            "id_original": "269909",
+            "type": "RECIPE",
+            "name": "it smells like christmas  pumpkin bread"
+          }
+        ],
+        "contribution_score": 5.496719609514696e-07
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 93014,
+    "user_id_original": "1163968",
+    "user_name": "User 1163968",
+    "recommended_item_id_remapped": 34350,
+    "recommended_item_id_original": "60350",
+    "recommended_item_name": "easy stove top macaroni   cheese",
+    "score": 1.331307291984558,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1163968 -> easy lentil stew -> one-dish-meal -> easy stove top macaroni   cheese",
+        "path_details": [
+          {
+            "id_remapped": 93014,
+            "id_original": "1163968",
+            "type": "USER",
+            "name": "User 1163968"
+          },
+          {
+            "id_remapped": 334639,
+            "id_original": "191459",
+            "type": "RECIPE",
+            "name": "easy lentil stew"
+          },
+          {
+            "id_remapped": 473087,
+            "id_original": "14880",
+            "type": "TAG",
+            "name": "one-dish-meal"
+          },
+          {
+            "id_remapped": 260920,
+            "id_original": "60350",
+            "type": "RECIPE",
+            "name": "easy stove top macaroni   cheese"
+          }
+        ],
+        "contribution_score": 1.3430499295918473e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1163968 -> easy lentil stew -> pasta-rice-and-grains -> easy stove top macaroni   cheese",
+        "path_details": [
+          {
+            "id_remapped": 93014,
+            "id_original": "1163968",
+            "type": "USER",
+            "name": "User 1163968"
+          },
+          {
+            "id_remapped": 334639,
+            "id_original": "191459",
+            "type": "RECIPE",
+            "name": "easy lentil stew"
+          },
+          {
+            "id_remapped": 473133,
+            "id_original": "14926",
+            "type": "TAG",
+            "name": "pasta-rice-and-grains"
+          },
+          {
+            "id_remapped": 260920,
+            "id_original": "60350",
+            "type": "RECIPE",
+            "name": "easy stove top macaroni   cheese"
+          }
+        ],
+        "contribution_score": 1.288231027917572e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1163968 -> easy lentil stew -> User 1179225 -> easy stove top macaroni   cheese",
+        "path_details": [
+          {
+            "id_remapped": 93014,
+            "id_original": "1163968",
+            "type": "USER",
+            "name": "User 1163968"
+          },
+          {
+            "id_remapped": 334639,
+            "id_original": "191459",
+            "type": "RECIPE",
+            "name": "easy lentil stew"
+          },
+          {
+            "id_remapped": 93828,
+            "id_original": "1179225",
+            "type": "USER",
+            "name": "User 1179225"
+          },
+          {
+            "id_remapped": 260920,
+            "id_original": "60350",
+            "type": "RECIPE",
+            "name": "easy stove top macaroni   cheese"
+          }
+        ],
+        "contribution_score": 3.684825706249432e-07
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 31294,
+    "user_id_original": "268058",
+    "user_name": "User 268058",
+    "recommended_item_id_remapped": 145635,
+    "recommended_item_id_original": "269909",
+    "recommended_item_name": "it smells like christmas  pumpkin bread",
+    "score": 1.8246777057647705,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 268058 -> tarte a bouillie  french custard pie -> holiday-event -> it smells like christmas  pumpkin bread",
+        "path_details": [
+          {
+            "id_remapped": 31294,
+            "id_original": "268058",
+            "type": "USER",
+            "name": "User 268058"
+          },
+          {
+            "id_remapped": 310540,
+            "id_original": "145389",
+            "type": "RECIPE",
+            "name": "tarte a bouillie  french custard pie"
+          },
+          {
+            "id_remapped": 473003,
+            "id_original": "14796",
+            "type": "TAG",
+            "name": "holiday-event"
+          },
+          {
+            "id_remapped": 372205,
+            "id_original": "269909",
+            "type": "RECIPE",
+            "name": "it smells like christmas  pumpkin bread"
+          }
+        ],
+        "contribution_score": 4.352937775660959e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 268058 -> linda s faux mashed potatoes cauliflower -> holiday-event -> it smells like christmas  pumpkin bread",
+        "path_details": [
+          {
+            "id_remapped": 31294,
+            "id_original": "268058",
+            "type": "USER",
+            "name": "User 268058"
+          },
+          {
+            "id_remapped": 353268,
+            "id_original": "228689",
+            "type": "RECIPE",
+            "name": "linda s faux mashed potatoes cauliflower"
+          },
+          {
+            "id_remapped": 473003,
+            "id_original": "14796",
+            "type": "TAG",
+            "name": "holiday-event"
+          },
+          {
+            "id_remapped": 372205,
+            "id_original": "269909",
+            "type": "RECIPE",
+            "name": "it smells like christmas  pumpkin bread"
+          }
+        ],
+        "contribution_score": 4.1737195385634155e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 268058 -> very best gingerbread latte -> christmas -> it smells like christmas  pumpkin bread",
+        "path_details": [
+          {
+            "id_remapped": 31294,
+            "id_original": "268058",
+            "type": "USER",
+            "name": "User 268058"
+          },
+          {
+            "id_remapped": 339093,
+            "id_original": "200620",
+            "type": "RECIPE",
+            "name": "very best gingerbread latte"
+          },
+          {
+            "id_remapped": 473006,
+            "id_original": "14799",
+            "type": "TAG",
+            "name": "christmas"
+          },
+          {
+            "id_remapped": 372205,
+            "id_original": "269909",
+            "type": "RECIPE",
+            "name": "it smells like christmas  pumpkin bread"
+          }
+        ],
+        "contribution_score": 3.8693484513185896e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 154022,
+    "user_id_original": "2911750",
+    "user_name": "User 2911750",
+    "recommended_item_id_remapped": 37059,
+    "recommended_item_id_original": "64648",
+    "recommended_item_name": "indonesian cucumber salad",
+    "score": 1.1914944648742676,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2911750 -> egyptian rice for fish -> inexpensive -> indonesian cucumber salad",
+        "path_details": [
+          {
+            "id_remapped": 154022,
+            "id_original": "2911750",
+            "type": "USER",
+            "name": "User 2911750"
+          },
+          {
+            "id_remapped": 310748,
+            "id_original": "145824",
+            "type": "RECIPE",
+            "name": "egyptian rice for fish"
+          },
+          {
+            "id_remapped": 473028,
+            "id_original": "14821",
+            "type": "TAG",
+            "name": "inexpensive"
+          },
+          {
+            "id_remapped": 263629,
+            "id_original": "64648",
+            "type": "RECIPE",
+            "name": "indonesian cucumber salad"
+          }
+        ],
+        "contribution_score": 0.0003208529700648259
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2911750 -> egyptian rice for fish -> beginner-cook -> indonesian cucumber salad",
+        "path_details": [
+          {
+            "id_remapped": 154022,
+            "id_original": "2911750",
+            "type": "USER",
+            "name": "User 2911750"
+          },
+          {
+            "id_remapped": 310748,
+            "id_original": "145824",
+            "type": "RECIPE",
+            "name": "egyptian rice for fish"
+          },
+          {
+            "id_remapped": 473096,
+            "id_original": "14889",
+            "type": "TAG",
+            "name": "beginner-cook"
+          },
+          {
+            "id_remapped": 263629,
+            "id_original": "64648",
+            "type": "RECIPE",
+            "name": "indonesian cucumber salad"
+          }
+        ],
+        "contribution_score": 0.0003201067980823883
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2911750 -> egyptian rice for fish -> side-dishes -> indonesian cucumber salad",
+        "path_details": [
+          {
+            "id_remapped": 154022,
+            "id_original": "2911750",
+            "type": "USER",
+            "name": "User 2911750"
+          },
+          {
+            "id_remapped": 310748,
+            "id_original": "145824",
+            "type": "RECIPE",
+            "name": "egyptian rice for fish"
+          },
+          {
+            "id_remapped": 473000,
+            "id_original": "14793",
+            "type": "TAG",
+            "name": "side-dishes"
+          },
+          {
+            "id_remapped": 263629,
+            "id_original": "64648",
+            "type": "RECIPE",
+            "name": "indonesian cucumber salad"
+          }
+        ],
+        "contribution_score": 0.00027618039207608005
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 11386,
+    "user_id_original": "96956",
+    "user_name": "User 96956",
+    "recommended_item_id_remapped": 145635,
+    "recommended_item_id_original": "269909",
+    "recommended_item_name": "it smells like christmas  pumpkin bread",
+    "score": 2.0360288619995117,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 96956 -> zucchini bread with blueberries -> quick-breads -> it smells like christmas  pumpkin bread",
+        "path_details": [
+          {
+            "id_remapped": 11386,
+            "id_original": "96956",
+            "type": "USER",
+            "name": "User 96956"
+          },
+          {
+            "id_remapped": 266910,
+            "id_original": "70287",
+            "type": "RECIPE",
+            "name": "zucchini bread with blueberries"
+          },
+          {
+            "id_remapped": 473070,
+            "id_original": "14863",
+            "type": "TAG",
+            "name": "quick-breads"
+          },
+          {
+            "id_remapped": 372205,
+            "id_original": "269909",
+            "type": "RECIPE",
+            "name": "it smells like christmas  pumpkin bread"
+          }
+        ],
+        "contribution_score": 0.0005024231370492038
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 96956 -> zucchini bread with blueberries -> breads -> it smells like christmas  pumpkin bread",
+        "path_details": [
+          {
+            "id_remapped": 11386,
+            "id_original": "96956",
+            "type": "USER",
+            "name": "User 96956"
+          },
+          {
+            "id_remapped": 266910,
+            "id_original": "70287",
+            "type": "RECIPE",
+            "name": "zucchini bread with blueberries"
+          },
+          {
+            "id_remapped": 473068,
+            "id_original": "14861",
+            "type": "TAG",
+            "name": "breads"
+          },
+          {
+            "id_remapped": 372205,
+            "id_original": "269909",
+            "type": "RECIPE",
+            "name": "it smells like christmas  pumpkin bread"
+          }
+        ],
+        "contribution_score": 0.00046191679071639735
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 48040,
+    "user_id_original": "445961",
+    "user_name": "User 445961",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 1.3555946350097656,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 445961 -> sicilian pizza dough -> User 25455 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 48040,
+            "id_original": "445961",
+            "type": "USER",
+            "name": "User 445961"
+          },
+          {
+            "id_remapped": 243323,
+            "id_original": "31072",
+            "type": "RECIPE",
+            "name": "sicilian pizza dough"
+          },
+          {
+            "id_remapped": 2133,
+            "id_original": "25455",
+            "type": "USER",
+            "name": "User 25455"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 5.979278956743686e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 445961 -> no flour cornbread -> american -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 48040,
+            "id_original": "445961",
+            "type": "USER",
+            "name": "User 445961"
+          },
+          {
+            "id_remapped": 324961,
+            "id_original": "173017",
+            "type": "RECIPE",
+            "name": "no flour cornbread"
+          },
+          {
+            "id_remapped": 473011,
+            "id_original": "14804",
+            "type": "TAG",
+            "name": "american"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 1.3459738704798636e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 445961 -> sicilian pizza dough -> oven -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 48040,
+            "id_original": "445961",
+            "type": "USER",
+            "name": "User 445961"
+          },
+          {
+            "id_remapped": 243323,
+            "id_original": "31072",
+            "type": "RECIPE",
+            "name": "sicilian pizza dough"
+          },
+          {
+            "id_remapped": 473012,
+            "id_original": "14805",
+            "type": "TAG",
+            "name": "oven"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 1.2154392380829955e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 11843,
+    "user_id_original": "100964",
+    "user_name": "User 100964",
+    "recommended_item_id_remapped": 15223,
+    "recommended_item_id_original": "28607",
+    "recommended_item_name": "chicken and cheese french bread pizza",
+    "score": 1.1294867992401123,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 54798,
+    "user_id_original": "529138",
+    "user_name": "User 529138",
+    "recommended_item_id_remapped": 15418,
+    "recommended_item_id_original": "28937",
+    "recommended_item_name": "apple cake squares",
+    "score": 1.0669305324554443,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 529138 -> leftover chicken santa fe salad -> lunch -> apple cake squares",
+        "path_details": [
+          {
+            "id_remapped": 54798,
+            "id_original": "529138",
+            "type": "USER",
+            "name": "User 529138"
+          },
+          {
+            "id_remapped": 278651,
+            "id_original": "90442",
+            "type": "RECIPE",
+            "name": "leftover chicken santa fe salad"
+          },
+          {
+            "id_remapped": 473061,
+            "id_original": "14854",
+            "type": "TAG",
+            "name": "lunch"
+          },
+          {
+            "id_remapped": 241988,
+            "id_original": "28937",
+            "type": "RECIPE",
+            "name": "apple cake squares"
+          }
+        ],
+        "contribution_score": 0.00037673463078787125
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 105804,
+    "user_id_original": "1413877",
+    "user_name": "User 1413877",
+    "recommended_item_id_remapped": 93670,
+    "recommended_item_id_original": "164061",
+    "recommended_item_name": "mu shu chicken wraps",
+    "score": 1.0685137510299683,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 170009,
+    "user_id_original": "1803530715",
+    "user_name": "User 1803530715",
+    "recommended_item_id_remapped": 177600,
+    "recommended_item_id_original": "343770",
+    "recommended_item_name": "ginger chai glazed bundt cake",
+    "score": 1.014756202697754,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1803530715 -> deep dish watermelon ice cream cake -> cakes -> ginger chai glazed bundt cake",
+        "path_details": [
+          {
+            "id_remapped": 170009,
+            "id_original": "1803530715",
+            "type": "USER",
+            "name": "User 1803530715"
+          },
+          {
+            "id_remapped": 457359,
+            "id_original": "522775",
+            "type": "RECIPE",
+            "name": "deep dish watermelon ice cream cake"
+          },
+          {
+            "id_remapped": 473137,
+            "id_original": "14930",
+            "type": "TAG",
+            "name": "cakes"
+          },
+          {
+            "id_remapped": 404170,
+            "id_original": "343770",
+            "type": "RECIPE",
+            "name": "ginger chai glazed bundt cake"
+          }
+        ],
+        "contribution_score": 0.0031711500593673662
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 150554,
+    "user_id_original": "2767905",
+    "user_name": "User 2767905",
+    "recommended_item_id_remapped": 220412,
+    "recommended_item_id_original": "470181",
+    "recommended_item_name": "chinese barbecued pork tenderloin",
+    "score": 1.570299506187439,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2767905 -> best ever bruschetta -> weeknight -> chinese barbecued pork tenderloin",
+        "path_details": [
+          {
+            "id_remapped": 150554,
+            "id_original": "2767905",
+            "type": "USER",
+            "name": "User 2767905"
+          },
+          {
+            "id_remapped": 439324,
+            "id_original": "443987",
+            "type": "RECIPE",
+            "name": "best ever bruschetta"
+          },
+          {
+            "id_remapped": 473033,
+            "id_original": "14826",
+            "type": "TAG",
+            "name": "weeknight"
+          },
+          {
+            "id_remapped": 446982,
+            "id_original": "470181",
+            "type": "RECIPE",
+            "name": "chinese barbecued pork tenderloin"
+          }
+        ],
+        "contribution_score": 0.00022046336929506383
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2767905 -> best ever bruschetta -> User 128473 -> chinese barbecued pork tenderloin",
+        "path_details": [
+          {
+            "id_remapped": 150554,
+            "id_original": "2767905",
+            "type": "USER",
+            "name": "User 2767905"
+          },
+          {
+            "id_remapped": 439324,
+            "id_original": "443987",
+            "type": "RECIPE",
+            "name": "best ever bruschetta"
+          },
+          {
+            "id_remapped": 15168,
+            "id_original": "128473",
+            "type": "USER",
+            "name": "User 128473"
+          },
+          {
+            "id_remapped": 446982,
+            "id_original": "470181",
+            "type": "RECIPE",
+            "name": "chinese barbecued pork tenderloin"
+          }
+        ],
+        "contribution_score": 1.0241299893495488e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2767905 -> best ever bruschetta -> User 383346 -> chinese barbecued pork tenderloin",
+        "path_details": [
+          {
+            "id_remapped": 150554,
+            "id_original": "2767905",
+            "type": "USER",
+            "name": "User 2767905"
+          },
+          {
+            "id_remapped": 439324,
+            "id_original": "443987",
+            "type": "RECIPE",
+            "name": "best ever bruschetta"
+          },
+          {
+            "id_remapped": 43248,
+            "id_original": "383346",
+            "type": "USER",
+            "name": "User 383346"
+          },
+          {
+            "id_remapped": 446982,
+            "id_original": "470181",
+            "type": "RECIPE",
+            "name": "chinese barbecued pork tenderloin"
+          }
+        ],
+        "contribution_score": 6.764932287816063e-07
+      }
+    ]
+  }
+]

@@ -1,0 +1,52 @@
+2026-01-31 18:43:45,661 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, lr=0.001, embed_dim=64, use_bf16=True, resume=None, model_dir='models', cpu=True, debug=False, log_dir='output/logs')
+2026-01-31 18:43:45,661 [INFO] Log file: output/logs\base_20260131_184345.txt
+2026-01-31 18:43:45,662 [INFO] Forced to use CPU
+2026-01-31 18:43:47,215 [INFO] Data Split - Train: 905893, Test: 226474
+2026-01-31 18:43:47,215 [INFO] Constructing adjacency matrix (CPU)...
+2026-01-31 18:43:51,041 [INFO] Adjacency matrix created. Edges: 7200165
+2026-01-31 18:43:51,041 [INFO] Moving adjacency matrix to cpu...
+2026-01-31 18:43:51,041 [INFO] Done. Coalesced: True
+2026-01-31 18:43:51,041 [INFO] Initializing KGAT model...
+2026-01-31 18:43:51,247 [INFO] Model moved to device.
+2026-01-31 18:43:54,264 [INFO] Starting training from epoch 0 to 20...
+2026-01-31 19:52:50,335 [INFO] Epoch 1 Complete. Average Loss: 0.3956
+2026-01-31 20:17:29,769 [INFO] Epoch 1 Evaluation - Recall@10: 0.5925, Recall@20: 0.7230, Recall@50: 0.8856
+2026-01-31 21:27:23,259 [INFO] Epoch 2 Complete. Average Loss: 0.3305
+2026-01-31 21:52:25,297 [INFO] Epoch 2 Evaluation - Recall@10: 0.6017, Recall@20: 0.7300, Recall@50: 0.8652
+2026-01-31 23:01:35,670 [INFO] Epoch 3 Complete. Average Loss: 0.3134
+2026-01-31 23:26:53,329 [INFO] Epoch 3 Evaluation - Recall@10: 0.6075, Recall@20: 0.7306, Recall@50: 0.8675
+2026-02-01 00:37:33,935 [INFO] Epoch 4 Complete. Average Loss: 0.3037
+2026-02-01 01:02:31,819 [INFO] Epoch 4 Evaluation - Recall@10: 0.6140, Recall@20: 0.7349, Recall@50: 0.8695
+2026-02-01 02:12:51,886 [INFO] Epoch 5 Complete. Average Loss: 0.2971
+2026-02-01 02:39:12,408 [INFO] Epoch 5 Evaluation - Recall@10: 0.6181, Recall@20: 0.7371, Recall@50: 0.8707
+2026-02-01 03:48:03,423 [INFO] Epoch 6 Complete. Average Loss: 0.2919
+2026-02-01 04:13:26,187 [INFO] Epoch 6 Evaluation - Recall@10: 0.6218, Recall@20: 0.7432, Recall@50: 0.8743
+2026-02-01 05:22:15,485 [INFO] Epoch 7 Complete. Average Loss: 0.2877
+2026-02-01 05:47:32,089 [INFO] Epoch 7 Evaluation - Recall@10: 0.6252, Recall@20: 0.7477, Recall@50: 0.8762
+2026-02-01 06:56:43,119 [INFO] Epoch 8 Complete. Average Loss: 0.2843
+2026-02-01 07:21:46,682 [INFO] Epoch 8 Evaluation - Recall@10: 0.6304, Recall@20: 0.7528, Recall@50: 0.8791
+2026-02-01 08:31:14,615 [INFO] Epoch 9 Complete. Average Loss: 0.2816
+2026-02-01 08:56:08,724 [INFO] Epoch 9 Evaluation - Recall@10: 0.6327, Recall@20: 0.7539, Recall@50: 0.8785
+2026-02-01 10:05:38,869 [INFO] Epoch 10 Complete. Average Loss: 0.2794
+2026-02-01 10:30:37,386 [INFO] Epoch 10 Evaluation - Recall@10: 0.6343, Recall@20: 0.7560, Recall@50: 0.8782
+2026-02-01 11:40:08,626 [INFO] Epoch 11 Complete. Average Loss: 0.2780
+2026-02-01 12:05:19,428 [INFO] Epoch 11 Evaluation - Recall@10: 0.6379, Recall@20: 0.7598, Recall@50: 0.8798
+2026-02-01 13:14:35,041 [INFO] Epoch 12 Complete. Average Loss: 0.2761
+2026-02-01 13:40:07,408 [INFO] Epoch 12 Evaluation - Recall@10: 0.6412, Recall@20: 0.7612, Recall@50: 0.8824
+2026-02-01 14:51:14,912 [INFO] Epoch 13 Complete. Average Loss: 0.2742
+2026-02-01 15:16:25,681 [INFO] Epoch 13 Evaluation - Recall@10: 0.6408, Recall@20: 0.7613, Recall@50: 0.8818
+2026-02-01 16:27:12,329 [INFO] Epoch 14 Complete. Average Loss: 0.2730
+2026-02-01 16:52:39,430 [INFO] Epoch 14 Evaluation - Recall@10: 0.6444, Recall@20: 0.7651, Recall@50: 0.8857
+2026-02-01 18:03:37,655 [INFO] Epoch 15 Complete. Average Loss: 0.2720
+2026-02-01 18:29:39,636 [INFO] Epoch 15 Evaluation - Recall@10: 0.6456, Recall@20: 0.7682, Recall@50: 0.8862
+2026-02-01 19:39:59,484 [INFO] Epoch 16 Complete. Average Loss: 0.2703
+2026-02-01 20:06:27,247 [INFO] Epoch 16 Evaluation - Recall@10: 0.6468, Recall@20: 0.7693, Recall@50: 0.8864
+2026-02-01 21:16:31,068 [INFO] Epoch 17 Complete. Average Loss: 0.2696
+2026-02-01 21:42:41,478 [INFO] Epoch 17 Evaluation - Recall@10: 0.6492, Recall@20: 0.7704, Recall@50: 0.8878
+2026-02-01 22:53:54,315 [INFO] Epoch 18 Complete. Average Loss: 0.2686
+2026-02-01 23:20:08,782 [INFO] Epoch 18 Evaluation - Recall@10: 0.6483, Recall@20: 0.7686, Recall@50: 0.8879
+2026-02-02 00:31:05,211 [INFO] Epoch 19 Complete. Average Loss: 0.2681
+2026-02-02 00:56:46,494 [INFO] Epoch 19 Evaluation - Recall@10: 0.6485, Recall@20: 0.7690, Recall@50: 0.8864
+2026-02-02 02:06:23,660 [INFO] Epoch 20 Complete. Average Loss: 0.2679
+2026-02-02 02:32:06,689 [INFO] Epoch 20 Evaluation - Recall@10: 0.6519, Recall@20: 0.7721, Recall@50: 0.8884
+2026-02-02 02:32:10,250 [INFO] Checkpoint saved to models\base_checkpoint_e20.pth

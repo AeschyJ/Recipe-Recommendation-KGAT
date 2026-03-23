@@ -1,0 +1,2008 @@
+[
+  {
+    "user_id_remapped": 190855,
+    "user_id_original": "2001104311",
+    "user_name": "User 2001104311",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 3.078155994415283,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001104311 -> barefoot contessa s hummus -> cuisine -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 190855,
+            "id_original": "2001104311",
+            "type": "USER",
+            "name": "User 2001104311"
+          },
+          {
+            "id_remapped": 312284,
+            "id_original": "148680",
+            "type": "RECIPE",
+            "name": "barefoot contessa s hummus"
+          },
+          {
+            "id_remapped": 473153,
+            "id_original": "14946",
+            "type": "TAG",
+            "name": "cuisine"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 6.108468533693985e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001104311 -> barefoot contessa s hummus -> dietary -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 190855,
+            "id_original": "2001104311",
+            "type": "USER",
+            "name": "User 2001104311"
+          },
+          {
+            "id_remapped": 312284,
+            "id_original": "148680",
+            "type": "RECIPE",
+            "name": "barefoot contessa s hummus"
+          },
+          {
+            "id_remapped": 473165,
+            "id_original": "14958",
+            "type": "TAG",
+            "name": "dietary"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 6.095120795201041e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001104311 -> barefoot contessa s hummus -> equipment -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 190855,
+            "id_original": "2001104311",
+            "type": "USER",
+            "name": "User 2001104311"
+          },
+          {
+            "id_remapped": 312284,
+            "id_original": "148680",
+            "type": "RECIPE",
+            "name": "barefoot contessa s hummus"
+          },
+          {
+            "id_remapped": 473179,
+            "id_original": "14972",
+            "type": "TAG",
+            "name": "equipment"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 6.086119322852741e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 137188,
+    "user_id_original": "2237210",
+    "user_name": "User 2237210",
+    "recommended_item_id_remapped": 230935,
+    "recommended_item_id_original": "524968",
+    "recommended_item_name": "mediterranean tortellini  ragu",
+    "score": 2.741102933883667,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2237210 -> thermomix chocolate almond cake  flourless -> preparation -> mediterranean tortellini  ragu",
+        "path_details": [
+          {
+            "id_remapped": 137188,
+            "id_original": "2237210",
+            "type": "USER",
+            "name": "User 2237210"
+          },
+          {
+            "id_remapped": 407574,
+            "id_original": "352600",
+            "type": "RECIPE",
+            "name": "thermomix chocolate almond cake  flourless"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 457505,
+            "id_original": "524968",
+            "type": "RECIPE",
+            "name": "mediterranean tortellini  ragu"
+          }
+        ],
+        "contribution_score": 0.0005245616460661348
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2237210 -> thermomix chocolate almond cake  flourless -> course -> mediterranean tortellini  ragu",
+        "path_details": [
+          {
+            "id_remapped": 137188,
+            "id_original": "2237210",
+            "type": "USER",
+            "name": "User 2237210"
+          },
+          {
+            "id_remapped": 407574,
+            "id_original": "352600",
+            "type": "RECIPE",
+            "name": "thermomix chocolate almond cake  flourless"
+          },
+          {
+            "id_remapped": 473151,
+            "id_original": "14944",
+            "type": "TAG",
+            "name": "course"
+          },
+          {
+            "id_remapped": 457505,
+            "id_original": "524968",
+            "type": "RECIPE",
+            "name": "mediterranean tortellini  ragu"
+          }
+        ],
+        "contribution_score": 0.0005244219229250218
+      },
+      {
+        "path_structure": "USER -> RECIPE -> INGREDIENT -> RECIPE",
+        "path_description": "User 2237210 -> thermomix chocolate almond cake  flourless -> butter -> mediterranean tortellini  ragu",
+        "path_details": [
+          {
+            "id_remapped": 137188,
+            "id_original": "2237210",
+            "type": "USER",
+            "name": "User 2237210"
+          },
+          {
+            "id_remapped": 407574,
+            "id_original": "352600",
+            "type": "RECIPE",
+            "name": "thermomix chocolate almond cake  flourless"
+          },
+          {
+            "id_remapped": 458211,
+            "id_original": "4",
+            "type": "INGREDIENT",
+            "name": "butter"
+          },
+          {
+            "id_remapped": 457505,
+            "id_original": "524968",
+            "type": "RECIPE",
+            "name": "mediterranean tortellini  ragu"
+          }
+        ],
+        "contribution_score": 0.000523561852976878
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 118189,
+    "user_id_original": "1676577",
+    "user_name": "User 1676577",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 7.198457717895508,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1676577 -> mexican ground beef quinoa skillet -> dietary -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 118189,
+            "id_original": "1676577",
+            "type": "USER",
+            "name": "User 1676577"
+          },
+          {
+            "id_remapped": 432033,
+            "id_original": "419596",
+            "type": "RECIPE",
+            "name": "mexican ground beef quinoa skillet"
+          },
+          {
+            "id_remapped": 473165,
+            "id_original": "14958",
+            "type": "TAG",
+            "name": "dietary"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 5.195623047523971e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1676577 -> mexican ground beef quinoa skillet -> preparation -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 118189,
+            "id_original": "1676577",
+            "type": "USER",
+            "name": "User 1676577"
+          },
+          {
+            "id_remapped": 432033,
+            "id_original": "419596",
+            "type": "RECIPE",
+            "name": "mexican ground beef quinoa skillet"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 5.181636565816964e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1676577 -> mexican ground beef quinoa skillet -> course -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 118189,
+            "id_original": "1676577",
+            "type": "USER",
+            "name": "User 1676577"
+          },
+          {
+            "id_remapped": 432033,
+            "id_original": "419596",
+            "type": "RECIPE",
+            "name": "mexican ground beef quinoa skillet"
+          },
+          {
+            "id_remapped": 473151,
+            "id_original": "14944",
+            "type": "TAG",
+            "name": "course"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 5.180808209096264e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 103862,
+    "user_id_original": "1374856",
+    "user_name": "User 1374856",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 6.5011372566223145,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1374856 -> best grilled pork chops -> User 1102734 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 103862,
+            "id_original": "1374856",
+            "type": "USER",
+            "name": "User 1374856"
+          },
+          {
+            "id_remapped": 240996,
+            "id_original": "27210",
+            "type": "RECIPE",
+            "name": "best grilled pork chops"
+          },
+          {
+            "id_remapped": 89843,
+            "id_original": "1102734",
+            "type": "USER",
+            "name": "User 1102734"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 0.001529951573124268
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1374856 -> thai grilled chicken thighs -> User 364863 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 103862,
+            "id_original": "1374856",
+            "type": "USER",
+            "name": "User 1374856"
+          },
+          {
+            "id_remapped": 284009,
+            "id_original": "99156",
+            "type": "RECIPE",
+            "name": "thai grilled chicken thighs"
+          },
+          {
+            "id_remapped": 41608,
+            "id_original": "364863",
+            "type": "USER",
+            "name": "User 364863"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 0.00029637788739554145
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1374856 -> asian style grilled tilapia -> User 453856 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 103862,
+            "id_original": "1374856",
+            "type": "USER",
+            "name": "User 1374856"
+          },
+          {
+            "id_remapped": 335056,
+            "id_original": "192282",
+            "type": "RECIPE",
+            "name": "asian style grilled tilapia"
+          },
+          {
+            "id_remapped": 48756,
+            "id_original": "453856",
+            "type": "USER",
+            "name": "User 453856"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 6.335489949246274e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 160118,
+    "user_id_original": "1800242719",
+    "user_name": "User 1800242719",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 6.752239227294922,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1800242719 -> mexican penne -> User 29014 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 160118,
+            "id_original": "1800242719",
+            "type": "USER",
+            "name": "User 1800242719"
+          },
+          {
+            "id_remapped": 252812,
+            "id_original": "46967",
+            "type": "RECIPE",
+            "name": "mexican penne"
+          },
+          {
+            "id_remapped": 2630,
+            "id_original": "29014",
+            "type": "USER",
+            "name": "User 29014"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 1.2492912159227882e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1800242719 -> mexican penne -> User 64583 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 160118,
+            "id_original": "1800242719",
+            "type": "USER",
+            "name": "User 1800242719"
+          },
+          {
+            "id_remapped": 252812,
+            "id_original": "46967",
+            "type": "RECIPE",
+            "name": "mexican penne"
+          },
+          {
+            "id_remapped": 7862,
+            "id_original": "64583",
+            "type": "USER",
+            "name": "User 64583"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 5.274059504936682e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1800242719 -> mexican penne -> cuisine -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 160118,
+            "id_original": "1800242719",
+            "type": "USER",
+            "name": "User 1800242719"
+          },
+          {
+            "id_remapped": 252812,
+            "id_original": "46967",
+            "type": "RECIPE",
+            "name": "mexican penne"
+          },
+          {
+            "id_remapped": 473153,
+            "id_original": "14946",
+            "type": "TAG",
+            "name": "cuisine"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 2.6408936935788465e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 136347,
+    "user_id_original": "2209829",
+    "user_name": "User 2209829",
+    "recommended_item_id_remapped": 221564,
+    "recommended_item_id_original": "474766",
+    "recommended_item_name": "frittata mama s weeknight special",
+    "score": 3.7922139167785645,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 2209829 -> frittata mama s weeknight special",
+        "path_details": [
+          {
+            "id_remapped": 136347,
+            "id_original": "2209829",
+            "type": "USER",
+            "name": "User 2209829"
+          },
+          {
+            "id_remapped": 448134,
+            "id_original": "474766",
+            "type": "RECIPE",
+            "name": "frittata mama s weeknight special"
+          }
+        ],
+        "contribution_score": 0.48511773347854614
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 197276,
+    "user_id_original": "2001353484",
+    "user_name": "User 2001353484",
+    "recommended_item_id_remapped": 82091,
+    "recommended_item_id_original": "141983",
+    "recommended_item_name": "better than olive garden alfredo sauce",
+    "score": 4.072154998779297,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001353484 -> madhur jaffrey s naan bread -> dietary -> better than olive garden alfredo sauce",
+        "path_details": [
+          {
+            "id_remapped": 197276,
+            "id_original": "2001353484",
+            "type": "USER",
+            "name": "User 2001353484"
+          },
+          {
+            "id_remapped": 440004,
+            "id_original": "446809",
+            "type": "RECIPE",
+            "name": "madhur jaffrey s naan bread"
+          },
+          {
+            "id_remapped": 473165,
+            "id_original": "14958",
+            "type": "TAG",
+            "name": "dietary"
+          },
+          {
+            "id_remapped": 308661,
+            "id_original": "141983",
+            "type": "RECIPE",
+            "name": "better than olive garden alfredo sauce"
+          }
+        ],
+        "contribution_score": 1.5643543553725056e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001353484 -> madhur jaffrey s naan bread -> preparation -> better than olive garden alfredo sauce",
+        "path_details": [
+          {
+            "id_remapped": 197276,
+            "id_original": "2001353484",
+            "type": "USER",
+            "name": "User 2001353484"
+          },
+          {
+            "id_remapped": 440004,
+            "id_original": "446809",
+            "type": "RECIPE",
+            "name": "madhur jaffrey s naan bread"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 308661,
+            "id_original": "141983",
+            "type": "RECIPE",
+            "name": "better than olive garden alfredo sauce"
+          }
+        ],
+        "contribution_score": 1.5573417863954506e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001353484 -> madhur jaffrey s naan bread -> course -> better than olive garden alfredo sauce",
+        "path_details": [
+          {
+            "id_remapped": 197276,
+            "id_original": "2001353484",
+            "type": "USER",
+            "name": "User 2001353484"
+          },
+          {
+            "id_remapped": 440004,
+            "id_original": "446809",
+            "type": "RECIPE",
+            "name": "madhur jaffrey s naan bread"
+          },
+          {
+            "id_remapped": 473151,
+            "id_original": "14944",
+            "type": "TAG",
+            "name": "course"
+          },
+          {
+            "id_remapped": 308661,
+            "id_original": "141983",
+            "type": "RECIPE",
+            "name": "better than olive garden alfredo sauce"
+          }
+        ],
+        "contribution_score": 1.5569271887628035e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 41116,
+    "user_id_original": "360012",
+    "user_name": "User 360012",
+    "recommended_item_id_remapped": 38631,
+    "recommended_item_id_original": "67256",
+    "recommended_item_name": "best ever banana cake with cream cheese frosting",
+    "score": 9.877506256103516,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 360012 -> impossible peanut butter cookies -> User 1895952 -> best ever banana cake with cream cheese frosting",
+        "path_details": [
+          {
+            "id_remapped": 41116,
+            "id_original": "360012",
+            "type": "USER",
+            "name": "User 360012"
+          },
+          {
+            "id_remapped": 233660,
+            "id_original": "15411",
+            "type": "RECIPE",
+            "name": "impossible peanut butter cookies"
+          },
+          {
+            "id_remapped": 126593,
+            "id_original": "1895952",
+            "type": "USER",
+            "name": "User 1895952"
+          },
+          {
+            "id_remapped": 265201,
+            "id_original": "67256",
+            "type": "RECIPE",
+            "name": "best ever banana cake with cream cheese frosting"
+          }
+        ],
+        "contribution_score": 0.007888457417976053
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 360012 -> waldorf astoria red velvet cake -> User 651402 -> best ever banana cake with cream cheese frosting",
+        "path_details": [
+          {
+            "id_remapped": 41116,
+            "id_original": "360012",
+            "type": "USER",
+            "name": "User 360012"
+          },
+          {
+            "id_remapped": 229938,
+            "id_original": "8972",
+            "type": "RECIPE",
+            "name": "waldorf astoria red velvet cake"
+          },
+          {
+            "id_remapped": 63738,
+            "id_original": "651402",
+            "type": "USER",
+            "name": "User 651402"
+          },
+          {
+            "id_remapped": 265201,
+            "id_original": "67256",
+            "type": "RECIPE",
+            "name": "best ever banana cake with cream cheese frosting"
+          }
+        ],
+        "contribution_score": 0.0029765290805230985
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 360012 -> impossible peanut butter cookies -> User 1263528 -> best ever banana cake with cream cheese frosting",
+        "path_details": [
+          {
+            "id_remapped": 41116,
+            "id_original": "360012",
+            "type": "USER",
+            "name": "User 360012"
+          },
+          {
+            "id_remapped": 233660,
+            "id_original": "15411",
+            "type": "RECIPE",
+            "name": "impossible peanut butter cookies"
+          },
+          {
+            "id_remapped": 98151,
+            "id_original": "1263528",
+            "type": "USER",
+            "name": "User 1263528"
+          },
+          {
+            "id_remapped": 265201,
+            "id_original": "67256",
+            "type": "RECIPE",
+            "name": "best ever banana cake with cream cheese frosting"
+          }
+        ],
+        "contribution_score": 0.0028944678033752803
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 135455,
+    "user_id_original": "2188909",
+    "user_name": "User 2188909",
+    "recommended_item_id_remapped": 177418,
+    "recommended_item_id_original": "343321",
+    "recommended_item_name": "molasses free gingerbread",
+    "score": 2.512362480163574,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2188909 -> meatballs with raisins -> occasion -> molasses free gingerbread",
+        "path_details": [
+          {
+            "id_remapped": 135455,
+            "id_original": "2188909",
+            "type": "USER",
+            "name": "User 2188909"
+          },
+          {
+            "id_remapped": 297289,
+            "id_original": "121441",
+            "type": "RECIPE",
+            "name": "meatballs with raisins"
+          },
+          {
+            "id_remapped": 473155,
+            "id_original": "14948",
+            "type": "TAG",
+            "name": "occasion"
+          },
+          {
+            "id_remapped": 403988,
+            "id_original": "343321",
+            "type": "RECIPE",
+            "name": "molasses free gingerbread"
+          }
+        ],
+        "contribution_score": 0.0004513671842461511
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2188909 -> meatballs with raisins -> preparation -> molasses free gingerbread",
+        "path_details": [
+          {
+            "id_remapped": 135455,
+            "id_original": "2188909",
+            "type": "USER",
+            "name": "User 2188909"
+          },
+          {
+            "id_remapped": 297289,
+            "id_original": "121441",
+            "type": "RECIPE",
+            "name": "meatballs with raisins"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 403988,
+            "id_original": "343321",
+            "type": "RECIPE",
+            "name": "molasses free gingerbread"
+          }
+        ],
+        "contribution_score": 0.00045101838744444987
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2188909 -> meatballs with raisins -> course -> molasses free gingerbread",
+        "path_details": [
+          {
+            "id_remapped": 135455,
+            "id_original": "2188909",
+            "type": "USER",
+            "name": "User 2188909"
+          },
+          {
+            "id_remapped": 297289,
+            "id_original": "121441",
+            "type": "RECIPE",
+            "name": "meatballs with raisins"
+          },
+          {
+            "id_remapped": 473151,
+            "id_original": "14944",
+            "type": "TAG",
+            "name": "course"
+          },
+          {
+            "id_remapped": 403988,
+            "id_original": "343321",
+            "type": "RECIPE",
+            "name": "molasses free gingerbread"
+          }
+        ],
+        "contribution_score": 0.00045099435082648426
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 78145,
+    "user_id_original": "872836",
+    "user_name": "User 872836",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 9.22756576538086,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 872836 -> old widow walker s ziploc omelettes -> User 189475 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 78145,
+            "id_original": "872836",
+            "type": "USER",
+            "name": "User 872836"
+          },
+          {
+            "id_remapped": 302952,
+            "id_original": "132052",
+            "type": "RECIPE",
+            "name": "old widow walker s ziploc omelettes"
+          },
+          {
+            "id_remapped": 22488,
+            "id_original": "189475",
+            "type": "USER",
+            "name": "User 189475"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 2.0295851522286413e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 872836 -> old widow walker s ziploc omelettes -> User 25455 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 78145,
+            "id_original": "872836",
+            "type": "USER",
+            "name": "User 872836"
+          },
+          {
+            "id_remapped": 302952,
+            "id_original": "132052",
+            "type": "RECIPE",
+            "name": "old widow walker s ziploc omelettes"
+          },
+          {
+            "id_remapped": 2133,
+            "id_original": "25455",
+            "type": "USER",
+            "name": "User 25455"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 9.27468068901633e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 872836 -> old widow walker s ziploc omelettes -> dietary -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 78145,
+            "id_original": "872836",
+            "type": "USER",
+            "name": "User 872836"
+          },
+          {
+            "id_remapped": 302952,
+            "id_original": "132052",
+            "type": "RECIPE",
+            "name": "old widow walker s ziploc omelettes"
+          },
+          {
+            "id_remapped": 473165,
+            "id_original": "14958",
+            "type": "TAG",
+            "name": "dietary"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 1.7590587188485989e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 7183,
+    "user_id_original": "59437",
+    "user_name": "User 59437",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 7.05697774887085,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 59437 -> shepherd s cheddar pie -> cuisine -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 7183,
+            "id_original": "59437",
+            "type": "USER",
+            "name": "User 59437"
+          },
+          {
+            "id_remapped": 227496,
+            "id_original": "3058",
+            "type": "RECIPE",
+            "name": "shepherd s cheddar pie"
+          },
+          {
+            "id_remapped": 473153,
+            "id_original": "14946",
+            "type": "TAG",
+            "name": "cuisine"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 4.285810838381769e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 59437 -> shepherd s cheddar pie -> dietary -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 7183,
+            "id_original": "59437",
+            "type": "USER",
+            "name": "User 59437"
+          },
+          {
+            "id_remapped": 227496,
+            "id_original": "3058",
+            "type": "RECIPE",
+            "name": "shepherd s cheddar pie"
+          },
+          {
+            "id_remapped": 473165,
+            "id_original": "14958",
+            "type": "TAG",
+            "name": "dietary"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 4.28268729644531e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 59437 -> shepherd s cheddar pie -> oven -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 7183,
+            "id_original": "59437",
+            "type": "USER",
+            "name": "User 59437"
+          },
+          {
+            "id_remapped": 227496,
+            "id_original": "3058",
+            "type": "RECIPE",
+            "name": "shepherd s cheddar pie"
+          },
+          {
+            "id_remapped": 473174,
+            "id_original": "14967",
+            "type": "TAG",
+            "name": "oven"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 4.281469024182449e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 60885,
+    "user_id_original": "610070",
+    "user_name": "User 610070",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 12.98449420928955,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 610070 -> oven fried chicken ii -> User 1298609 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 60885,
+            "id_original": "610070",
+            "type": "USER",
+            "name": "User 610070"
+          },
+          {
+            "id_remapped": 227930,
+            "id_original": "3929",
+            "type": "RECIPE",
+            "name": "oven fried chicken ii"
+          },
+          {
+            "id_remapped": 99922,
+            "id_original": "1298609",
+            "type": "USER",
+            "name": "User 1298609"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 0.004685213881612402
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 610070 -> classic baked ziti -> User 760929 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 60885,
+            "id_original": "610070",
+            "type": "USER",
+            "name": "User 610070"
+          },
+          {
+            "id_remapped": 237908,
+            "id_original": "22176",
+            "type": "RECIPE",
+            "name": "classic baked ziti"
+          },
+          {
+            "id_remapped": 70966,
+            "id_original": "760929",
+            "type": "USER",
+            "name": "User 760929"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 0.003374841381469669
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 610070 -> classic baked ziti -> User 28397 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 60885,
+            "id_original": "610070",
+            "type": "USER",
+            "name": "User 610070"
+          },
+          {
+            "id_remapped": 237908,
+            "id_original": "22176",
+            "type": "RECIPE",
+            "name": "classic baked ziti"
+          },
+          {
+            "id_remapped": 2544,
+            "id_original": "28397",
+            "type": "USER",
+            "name": "User 28397"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 0.0002210760618710109
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 96327,
+    "user_id_original": "1227397",
+    "user_name": "User 1227397",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 12.040371894836426,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1227397 -> dark chocolate cake -> User 2001121581 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 96327,
+            "id_original": "1227397",
+            "type": "USER",
+            "name": "User 1227397"
+          },
+          {
+            "id_remapped": 227202,
+            "id_original": "2496",
+            "type": "RECIPE",
+            "name": "dark chocolate cake"
+          },
+          {
+            "id_remapped": 191237,
+            "id_original": "2001121581",
+            "type": "USER",
+            "name": "User 2001121581"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 0.04068499485272347
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1227397 -> dark chocolate cake -> User 2853299 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 96327,
+            "id_original": "1227397",
+            "type": "USER",
+            "name": "User 1227397"
+          },
+          {
+            "id_remapped": 227202,
+            "id_original": "2496",
+            "type": "RECIPE",
+            "name": "dark chocolate cake"
+          },
+          {
+            "id_remapped": 152589,
+            "id_original": "2853299",
+            "type": "USER",
+            "name": "User 2853299"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 0.0130049884604281
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1227397 -> dark chocolate cake -> User 261553 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 96327,
+            "id_original": "1227397",
+            "type": "USER",
+            "name": "User 1227397"
+          },
+          {
+            "id_remapped": 227202,
+            "id_original": "2496",
+            "type": "RECIPE",
+            "name": "dark chocolate cake"
+          },
+          {
+            "id_remapped": 30742,
+            "id_original": "261553",
+            "type": "USER",
+            "name": "User 261553"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 0.0027910804825451527
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 189634,
+    "user_id_original": "2001047380",
+    "user_name": "User 2001047380",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 8.403543472290039,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001047380 -> vegan chocolate chip oatmeal nut cookies -> dietary -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 189634,
+            "id_original": "2001047380",
+            "type": "USER",
+            "name": "User 2001047380"
+          },
+          {
+            "id_remapped": 311373,
+            "id_original": "147033",
+            "type": "RECIPE",
+            "name": "vegan chocolate chip oatmeal nut cookies"
+          },
+          {
+            "id_remapped": 473165,
+            "id_original": "14958",
+            "type": "TAG",
+            "name": "dietary"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 4.3645877818271295e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001047380 -> vegan chocolate chip oatmeal nut cookies -> preparation -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 189634,
+            "id_original": "2001047380",
+            "type": "USER",
+            "name": "User 2001047380"
+          },
+          {
+            "id_remapped": 311373,
+            "id_original": "147033",
+            "type": "RECIPE",
+            "name": "vegan chocolate chip oatmeal nut cookies"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 4.352838865528662e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001047380 -> vegan chocolate chip oatmeal nut cookies -> course -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 189634,
+            "id_original": "2001047380",
+            "type": "USER",
+            "name": "User 2001047380"
+          },
+          {
+            "id_remapped": 311373,
+            "id_original": "147033",
+            "type": "RECIPE",
+            "name": "vegan chocolate chip oatmeal nut cookies"
+          },
+          {
+            "id_remapped": 473151,
+            "id_original": "14944",
+            "type": "TAG",
+            "name": "course"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 4.352143644700855e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 168358,
+    "user_id_original": "1803202573",
+    "user_name": "User 1803202573",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 6.115972518920898,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1803202573 -> perfect turkey in an electric roaster oven -> oven -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 168358,
+            "id_original": "1803202573",
+            "type": "USER",
+            "name": "User 1803202573"
+          },
+          {
+            "id_remapped": 402571,
+            "id_original": "339453",
+            "type": "RECIPE",
+            "name": "perfect turkey in an electric roaster oven"
+          },
+          {
+            "id_remapped": 473174,
+            "id_original": "14967",
+            "type": "TAG",
+            "name": "oven"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 1.2805274036807363e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1803202573 -> perfect turkey in an electric roaster oven -> equipment -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 168358,
+            "id_original": "1803202573",
+            "type": "USER",
+            "name": "User 1803202573"
+          },
+          {
+            "id_remapped": 402571,
+            "id_original": "339453",
+            "type": "RECIPE",
+            "name": "perfect turkey in an electric roaster oven"
+          },
+          {
+            "id_remapped": 473179,
+            "id_original": "14972",
+            "type": "TAG",
+            "name": "equipment"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 1.279727452455294e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1803202573 -> perfect turkey in an electric roaster oven -> preparation -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 168358,
+            "id_original": "1803202573",
+            "type": "USER",
+            "name": "User 1803202573"
+          },
+          {
+            "id_remapped": 402571,
+            "id_original": "339453",
+            "type": "RECIPE",
+            "name": "perfect turkey in an electric roaster oven"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 1.2781699893424135e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 194161,
+    "user_id_original": "2001251464",
+    "user_name": "User 2001251464",
+    "recommended_item_id_remapped": 115146,
+    "recommended_item_id_original": "205890",
+    "recommended_item_name": "soft peanut butter cookies",
+    "score": 2.5651659965515137,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001251464 -> aunt dunette s italian anise biscotti -> occasion -> soft peanut butter cookies",
+        "path_details": [
+          {
+            "id_remapped": 194161,
+            "id_original": "2001251464",
+            "type": "USER",
+            "name": "User 2001251464"
+          },
+          {
+            "id_remapped": 321036,
+            "id_original": "165698",
+            "type": "RECIPE",
+            "name": "aunt dunette s italian anise biscotti"
+          },
+          {
+            "id_remapped": 473155,
+            "id_original": "14948",
+            "type": "TAG",
+            "name": "occasion"
+          },
+          {
+            "id_remapped": 341716,
+            "id_original": "205890",
+            "type": "RECIPE",
+            "name": "soft peanut butter cookies"
+          }
+        ],
+        "contribution_score": 3.0055823898818316e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001251464 -> aunt dunette s italian anise biscotti -> cookies-and-brownies -> soft peanut butter cookies",
+        "path_details": [
+          {
+            "id_remapped": 194161,
+            "id_original": "2001251464",
+            "type": "USER",
+            "name": "User 2001251464"
+          },
+          {
+            "id_remapped": 321036,
+            "id_original": "165698",
+            "type": "RECIPE",
+            "name": "aunt dunette s italian anise biscotti"
+          },
+          {
+            "id_remapped": 473294,
+            "id_original": "15087",
+            "type": "TAG",
+            "name": "cookies-and-brownies"
+          },
+          {
+            "id_remapped": 341716,
+            "id_original": "205890",
+            "type": "RECIPE",
+            "name": "soft peanut butter cookies"
+          }
+        ],
+        "contribution_score": 3.0045232437512364e-05
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001251464 -> aunt dunette s italian anise biscotti -> desserts -> soft peanut butter cookies",
+        "path_details": [
+          {
+            "id_remapped": 194161,
+            "id_original": "2001251464",
+            "type": "USER",
+            "name": "User 2001251464"
+          },
+          {
+            "id_remapped": 321036,
+            "id_original": "165698",
+            "type": "RECIPE",
+            "name": "aunt dunette s italian anise biscotti"
+          },
+          {
+            "id_remapped": 473233,
+            "id_original": "15026",
+            "type": "TAG",
+            "name": "desserts"
+          },
+          {
+            "id_remapped": 341716,
+            "id_original": "205890",
+            "type": "RECIPE",
+            "name": "soft peanut butter cookies"
+          }
+        ],
+        "contribution_score": 2.9988188494058556e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 191912,
+    "user_id_original": "2001155473",
+    "user_name": "User 2001155473",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 4.138979911804199,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2001155473 -> salsa verde canning recipe -> User 165169 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 191912,
+            "id_original": "2001155473",
+            "type": "USER",
+            "name": "User 2001155473"
+          },
+          {
+            "id_remapped": 392537,
+            "id_original": "315018",
+            "type": "RECIPE",
+            "name": "salsa verde canning recipe"
+          },
+          {
+            "id_remapped": 19472,
+            "id_original": "165169",
+            "type": "USER",
+            "name": "User 165169"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 0.00019033163111803182
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001155473 -> salsa verde canning recipe -> cuisine -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 191912,
+            "id_original": "2001155473",
+            "type": "USER",
+            "name": "User 2001155473"
+          },
+          {
+            "id_remapped": 392537,
+            "id_original": "315018",
+            "type": "RECIPE",
+            "name": "salsa verde canning recipe"
+          },
+          {
+            "id_remapped": 473153,
+            "id_original": "14946",
+            "type": "TAG",
+            "name": "cuisine"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 6.530498274893372e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001155473 -> salsa verde canning recipe -> dietary -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 191912,
+            "id_original": "2001155473",
+            "type": "USER",
+            "name": "User 2001155473"
+          },
+          {
+            "id_remapped": 392537,
+            "id_original": "315018",
+            "type": "RECIPE",
+            "name": "salsa verde canning recipe"
+          },
+          {
+            "id_remapped": 473165,
+            "id_original": "14958",
+            "type": "TAG",
+            "name": "dietary"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 6.51622922406919e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 203076,
+    "user_id_original": "2001524703",
+    "user_name": "User 2001524703",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 5.735835552215576,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2001524703 -> indonesian fried rice  nasi goreng -> User 188119 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 203076,
+            "id_original": "2001524703",
+            "type": "USER",
+            "name": "User 2001524703"
+          },
+          {
+            "id_remapped": 261669,
+            "id_original": "61614",
+            "type": "RECIPE",
+            "name": "indonesian fried rice  nasi goreng"
+          },
+          {
+            "id_remapped": 22344,
+            "id_original": "188119",
+            "type": "USER",
+            "name": "User 188119"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 6.335442423007722e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001524703 -> indonesian fried rice  nasi goreng -> cuisine -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 203076,
+            "id_original": "2001524703",
+            "type": "USER",
+            "name": "User 2001524703"
+          },
+          {
+            "id_remapped": 261669,
+            "id_original": "61614",
+            "type": "RECIPE",
+            "name": "indonesian fried rice  nasi goreng"
+          },
+          {
+            "id_remapped": 473153,
+            "id_original": "14946",
+            "type": "TAG",
+            "name": "cuisine"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 4.834693035255312e-06
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001524703 -> indonesian fried rice  nasi goreng -> equipment -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 203076,
+            "id_original": "2001524703",
+            "type": "USER",
+            "name": "User 2001524703"
+          },
+          {
+            "id_remapped": 261669,
+            "id_original": "61614",
+            "type": "RECIPE",
+            "name": "indonesian fried rice  nasi goreng"
+          },
+          {
+            "id_remapped": 473179,
+            "id_original": "14972",
+            "type": "TAG",
+            "name": "equipment"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 4.817004209922142e-06
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 9514,
+    "user_id_original": "79997",
+    "user_name": "User 79997",
+    "recommended_item_id_remapped": 38631,
+    "recommended_item_id_original": "67256",
+    "recommended_item_name": "best ever banana cake with cream cheese frosting",
+    "score": 11.983123779296875,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 79997 -> south beach muffin -> User 281887 -> best ever banana cake with cream cheese frosting",
+        "path_details": [
+          {
+            "id_remapped": 9514,
+            "id_original": "79997",
+            "type": "USER",
+            "name": "User 79997"
+          },
+          {
+            "id_remapped": 369529,
+            "id_original": "263983",
+            "type": "RECIPE",
+            "name": "south beach muffin"
+          },
+          {
+            "id_remapped": 32667,
+            "id_original": "281887",
+            "type": "USER",
+            "name": "User 281887"
+          },
+          {
+            "id_remapped": 265201,
+            "id_original": "67256",
+            "type": "RECIPE",
+            "name": "best ever banana cake with cream cheese frosting"
+          }
+        ],
+        "contribution_score": 0.00026895516423661663
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 79997 -> south beach muffin -> User 319544 -> best ever banana cake with cream cheese frosting",
+        "path_details": [
+          {
+            "id_remapped": 9514,
+            "id_original": "79997",
+            "type": "USER",
+            "name": "User 79997"
+          },
+          {
+            "id_remapped": 369529,
+            "id_original": "263983",
+            "type": "RECIPE",
+            "name": "south beach muffin"
+          },
+          {
+            "id_remapped": 36539,
+            "id_original": "319544",
+            "type": "USER",
+            "name": "User 319544"
+          },
+          {
+            "id_remapped": 265201,
+            "id_original": "67256",
+            "type": "RECIPE",
+            "name": "best ever banana cake with cream cheese frosting"
+          }
+        ],
+        "contribution_score": 0.00014313940118188117
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 79997 -> bev s sauteed yellow squash -> User 1178797 -> best ever banana cake with cream cheese frosting",
+        "path_details": [
+          {
+            "id_remapped": 9514,
+            "id_original": "79997",
+            "type": "USER",
+            "name": "User 79997"
+          },
+          {
+            "id_remapped": 243526,
+            "id_original": "31371",
+            "type": "RECIPE",
+            "name": "bev s sauteed yellow squash"
+          },
+          {
+            "id_remapped": 93806,
+            "id_original": "1178797",
+            "type": "USER",
+            "name": "User 1178797"
+          },
+          {
+            "id_remapped": 265201,
+            "id_original": "67256",
+            "type": "RECIPE",
+            "name": "best ever banana cake with cream cheese frosting"
+          }
+        ],
+        "contribution_score": 2.2555259039399706e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 170801,
+    "user_id_original": "1803668919",
+    "user_name": "User 1803668919",
+    "recommended_item_id_remapped": 833,
+    "recommended_item_id_original": "2886",
+    "recommended_item_name": "best banana bread",
+    "score": 8.420564651489258,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1803668919 -> yes  virginia there is a great meatloaf -> User 1029127 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 170801,
+            "id_original": "1803668919",
+            "type": "USER",
+            "name": "User 1803668919"
+          },
+          {
+            "id_remapped": 257208,
+            "id_original": "54257",
+            "type": "RECIPE",
+            "name": "yes  virginia there is a great meatloaf"
+          },
+          {
+            "id_remapped": 86703,
+            "id_original": "1029127",
+            "type": "USER",
+            "name": "User 1029127"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 0.012379744889887004
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1803668919 -> yes  virginia there is a great meatloaf -> User 100856 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 170801,
+            "id_original": "1803668919",
+            "type": "USER",
+            "name": "User 1803668919"
+          },
+          {
+            "id_remapped": 257208,
+            "id_original": "54257",
+            "type": "RECIPE",
+            "name": "yes  virginia there is a great meatloaf"
+          },
+          {
+            "id_remapped": 11831,
+            "id_original": "100856",
+            "type": "USER",
+            "name": "User 100856"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 0.011492660348057926
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1803668919 -> yes  virginia there is a great meatloaf -> User 416292 -> best banana bread",
+        "path_details": [
+          {
+            "id_remapped": 170801,
+            "id_original": "1803668919",
+            "type": "USER",
+            "name": "User 1803668919"
+          },
+          {
+            "id_remapped": 257208,
+            "id_original": "54257",
+            "type": "RECIPE",
+            "name": "yes  virginia there is a great meatloaf"
+          },
+          {
+            "id_remapped": 45651,
+            "id_original": "416292",
+            "type": "USER",
+            "name": "User 416292"
+          },
+          {
+            "id_remapped": 227403,
+            "id_original": "2886",
+            "type": "RECIPE",
+            "name": "best banana bread"
+          }
+        ],
+        "contribution_score": 0.002968659774751012
+      }
+    ]
+  }
+]

@@ -1,0 +1,1477 @@
+[
+  {
+    "user_id_remapped": 32304,
+    "user_id_original": "278524",
+    "user_name": "User 278524",
+    "recommended_item_id_remapped": 6639,
+    "recommended_item_id_original": "14687",
+    "recommended_item_name": "vanilla crescents  vanilkove rohlicky",
+    "score": 1.9581060409545898,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 72645,
+    "user_id_original": "786622",
+    "user_name": "User 786622",
+    "recommended_item_id_remapped": 46800,
+    "recommended_item_id_original": "81671",
+    "recommended_item_name": "baked chicken nuggets",
+    "score": 1.857085943222046,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 786622 -> cranberry apricot granola bars  delicious -> snacks -> baked chicken nuggets",
+        "path_details": [
+          {
+            "id_remapped": 72645,
+            "id_original": "786622",
+            "type": "USER",
+            "name": "User 786622"
+          },
+          {
+            "id_remapped": 412036,
+            "id_original": "363951",
+            "type": "RECIPE",
+            "name": "cranberry apricot granola bars  delicious"
+          },
+          {
+            "id_remapped": 473123,
+            "id_original": "14916",
+            "type": "TAG",
+            "name": "snacks"
+          },
+          {
+            "id_remapped": 273370,
+            "id_original": "81671",
+            "type": "RECIPE",
+            "name": "baked chicken nuggets"
+          }
+        ],
+        "contribution_score": 0.010066681541502476
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 111633,
+    "user_id_original": "1544043",
+    "user_name": "User 1544043",
+    "recommended_item_id_remapped": 45990,
+    "recommended_item_id_original": "80247",
+    "recommended_item_name": "caramel puff corn",
+    "score": 1.9789690971374512,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 1544043 -> caramel puff corn",
+        "path_details": [
+          {
+            "id_remapped": 111633,
+            "id_original": "1544043",
+            "type": "USER",
+            "name": "User 1544043"
+          },
+          {
+            "id_remapped": 272560,
+            "id_original": "80247",
+            "type": "RECIPE",
+            "name": "caramel puff corn"
+          }
+        ],
+        "contribution_score": 0.01721014827489853
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 2442,
+    "user_id_original": "27741",
+    "user_name": "User 27741",
+    "recommended_item_id_remapped": 5256,
+    "recommended_item_id_original": "12460",
+    "recommended_item_name": "shrimp ramekins",
+    "score": 1.8381891250610352,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 27741 -> shrimp ramekins",
+        "path_details": [
+          {
+            "id_remapped": 2442,
+            "id_original": "27741",
+            "type": "USER",
+            "name": "User 27741"
+          },
+          {
+            "id_remapped": 231826,
+            "id_original": "12460",
+            "type": "RECIPE",
+            "name": "shrimp ramekins"
+          }
+        ],
+        "contribution_score": 0.2612116038799286
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 163865,
+    "user_id_original": "1802570682",
+    "user_name": "User 1802570682",
+    "recommended_item_id_remapped": 221427,
+    "recommended_item_id_original": "474118",
+    "recommended_item_name": "perfect low carb sugar free  truvia  vanilla ice cream",
+    "score": 1.9995931386947632,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 36691,
+    "user_id_original": "320955",
+    "user_name": "User 320955",
+    "recommended_item_id_remapped": 73418,
+    "recommended_item_id_original": "126438",
+    "recommended_item_name": "hash browns  la franaise  galette",
+    "score": 2.0041027069091797,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 88251,
+    "user_id_original": "1063934",
+    "user_name": "User 1063934",
+    "recommended_item_id_remapped": 155217,
+    "recommended_item_id_original": "290753",
+    "recommended_item_name": "banana bisquick muffins",
+    "score": 1.7821089029312134,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 194056,
+    "user_id_original": "2001247725",
+    "user_name": "User 2001247725",
+    "recommended_item_id_remapped": 191047,
+    "recommended_item_id_original": "377821",
+    "recommended_item_name": "garlic sausage penne bake",
+    "score": 1.9617682695388794,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 194742,
+    "user_id_original": "2001273476",
+    "user_name": "User 2001273476",
+    "recommended_item_id_remapped": 156832,
+    "recommended_item_id_original": "294196",
+    "recommended_item_name": "perfect rump roast",
+    "score": 1.9922521114349365,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 2001273476 -> perfect rump roast",
+        "path_details": [
+          {
+            "id_remapped": 194742,
+            "id_original": "2001273476",
+            "type": "USER",
+            "name": "User 2001273476"
+          },
+          {
+            "id_remapped": 383402,
+            "id_original": "294196",
+            "type": "RECIPE",
+            "name": "perfect rump roast"
+          }
+        ],
+        "contribution_score": 0.001363058458082378
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 201713,
+    "user_id_original": "2001483924",
+    "user_name": "User 2001483924",
+    "recommended_item_id_remapped": 39074,
+    "recommended_item_id_original": "68063",
+    "recommended_item_name": "pan grilled pork chops",
+    "score": 1.9174824953079224,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2001483924 -> bacon parmesan brussels sprouts -> User 55729 -> pan grilled pork chops",
+        "path_details": [
+          {
+            "id_remapped": 201713,
+            "id_original": "2001483924",
+            "type": "USER",
+            "name": "User 2001483924"
+          },
+          {
+            "id_remapped": 286182,
+            "id_original": "102677",
+            "type": "RECIPE",
+            "name": "bacon parmesan brussels sprouts"
+          },
+          {
+            "id_remapped": 6511,
+            "id_original": "55729",
+            "type": "USER",
+            "name": "User 55729"
+          },
+          {
+            "id_remapped": 265644,
+            "id_original": "68063",
+            "type": "RECIPE",
+            "name": "pan grilled pork chops"
+          }
+        ],
+        "contribution_score": 0.12367753684520721
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2001483924 -> bacon parmesan brussels sprouts -> User 140132 -> pan grilled pork chops",
+        "path_details": [
+          {
+            "id_remapped": 201713,
+            "id_original": "2001483924",
+            "type": "USER",
+            "name": "User 2001483924"
+          },
+          {
+            "id_remapped": 286182,
+            "id_original": "102677",
+            "type": "RECIPE",
+            "name": "bacon parmesan brussels sprouts"
+          },
+          {
+            "id_remapped": 16523,
+            "id_original": "140132",
+            "type": "USER",
+            "name": "User 140132"
+          },
+          {
+            "id_remapped": 265644,
+            "id_original": "68063",
+            "type": "RECIPE",
+            "name": "pan grilled pork chops"
+          }
+        ],
+        "contribution_score": 0.0525968112051487
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2001483924 -> bacon parmesan brussels sprouts -> User 53932 -> pan grilled pork chops",
+        "path_details": [
+          {
+            "id_remapped": 201713,
+            "id_original": "2001483924",
+            "type": "USER",
+            "name": "User 2001483924"
+          },
+          {
+            "id_remapped": 286182,
+            "id_original": "102677",
+            "type": "RECIPE",
+            "name": "bacon parmesan brussels sprouts"
+          },
+          {
+            "id_remapped": 6163,
+            "id_original": "53932",
+            "type": "USER",
+            "name": "User 53932"
+          },
+          {
+            "id_remapped": 265644,
+            "id_original": "68063",
+            "type": "RECIPE",
+            "name": "pan grilled pork chops"
+          }
+        ],
+        "contribution_score": 0.043338216841220856
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 7699,
+    "user_id_original": "63391",
+    "user_name": "User 63391",
+    "recommended_item_id_remapped": 45251,
+    "recommended_item_id_original": "78938",
+    "recommended_item_name": "cracker barrel green beans",
+    "score": 1.9816690683364868,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 63391 -> cube steak and gravy  crock pot -> User 140132 -> cracker barrel green beans",
+        "path_details": [
+          {
+            "id_remapped": 7699,
+            "id_original": "63391",
+            "type": "USER",
+            "name": "User 63391"
+          },
+          {
+            "id_remapped": 232758,
+            "id_original": "13949",
+            "type": "RECIPE",
+            "name": "cube steak and gravy  crock pot"
+          },
+          {
+            "id_remapped": 16523,
+            "id_original": "140132",
+            "type": "USER",
+            "name": "User 140132"
+          },
+          {
+            "id_remapped": 271821,
+            "id_original": "78938",
+            "type": "RECIPE",
+            "name": "cracker barrel green beans"
+          }
+        ],
+        "contribution_score": 0.09818156063556671
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 63391 -> to die for crock pot roast -> User 140132 -> cracker barrel green beans",
+        "path_details": [
+          {
+            "id_remapped": 7699,
+            "id_original": "63391",
+            "type": "USER",
+            "name": "User 63391"
+          },
+          {
+            "id_remapped": 240994,
+            "id_original": "27208",
+            "type": "RECIPE",
+            "name": "to die for crock pot roast"
+          },
+          {
+            "id_remapped": 16523,
+            "id_original": "140132",
+            "type": "USER",
+            "name": "User 140132"
+          },
+          {
+            "id_remapped": 271821,
+            "id_original": "78938",
+            "type": "RECIPE",
+            "name": "cracker barrel green beans"
+          }
+        ],
+        "contribution_score": 0.09765300899744034
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 63391 -> to die for crock pot roast -> User 9717 -> cracker barrel green beans",
+        "path_details": [
+          {
+            "id_remapped": 7699,
+            "id_original": "63391",
+            "type": "USER",
+            "name": "User 63391"
+          },
+          {
+            "id_remapped": 240994,
+            "id_original": "27208",
+            "type": "RECIPE",
+            "name": "to die for crock pot roast"
+          },
+          {
+            "id_remapped": 644,
+            "id_original": "9717",
+            "type": "USER",
+            "name": "User 9717"
+          },
+          {
+            "id_remapped": 271821,
+            "id_original": "78938",
+            "type": "RECIPE",
+            "name": "cracker barrel green beans"
+          }
+        ],
+        "contribution_score": 0.04745950549840927
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 157860,
+    "user_id_original": "46026450",
+    "user_name": "User 46026450",
+    "recommended_item_id_remapped": 112023,
+    "recommended_item_id_original": "199579",
+    "recommended_item_name": "best ever tuna noodle casserole",
+    "score": 1.980647325515747,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 46026450 -> best ever tuna noodle casserole",
+        "path_details": [
+          {
+            "id_remapped": 157860,
+            "id_original": "46026450",
+            "type": "USER",
+            "name": "User 46026450"
+          },
+          {
+            "id_remapped": 338593,
+            "id_original": "199579",
+            "type": "RECIPE",
+            "name": "best ever tuna noodle casserole"
+          }
+        ],
+        "contribution_score": 0.003158869221806526
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 90590,
+    "user_id_original": "1116513",
+    "user_name": "User 1116513",
+    "recommended_item_id_remapped": 230664,
+    "recommended_item_id_original": "520443",
+    "recommended_item_name": "orange jelly   jackie french",
+    "score": 1.9390969276428223,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 73402,
+    "user_id_original": "798320",
+    "user_name": "User 798320",
+    "recommended_item_id_remapped": 166719,
+    "recommended_item_id_original": "316817",
+    "recommended_item_name": "spamsational torpedo subs",
+    "score": 1.70694100856781,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 182365,
+    "user_id_original": "2000562881",
+    "user_name": "User 2000562881",
+    "recommended_item_id_remapped": 180648,
+    "recommended_item_id_original": "351655",
+    "recommended_item_name": "chicken macaroni casserole",
+    "score": 1.9539438486099243,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2000562881 -> dreamsicle jello salad -> User 369715 -> chicken macaroni casserole",
+        "path_details": [
+          {
+            "id_remapped": 182365,
+            "id_original": "2000562881",
+            "type": "USER",
+            "name": "User 2000562881"
+          },
+          {
+            "id_remapped": 254507,
+            "id_original": "49896",
+            "type": "RECIPE",
+            "name": "dreamsicle jello salad"
+          },
+          {
+            "id_remapped": 42085,
+            "id_original": "369715",
+            "type": "USER",
+            "name": "User 369715"
+          },
+          {
+            "id_remapped": 407218,
+            "id_original": "351655",
+            "type": "RECIPE",
+            "name": "chicken macaroni casserole"
+          }
+        ],
+        "contribution_score": 0.17037296295166016
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2000562881 -> cheesy chicken pasta toss -> User 369715 -> chicken macaroni casserole",
+        "path_details": [
+          {
+            "id_remapped": 182365,
+            "id_original": "2000562881",
+            "type": "USER",
+            "name": "User 2000562881"
+          },
+          {
+            "id_remapped": 380783,
+            "id_original": "288607",
+            "type": "RECIPE",
+            "name": "cheesy chicken pasta toss"
+          },
+          {
+            "id_remapped": 42085,
+            "id_original": "369715",
+            "type": "USER",
+            "name": "User 369715"
+          },
+          {
+            "id_remapped": 407218,
+            "id_original": "351655",
+            "type": "RECIPE",
+            "name": "chicken macaroni casserole"
+          }
+        ],
+        "contribution_score": 0.1661028116941452
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2000562881 -> cheesy chicken pasta toss -> User 60231 -> chicken macaroni casserole",
+        "path_details": [
+          {
+            "id_remapped": 182365,
+            "id_original": "2000562881",
+            "type": "USER",
+            "name": "User 2000562881"
+          },
+          {
+            "id_remapped": 380783,
+            "id_original": "288607",
+            "type": "RECIPE",
+            "name": "cheesy chicken pasta toss"
+          },
+          {
+            "id_remapped": 7321,
+            "id_original": "60231",
+            "type": "USER",
+            "name": "User 60231"
+          },
+          {
+            "id_remapped": 407218,
+            "id_original": "351655",
+            "type": "RECIPE",
+            "name": "chicken macaroni casserole"
+          }
+        ],
+        "contribution_score": 0.15110376477241516
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 220226,
+    "user_id_original": "2002135554",
+    "user_name": "User 2002135554",
+    "recommended_item_id_remapped": 19622,
+    "recommended_item_id_original": "35769",
+    "recommended_item_name": "cheese and chile rice",
+    "score": 1.9642964601516724,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2002135554 -> cod baked in foil   bittman -> high-in-something -> cheese and chile rice",
+        "path_details": [
+          {
+            "id_remapped": 220226,
+            "id_original": "2002135554",
+            "type": "USER",
+            "name": "User 2002135554"
+          },
+          {
+            "id_remapped": 442839,
+            "id_original": "456483",
+            "type": "RECIPE",
+            "name": "cod baked in foil   bittman"
+          },
+          {
+            "id_remapped": 473158,
+            "id_original": "14951",
+            "type": "TAG",
+            "name": "high-in-something"
+          },
+          {
+            "id_remapped": 246192,
+            "id_original": "35769",
+            "type": "RECIPE",
+            "name": "cheese and chile rice"
+          }
+        ],
+        "contribution_score": 0.01200069859623909
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 51987,
+    "user_id_original": "493900",
+    "user_name": "User 493900",
+    "recommended_item_id_remapped": 186341,
+    "recommended_item_id_original": "366330",
+    "recommended_item_name": "gingerbread cookies  gluten free",
+    "score": 1.7543964385986328,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 493900 -> summer sangria   classic sangria -> for-large-groups -> gingerbread cookies  gluten free",
+        "path_details": [
+          {
+            "id_remapped": 51987,
+            "id_original": "493900",
+            "type": "USER",
+            "name": "User 493900"
+          },
+          {
+            "id_remapped": 279691,
+            "id_original": "92125",
+            "type": "RECIPE",
+            "name": "summer sangria   classic sangria"
+          },
+          {
+            "id_remapped": 473188,
+            "id_original": "14981",
+            "type": "TAG",
+            "name": "for-large-groups"
+          },
+          {
+            "id_remapped": 412911,
+            "id_original": "366330",
+            "type": "RECIPE",
+            "name": "gingerbread cookies  gluten free"
+          }
+        ],
+        "contribution_score": 0.010717629455029964
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 81419,
+    "user_id_original": "930048",
+    "user_name": "User 930048",
+    "recommended_item_id_remapped": 208471,
+    "recommended_item_id_original": "427998",
+    "recommended_item_name": "greek yogurt pancakes",
+    "score": 1.9205656051635742,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 930048 -> ww 0 point weight watchers cabbage soup -> User 542159 -> greek yogurt pancakes",
+        "path_details": [
+          {
+            "id_remapped": 81419,
+            "id_original": "930048",
+            "type": "USER",
+            "name": "User 930048"
+          },
+          {
+            "id_remapped": 301296,
+            "id_original": "128956",
+            "type": "RECIPE",
+            "name": "ww 0 point weight watchers cabbage soup"
+          },
+          {
+            "id_remapped": 55773,
+            "id_original": "542159",
+            "type": "USER",
+            "name": "User 542159"
+          },
+          {
+            "id_remapped": 435041,
+            "id_original": "427998",
+            "type": "RECIPE",
+            "name": "greek yogurt pancakes"
+          }
+        ],
+        "contribution_score": 0.29815927147865295
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 930048 -> ww 0 point weight watchers cabbage soup -> User 2292657 -> greek yogurt pancakes",
+        "path_details": [
+          {
+            "id_remapped": 81419,
+            "id_original": "930048",
+            "type": "USER",
+            "name": "User 930048"
+          },
+          {
+            "id_remapped": 301296,
+            "id_original": "128956",
+            "type": "RECIPE",
+            "name": "ww 0 point weight watchers cabbage soup"
+          },
+          {
+            "id_remapped": 138594,
+            "id_original": "2292657",
+            "type": "USER",
+            "name": "User 2292657"
+          },
+          {
+            "id_remapped": 435041,
+            "id_original": "427998",
+            "type": "RECIPE",
+            "name": "greek yogurt pancakes"
+          }
+        ],
+        "contribution_score": 0.10342956334352493
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 930048 -> ww 0 point weight watchers cabbage soup -> User 103876 -> greek yogurt pancakes",
+        "path_details": [
+          {
+            "id_remapped": 81419,
+            "id_original": "930048",
+            "type": "USER",
+            "name": "User 930048"
+          },
+          {
+            "id_remapped": 301296,
+            "id_original": "128956",
+            "type": "RECIPE",
+            "name": "ww 0 point weight watchers cabbage soup"
+          },
+          {
+            "id_remapped": 12207,
+            "id_original": "103876",
+            "type": "USER",
+            "name": "User 103876"
+          },
+          {
+            "id_remapped": 435041,
+            "id_original": "427998",
+            "type": "RECIPE",
+            "name": "greek yogurt pancakes"
+          }
+        ],
+        "contribution_score": 0.09428378194570541
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 192096,
+    "user_id_original": "2001165617",
+    "user_name": "User 2001165617",
+    "recommended_item_id_remapped": 64688,
+    "recommended_item_id_original": "111151",
+    "recommended_item_name": "crock pot pork butt roast",
+    "score": 1.747307300567627,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 108823,
+    "user_id_original": "1482275",
+    "user_name": "User 1482275",
+    "recommended_item_id_remapped": 80980,
+    "recommended_item_id_original": "140016",
+    "recommended_item_name": "asian racks of lamb with sesame sauce",
+    "score": 1.8815772533416748,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 125269,
+    "user_id_original": "1859260",
+    "user_name": "User 1859260",
+    "recommended_item_id_remapped": 8471,
+    "recommended_item_id_original": "17572",
+    "recommended_item_name": "salmon loaf supreme",
+    "score": 1.865422248840332,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 26626,
+    "user_id_original": "225938",
+    "user_name": "User 225938",
+    "recommended_item_id_remapped": 55,
+    "recommended_item_id_original": "148",
+    "recommended_item_name": "bugwiches",
+    "score": 1.9943652153015137,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 159597,
+    "user_id_original": "1800158629",
+    "user_name": "User 1800158629",
+    "recommended_item_id_remapped": 120377,
+    "recommended_item_id_original": "216350",
+    "recommended_item_name": "linda s cheesecake stuffed strawberries",
+    "score": 1.972649097442627,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 1800158629 -> linda s cheesecake stuffed strawberries",
+        "path_details": [
+          {
+            "id_remapped": 159597,
+            "id_original": "1800158629",
+            "type": "USER",
+            "name": "User 1800158629"
+          },
+          {
+            "id_remapped": 346947,
+            "id_original": "216350",
+            "type": "RECIPE",
+            "name": "linda s cheesecake stuffed strawberries"
+          }
+        ],
+        "contribution_score": 0.052840664982795715
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 144997,
+    "user_id_original": "2552398",
+    "user_name": "User 2552398",
+    "recommended_item_id_remapped": 78540,
+    "recommended_item_id_original": "135826",
+    "recommended_item_name": "breakfast casserole 4 lunch dinner or brunch",
+    "score": 1.9663523435592651,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 71949,
+    "user_id_original": "775568",
+    "user_name": "User 775568",
+    "recommended_item_id_remapped": 224956,
+    "recommended_item_id_original": "487917",
+    "recommended_item_name": "spanish rice with chorizo",
+    "score": 1.9443793296813965,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 138259,
+    "user_id_original": "2279739",
+    "user_name": "User 2279739",
+    "recommended_item_id_remapped": 205656,
+    "recommended_item_id_original": "420307",
+    "recommended_item_name": "quinoa pilaf with cranberries",
+    "score": 1.9620366096496582,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2279739 -> vegan banana cupcakes -> vegan -> quinoa pilaf with cranberries",
+        "path_details": [
+          {
+            "id_remapped": 138259,
+            "id_original": "2279739",
+            "type": "USER",
+            "name": "User 2279739"
+          },
+          {
+            "id_remapped": 361784,
+            "id_original": "247311",
+            "type": "RECIPE",
+            "name": "vegan banana cupcakes"
+          },
+          {
+            "id_remapped": 473111,
+            "id_original": "14904",
+            "type": "TAG",
+            "name": "vegan"
+          },
+          {
+            "id_remapped": 432226,
+            "id_original": "420307",
+            "type": "RECIPE",
+            "name": "quinoa pilaf with cranberries"
+          }
+        ],
+        "contribution_score": 0.0023789857514202595
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 176907,
+    "user_id_original": "2000292491",
+    "user_name": "User 2000292491",
+    "recommended_item_id_remapped": 1174,
+    "recommended_item_id_original": "3567",
+    "recommended_item_name": "praline pumpkin pie",
+    "score": 1.865599274635315,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 31852,
+    "user_id_original": "273647",
+    "user_name": "User 273647",
+    "recommended_item_id_remapped": 101962,
+    "recommended_item_id_original": "179895",
+    "recommended_item_name": "the best boneless ribs",
+    "score": 1.9709744453430176,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 273647 -> my chicken parmigiana -> stove-top -> the best boneless ribs",
+        "path_details": [
+          {
+            "id_remapped": 31852,
+            "id_original": "273647",
+            "type": "USER",
+            "name": "User 273647"
+          },
+          {
+            "id_remapped": 239689,
+            "id_original": "25094",
+            "type": "RECIPE",
+            "name": "my chicken parmigiana"
+          },
+          {
+            "id_remapped": 473090,
+            "id_original": "14883",
+            "type": "TAG",
+            "name": "stove-top"
+          },
+          {
+            "id_remapped": 328532,
+            "id_original": "179895",
+            "type": "RECIPE",
+            "name": "the best boneless ribs"
+          }
+        ],
+        "contribution_score": 0.00124842650257051
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 99652,
+    "user_id_original": "1293512",
+    "user_name": "User 1293512",
+    "recommended_item_id_remapped": 146439,
+    "recommended_item_id_original": "271704",
+    "recommended_item_name": "cookies and cream fudge oreo cookie fudge",
+    "score": 1.9400579929351807,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 1293512 -> cookies and cream fudge oreo cookie fudge",
+        "path_details": [
+          {
+            "id_remapped": 99652,
+            "id_original": "1293512",
+            "type": "USER",
+            "name": "User 1293512"
+          },
+          {
+            "id_remapped": 373009,
+            "id_original": "271704",
+            "type": "RECIPE",
+            "name": "cookies and cream fudge oreo cookie fudge"
+          }
+        ],
+        "contribution_score": 0.043811604380607605
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 60720,
+    "user_id_original": "607984",
+    "user_name": "User 607984",
+    "recommended_item_id_remapped": 24678,
+    "recommended_item_id_original": "44139",
+    "recommended_item_name": "five spice pork roast for the crock pot",
+    "score": 1.953687310218811,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 607984 -> world s best fried rice -> asian -> five spice pork roast for the crock pot",
+        "path_details": [
+          {
+            "id_remapped": 60720,
+            "id_original": "607984",
+            "type": "USER",
+            "name": "User 607984"
+          },
+          {
+            "id_remapped": 319154,
+            "id_original": "162000",
+            "type": "RECIPE",
+            "name": "world s best fried rice"
+          },
+          {
+            "id_remapped": 473163,
+            "id_original": "14956",
+            "type": "TAG",
+            "name": "asian"
+          },
+          {
+            "id_remapped": 251248,
+            "id_original": "44139",
+            "type": "RECIPE",
+            "name": "five spice pork roast for the crock pot"
+          }
+        ],
+        "contribution_score": 0.0020963577553629875
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 607984 -> world s best fried rice -> pork -> five spice pork roast for the crock pot",
+        "path_details": [
+          {
+            "id_remapped": 60720,
+            "id_original": "607984",
+            "type": "USER",
+            "name": "User 607984"
+          },
+          {
+            "id_remapped": 319154,
+            "id_original": "162000",
+            "type": "RECIPE",
+            "name": "world s best fried rice"
+          },
+          {
+            "id_remapped": 473082,
+            "id_original": "14875",
+            "type": "TAG",
+            "name": "pork"
+          },
+          {
+            "id_remapped": 251248,
+            "id_original": "44139",
+            "type": "RECIPE",
+            "name": "five spice pork roast for the crock pot"
+          }
+        ],
+        "contribution_score": 0.0005556853720918298
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 204699,
+    "user_id_original": "2001576962",
+    "user_name": "User 2001576962",
+    "recommended_item_id_remapped": 4598,
+    "recommended_item_id_original": "11345",
+    "recommended_item_name": "grandma s soft sugar cookies",
+    "score": 1.988524317741394,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 2001576962 -> grandma s soft sugar cookies",
+        "path_details": [
+          {
+            "id_remapped": 204699,
+            "id_original": "2001576962",
+            "type": "USER",
+            "name": "User 2001576962"
+          },
+          {
+            "id_remapped": 231168,
+            "id_original": "11345",
+            "type": "RECIPE",
+            "name": "grandma s soft sugar cookies"
+          }
+        ],
+        "contribution_score": 0.002951282076537609
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 153359,
+    "user_id_original": "2884527",
+    "user_name": "User 2884527",
+    "recommended_item_id_remapped": 129010,
+    "recommended_item_id_original": "233560",
+    "recommended_item_name": "eat your bowl",
+    "score": 1.9904495477676392,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 46095,
+    "user_id_original": "421916",
+    "user_name": "User 421916",
+    "recommended_item_id_remapped": 188630,
+    "recommended_item_id_original": "372087",
+    "recommended_item_name": "fluffy eggless sugar cookies  breathtaking delicacies",
+    "score": 1.8824846744537354,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 421916 -> super healthy hummus -> User 1298077 -> fluffy eggless sugar cookies  breathtaking delicacies",
+        "path_details": [
+          {
+            "id_remapped": 46095,
+            "id_original": "421916",
+            "type": "USER",
+            "name": "User 421916"
+          },
+          {
+            "id_remapped": 278434,
+            "id_original": "90086",
+            "type": "RECIPE",
+            "name": "super healthy hummus"
+          },
+          {
+            "id_remapped": 99890,
+            "id_original": "1298077",
+            "type": "USER",
+            "name": "User 1298077"
+          },
+          {
+            "id_remapped": 415200,
+            "id_original": "372087",
+            "type": "RECIPE",
+            "name": "fluffy eggless sugar cookies  breathtaking delicacies"
+          }
+        ],
+        "contribution_score": 0.11554340273141861
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 421916 -> easy double chocolate chip brownies -> cookies-and-brownies -> fluffy eggless sugar cookies  breathtaking delicacies",
+        "path_details": [
+          {
+            "id_remapped": 46095,
+            "id_original": "421916",
+            "type": "USER",
+            "name": "User 421916"
+          },
+          {
+            "id_remapped": 260066,
+            "id_original": "58961",
+            "type": "RECIPE",
+            "name": "easy double chocolate chip brownies"
+          },
+          {
+            "id_remapped": 473174,
+            "id_original": "14967",
+            "type": "TAG",
+            "name": "cookies-and-brownies"
+          },
+          {
+            "id_remapped": 415200,
+            "id_original": "372087",
+            "type": "RECIPE",
+            "name": "fluffy eggless sugar cookies  breathtaking delicacies"
+          }
+        ],
+        "contribution_score": 0.0009929239749908447
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 421916 -> sugarplum cookie pizza -> cookies-and-brownies -> fluffy eggless sugar cookies  breathtaking delicacies",
+        "path_details": [
+          {
+            "id_remapped": 46095,
+            "id_original": "421916",
+            "type": "USER",
+            "name": "User 421916"
+          },
+          {
+            "id_remapped": 273948,
+            "id_original": "82698",
+            "type": "RECIPE",
+            "name": "sugarplum cookie pizza"
+          },
+          {
+            "id_remapped": 473174,
+            "id_original": "14967",
+            "type": "TAG",
+            "name": "cookies-and-brownies"
+          },
+          {
+            "id_remapped": 415200,
+            "id_original": "372087",
+            "type": "RECIPE",
+            "name": "fluffy eggless sugar cookies  breathtaking delicacies"
+          }
+        ],
+        "contribution_score": 0.0006734887138009071
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 206502,
+    "user_id_original": "2001634884",
+    "user_name": "User 2001634884",
+    "recommended_item_id_remapped": 9555,
+    "recommended_item_id_original": "19294",
+    "recommended_item_name": "21 club flourless chocolate torte",
+    "score": 2.016693592071533,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001634884 -> cavatelli with sausage and broccoli rabe -> weeknight -> 21 club flourless chocolate torte",
+        "path_details": [
+          {
+            "id_remapped": 206502,
+            "id_original": "2001634884",
+            "type": "USER",
+            "name": "User 2001634884"
+          },
+          {
+            "id_remapped": 447784,
+            "id_original": "473388",
+            "type": "RECIPE",
+            "name": "cavatelli with sausage and broccoli rabe"
+          },
+          {
+            "id_remapped": 473099,
+            "id_original": "14892",
+            "type": "TAG",
+            "name": "weeknight"
+          },
+          {
+            "id_remapped": 236125,
+            "id_original": "19294",
+            "type": "RECIPE",
+            "name": "21 club flourless chocolate torte"
+          }
+        ],
+        "contribution_score": 0.005576231516897678
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 140935,
+    "user_id_original": "2389179",
+    "user_name": "User 2389179",
+    "recommended_item_id_remapped": 18335,
+    "recommended_item_id_original": "33671",
+    "recommended_item_name": "crock pot whole chicken",
+    "score": 1.9880485534667969,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 2389179 -> crock pot whole chicken",
+        "path_details": [
+          {
+            "id_remapped": 140935,
+            "id_original": "2389179",
+            "type": "USER",
+            "name": "User 2389179"
+          },
+          {
+            "id_remapped": 244905,
+            "id_original": "33671",
+            "type": "RECIPE",
+            "name": "crock pot whole chicken"
+          }
+        ],
+        "contribution_score": 0.0011900358367711306
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 37688,
+    "user_id_original": "330096",
+    "user_name": "User 330096",
+    "recommended_item_id_remapped": 91498,
+    "recommended_item_id_original": "159959",
+    "recommended_item_name": "rosemary chicken with wild rice  weight watchers",
+    "score": 1.905660629272461,
+    "explanations": []
+  },
+  {
+    "user_id_remapped": 192387,
+    "user_id_original": "2001179573",
+    "user_name": "User 2001179573",
+    "recommended_item_id_remapped": 132708,
+    "recommended_item_id_original": "241796",
+    "recommended_item_name": "cocoa powder cookies",
+    "score": 1.9157657623291016,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001179573 -> moist   delicious banana nut bread -> for-large-groups -> cocoa powder cookies",
+        "path_details": [
+          {
+            "id_remapped": 192387,
+            "id_original": "2001179573",
+            "type": "USER",
+            "name": "User 2001179573"
+          },
+          {
+            "id_remapped": 451243,
+            "id_original": "486641",
+            "type": "RECIPE",
+            "name": "moist   delicious banana nut bread"
+          },
+          {
+            "id_remapped": 473188,
+            "id_original": "14981",
+            "type": "TAG",
+            "name": "for-large-groups"
+          },
+          {
+            "id_remapped": 359278,
+            "id_original": "241796",
+            "type": "RECIPE",
+            "name": "cocoa powder cookies"
+          }
+        ],
+        "contribution_score": 0.0019179696682840586
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001179573 -> pumpkin oat bread -> for-large-groups -> cocoa powder cookies",
+        "path_details": [
+          {
+            "id_remapped": 192387,
+            "id_original": "2001179573",
+            "type": "USER",
+            "name": "User 2001179573"
+          },
+          {
+            "id_remapped": 290599,
+            "id_original": "110054",
+            "type": "RECIPE",
+            "name": "pumpkin oat bread"
+          },
+          {
+            "id_remapped": 473188,
+            "id_original": "14981",
+            "type": "TAG",
+            "name": "for-large-groups"
+          },
+          {
+            "id_remapped": 359278,
+            "id_original": "241796",
+            "type": "RECIPE",
+            "name": "cocoa powder cookies"
+          }
+        ],
+        "contribution_score": 0.0004466144600883126
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 105663,
+    "user_id_original": "1410820",
+    "user_name": "User 1410820",
+    "recommended_item_id_remapped": 59675,
+    "recommended_item_id_original": "102763",
+    "recommended_item_name": "slow cooker chicken and pasta",
+    "score": 1.941535472869873,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1410820 -> easy pleasing meatloaf -> User 43083 -> slow cooker chicken and pasta",
+        "path_details": [
+          {
+            "id_remapped": 105663,
+            "id_original": "1410820",
+            "type": "USER",
+            "name": "User 1410820"
+          },
+          {
+            "id_remapped": 267338,
+            "id_original": "70997",
+            "type": "RECIPE",
+            "name": "easy pleasing meatloaf"
+          },
+          {
+            "id_remapped": 4762,
+            "id_original": "43083",
+            "type": "USER",
+            "name": "User 43083"
+          },
+          {
+            "id_remapped": 286245,
+            "id_original": "102763",
+            "type": "RECIPE",
+            "name": "slow cooker chicken and pasta"
+          }
+        ],
+        "contribution_score": 0.10947034507989883
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 83013,
+    "user_id_original": "959591",
+    "user_name": "User 959591",
+    "recommended_item_id_remapped": 62238,
+    "recommended_item_id_original": "107054",
+    "recommended_item_name": "prime rib roast  with mustard horseradish sauce",
+    "score": 1.7925993204116821,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 959591 -> creamy taco casserole -> beef -> prime rib roast  with mustard horseradish sauce",
+        "path_details": [
+          {
+            "id_remapped": 83013,
+            "id_original": "959591",
+            "type": "USER",
+            "name": "User 959591"
+          },
+          {
+            "id_remapped": 234700,
+            "id_original": "17045",
+            "type": "RECIPE",
+            "name": "creamy taco casserole"
+          },
+          {
+            "id_remapped": 473146,
+            "id_original": "14939",
+            "type": "TAG",
+            "name": "beef"
+          },
+          {
+            "id_remapped": 288808,
+            "id_original": "107054",
+            "type": "RECIPE",
+            "name": "prime rib roast  with mustard horseradish sauce"
+          }
+        ],
+        "contribution_score": 0.013914970681071281
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 133774,
+    "user_id_original": "2130875",
+    "user_name": "User 2130875",
+    "recommended_item_id_remapped": 40556,
+    "recommended_item_id_original": "70646",
+    "recommended_item_name": "pineapple upside down cake",
+    "score": 1.965925693511963,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2130875 -> brown sugar glaze for ham -> User 140132 -> pineapple upside down cake",
+        "path_details": [
+          {
+            "id_remapped": 133774,
+            "id_original": "2130875",
+            "type": "USER",
+            "name": "User 2130875"
+          },
+          {
+            "id_remapped": 290417,
+            "id_original": "109741",
+            "type": "RECIPE",
+            "name": "brown sugar glaze for ham"
+          },
+          {
+            "id_remapped": 16523,
+            "id_original": "140132",
+            "type": "USER",
+            "name": "User 140132"
+          },
+          {
+            "id_remapped": 267126,
+            "id_original": "70646",
+            "type": "RECIPE",
+            "name": "pineapple upside down cake"
+          }
+        ],
+        "contribution_score": 0.13694003224372864
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2130875 -> brown sugar glaze for ham -> User 937635 -> pineapple upside down cake",
+        "path_details": [
+          {
+            "id_remapped": 133774,
+            "id_original": "2130875",
+            "type": "USER",
+            "name": "User 2130875"
+          },
+          {
+            "id_remapped": 290417,
+            "id_original": "109741",
+            "type": "RECIPE",
+            "name": "brown sugar glaze for ham"
+          },
+          {
+            "id_remapped": 81830,
+            "id_original": "937635",
+            "type": "USER",
+            "name": "User 937635"
+          },
+          {
+            "id_remapped": 267126,
+            "id_original": "70646",
+            "type": "RECIPE",
+            "name": "pineapple upside down cake"
+          }
+        ],
+        "contribution_score": 0.07900503277778625
+      }
+    ]
+  }
+]

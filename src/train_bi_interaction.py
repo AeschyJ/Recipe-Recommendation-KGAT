@@ -1,6 +1,8 @@
 import argparse
+import logging
 import os
 import pickle
+from datetime import datetime
 
 import numpy as np
 import pandas as pd
@@ -8,7 +10,7 @@ import torch
 import torch.optim as optim
 from tqdm import tqdm
 
-from src.model.kgat import KGAT
+from src.model.kgat_bi_interaction import KGAT_BiInteraction
 
 # 檢查 Native XPU 支援
 HAS_XPU = hasattr(torch, "xpu") and torch.xpu.is_available()
@@ -112,45 +114,123 @@ def bpr_loss(pos_scores, neg_scores):
     return -torch.mean(torch.log(torch.sigmoid(pos_scores - neg_scores) + 1e-10))
 
 
+def evaluate(model, test_interactions, adj, n_items, device):
+    """計算 Recall@K 指標 (使用隨機負採樣)"""
+    model.eval()
+    hits_10, hits_20, hits_50 = 0, 0, 0
+    total = 0
+    batch_size = 512  # 評估時的 Batch Size
+
+    with torch.no_grad():
+        for start_idx in range(0, len(test_interactions), batch_size):
+            end_idx = min(start_idx + batch_size, len(test_interactions))
+            batch = test_interactions[start_idx:end_idx]
+
+            u = torch.LongTensor(batch[:, 0]).to(device)
+            i = torch.LongTensor(batch[:, 1]).to(device)
+
+            # 每個使用者點選 100 個隨機負樣本進行排行
+            # 注意：這裡假設 items 的範圍是 0 ~ n_items-1
+            neg_items = torch.randint(0, n_items, (len(batch), 100)).to(device)
+
+            # 計算正樣本得分
+            pos_scores = model(adj, u, i)  # (B,)
+
+            # 計算負樣本得分
+            # 為了效率，將 User 擴展並 Flatten 模型輸入
+            u_expanded = u.unsqueeze(1).repeat(1, 100).view(-1)
+            neg_items_flatten = neg_items.view(-1)
+
+            neg_scores = model(adj, u_expanded, neg_items_flatten)
+            neg_scores = neg_scores.view(len(batch), 100)
+
+            # 合併分數並計算排名
+            all_scores = torch.cat(
+                [pos_scores.unsqueeze(1), neg_scores], dim=1
+            )  # (B, 101)
+
+            # 使用 topk 計算 Hits (k=50 涵蓋所有指標)
+            top50_indices = torch.topk(all_scores, k=50, dim=1).indices
+
+            hits_10 += torch.sum((top50_indices[:, :10] == 0).any(dim=1)).item()
+            hits_20 += torch.sum((top50_indices[:, :20] == 0).any(dim=1)).item()
+            hits_50 += torch.sum((top50_indices[:, :50] == 0).any(dim=1)).item()
+            total += len(batch)
+
+    return hits_10 / total, hits_20 / total, hits_50 / total
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description="Train KGAT Model")
     parser.add_argument("--epochs", type=int, default=20)
     parser.add_argument("--batch_size", type=int, default=1024)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--embed_dim", type=int, default=64)
+    parser.add_argument("--layers", type=int, nargs="+", default=[64, 32], help="Layer sizes, e.g. 64 32")
     parser.add_argument("--use_bf16", action="store_true", help="Use BFloat16 on XPU")
     parser.add_argument(
         "--resume", type=str, default=None, help="Path to checkpoint to resume from"
     )
     parser.add_argument(
-        "--model_dir", type=str, default="models", help="Directory to save models"
+        "--model_dir",
+        type=str,
+        default="models",
+        help="Directory to save models",
     )
     parser.add_argument("--cpu", action="store_true", help="Force training on CPU")
+    parser.add_argument(
+        "--debug", action="store_true", help="Run with small data for debugging"
+    )
+    parser.add_argument(
+        "--log_dir", type=str, default="output/logs", help="Directory to save logs"
+    )
     return parser.parse_args()
+
+
+def setup_logging(log_dir, model_name="base"):
+    os.makedirs(log_dir, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_file = os.path.join(log_dir, f"{model_name}_{timestamp}.txt")
+
+    # 設定 Logging
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s",
+        handlers=[
+            logging.FileHandler(log_file, encoding="utf-8"),
+            logging.StreamHandler(),
+        ],
+    )
+    return log_file
 
 
 def train():
     args = parse_args()
 
+    # 0. 初始化 Logging
+    log_file = setup_logging(args.log_dir, model_name="base")
+    logging.info(f"Training started. Args: {args}")
+    logging.info(f"Log file: {log_file}")
+
     # 設定環境
     if args.cpu:
         device = torch.device("cpu")
-        print("Forced to use CPU")
+        logging.info("Using CPU")
     elif HAS_XPU:
         device = torch.device("xpu")
-        print("Using Native Intel Arc GPU (XPU)!")
+        logging.info("Using Intel Arc GPU (XPU)")
     elif torch.cuda.is_available():
         device = torch.device("cuda")
-        print("Using NVIDIA GPU (CUDA)")
+        logging.info("Using NVIDIA GPU (CUDA)")
     else:
         device = torch.device("cpu")
-        print("Using CPU")
+        logging.info("Using CPU")
 
     # 1. 載入資料
     try:
         interactions, kg_triples, stats = load_data()
     except FileNotFoundError:
-        print(
+        logging.error(
             "Error: Processed data not found. Please run 'python src/data/preprocess.py' first."
         )
         return
@@ -160,15 +240,26 @@ def train():
     n_entities = stats["n_entities"]
     n_relations = stats["n_relations"]
 
-    # 2. 建立鄰接矩陣 (User + Item + Entity)
-    print("Constructing adjacency matrix (CPU)...")
-    adj = construct_adj(kg_triples, interactions, n_users, n_items, n_entities)
-    print(f"Adjacency matrix created. Edges: {adj._nnz()}")
+    if args.debug:
+        logging.info("DEBUG MODE: Only using 2000 samples.")
+        interactions = interactions[:2000]
 
-    print(f"Moving adjacency matrix to {device}...")
+    # 資料分割 (Train/Test)
+    np.random.shuffle(interactions)
+    split_idx = int(0.8 * len(interactions))
+    train_data = interactions[:split_idx]
+    test_data = interactions[split_idx:]
+    logging.info(f"Data Split - Train: {len(train_data)}, Test: {len(test_data)}")
+
+    # 2. 建立鄰接矩陣 (User + Item + Entity)
+    logging.info("Constructing adjacency matrix (CPU)...")
+    adj = construct_adj(kg_triples, interactions, n_users, n_items, n_entities)
+    logging.info(f"Adjacency matrix created. Edges: {adj._nnz()}")
+
+    logging.info(f"Moving adjacency matrix to {device}...")
     adj = adj.to(device)
     if not adj.is_coalesced():
-        print("Coalescing adjacency matrix on device...")
+        logging.info("Coalescing adjacency matrix on device...")
         adj = adj.coalesce()
 
     if args.use_bf16 and device.type == "xpu":
@@ -176,33 +267,36 @@ def train():
         # 型別轉換可能導致 coalesced 狀態遺失，再次檢查
         if not adj.is_coalesced():
             adj = adj.coalesce()
-        print("Adjacency matrix cast to BFloat16.")
-    print(f"Done. Coalesced: {adj.is_coalesced()}")
+        logging.info("Adjacency matrix cast to BFloat16.")
+    logging.info(f"Done. Coalesced: {adj.is_coalesced()}")
 
     # 3. 初始化模型
-    print("Initializing KGAT model...")
+    logging.info("Initializing KGAT model...")
     n_all_entities = n_items + n_entities
-    model = KGAT(n_users, n_all_entities, n_relations, embed_dim=args.embed_dim).to(
-        device
-    )
+    model = KGAT_BiInteraction(
+        n_users, n_all_entities, n_relations, embed_dim=args.embed_dim, layers=args.layers
+    ).to(device)
     if args.use_bf16 and device.type == "xpu":
         model = model.bfloat16()
-        print("Model cast to BFloat16.")
+        logging.info("Model cast to BFloat16.")
 
-    print("Model moved to device.")
+    logging.info("Model moved to device.")
     optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=1e-5)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer, mode="max", factor=0.5, patience=2
+    )
 
     # 4. 斷點續訓
     start_epoch = 0
     if args.resume and os.path.exists(args.resume):
-        print(f"Loading checkpoint: {args.resume}")
+        logging.info(f"Loading checkpoint: {args.resume}")
         checkpoint = torch.load(args.resume, map_location=device, weights_only=False)
 
         if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
             # 智慧恢復參數：若使用者沒在命令列指定，則從 Checkpoint 恢復
             saved_args = checkpoint.get("args")
             if saved_args:
-                print("Restoring hyperparameters from checkpoint...")
+                logging.info("Restoring hyperparameters from checkpoint...")
                 # 由於是在 train 內，這裡簡單透過 args 是否等於預設值來判斷
                 # 如果目前的 args.batch_size 是預設值 1024，而 saved_args 有不同值，則恢復
                 if args.batch_size == 1024 and hasattr(saved_args, "batch_size"):
@@ -211,17 +305,21 @@ def train():
                     args.lr = saved_args.lr
                 if args.embed_dim == 64 and hasattr(saved_args, "embed_dim"):
                     args.embed_dim = saved_args.embed_dim
+                if args.layers == [64, 32] and hasattr(saved_args, "layers"):
+                    args.layers = saved_args.layers
                 # 保持使用目前的 device/cpu 參數，不從 checkpoint 覆蓋硬體環境
 
             model.load_state_dict(checkpoint["model_state_dict"])
             optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+            if "scheduler_state_dict" in checkpoint:
+                scheduler.load_state_dict(checkpoint["scheduler_state_dict"])
             start_epoch = checkpoint.get("epoch", 0)
-            print(
+            logging.info(
                 f"Resumed from epoch {start_epoch} (Batch Size: {args.batch_size}, LR: {args.lr})"
             )
         else:
             model.load_state_dict(checkpoint)
-            print("Loaded model weights (state_dict only)")
+            logging.info("Loaded model weights (state_dict only)")
 
     if HAS_XPU:
         torch.xpu.empty_cache()
@@ -229,16 +327,16 @@ def train():
     # 5. 訓練迴圈
     epochs = args.epochs
     batch_size = args.batch_size
-    print(f"Starting training from epoch {start_epoch} to {epochs}...")
+    logging.info(f"Starting training from epoch {start_epoch} to {epochs}...")
 
     for epoch in range(start_epoch, epochs):
         model.train()
         total_loss = 0
-        n_batches = len(interactions) // batch_size
+        n_batches = len(train_data) // batch_size
 
         pbar = tqdm(range(n_batches), desc=f"Epoch {epoch + 1}/{epochs}")
         for _ in pbar:
-            u, i, j = sample_bpr_batch(interactions, n_items, batch_size)
+            u, i, j = sample_bpr_batch(train_data, n_items, batch_size)
             u, i, j = u.to(device), i.to(device), j.to(device)
 
             # 如果使用 BF16，模型輸出會是 BF16
@@ -263,23 +361,37 @@ def train():
                 return
 
         avg_loss = total_loss / n_batches
-        print(f"Epoch {epoch + 1} Complete. Average Loss: {avg_loss:.4f}")
+        logging.info(f"Epoch {epoch + 1} Complete. Average Loss: {avg_loss:.4f}")
 
-        # 6. 儲存模組 (每 2 個 epoch 或是最後一個儲存一次)
-        if (epoch + 1) % 2 == 0 or (epoch + 1) == epochs:
+        # 評估 Recall Metrics
+        recall_10, recall_20, recall_50 = evaluate(
+            model, test_data, adj, n_items, device
+        )
+        logging.info(
+            f"Epoch {epoch + 1} Evaluation - Recall@10: {recall_10:.4f}, Recall@20: {recall_20:.4f}, Recall@50: {recall_50:.4f}"
+        )
+
+        # Step Scheduler
+        scheduler.step(recall_20)
+        current_lr = optimizer.param_groups[0]["lr"]
+        logging.info(f"Epoch {epoch + 1} Current LR: {current_lr:.6e}")
+
+        # 6. 儲存模組 (每 5 個 epoch 或是最後一個儲存一次)
+        if (epoch + 1) % 5 == 0 or (epoch + 1) == epochs:
             os.makedirs(args.model_dir, exist_ok=True)
             ckpt_path = os.path.join(
-                args.model_dir, f"kgat_checkpoint_e{epoch + 1}.pth"
+                args.model_dir, f"base_checkpoint_e{epoch + 1}.pth"
             )
             checkpoint = {
                 "epoch": epoch + 1,
                 "model_state_dict": model.state_dict(),
                 "optimizer_state_dict": optimizer.state_dict(),
+                "scheduler_state_dict": scheduler.state_dict(),
                 "loss": avg_loss,
                 "args": args,
             }
             torch.save(checkpoint, ckpt_path)
-            print(f"Checkpoint saved to {ckpt_path}")
+            logging.info(f"Checkpoint saved to {ckpt_path}")
 
 
 if __name__ == "__main__":

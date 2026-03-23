@@ -1,4 +1,4 @@
-# API 參考文件 (API Reference)
+# API 參考文件
 
 本文件詳細說明了 `src` 目錄下各模組的類別與函數定義，以及 `notebooks` 中的實驗流程。
 
@@ -51,6 +51,9 @@
         *   `item_ids` (Tensor): 目標物品索引。
     *   **回傳**: `scores` (Tensor)，預測的匹配分數。
     *   **邏輯**: 執行多層 GNN 聚合後，將最後一層的 Embedding 進行內積運算。
+    *   **變體 (KGATAttention)**:
+        *   `kgat_attention.py` 實作了 `scatter_reduce` based 的 Shifted Softmax。
+        *   支援 Ingredient Edge Bias (對食材邊給予預設高權重)。
 
 #### class `GNNLayer(nn.Module)`
 單層圖神經網路層。
@@ -107,6 +110,27 @@
 ---
 
 ## Scripts
+
+### `src/train.py` (Base KGAT Training)
+
+*   **功能**: 訓練標準版 KGAT 模型。
+*   **支援平台**: CPU, CUDA (NVIDIA), XPU (Intel Arc)。
+*   **參數**:
+    *   `--epochs`: 訓練回合數 (Default: 20)。
+    *   `--batch_size`: 批次大小 (Default: 1024)。
+    *   `--lr`: 學習率 (Default: 0.001)。
+    *   `--use_bf16`: 啟用 BFloat16 混合精度 (僅限 XPU)。
+    *   `--debug`: 開啟測試模式，僅使用少量數據驗證流程。
+    *   `--log_dir`: 日誌輸出目錄 (Default: `models/logs`).
+
+### `src/train_att.py` (KGAT Attention Training)
+
+*   **功能**: 訓練帶有真實注意力機制 (Shifted Softmax) 的 KGAT 模型。
+*   **特色**: 支援 Ingredient Bias 與數值穩定性優化。
+*   **參數**:
+    *   (同上 `train.py` 通用參數)
+    *   `--no_compile`: 停用 `torch.compile` (若遇環境相容性問題時使用)。
+
 
 ### `src/generate_explanations.py`
 

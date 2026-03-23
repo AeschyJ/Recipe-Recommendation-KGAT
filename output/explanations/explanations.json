@@ -1,0 +1,1786 @@
+[
+  {
+    "user_id_remapped": 14143,
+    "user_id_original": "119693",
+    "user_name": "User 119693",
+    "recommended_item_id_remapped": 77336,
+    "recommended_item_id_original": "133751",
+    "recommended_item_name": "restaurant teriyaki sauce",
+    "score": 1.9913824796676636,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 119693 -> olive garden copycat zuppa toscana -> User 126440 -> restaurant teriyaki sauce",
+        "path_details": [
+          {
+            "id_remapped": 14143,
+            "id_original": "119693",
+            "type": "USER",
+            "name": "User 119693"
+          },
+          {
+            "id_remapped": 247749,
+            "id_original": "38298",
+            "type": "RECIPE",
+            "name": "olive garden copycat zuppa toscana"
+          },
+          {
+            "id_remapped": 15027,
+            "id_original": "126440",
+            "type": "USER",
+            "name": "User 126440"
+          },
+          {
+            "id_remapped": 303906,
+            "id_original": "133751",
+            "type": "RECIPE",
+            "name": "restaurant teriyaki sauce"
+          }
+        ],
+        "contribution_score": 0.019806353375315666
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 119693 -> olive garden copycat zuppa toscana -> User 2002111218 -> restaurant teriyaki sauce",
+        "path_details": [
+          {
+            "id_remapped": 14143,
+            "id_original": "119693",
+            "type": "USER",
+            "name": "User 119693"
+          },
+          {
+            "id_remapped": 247749,
+            "id_original": "38298",
+            "type": "RECIPE",
+            "name": "olive garden copycat zuppa toscana"
+          },
+          {
+            "id_remapped": 219578,
+            "id_original": "2002111218",
+            "type": "USER",
+            "name": "User 2002111218"
+          },
+          {
+            "id_remapped": 303906,
+            "id_original": "133751",
+            "type": "RECIPE",
+            "name": "restaurant teriyaki sauce"
+          }
+        ],
+        "contribution_score": 0.011094910092651844
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 119693 -> olive garden copycat zuppa toscana -> User 625696 -> restaurant teriyaki sauce",
+        "path_details": [
+          {
+            "id_remapped": 14143,
+            "id_original": "119693",
+            "type": "USER",
+            "name": "User 119693"
+          },
+          {
+            "id_remapped": 247749,
+            "id_original": "38298",
+            "type": "RECIPE",
+            "name": "olive garden copycat zuppa toscana"
+          },
+          {
+            "id_remapped": 61964,
+            "id_original": "625696",
+            "type": "USER",
+            "name": "User 625696"
+          },
+          {
+            "id_remapped": 303906,
+            "id_original": "133751",
+            "type": "RECIPE",
+            "name": "restaurant teriyaki sauce"
+          }
+        ],
+        "contribution_score": 0.008316725492477417
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 139281,
+    "user_id_original": "2322521",
+    "user_name": "User 2322521",
+    "recommended_item_id_remapped": 85239,
+    "recommended_item_id_original": "147797",
+    "recommended_item_name": "hardee s cinnamon raisin biscuits",
+    "score": 1.9325895309448242,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2322521 -> tastefully simple copycat beer bread -> occasion -> hardee s cinnamon raisin biscuits",
+        "path_details": [
+          {
+            "id_remapped": 139281,
+            "id_original": "2322521",
+            "type": "USER",
+            "name": "User 2322521"
+          },
+          {
+            "id_remapped": 367449,
+            "id_original": "259441",
+            "type": "RECIPE",
+            "name": "tastefully simple copycat beer bread"
+          },
+          {
+            "id_remapped": 473155,
+            "id_original": "14948",
+            "type": "TAG",
+            "name": "occasion"
+          },
+          {
+            "id_remapped": 311809,
+            "id_original": "147797",
+            "type": "RECIPE",
+            "name": "hardee s cinnamon raisin biscuits"
+          }
+        ],
+        "contribution_score": 0.0006072762189432979
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2322521 -> tastefully simple copycat beer bread -> dietary -> hardee s cinnamon raisin biscuits",
+        "path_details": [
+          {
+            "id_remapped": 139281,
+            "id_original": "2322521",
+            "type": "USER",
+            "name": "User 2322521"
+          },
+          {
+            "id_remapped": 367449,
+            "id_original": "259441",
+            "type": "RECIPE",
+            "name": "tastefully simple copycat beer bread"
+          },
+          {
+            "id_remapped": 473165,
+            "id_original": "14958",
+            "type": "TAG",
+            "name": "dietary"
+          },
+          {
+            "id_remapped": 311809,
+            "id_original": "147797",
+            "type": "RECIPE",
+            "name": "hardee s cinnamon raisin biscuits"
+          }
+        ],
+        "contribution_score": 0.0006005862960591912
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2322521 -> tastefully simple copycat beer bread -> holiday-event -> hardee s cinnamon raisin biscuits",
+        "path_details": [
+          {
+            "id_remapped": 139281,
+            "id_original": "2322521",
+            "type": "USER",
+            "name": "User 2322521"
+          },
+          {
+            "id_remapped": 367449,
+            "id_original": "259441",
+            "type": "RECIPE",
+            "name": "tastefully simple copycat beer bread"
+          },
+          {
+            "id_remapped": 473162,
+            "id_original": "14955",
+            "type": "TAG",
+            "name": "holiday-event"
+          },
+          {
+            "id_remapped": 311809,
+            "id_original": "147797",
+            "type": "RECIPE",
+            "name": "hardee s cinnamon raisin biscuits"
+          }
+        ],
+        "contribution_score": 0.0005958738620392978
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 144750,
+    "user_id_original": "2541737",
+    "user_name": "User 2541737",
+    "recommended_item_id_remapped": 193831,
+    "recommended_item_id_original": "385004",
+    "recommended_item_name": "mole de cacahuate   peanut mole   mexican peanut sauce",
+    "score": 2.05739688873291,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2541737 -> bill s flax and fiber big bread -> course -> mole de cacahuate   peanut mole   mexican peanut sauce",
+        "path_details": [
+          {
+            "id_remapped": 144750,
+            "id_original": "2541737",
+            "type": "USER",
+            "name": "User 2541737"
+          },
+          {
+            "id_remapped": 400069,
+            "id_original": "333229",
+            "type": "RECIPE",
+            "name": "bill s flax and fiber big bread"
+          },
+          {
+            "id_remapped": 473151,
+            "id_original": "14944",
+            "type": "TAG",
+            "name": "course"
+          },
+          {
+            "id_remapped": 420401,
+            "id_original": "385004",
+            "type": "RECIPE",
+            "name": "mole de cacahuate   peanut mole   mexican peanut sauce"
+          }
+        ],
+        "contribution_score": 0.4420846104621887
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2541737 -> bill s flax and fiber big bread -> time-to-make -> mole de cacahuate   peanut mole   mexican peanut sauce",
+        "path_details": [
+          {
+            "id_remapped": 144750,
+            "id_original": "2541737",
+            "type": "USER",
+            "name": "User 2541737"
+          },
+          {
+            "id_remapped": 400069,
+            "id_original": "333229",
+            "type": "RECIPE",
+            "name": "bill s flax and fiber big bread"
+          },
+          {
+            "id_remapped": 473150,
+            "id_original": "14943",
+            "type": "TAG",
+            "name": "time-to-make"
+          },
+          {
+            "id_remapped": 420401,
+            "id_original": "385004",
+            "type": "RECIPE",
+            "name": "mole de cacahuate   peanut mole   mexican peanut sauce"
+          }
+        ],
+        "contribution_score": 0.4410485327243805
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2541737 -> bill s flax and fiber big bread -> preparation -> mole de cacahuate   peanut mole   mexican peanut sauce",
+        "path_details": [
+          {
+            "id_remapped": 144750,
+            "id_original": "2541737",
+            "type": "USER",
+            "name": "User 2541737"
+          },
+          {
+            "id_remapped": 400069,
+            "id_original": "333229",
+            "type": "RECIPE",
+            "name": "bill s flax and fiber big bread"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 420401,
+            "id_original": "385004",
+            "type": "RECIPE",
+            "name": "mole de cacahuate   peanut mole   mexican peanut sauce"
+          }
+        ],
+        "contribution_score": 0.440395712852478
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 64792,
+    "user_id_original": "668586",
+    "user_name": "User 668586",
+    "recommended_item_id_remapped": 86881,
+    "recommended_item_id_original": "150863",
+    "recommended_item_name": "panera s cream cheese potato soup",
+    "score": 2.047226667404175,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 668586 -> marvellous mini meatloaves  with options   oamc -> User 199792 -> panera s cream cheese potato soup",
+        "path_details": [
+          {
+            "id_remapped": 64792,
+            "id_original": "668586",
+            "type": "USER",
+            "name": "User 668586"
+          },
+          {
+            "id_remapped": 341114,
+            "id_original": "204682",
+            "type": "RECIPE",
+            "name": "marvellous mini meatloaves  with options   oamc"
+          },
+          {
+            "id_remapped": 23728,
+            "id_original": "199792",
+            "type": "USER",
+            "name": "User 199792"
+          },
+          {
+            "id_remapped": 313451,
+            "id_original": "150863",
+            "type": "RECIPE",
+            "name": "panera s cream cheese potato soup"
+          }
+        ],
+        "contribution_score": 0.02496577799320221
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 668586 -> marvellous mini meatloaves  with options   oamc -> User 373817 -> panera s cream cheese potato soup",
+        "path_details": [
+          {
+            "id_remapped": 64792,
+            "id_original": "668586",
+            "type": "USER",
+            "name": "User 668586"
+          },
+          {
+            "id_remapped": 341114,
+            "id_original": "204682",
+            "type": "RECIPE",
+            "name": "marvellous mini meatloaves  with options   oamc"
+          },
+          {
+            "id_remapped": 42466,
+            "id_original": "373817",
+            "type": "USER",
+            "name": "User 373817"
+          },
+          {
+            "id_remapped": 313451,
+            "id_original": "150863",
+            "type": "RECIPE",
+            "name": "panera s cream cheese potato soup"
+          }
+        ],
+        "contribution_score": 0.02429366670548916
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 668586 -> marvellous mini meatloaves  with options   oamc -> time-to-make -> panera s cream cheese potato soup",
+        "path_details": [
+          {
+            "id_remapped": 64792,
+            "id_original": "668586",
+            "type": "USER",
+            "name": "User 668586"
+          },
+          {
+            "id_remapped": 341114,
+            "id_original": "204682",
+            "type": "RECIPE",
+            "name": "marvellous mini meatloaves  with options   oamc"
+          },
+          {
+            "id_remapped": 473150,
+            "id_original": "14943",
+            "type": "TAG",
+            "name": "time-to-make"
+          },
+          {
+            "id_remapped": 313451,
+            "id_original": "150863",
+            "type": "RECIPE",
+            "name": "panera s cream cheese potato soup"
+          }
+        ],
+        "contribution_score": 0.0014917374355718493
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 210646,
+    "user_id_original": "2001778774",
+    "user_name": "User 2001778774",
+    "recommended_item_id_remapped": 171442,
+    "recommended_item_id_original": "327922",
+    "recommended_item_name": "cracker barrel buttermilk pancakes",
+    "score": 1.9859105348587036,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 2001778774 -> cracker barrel buttermilk pancakes",
+        "path_details": [
+          {
+            "id_remapped": 210646,
+            "id_original": "2001778774",
+            "type": "USER",
+            "name": "User 2001778774"
+          },
+          {
+            "id_remapped": 398012,
+            "id_original": "327922",
+            "type": "RECIPE",
+            "name": "cracker barrel buttermilk pancakes"
+          }
+        ],
+        "contribution_score": 0.025776244699954987
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 221329,
+    "user_id_original": "2002172066",
+    "user_name": "User 2002172066",
+    "recommended_item_id_remapped": 20171,
+    "recommended_item_id_original": "36688",
+    "recommended_item_name": "cumin potatoes",
+    "score": 1.9853489398956299,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2002172066 -> sausage  n hamburger rounds -> User 41578 -> cumin potatoes",
+        "path_details": [
+          {
+            "id_remapped": 221329,
+            "id_original": "2002172066",
+            "type": "USER",
+            "name": "User 2002172066"
+          },
+          {
+            "id_remapped": 283180,
+            "id_original": "97851",
+            "type": "RECIPE",
+            "name": "sausage  n hamburger rounds"
+          },
+          {
+            "id_remapped": 4504,
+            "id_original": "41578",
+            "type": "USER",
+            "name": "User 41578"
+          },
+          {
+            "id_remapped": 246741,
+            "id_original": "36688",
+            "type": "RECIPE",
+            "name": "cumin potatoes"
+          }
+        ],
+        "contribution_score": 0.3198702335357666
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2002172066 -> sausage  n hamburger rounds -> course -> cumin potatoes",
+        "path_details": [
+          {
+            "id_remapped": 221329,
+            "id_original": "2002172066",
+            "type": "USER",
+            "name": "User 2002172066"
+          },
+          {
+            "id_remapped": 283180,
+            "id_original": "97851",
+            "type": "RECIPE",
+            "name": "sausage  n hamburger rounds"
+          },
+          {
+            "id_remapped": 473151,
+            "id_original": "14944",
+            "type": "TAG",
+            "name": "course"
+          },
+          {
+            "id_remapped": 246741,
+            "id_original": "36688",
+            "type": "RECIPE",
+            "name": "cumin potatoes"
+          }
+        ],
+        "contribution_score": 0.00041832769056782126
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2002172066 -> sausage  n hamburger rounds -> main-ingredient -> cumin potatoes",
+        "path_details": [
+          {
+            "id_remapped": 221329,
+            "id_original": "2002172066",
+            "type": "USER",
+            "name": "User 2002172066"
+          },
+          {
+            "id_remapped": 283180,
+            "id_original": "97851",
+            "type": "RECIPE",
+            "name": "sausage  n hamburger rounds"
+          },
+          {
+            "id_remapped": 473152,
+            "id_original": "14945",
+            "type": "TAG",
+            "name": "main-ingredient"
+          },
+          {
+            "id_remapped": 246741,
+            "id_original": "36688",
+            "type": "RECIPE",
+            "name": "cumin potatoes"
+          }
+        ],
+        "contribution_score": 0.00032729157828725874
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 120705,
+    "user_id_original": "1739225",
+    "user_name": "User 1739225",
+    "recommended_item_id_remapped": 75675,
+    "recommended_item_id_original": "130770",
+    "recommended_item_name": "bread machine brioche",
+    "score": 1.9599342346191406,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 1739225 -> bread machine brioche",
+        "path_details": [
+          {
+            "id_remapped": 120705,
+            "id_original": "1739225",
+            "type": "USER",
+            "name": "User 1739225"
+          },
+          {
+            "id_remapped": 302245,
+            "id_original": "130770",
+            "type": "RECIPE",
+            "name": "bread machine brioche"
+          }
+        ],
+        "contribution_score": 0.08250090479850769
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 105074,
+    "user_id_original": "1399422",
+    "user_name": "User 1399422",
+    "recommended_item_id_remapped": 202710,
+    "recommended_item_id_original": "411045",
+    "recommended_item_name": "high altitude banana bread",
+    "score": 1.9997860193252563,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1399422 -> instant pot chicken and dumplings -> dietary -> high altitude banana bread",
+        "path_details": [
+          {
+            "id_remapped": 105074,
+            "id_original": "1399422",
+            "type": "USER",
+            "name": "User 1399422"
+          },
+          {
+            "id_remapped": 457750,
+            "id_original": "530004",
+            "type": "RECIPE",
+            "name": "instant pot chicken and dumplings"
+          },
+          {
+            "id_remapped": 473165,
+            "id_original": "14958",
+            "type": "TAG",
+            "name": "dietary"
+          },
+          {
+            "id_remapped": 429280,
+            "id_original": "411045",
+            "type": "RECIPE",
+            "name": "high altitude banana bread"
+          }
+        ],
+        "contribution_score": 0.0019923162180930376
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1399422 -> instant pot chicken and dumplings -> preparation -> high altitude banana bread",
+        "path_details": [
+          {
+            "id_remapped": 105074,
+            "id_original": "1399422",
+            "type": "USER",
+            "name": "User 1399422"
+          },
+          {
+            "id_remapped": 457750,
+            "id_original": "530004",
+            "type": "RECIPE",
+            "name": "instant pot chicken and dumplings"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 429280,
+            "id_original": "411045",
+            "type": "RECIPE",
+            "name": "high altitude banana bread"
+          }
+        ],
+        "contribution_score": 0.0018911496736109257
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1399422 -> instant pot chicken and dumplings -> time-to-make -> high altitude banana bread",
+        "path_details": [
+          {
+            "id_remapped": 105074,
+            "id_original": "1399422",
+            "type": "USER",
+            "name": "User 1399422"
+          },
+          {
+            "id_remapped": 457750,
+            "id_original": "530004",
+            "type": "RECIPE",
+            "name": "instant pot chicken and dumplings"
+          },
+          {
+            "id_remapped": 473150,
+            "id_original": "14943",
+            "type": "TAG",
+            "name": "time-to-make"
+          },
+          {
+            "id_remapped": 429280,
+            "id_original": "411045",
+            "type": "RECIPE",
+            "name": "high altitude banana bread"
+          }
+        ],
+        "contribution_score": 0.0018077903660014272
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 191961,
+    "user_id_original": "2001157877",
+    "user_name": "User 2001157877",
+    "recommended_item_id_remapped": 4481,
+    "recommended_item_id_original": "11120",
+    "recommended_item_name": "bergy dim sum  4  moo shoo pork",
+    "score": 2.249086380004883,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001157877 -> sourdough cinnamon pecan coffee cake -> main-ingredient -> bergy dim sum  4  moo shoo pork",
+        "path_details": [
+          {
+            "id_remapped": 191961,
+            "id_original": "2001157877",
+            "type": "USER",
+            "name": "User 2001157877"
+          },
+          {
+            "id_remapped": 231806,
+            "id_original": "12427",
+            "type": "RECIPE",
+            "name": "sourdough cinnamon pecan coffee cake"
+          },
+          {
+            "id_remapped": 473152,
+            "id_original": "14945",
+            "type": "TAG",
+            "name": "main-ingredient"
+          },
+          {
+            "id_remapped": 231051,
+            "id_original": "11120",
+            "type": "RECIPE",
+            "name": "bergy dim sum  4  moo shoo pork"
+          }
+        ],
+        "contribution_score": 0.033922914415597916
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001157877 -> sourdough cinnamon pecan coffee cake -> preparation -> bergy dim sum  4  moo shoo pork",
+        "path_details": [
+          {
+            "id_remapped": 191961,
+            "id_original": "2001157877",
+            "type": "USER",
+            "name": "User 2001157877"
+          },
+          {
+            "id_remapped": 231806,
+            "id_original": "12427",
+            "type": "RECIPE",
+            "name": "sourdough cinnamon pecan coffee cake"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 231051,
+            "id_original": "11120",
+            "type": "RECIPE",
+            "name": "bergy dim sum  4  moo shoo pork"
+          }
+        ],
+        "contribution_score": 0.030401594936847687
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001157877 -> sourdough cinnamon pecan coffee cake -> dietary -> bergy dim sum  4  moo shoo pork",
+        "path_details": [
+          {
+            "id_remapped": 191961,
+            "id_original": "2001157877",
+            "type": "USER",
+            "name": "User 2001157877"
+          },
+          {
+            "id_remapped": 231806,
+            "id_original": "12427",
+            "type": "RECIPE",
+            "name": "sourdough cinnamon pecan coffee cake"
+          },
+          {
+            "id_remapped": 473165,
+            "id_original": "14958",
+            "type": "TAG",
+            "name": "dietary"
+          },
+          {
+            "id_remapped": 231051,
+            "id_original": "11120",
+            "type": "RECIPE",
+            "name": "bergy dim sum  4  moo shoo pork"
+          }
+        ],
+        "contribution_score": 0.030165573582053185
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 223246,
+    "user_id_original": "2002234601",
+    "user_name": "User 2002234601",
+    "recommended_item_id_remapped": 159006,
+    "recommended_item_id_original": "299300",
+    "recommended_item_name": "nyte s grilled cheese",
+    "score": 2.07436466217041,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2002234601 -> spicy chipotle shredded beef for burritos or tacos -> cuisine -> nyte s grilled cheese",
+        "path_details": [
+          {
+            "id_remapped": 223246,
+            "id_original": "2002234601",
+            "type": "USER",
+            "name": "User 2002234601"
+          },
+          {
+            "id_remapped": 383450,
+            "id_original": "294280",
+            "type": "RECIPE",
+            "name": "spicy chipotle shredded beef for burritos or tacos"
+          },
+          {
+            "id_remapped": 473153,
+            "id_original": "14946",
+            "type": "TAG",
+            "name": "cuisine"
+          },
+          {
+            "id_remapped": 385576,
+            "id_original": "299300",
+            "type": "RECIPE",
+            "name": "nyte s grilled cheese"
+          }
+        ],
+        "contribution_score": 0.018252380192279816
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2002234601 -> spicy chipotle shredded beef for burritos or tacos -> stove-top -> nyte s grilled cheese",
+        "path_details": [
+          {
+            "id_remapped": 223246,
+            "id_original": "2002234601",
+            "type": "USER",
+            "name": "User 2002234601"
+          },
+          {
+            "id_remapped": 383450,
+            "id_original": "294280",
+            "type": "RECIPE",
+            "name": "spicy chipotle shredded beef for burritos or tacos"
+          },
+          {
+            "id_remapped": 473188,
+            "id_original": "14981",
+            "type": "TAG",
+            "name": "stove-top"
+          },
+          {
+            "id_remapped": 385576,
+            "id_original": "299300",
+            "type": "RECIPE",
+            "name": "nyte s grilled cheese"
+          }
+        ],
+        "contribution_score": 0.017329856753349304
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2002234601 -> spicy chipotle shredded beef for burritos or tacos -> equipment -> nyte s grilled cheese",
+        "path_details": [
+          {
+            "id_remapped": 223246,
+            "id_original": "2002234601",
+            "type": "USER",
+            "name": "User 2002234601"
+          },
+          {
+            "id_remapped": 383450,
+            "id_original": "294280",
+            "type": "RECIPE",
+            "name": "spicy chipotle shredded beef for burritos or tacos"
+          },
+          {
+            "id_remapped": 473179,
+            "id_original": "14972",
+            "type": "TAG",
+            "name": "equipment"
+          },
+          {
+            "id_remapped": 385576,
+            "id_original": "299300",
+            "type": "RECIPE",
+            "name": "nyte s grilled cheese"
+          }
+        ],
+        "contribution_score": 0.017154723405838013
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 147815,
+    "user_id_original": "2678726",
+    "user_name": "User 2678726",
+    "recommended_item_id_remapped": 18491,
+    "recommended_item_id_original": "33921",
+    "recommended_item_name": "really good vegetarian meatloaf  really",
+    "score": 1.9913690090179443,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 2678726 -> really good vegetarian meatloaf  really",
+        "path_details": [
+          {
+            "id_remapped": 147815,
+            "id_original": "2678726",
+            "type": "USER",
+            "name": "User 2678726"
+          },
+          {
+            "id_remapped": 245061,
+            "id_original": "33921",
+            "type": "RECIPE",
+            "name": "really good vegetarian meatloaf  really"
+          }
+        ],
+        "contribution_score": 0.0036795700434595346
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 18934,
+    "user_id_original": "160814",
+    "user_name": "User 160814",
+    "recommended_item_id_remapped": 183521,
+    "recommended_item_id_original": "359137",
+    "recommended_item_name": "italian breadcrumb crusted tilapia w lemon",
+    "score": 1.9907641410827637,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 160814 -> matauwhi bay hoisin chicken -> preparation -> italian breadcrumb crusted tilapia w lemon",
+        "path_details": [
+          {
+            "id_remapped": 18934,
+            "id_original": "160814",
+            "type": "USER",
+            "name": "User 160814"
+          },
+          {
+            "id_remapped": 227333,
+            "id_original": "2757",
+            "type": "RECIPE",
+            "name": "matauwhi bay hoisin chicken"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 410091,
+            "id_original": "359137",
+            "type": "RECIPE",
+            "name": "italian breadcrumb crusted tilapia w lemon"
+          }
+        ],
+        "contribution_score": 0.004599952604621649
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 160814 -> matauwhi bay hoisin chicken -> time-to-make -> italian breadcrumb crusted tilapia w lemon",
+        "path_details": [
+          {
+            "id_remapped": 18934,
+            "id_original": "160814",
+            "type": "USER",
+            "name": "User 160814"
+          },
+          {
+            "id_remapped": 227333,
+            "id_original": "2757",
+            "type": "RECIPE",
+            "name": "matauwhi bay hoisin chicken"
+          },
+          {
+            "id_remapped": 473150,
+            "id_original": "14943",
+            "type": "TAG",
+            "name": "time-to-make"
+          },
+          {
+            "id_remapped": 410091,
+            "id_original": "359137",
+            "type": "RECIPE",
+            "name": "italian breadcrumb crusted tilapia w lemon"
+          }
+        ],
+        "contribution_score": 0.004127977415919304
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 160814 -> matauwhi bay hoisin chicken -> main-ingredient -> italian breadcrumb crusted tilapia w lemon",
+        "path_details": [
+          {
+            "id_remapped": 18934,
+            "id_original": "160814",
+            "type": "USER",
+            "name": "User 160814"
+          },
+          {
+            "id_remapped": 227333,
+            "id_original": "2757",
+            "type": "RECIPE",
+            "name": "matauwhi bay hoisin chicken"
+          },
+          {
+            "id_remapped": 473152,
+            "id_original": "14945",
+            "type": "TAG",
+            "name": "main-ingredient"
+          },
+          {
+            "id_remapped": 410091,
+            "id_original": "359137",
+            "type": "RECIPE",
+            "name": "italian breadcrumb crusted tilapia w lemon"
+          }
+        ],
+        "contribution_score": 0.004106476902961731
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 22137,
+    "user_id_original": "186515",
+    "user_name": "User 186515",
+    "recommended_item_id_remapped": 191370,
+    "recommended_item_id_original": "378788",
+    "recommended_item_name": "double chocolate zucchini cookies",
+    "score": 1.8927087783813477,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 186515 -> s mores brownie bars -> occasion -> double chocolate zucchini cookies",
+        "path_details": [
+          {
+            "id_remapped": 22137,
+            "id_original": "186515",
+            "type": "USER",
+            "name": "User 186515"
+          },
+          {
+            "id_remapped": 240239,
+            "id_original": "26023",
+            "type": "RECIPE",
+            "name": "s mores brownie bars"
+          },
+          {
+            "id_remapped": 473155,
+            "id_original": "14948",
+            "type": "TAG",
+            "name": "occasion"
+          },
+          {
+            "id_remapped": 417940,
+            "id_original": "378788",
+            "type": "RECIPE",
+            "name": "double chocolate zucchini cookies"
+          }
+        ],
+        "contribution_score": 0.0018173843855038285
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 186515 -> pizza getti -> weeknight -> double chocolate zucchini cookies",
+        "path_details": [
+          {
+            "id_remapped": 22137,
+            "id_original": "186515",
+            "type": "USER",
+            "name": "User 186515"
+          },
+          {
+            "id_remapped": 233479,
+            "id_original": "15125",
+            "type": "RECIPE",
+            "name": "pizza getti"
+          },
+          {
+            "id_remapped": 473199,
+            "id_original": "14992",
+            "type": "TAG",
+            "name": "weeknight"
+          },
+          {
+            "id_remapped": 417940,
+            "id_original": "378788",
+            "type": "RECIPE",
+            "name": "double chocolate zucchini cookies"
+          }
+        ],
+        "contribution_score": 0.001631506602279842
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 186515 -> pizza getti -> preparation -> double chocolate zucchini cookies",
+        "path_details": [
+          {
+            "id_remapped": 22137,
+            "id_original": "186515",
+            "type": "USER",
+            "name": "User 186515"
+          },
+          {
+            "id_remapped": 233479,
+            "id_original": "15125",
+            "type": "RECIPE",
+            "name": "pizza getti"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 417940,
+            "id_original": "378788",
+            "type": "RECIPE",
+            "name": "double chocolate zucchini cookies"
+          }
+        ],
+        "contribution_score": 0.0014084457652643323
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 222427,
+    "user_id_original": "2002209924",
+    "user_name": "User 2002209924",
+    "recommended_item_id_remapped": 40469,
+    "recommended_item_id_original": "70487",
+    "recommended_item_name": "rub  n sauce barbecued ribs",
+    "score": 1.961780071258545,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2002209924 -> maui ahi poke -> User 68460 -> rub  n sauce barbecued ribs",
+        "path_details": [
+          {
+            "id_remapped": 222427,
+            "id_original": "2002209924",
+            "type": "USER",
+            "name": "User 2002209924"
+          },
+          {
+            "id_remapped": 278931,
+            "id_original": "90880",
+            "type": "RECIPE",
+            "name": "maui ahi poke"
+          },
+          {
+            "id_remapped": 8315,
+            "id_original": "68460",
+            "type": "USER",
+            "name": "User 68460"
+          },
+          {
+            "id_remapped": 267039,
+            "id_original": "70487",
+            "type": "RECIPE",
+            "name": "rub  n sauce barbecued ribs"
+          }
+        ],
+        "contribution_score": 0.47882744669914246
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2002209924 -> maui ahi poke -> equipment -> rub  n sauce barbecued ribs",
+        "path_details": [
+          {
+            "id_remapped": 222427,
+            "id_original": "2002209924",
+            "type": "USER",
+            "name": "User 2002209924"
+          },
+          {
+            "id_remapped": 278931,
+            "id_original": "90880",
+            "type": "RECIPE",
+            "name": "maui ahi poke"
+          },
+          {
+            "id_remapped": 473179,
+            "id_original": "14972",
+            "type": "TAG",
+            "name": "equipment"
+          },
+          {
+            "id_remapped": 267039,
+            "id_original": "70487",
+            "type": "RECIPE",
+            "name": "rub  n sauce barbecued ribs"
+          }
+        ],
+        "contribution_score": 0.0013331598602235317
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2002209924 -> maui ahi poke -> course -> rub  n sauce barbecued ribs",
+        "path_details": [
+          {
+            "id_remapped": 222427,
+            "id_original": "2002209924",
+            "type": "USER",
+            "name": "User 2002209924"
+          },
+          {
+            "id_remapped": 278931,
+            "id_original": "90880",
+            "type": "RECIPE",
+            "name": "maui ahi poke"
+          },
+          {
+            "id_remapped": 473151,
+            "id_original": "14944",
+            "type": "TAG",
+            "name": "course"
+          },
+          {
+            "id_remapped": 267039,
+            "id_original": "70487",
+            "type": "RECIPE",
+            "name": "rub  n sauce barbecued ribs"
+          }
+        ],
+        "contribution_score": 0.0010602893307805061
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 159930,
+    "user_id_original": "1800205499",
+    "user_name": "User 1800205499",
+    "recommended_item_id_remapped": 40985,
+    "recommended_item_id_original": "71359",
+    "recommended_item_name": "salmon with lemon caper sauce",
+    "score": 1.996585488319397,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1800205499 -> bourbon drunken upside down turkey -> occasion -> salmon with lemon caper sauce",
+        "path_details": [
+          {
+            "id_remapped": 159930,
+            "id_original": "1800205499",
+            "type": "USER",
+            "name": "User 1800205499"
+          },
+          {
+            "id_remapped": 425879,
+            "id_original": "400000",
+            "type": "RECIPE",
+            "name": "bourbon drunken upside down turkey"
+          },
+          {
+            "id_remapped": 473155,
+            "id_original": "14948",
+            "type": "TAG",
+            "name": "occasion"
+          },
+          {
+            "id_remapped": 267555,
+            "id_original": "71359",
+            "type": "RECIPE",
+            "name": "salmon with lemon caper sauce"
+          }
+        ],
+        "contribution_score": 0.004701090976595879
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1800205499 -> bourbon drunken upside down turkey -> time-to-make -> salmon with lemon caper sauce",
+        "path_details": [
+          {
+            "id_remapped": 159930,
+            "id_original": "1800205499",
+            "type": "USER",
+            "name": "User 1800205499"
+          },
+          {
+            "id_remapped": 425879,
+            "id_original": "400000",
+            "type": "RECIPE",
+            "name": "bourbon drunken upside down turkey"
+          },
+          {
+            "id_remapped": 473150,
+            "id_original": "14943",
+            "type": "TAG",
+            "name": "time-to-make"
+          },
+          {
+            "id_remapped": 267555,
+            "id_original": "71359",
+            "type": "RECIPE",
+            "name": "salmon with lemon caper sauce"
+          }
+        ],
+        "contribution_score": 0.0029673255048692226
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1800205499 -> bourbon drunken upside down turkey -> main-ingredient -> salmon with lemon caper sauce",
+        "path_details": [
+          {
+            "id_remapped": 159930,
+            "id_original": "1800205499",
+            "type": "USER",
+            "name": "User 1800205499"
+          },
+          {
+            "id_remapped": 425879,
+            "id_original": "400000",
+            "type": "RECIPE",
+            "name": "bourbon drunken upside down turkey"
+          },
+          {
+            "id_remapped": 473152,
+            "id_original": "14945",
+            "type": "TAG",
+            "name": "main-ingredient"
+          },
+          {
+            "id_remapped": 267555,
+            "id_original": "71359",
+            "type": "RECIPE",
+            "name": "salmon with lemon caper sauce"
+          }
+        ],
+        "contribution_score": 0.0026606956962496042
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 176834,
+    "user_id_original": "2000289125",
+    "user_name": "User 2000289125",
+    "recommended_item_id_remapped": 74725,
+    "recommended_item_id_original": "128952",
+    "recommended_item_name": "cake batter ice cream",
+    "score": 1.99272620677948,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2000289125 -> ground beef stuffed green bell peppers with cheese -> User 140132 -> cake batter ice cream",
+        "path_details": [
+          {
+            "id_remapped": 176834,
+            "id_original": "2000289125",
+            "type": "USER",
+            "name": "User 2000289125"
+          },
+          {
+            "id_remapped": 227047,
+            "id_original": "1356",
+            "type": "RECIPE",
+            "name": "ground beef stuffed green bell peppers with cheese"
+          },
+          {
+            "id_remapped": 16523,
+            "id_original": "140132",
+            "type": "USER",
+            "name": "User 140132"
+          },
+          {
+            "id_remapped": 301295,
+            "id_original": "128952",
+            "type": "RECIPE",
+            "name": "cake batter ice cream"
+          }
+        ],
+        "contribution_score": 0.03439876064658165
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 2000289125 -> ground beef stuffed green bell peppers with cheese -> User 669694 -> cake batter ice cream",
+        "path_details": [
+          {
+            "id_remapped": 176834,
+            "id_original": "2000289125",
+            "type": "USER",
+            "name": "User 2000289125"
+          },
+          {
+            "id_remapped": 227047,
+            "id_original": "1356",
+            "type": "RECIPE",
+            "name": "ground beef stuffed green bell peppers with cheese"
+          },
+          {
+            "id_remapped": 64849,
+            "id_original": "669694",
+            "type": "USER",
+            "name": "User 669694"
+          },
+          {
+            "id_remapped": 301295,
+            "id_original": "128952",
+            "type": "RECIPE",
+            "name": "cake batter ice cream"
+          }
+        ],
+        "contribution_score": 0.008715481497347355
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2000289125 -> ground beef stuffed green bell peppers with cheese -> time-to-make -> cake batter ice cream",
+        "path_details": [
+          {
+            "id_remapped": 176834,
+            "id_original": "2000289125",
+            "type": "USER",
+            "name": "User 2000289125"
+          },
+          {
+            "id_remapped": 227047,
+            "id_original": "1356",
+            "type": "RECIPE",
+            "name": "ground beef stuffed green bell peppers with cheese"
+          },
+          {
+            "id_remapped": 473150,
+            "id_original": "14943",
+            "type": "TAG",
+            "name": "time-to-make"
+          },
+          {
+            "id_remapped": 301295,
+            "id_original": "128952",
+            "type": "RECIPE",
+            "name": "cake batter ice cream"
+          }
+        ],
+        "contribution_score": 2.4033226509345695e-05
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 202197,
+    "user_id_original": "2001498668",
+    "user_name": "User 2001498668",
+    "recommended_item_id_remapped": 31553,
+    "recommended_item_id_original": "55768",
+    "recommended_item_name": "baja black beans  corn and rice",
+    "score": 2.0429654121398926,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001498668 -> broiled indian spiced fish -> main-ingredient -> baja black beans  corn and rice",
+        "path_details": [
+          {
+            "id_remapped": 202197,
+            "id_original": "2001498668",
+            "type": "USER",
+            "name": "User 2001498668"
+          },
+          {
+            "id_remapped": 317246,
+            "id_original": "158344",
+            "type": "RECIPE",
+            "name": "broiled indian spiced fish"
+          },
+          {
+            "id_remapped": 473152,
+            "id_original": "14945",
+            "type": "TAG",
+            "name": "main-ingredient"
+          },
+          {
+            "id_remapped": 258123,
+            "id_original": "55768",
+            "type": "RECIPE",
+            "name": "baja black beans  corn and rice"
+          }
+        ],
+        "contribution_score": 0.013116707094013691
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001498668 -> broiled indian spiced fish -> easy -> baja black beans  corn and rice",
+        "path_details": [
+          {
+            "id_remapped": 202197,
+            "id_original": "2001498668",
+            "type": "USER",
+            "name": "User 2001498668"
+          },
+          {
+            "id_remapped": 317246,
+            "id_original": "158344",
+            "type": "RECIPE",
+            "name": "broiled indian spiced fish"
+          },
+          {
+            "id_remapped": 473160,
+            "id_original": "14953",
+            "type": "TAG",
+            "name": "easy"
+          },
+          {
+            "id_remapped": 258123,
+            "id_original": "55768",
+            "type": "RECIPE",
+            "name": "baja black beans  corn and rice"
+          }
+        ],
+        "contribution_score": 0.01311514712870121
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001498668 -> broiled indian spiced fish -> dietary -> baja black beans  corn and rice",
+        "path_details": [
+          {
+            "id_remapped": 202197,
+            "id_original": "2001498668",
+            "type": "USER",
+            "name": "User 2001498668"
+          },
+          {
+            "id_remapped": 317246,
+            "id_original": "158344",
+            "type": "RECIPE",
+            "name": "broiled indian spiced fish"
+          },
+          {
+            "id_remapped": 473165,
+            "id_original": "14958",
+            "type": "TAG",
+            "name": "dietary"
+          },
+          {
+            "id_remapped": 258123,
+            "id_original": "55768",
+            "type": "RECIPE",
+            "name": "baja black beans  corn and rice"
+          }
+        ],
+        "contribution_score": 0.013070648536086082
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 195332,
+    "user_id_original": "2001291625",
+    "user_name": "User 2001291625",
+    "recommended_item_id_remapped": 145150,
+    "recommended_item_id_original": "268887",
+    "recommended_item_name": "stephanie s pumpkin pie",
+    "score": 1.9097745418548584,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> INGREDIENT -> RECIPE",
+        "path_description": "User 2001291625 -> tartine s gougeres choux au fromage   french style cheese puffs -> eggs -> stephanie s pumpkin pie",
+        "path_details": [
+          {
+            "id_remapped": 195332,
+            "id_original": "2001291625",
+            "type": "USER",
+            "name": "User 2001291625"
+          },
+          {
+            "id_remapped": 417181,
+            "id_original": "376758",
+            "type": "RECIPE",
+            "name": "tartine s gougeres choux au fromage   french style cheese puffs"
+          },
+          {
+            "id_remapped": 458216,
+            "id_original": "9",
+            "type": "INGREDIENT",
+            "name": "eggs"
+          },
+          {
+            "id_remapped": 371720,
+            "id_original": "268887",
+            "type": "RECIPE",
+            "name": "stephanie s pumpkin pie"
+          }
+        ],
+        "contribution_score": 0.0016952548176050186
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001291625 -> tartine s gougeres choux au fromage   french style cheese puffs -> cuisine -> stephanie s pumpkin pie",
+        "path_details": [
+          {
+            "id_remapped": 195332,
+            "id_original": "2001291625",
+            "type": "USER",
+            "name": "User 2001291625"
+          },
+          {
+            "id_remapped": 417181,
+            "id_original": "376758",
+            "type": "RECIPE",
+            "name": "tartine s gougeres choux au fromage   french style cheese puffs"
+          },
+          {
+            "id_remapped": 473153,
+            "id_original": "14946",
+            "type": "TAG",
+            "name": "cuisine"
+          },
+          {
+            "id_remapped": 371720,
+            "id_original": "268887",
+            "type": "RECIPE",
+            "name": "stephanie s pumpkin pie"
+          }
+        ],
+        "contribution_score": 0.0012118970043957233
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 2001291625 -> tartine s gougeres choux au fromage   french style cheese puffs -> holiday-event -> stephanie s pumpkin pie",
+        "path_details": [
+          {
+            "id_remapped": 195332,
+            "id_original": "2001291625",
+            "type": "USER",
+            "name": "User 2001291625"
+          },
+          {
+            "id_remapped": 417181,
+            "id_original": "376758",
+            "type": "RECIPE",
+            "name": "tartine s gougeres choux au fromage   french style cheese puffs"
+          },
+          {
+            "id_remapped": 473162,
+            "id_original": "14955",
+            "type": "TAG",
+            "name": "holiday-event"
+          },
+          {
+            "id_remapped": 371720,
+            "id_original": "268887",
+            "type": "RECIPE",
+            "name": "stephanie s pumpkin pie"
+          }
+        ],
+        "contribution_score": 0.0012082929024472833
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 80348,
+    "user_id_original": "910770",
+    "user_name": "User 910770",
+    "recommended_item_id_remapped": 87407,
+    "recommended_item_id_original": "151854",
+    "recommended_item_name": "wilton buttercream icing",
+    "score": 1.9365506172180176,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE",
+        "path_description": "User 910770 -> wilton buttercream icing",
+        "path_details": [
+          {
+            "id_remapped": 80348,
+            "id_original": "910770",
+            "type": "USER",
+            "name": "User 910770"
+          },
+          {
+            "id_remapped": 313977,
+            "id_original": "151854",
+            "type": "RECIPE",
+            "name": "wilton buttercream icing"
+          }
+        ],
+        "contribution_score": 0.03278311342000961
+      }
+    ]
+  },
+  {
+    "user_id_remapped": 128264,
+    "user_id_original": "1940033",
+    "user_name": "User 1940033",
+    "recommended_item_id_remapped": 110463,
+    "recommended_item_id_original": "196306",
+    "recommended_item_name": "chicken adobo in coconut milk",
+    "score": 1.9592565298080444,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1940033 -> dijon mustard substitute -> course -> chicken adobo in coconut milk",
+        "path_details": [
+          {
+            "id_remapped": 128264,
+            "id_original": "1940033",
+            "type": "USER",
+            "name": "User 1940033"
+          },
+          {
+            "id_remapped": 417363,
+            "id_original": "377177",
+            "type": "RECIPE",
+            "name": "dijon mustard substitute"
+          },
+          {
+            "id_remapped": 473151,
+            "id_original": "14944",
+            "type": "TAG",
+            "name": "course"
+          },
+          {
+            "id_remapped": 337033,
+            "id_original": "196306",
+            "type": "RECIPE",
+            "name": "chicken adobo in coconut milk"
+          }
+        ],
+        "contribution_score": 0.0009075161069631577
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1940033 -> dijon mustard substitute -> time-to-make -> chicken adobo in coconut milk",
+        "path_details": [
+          {
+            "id_remapped": 128264,
+            "id_original": "1940033",
+            "type": "USER",
+            "name": "User 1940033"
+          },
+          {
+            "id_remapped": 417363,
+            "id_original": "377177",
+            "type": "RECIPE",
+            "name": "dijon mustard substitute"
+          },
+          {
+            "id_remapped": 473150,
+            "id_original": "14943",
+            "type": "TAG",
+            "name": "time-to-make"
+          },
+          {
+            "id_remapped": 337033,
+            "id_original": "196306",
+            "type": "RECIPE",
+            "name": "chicken adobo in coconut milk"
+          }
+        ],
+        "contribution_score": 0.00030670431442558765
+      },
+      {
+        "path_structure": "USER -> RECIPE -> TAG -> RECIPE",
+        "path_description": "User 1940033 -> dijon mustard substitute -> preparation -> chicken adobo in coconut milk",
+        "path_details": [
+          {
+            "id_remapped": 128264,
+            "id_original": "1940033",
+            "type": "USER",
+            "name": "User 1940033"
+          },
+          {
+            "id_remapped": 417363,
+            "id_original": "377177",
+            "type": "RECIPE",
+            "name": "dijon mustard substitute"
+          },
+          {
+            "id_remapped": 473154,
+            "id_original": "14947",
+            "type": "TAG",
+            "name": "preparation"
+          },
+          {
+            "id_remapped": 337033,
+            "id_original": "196306",
+            "type": "RECIPE",
+            "name": "chicken adobo in coconut milk"
+          }
+        ],
+        "contribution_score": 0.0001698384148767218
+      }
+    ]
+  }
+]

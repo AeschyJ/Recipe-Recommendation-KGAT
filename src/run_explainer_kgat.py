@@ -14,7 +14,7 @@ if project_root not in sys.path:
     sys.path.append(project_root)
 
 from src.model.explainer import KGATExplainer
-from src.model.kgat import KGAT
+from src.model.kgat_bi_interaction import KGAT_BiInteraction
 from src.train import construct_adj, load_data
 
 
@@ -56,7 +56,7 @@ def run():
         print(f"Hyperparameters loaded from checkpoint: embed_dim={embed_dim}")
 
     n_all_entities = n_items + n_entities
-    model = KGAT(n_users, n_all_entities, n_relations, embed_dim=embed_dim).to(device)
+    model = KGAT_BiInteraction(n_users, n_all_entities, n_relations, embed_dim=embed_dim).to(device)
 
     if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
         model.load_state_dict(checkpoint["model_state_dict"])

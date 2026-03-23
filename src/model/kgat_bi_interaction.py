@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-class KGAT(nn.Module):
+class KGAT_BiInteraction(nn.Module):
     def __init__(
         self,
         n_users,
@@ -14,7 +14,7 @@ class KGAT(nn.Module):
         mess_dropout=[0.1, 0.1],
         adj_adj_dropout=[0.0, 0.0],
     ):
-        super(KGAT, self).__init__()
+        super(KGAT_BiInteraction, self).__init__()
         self.n_users = n_users
         self.n_entities = n_entities
         self.n_relations = n_relations
