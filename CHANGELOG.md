@@ -4,6 +4,23 @@
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-03-30
+
+### Added
+- **Training**: 引入 Activation Checkpointing 技巧，解決深層 GNN (L=3) 訓練時的顯存溢出 (OOM) 問題 (ADR-003)。
+- **Inference**: 在 `evaluate` 實作 Embedding Caching 機制，減少重複的 GNN 運算以縮短驗證耗時 (ADR-003)。
+- **Experiments**: 實作五組消融實驗配置 (Full KGAT, w/o Attention, w/o KG, L=2, L=3)，並統一超參數以供效能對比 (ADR-005)。
+
+### Changed
+- **Optimization**: 將 GNN 反向傳播從 Python Autograd 改寫為 PyTorch 原生 `index_add_`，提升 XPU 訓練效率與穩定性 (ADR-003)。
+- **Model**: 實作原論文之 Relation-Aware Attention $\pi(h,r,t)$ 運算式 (ADR-004)。
+- **Model**: 加回 L2 正則化與 Dropout 機制，改善模型過擬合現象 (ADR-004)。
+- **Training**: 移除與 BPR 共用的 KGE Joint Training 邏輯，轉向純粹的推薦任務優化 (ADR-004)。
+- **Hardware**: 優化 bf16 混合精度訓練流程，提升 Intel XPU 硬體利用率 (ADR-003)。
+
+
+
+
 ## [1.2.0] - 2026-03-23
 
 ### Added

@@ -121,6 +121,10 @@ def evaluate(model, test_interactions, adj, n_items, device):
     total = 0
     batch_size = 512  # 評估時的 Batch Size
 
+    # 1. 預先計算並快取全圖最終特徵向量 (可將評估速度由數分鐘縮短至不到一秒)
+    with torch.no_grad():
+        final_embed = model.get_final_embeddings(adj)
+
     with torch.no_grad():
         for start_idx in range(0, len(test_interactions), batch_size):
             end_idx = min(start_idx + batch_size, len(test_interactions))
@@ -129,19 +133,23 @@ def evaluate(model, test_interactions, adj, n_items, device):
             u = torch.LongTensor(batch[:, 0]).to(device)
             i = torch.LongTensor(batch[:, 1]).to(device)
 
+            # 2. 正樣本評估 (直接 Lookup Cache，不跑 Model Forward)
+            u_embed = final_embed[u]
+            pos_i_embed = final_embed[model.n_users + i]
+            pos_scores = torch.sum(u_embed * pos_i_embed, dim=1)  # (B,)
+
+            # 3. 負樣本評估
             # 每個使用者點選 100 個隨機負樣本進行排行
             # 注意：這裡假設 items 的範圍是 0 ~ n_items-1
             neg_items = torch.randint(0, n_items, (len(batch), 100)).to(device)
-
-            # 計算正樣本得分
-            pos_scores = model(adj, u, i)  # (B,)
-
-            # 計算負樣本得分
-            # 為了效率，將 User 擴展並 Flatten 模型輸入
+            
+            # 為了效率，將 User 擴展並 Flatten 查找
             u_expanded = u.unsqueeze(1).repeat(1, 100).view(-1)
             neg_items_flatten = neg_items.view(-1)
 
-            neg_scores = model(adj, u_expanded, neg_items_flatten)
+            u_embed_expanded = final_embed[u_expanded]
+            neg_i_embed = final_embed[model.n_users + neg_items_flatten]
+            neg_scores = torch.sum(u_embed_expanded * neg_i_embed, dim=1)
             neg_scores = neg_scores.view(len(batch), 100)
 
             # 合併分數並計算排名
@@ -166,7 +174,13 @@ def parse_args():
     parser.add_argument("--batch_size", type=int, default=1024)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--embed_dim", type=int, default=64)
-    parser.add_argument("--layers", type=int, nargs="+", default=[64, 32], help="Layer sizes, e.g. 64 32")
+    parser.add_argument(
+        "--layers",
+        type=int,
+        nargs="+",
+        default=[64, 32],
+        help="Layer sizes, e.g. 64 32",
+    )
     parser.add_argument("--use_bf16", action="store_true", help="Use BFloat16 on XPU")
     parser.add_argument(
         "--resume", type=str, default=None, help="Path to checkpoint to resume from"
@@ -187,7 +201,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def setup_logging(log_dir, model_name="base"):
+def setup_logging(log_dir, model_name="kgat"):
     os.makedirs(log_dir, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_file = os.path.join(log_dir, f"{model_name}_{timestamp}.txt")
@@ -208,7 +222,7 @@ def train():
     args = parse_args()
 
     # 0. 初始化 Logging
-    log_file = setup_logging(args.log_dir, model_name="base")
+    log_file = setup_logging(args.log_dir, model_name="kgat")
     logging.info(f"Training started. Args: {args}")
     logging.info(f"Log file: {log_file}")
 
@@ -270,11 +284,40 @@ def train():
         logging.info("Adjacency matrix cast to BFloat16.")
     logging.info(f"Done. Coalesced: {adj.is_coalesced()}")
 
-    # 3. 初始化模型
+    # 3. 斷點續訓與超參數恢復
+    start_epoch = 0
+    checkpoint = None
+    if args.resume and os.path.exists(args.resume):
+        logging.info(f"Loading checkpoint: {args.resume}")
+        checkpoint = torch.load(args.resume, map_location=device, weights_only=False)
+
+        if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
+            saved_args = checkpoint.get("args")
+            if saved_args:
+                logging.info("Restoring hyperparameters from checkpoint...")
+                # 如果目前的參數是預設值，則從 checkpoint 恢復，否則優先使用命令列參數
+                if args.batch_size == 1024 and hasattr(saved_args, "batch_size"):
+                    args.batch_size = saved_args.batch_size
+                if args.lr == 1e-3 and hasattr(saved_args, "lr"):
+                    args.lr = saved_args.lr
+                if args.embed_dim == 64 and hasattr(saved_args, "embed_dim"):
+                    args.embed_dim = saved_args.embed_dim
+                if args.layers == [64, 32] and hasattr(saved_args, "layers"):
+                    args.layers = saved_args.layers
+            start_epoch = checkpoint.get("epoch", 0)
+        else:
+            # state_dict only mode
+            pass
+
+    # 4. 初始化模型
     logging.info("Initializing KGAT model...")
     n_all_entities = n_items + n_entities
     model = KGAT_BiInteraction(
-        n_users, n_all_entities, n_relations, embed_dim=args.embed_dim, layers=args.layers
+        n_users,
+        n_all_entities,
+        n_relations,
+        embed_dim=args.embed_dim,
+        layers=args.layers,
     ).to(device)
     if args.use_bf16 and device.type == "xpu":
         model = model.bfloat16()
@@ -286,40 +329,23 @@ def train():
         optimizer, mode="max", factor=0.5, patience=2
     )
 
-    # 4. 斷點續訓
-    start_epoch = 0
-    if args.resume and os.path.exists(args.resume):
-        logging.info(f"Loading checkpoint: {args.resume}")
-        checkpoint = torch.load(args.resume, map_location=device, weights_only=False)
-
+    # 5. 載入權重與狀態
+    if checkpoint is not None:
         if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
-            # 智慧恢復參數：若使用者沒在命令列指定，則從 Checkpoint 恢復
-            saved_args = checkpoint.get("args")
-            if saved_args:
-                logging.info("Restoring hyperparameters from checkpoint...")
-                # 由於是在 train 內，這裡簡單透過 args 是否等於預設值來判斷
-                # 如果目前的 args.batch_size 是預設值 1024，而 saved_args 有不同值，則恢復
-                if args.batch_size == 1024 and hasattr(saved_args, "batch_size"):
-                    args.batch_size = saved_args.batch_size
-                if args.lr == 1e-3 and hasattr(saved_args, "lr"):
-                    args.lr = saved_args.lr
-                if args.embed_dim == 64 and hasattr(saved_args, "embed_dim"):
-                    args.embed_dim = saved_args.embed_dim
-                if args.layers == [64, 32] and hasattr(saved_args, "layers"):
-                    args.layers = saved_args.layers
-                # 保持使用目前的 device/cpu 參數，不從 checkpoint 覆蓋硬體環境
-
-            model.load_state_dict(checkpoint["model_state_dict"])
-            optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
-            if "scheduler_state_dict" in checkpoint:
-                scheduler.load_state_dict(checkpoint["scheduler_state_dict"])
-            start_epoch = checkpoint.get("epoch", 0)
+            missing, unexpected = model.load_state_dict(checkpoint["model_state_dict"], strict=False)
+            if missing or unexpected:
+                logging.warning(f"Architecture mismatch! Missing: {missing}, Unexpected: {unexpected}")
+                logging.warning("Optimizer and scheduler will NOT be loaded due to architectural mismatch.")
+            else:
+                optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+                if "scheduler_state_dict" in checkpoint:
+                    scheduler.load_state_dict(checkpoint["scheduler_state_dict"])
             logging.info(
-                f"Resumed from epoch {start_epoch} (Batch Size: {args.batch_size}, LR: {args.lr})"
+                f"Resumed from epoch {start_epoch} (Batch Size: {args.batch_size}, LR: {args.lr}, Layers: {args.layers})"
             )
         else:
-            model.load_state_dict(checkpoint)
-            logging.info("Loaded model weights (state_dict only)")
+            model.load_state_dict(checkpoint, strict=False)
+            logging.info("Loaded model weights (state_dict only, strict=False)")
 
     if HAS_XPU:
         torch.xpu.empty_cache()
@@ -376,11 +402,11 @@ def train():
         current_lr = optimizer.param_groups[0]["lr"]
         logging.info(f"Epoch {epoch + 1} Current LR: {current_lr:.6e}")
 
-        # 6. 儲存模組 (每 5 個 epoch 或是最後一個儲存一次)
-        if (epoch + 1) % 5 == 0 or (epoch + 1) == epochs:
+        # 6. 儲存模組 (每 2 個 epoch 或是最後一個儲存一次)
+        if (epoch + 1) % 2 == 0 or (epoch + 1) == epochs:
             os.makedirs(args.model_dir, exist_ok=True)
             ckpt_path = os.path.join(
-                args.model_dir, f"base_checkpoint_e{epoch + 1}.pth"
+                args.model_dir, f"kgat_checkpoint_e{epoch + 1}.pth"
             )
             checkpoint = {
                 "epoch": epoch + 1,

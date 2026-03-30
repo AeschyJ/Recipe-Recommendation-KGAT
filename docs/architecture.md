@@ -1,94 +1,75 @@
-# 專案架構說明
+# 專案實驗架構與模組設計
 
-本文件概述了食譜推薦系統的目錄結構與模組設計理念。
+本專案旨在重新實作與驗證知識圖譜注意力神經網路 (Knowledge Graph Attention Network, KGAT) 在食譜推薦上的效能。歷經多次重構後，目前的系統架構專為「嚴謹對照原論文」與「最大化 Intel XPU 硬體效能」而打造。
 
-## 目錄結構 (Directory Structure)
+## 1. 原論文採用的部分 (Paper Alignment)
 
+為了能在消融實驗中給出具備說服力的對比基準，我們在核心模組中嚴格對齊了 [KGAT (Wang et. al, 2019)](https://arxiv.org/abs/1909.02695) 的理論架構：
+
+* **Relation-Aware Attention 機制**: 
+  - 捨棄了一般的 GAT 節點對接。
+  - 完全實作 $\pi(h,r,t) = (W_r e_t)^\top \tanh(W_r e_h + e_r)$，這使得注意力權重能夠強烈感知不同邊（如：Ingredient 關係 vs Tag 關係）的重要性。
+* **Bi-Interaction 聚合公式**:
+  - GNN 訊息傳遞同時包含節點與鄰居的相加 ($e_u + e_v$) 與元素級相乘 ($e_u \odot e_v$) 並經由線性轉換與 LeakyReLU 激勵函式。
+* **BPR Loss 與 L2 正則化 (Weight Decay)**:
+  - 以成對比較 (Pairwise) 的 Bayesian Personalized Ranking 函數指導訓練。
+  - 加入 $L_2$ 正則化 (我們設定為 $10^{-5}$) 防範過擬合。
+* **Message Dropout**:
+  - 在 GNN 的每層訊息傳遞後與注意力權重上，皆套用 `nn.Dropout(p=0.1)` 以提升深層圖網路的抗噪能力。
+
+---
+
+## 2. 為個人訓練優化與修改的部分 (Training Modifications)
+
+由於原論文的架構在有限的硬體 (如 8GB VRAM 的 Intel Arc A750) 上極易發生資源枯竭與訓練速度低落，我們實施了以下大幅度的在地化改動：
+
+* **全 XPU、BFloat16 混合精度訓練**:
+  - 放棄雲端 Colab，全面轉向本地端 Intel Extension for PyTorch (IPEX) 支援的 XPU 訓練。
+  - 使用 BFloat16 將記憶體消耗減半，使訓練規模得以擴大。
+* **反向傳播底層替換 (`index_add_`)**:
+  - 在 XPU 上，原生的 Python Indexing 操作或部分 Sparse 乘法容易崩潰或 Fallback 至 CPU。我們全面換用基礎且效能極快的 Tensor operation `out.index_add_(0, edge_index, message)`。
+* **快取推論機制 (`get_final_embeddings`)**:
+  - 傳統的推薦預測需要在每個 testing batch 中走一遍龐大的 GNN Forward。我們改變策略，在 Validation/Test 階段開始前，僅呼叫**一次** GNN 得出所有 Nodes 的終極特徵 (Embeddings)，後續的 Recall 運算僅作簡單的 Index 取出與內積，測試時間因此從十分鐘銳減至不到 10 秒。
+* **使用 Activation Checkpointing 挑戰深層 (L=3) 極限**:
+  - 由於 Relation-Aware Attention 需要為圖上的「每一條邊」製造臨時的關聯向量矩陣，一旦疊加 3 層會輕易突破 16GB 顯存。我們引進 PyTorch `checkpoint` 技術，在 Forward 時不保留記憶範圍，強迫 Backward 時重算，最終成功在一般硬體上解鎖深層網路訓練。
+* **捨棄 KGE (Knowledge Graph Embedding) Joint Training**:
+  - 原論文設計模型需同時學習 TransR (圖結構任務) 與 CF (協同過濾任務)。為了讓消融實驗更為乾淨純粹、僅對比圖卷積本身的影響，我們拔除了 KGE 輔助優化，只單一依賴 BPR Loss。
+
+---
+
+## 3. 消融實驗架構設計 (Ablation Study Architecture)
+
+為了科學驗證模組有效性，專案內置了 5 款對照實驗組，可由 `run_experiments.bat` 自動派發執行：
+
+### 實驗模塊總表
+1. **Full KGAT (基準, L=1)**: `train_att.py`
+   - 同時具備 Attention 機制與 Bi-Interaction 的完整版。
+2. **w/o Attention (KGAT-a, L=1)**: `train_bi_interaction.py`
+   - 將 Attention 權重退化為平均權重 (Mean Pooling)，但保留 Bi-Interaction。
+   - **目的**: 驗證「注意力分配」是否為增進推薦效能的核心。
+3. **w/o Knowledge Graph (L=1)**: `train_att.py --without_kg`
+   - 移除所有的 Recipe-Ingredient, Recipe-Tag 邊，模型退化為僅依賴 User-Item 互動的普通圖神經推薦。
+   - **目的**: 驗證「給系統注入外部知識」的實際效益。
+4. **Depth Variation (L=2)**: `train_att.py --layers 64 64`
+   - 將 GNN 深度推展至 2 跳 (2-hop)。
+   - **目的**: 觀察遠鄰居 (例如，與同一個 tag 相關的其他食譜) 是否帶來正面幫助。
+5. **Depth Variation (L=3)**: `train_att.py --layers 64 64 64`
+   - 將 GNN 深度推展至 3 跳 (3-hop)。
+   - **目的**: 探索神經網路極限，測試是否發生 Oversmoothing (過度平滑導致特徵無法區分)。
+
+### 專案目錄分佈
 ```
 Experiment/
-├── .agent/                 # Agent 相關設定與 Workflows
-├── data/                   # 資料存放區
-│   ├── raw/                # 原始資料 (需手動下載或透過腳本下載)
-│   └── processed/          # 預處理後的 Pickle 檔案與中間產物
-├── docs/                   # 專案文檔
-│   ├── architecture.md     # 本文件
-│   └── api_reference.md    # API 說明
-├── notebooks/            # Jupyter Notebooks (實驗與訓練)
-│   ├── inference_xai.ipynb # 推論與解釋 Demo
-│   ├── train_colab.ipynb   # 訓練流程 Demo (舊版)
-│   ├── train_attention_colab.ipynb # 真實注意力機制訓練 Demo (Colab 專用) [NEW]
-├── output/                 # 輸出結果 (如解釋 JSON) [NEW]
+├── data/
+│   ├── raw/                # 原始資料 CSV
+│   └── processed/          # 預處理後的圖譜檔案 (.pkl)
+├── docs/                   # ADR 與架構文檔
+├── models/                 # 實驗訓練好的權重模型
+├── output/                 # 產出的各種 Metrics Logs
 ├── src/                    # 原始程式碼
-│    ├── data/               # 資料處理模組
-    │   ├── download_data.py  # 資料下載指引
-    │   └── preprocess.py     # 資料預處理與 KG 建構
-    ├── model/              # 模型定義
-    │   ├── explainer.py      # GNN 解釋器 (Gradient-based)
-    │   ├── explainer_attention.py # GNN 解釋器 (Weight-based)
-    │   ├── kgat_bi_interaction.py # KGAT 模型主體 (無 Attention 版)
-    │   └── kgat_attention.py # KGAT 模型主體 (Attention)
-    ├── train_bi_interaction.py # 本地訓練腳本 (Bi-Interaction 版)
-    ├── train_att.py        # 注意力機制訓練腳本 (支援 XPU/CUDA/CPU)
-    └── generate_explanations.py # 推論與解釋生成腳本 [NEW]
-├── main.py                 # 程式進入點 (開發中)
-├── pyproject.toml          # 專案設定與依賴管理
-└── requirements.txt        # Python 依賴列表
+│   ├── data/               # 資料預處理
+│   ├── model/              # 模型定義 (kgat_bi_interaction.py, kgat_attention.py)
+│   ├── train_att.py        # 包含 Attention 架構的訓練腳本
+│   └── train_bi_interaction.py # 僅 Bi-Interaction 的退化訓練腳本
+├── run_experiments.bat     # 消融實驗自動化啟動腳本
 ```
-
-## 模組職責說明
-
-### 1. 資料處理 (`src/data`)
-
-此模組負責將原始的 CSV 資料轉換為模型可讀的格式。主要邏輯位於 `preprocess.py`。
-
-*   **輸入**: `RAW_recipes.csv` (食譜資訊), `RAW_interactions.csv` (使用者評分)。
-*   **處理流程**:
-    1.  **ID Remapping**: 使用 `LabelEncoder` 將 User ID 和 Recipe ID 轉換為連續整數。
-    2.  **Entity Extraction**: 解析食譜中的 `ingredients` 和 `tags` 欄位，將其視為知識圖譜中的實體 (Entity)。
-    3.  **Triple Construction**: 建立 `(Recipe, Relation, Entity)` 形式的三元組。
-        *   Relation 0: Recipe -> Ingredient
-        *   Relation 1: Recipe -> Tag
-    4.  **Pruning (剪枝)**:
-        *   統計 Ingredients 與 Tags 的出現頻率。
-        *   過濾掉前 1% 最常出現的高頻 Ingredient 節點 (Super Nodes)、前 5% 的高頻 TAG 節點，減少雜訊並迫使模型學習更具特色的食材組合 (ADR-007)。
-    5.  **Graph Construction (Collaborative Knowledge Graph)**:
-        *   將 User-Item 互動與 Item-Entity 關聯整合入單一全域圖譜。
-        *   節點偏移規則：Users (0~N-1), Items (N~N+M-1), Entities (N+M~End)。
-*   **輸出**: 處理後的 Pickle 檔案 (`interactions.pkl`, `kg_triples.pkl`, `stats.pkl`) 存放在 `data/processed/`。
-
-### 2. 模型核心 (`src/model`)
-
-包含推薦模型與解釋器。
-
-*   **KGAT_BiInteraction (`kgat_bi_interaction.py`) / KGATAttention (`kgat_attention.py`)**:
-    *   實作了 Knowledge Graph Attention Network 與其注意力變體。
-    *   **GNNLayer**: 定義了單層圖神經網路的聚合邏輯 (Bi-Interaction Aggregation)。
-    *   **優化 (ADR-006)**: 實作自定義 `SparseAggregateFunction`，透過 **「重計算策略 (Recomputation)」** 替換原本的快取機制，大幅降低 15M 邊規模下的 VRAM 佔用。
-    *   **跨平台支援**: 支援原生 Intel XPU (Arc GPU) 加速、BFloat16 混合精度訓練以及 `--cpu` 強制運算模式。
-    *   **目標**: 透過傳播知識圖譜（含使用者互動）中的高階連結資訊，優化使用者與物品的 Embedding。
-
-*   **Explainer (`explainer.py`)**:
-    *   **KGATExplainer**: 使用梯度法 (Gradient-based Saliency) 提取重要路徑。
-    *   **記憶體優化**: 實作了自定義 `SparseMMFunction` 以避免大型稀疏矩陣求導時產生的 dense 梯度造成 OOM。
-
-### 3. Notebooks (`notebooks/`)
-
-提供實驗性與互動式的開發環境，方便在 Colab 或本地環境執行。
-
-*   **訓練流程 (`train_colab.ipynb`)**: 展示如何載入預處理資料、建構 Graph、以及訓練模型。
-*   **推論與解釋 (`inference_xai.ipynb`)**: 展示如何載入訓練好的模型，對特定使用者-物品對進行推論，並透過解釋器產回路徑圖，實現可解釋性。
-
-## 資料流 (Data Flow)
-
-1.  **Raw Data** 📥 (`data/raw/*.csv`)
-2.  ➡️ **Preprocessing** (`src/data/preprocess.py`)
-3.  ➡️ **Processed Data** 💾 (`data/processed/*.pkl`)
-4.  ➡️ **Model Training** (`src/train.py` / `src/train_att.py`)
-    *   建構 Collaborative KG Adjacency Matrix (含 User-Item 邊)
-    *   訓練模型並優化 Embeddings (支援原生 XPU 加速)
-5.  ➡️ **Inference & Explanation** (`src/model/explainer.py`)
-    *   產出推薦列表
-    *   解釋推薦原因
-6.  ➡️ **Inference Script** (`src/generate_explanations.py`)
-    *   批量推理
-    *   輸出 JSON 至 `output/`

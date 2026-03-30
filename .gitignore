@@ -23,3 +23,7 @@ data/
 .vscode/
 .idea/
 *.swp
+
+# Artifacts & Logs
+*.pth
+# models/ and output/ directories are tracked, but large binaries are ignored via *.pth

@@ -1,0 +1,25 @@
+2026-03-30 10:52:52,810 [INFO] Training started. Args: Namespace(epochs=10, batch_size=1024, without_kg=True, resume=None, data_dir='data/processed', model_dir='models/wo_kg', embed_dim=64, layers=[64], cpu=False, debug=False, use_bf16=True, lr=0.001, no_compile=True, log_dir='output/logs/wo_kg')
+2026-03-30 10:52:52,811 [INFO] Log file: output/logs/wo_kg\kgat_20260330_105252.txt
+2026-03-30 10:52:52,811 [INFO] Using Intel Arc GPU (XPU)
+2026-03-30 10:53:04,148 [INFO] Train samples: 905893, Test samples: 226474
+2026-03-30 10:53:04,148 [INFO] Expected iterations per epoch: 884
+2026-03-30 10:53:04,198 [INFO] Initializing KGATAttention with embed_dim=64, layers=[64]
+2026-03-30 10:53:04,504 [INFO] Enabled BFloat16 precision
+2026-03-30 10:53:13,245 [INFO] Model compilation disabled by user.
+2026-03-30 11:23:29,238 [INFO] Epoch 1 done. Avg Loss: 0.5042
+2026-03-30 11:23:31,253 [INFO] Epoch 1 Evaluation - Recall@10: 0.5299, Recall@20: 0.6803, Recall@50: 0.8756
+2026-03-30 11:23:31,254 [INFO] Epoch 1 Current LR: 1.000000e-03
+2026-03-30 11:51:01,503 [INFO] Epoch 2 done. Avg Loss: 0.4448
+2026-03-30 11:51:03,413 [INFO] Epoch 2 Evaluation - Recall@10: 0.5623, Recall@20: 0.7041, Recall@50: 0.8874
+2026-03-30 11:51:03,414 [INFO] Epoch 2 Current LR: 1.000000e-03
+2026-03-30 11:51:04,144 [INFO] Saved checkpoint: models/wo_kg\kgat_checkpoint_e2.pth
+2026-03-30 12:17:43,079 [INFO] Epoch 3 done. Avg Loss: 0.4244
+2026-03-30 12:17:44,962 [INFO] Epoch 3 Evaluation - Recall@10: 0.5707, Recall@20: 0.7118, Recall@50: 0.8913
+2026-03-30 12:17:44,962 [INFO] Epoch 3 Current LR: 1.000000e-03
+2026-03-30 12:45:15,117 [INFO] Epoch 4 done. Avg Loss: 0.4099
+2026-03-30 12:45:17,146 [INFO] Epoch 4 Evaluation - Recall@10: 0.5726, Recall@20: 0.7148, Recall@50: 0.8916
+2026-03-30 12:45:17,146 [INFO] Epoch 4 Current LR: 1.000000e-03
+2026-03-30 12:45:17,853 [INFO] Saved checkpoint: models/wo_kg\kgat_checkpoint_e4.pth
+2026-03-30 13:12:36,210 [INFO] Epoch 5 done. Avg Loss: 0.3973
+2026-03-30 13:12:38,247 [INFO] Epoch 5 Evaluation - Recall@10: 0.5728, Recall@20: 0.7119, Recall@50: 0.8854
+2026-03-30 13:12:38,248 [INFO] Epoch 5 Current LR: 1.000000e-03

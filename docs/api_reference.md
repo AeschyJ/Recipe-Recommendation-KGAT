@@ -31,116 +31,52 @@
 
 ## `src/model` - 模型定義
 
-### `kgat.py`
+### `kgat_attention.py` (Full KGAT)
 
-實作 KGAT (Knowledge Graph Attention Network) 模型。
+實作具備關係感知注意力 (Relation-Aware Attention) 的 KGAT 模型。
 
-#### class `KGAT(nn.Module)`
+#### class `KGATAttention(nn.Module)`
 模型主體，繼承自 `torch.nn.Module`。
+*   **參數**:
+    *   `n_users`, `n_entities`, `n_relations`: 圖譜實體總數。
+    *   `layers`: GNN 每層輸出維度參數 (如 `[64]`, `[64, 64]`)。
+*   **`forward(...)`**: 傳入 Positive/Negative 樣本，單次傳播計算損失所需的內積預測分數。
+*   **優化**:
+    *   實作 $\pi(h,r,t) = (W_r e_t)^\top \tanh(W_r e_h + e_r)$ 公式。
+    *   使用 PyTorch `checkpoint` 技術支援 `L=3` 深層運算不 OOM。
+*   **`get_final_embeddings()`**: 在推論前將所有實體與使用者特徵提前計算快取。
 
-*   **`__init__(self, n_users, n_entities, n_relations, embed_dim=64, layers=[64, 32], ...)`**
-    *   初始化 Embedding 層與 GNN 層。
-    *   `n_users`: 使用者總數。
-    *   `n_entities`: 知識圖譜實體總數 (含物品、成分、標籤等)。
-    *   `layers`: 定義 GNN 每層的輸出維度。
+### `kgat_bi_interaction.py` (KGAT w/o Attention)
 
-*   **`forward(self, g, user_ids, item_ids)`**
-    *   **參數**:
-        *   `g` (DGLGraph): 協同知識圖譜 (Collaborative Knowledge Graph)。
-        *   `user_ids` (Tensor): 目標使用者索引。
-        *   `item_ids` (Tensor): 目標物品索引。
-    *   **回傳**: `scores` (Tensor)，預測的匹配分數。
-    *   **邏輯**: 執行多層 GNN 聚合後，將最後一層的 Embedding 進行內積運算。
-    *   **變體 (KGATAttention)**:
-        *   `kgat_attention.py` 實作了 `scatter_reduce` based 的 Shifted Softmax。
-        *   支援 Ingredient Edge Bias (對食材邊給予預設高權重)。
+退化版的 KGAT 模型。
 
-#### class `GNNLayer(nn.Module)`
-單層圖神經網路層。
-
-*   **`forward(self, g, features)`**
-    *   執行訊息傳遞 (Message Passing)。
-    *   實作 Bi-Interaction Aggregation 機制 (`W1(h+h_neigh) + W2(h*h_neigh)` + Activation)。
+#### class `KGAT_BiInteraction(nn.Module)`
+將 Attention 拔除，權重改為固定常數 $1/|N_h|$。
+*   **優化**:
+    *   GNN 聚合由傳統矩陣乘法替換為 PyTorch 原生 `index_add_`，跨越 IPEX Sparse API 不支援的效能瓶頸，速度飛升。
+    *   同樣包含 `get_final_embeddings()`。
 
 ---
 
-### `explainer.py`
+## `src` - 實驗啟動腳本 (Scripts)
 
-推薦結果解釋模組。
+### `train_att.py`
 
-#### class `KGATExplainer`
-`dgl.nn.GNNExplainer` 的包裝器。
-
-*   **`__init__(self, model, num_hops=2)`**
-    *   初始化解釋器，設定要解釋的模型與搜尋的跳數 (Hops)。
-
-*   **`explain(self, g, user_id, item_id, top_k=10)`**
-    *   **功能**: 解釋為何模型推薦了特定物品給特定使用者。
-    *   **參數**:
-        *   `g`: 圖結構。
-        *   `user_id`, `item_id`: 目標使用者與物品。
-    *   **回傳**: 包含重要節點與邊的子圖資訊字典。
-
-*   **`visualize(self, explanation)`**
-    *   **功能**: 將解釋結果視覺化 (目前為 Placeholder)。
-
----
-
-## `notebooks` - 實驗與流程
-
-### `train_colab.ipynb` (KGAT Training)
-
-*   **功能**: 模型的訓練腳本，設計用於 Colab 或 Jupyter 環境。
-*   **流程**:
-    1.  **安裝依賴**: 安裝 `torch`, `dgl` 等庫。
-    2.  **載入資料**: 讀取 `interactions.pkl`, `kg_triples.pkl`, `stats.pkl`。
-    3.  **建構圖**: 建立 DGL Graph，包含使用者與實體節點。
-    4.  **訓練迴圈**: 初始化 `KGAT` 模型，定義 BPR Loss，並在 Epochs 中執行訓練 (Sample Batch -> Forward -> Backward)。
-
-### `inference_xai.ipynb` (Inference & Explanation)
-
-*   **功能**: 載入模型並展示解釋性 AI 功能。
-*   **流程**:
-    1.  **環境設定**: 引入 `KGAT` 與 `KGATExplainer`。
-    2.  **載入模型**: (範例程式碼) 初始化模型並載入權重。
-    3.  **產生解釋**:
-        *   針對特定 `user_id` 與 `item_id` 呼叫 `explain()`。
-        *   呼叫 `visualize()` 顯示結果。
-
----
-
-## Scripts
-
-### `src/train.py` (Base KGAT Training)
-
-*   **功能**: 訓練標準版 KGAT 模型。
-*   **支援平台**: CPU, CUDA (NVIDIA), XPU (Intel Arc)。
+*   **功能**: 訓練 Full KGAT (支援單層至多層)、退化版對照組 (w/o KG)。
 *   **參數**:
-    *   `--epochs`: 訓練回合數 (Default: 20)。
-    *   `--batch_size`: 批次大小 (Default: 1024)。
-    *   `--lr`: 學習率 (Default: 0.001)。
-    *   `--use_bf16`: 啟用 BFloat16 混合精度 (僅限 XPU)。
-    *   `--debug`: 開啟測試模式，僅使用少量數據驗證流程。
-    *   `--log_dir`: 日誌輸出目錄 (Default: `models/logs`).
+    *   `--epochs`: 回合數 (預設: 30，Ablation 實驗中調整為 10)。
+    *   `--layers`: 自訂 GNN 層數 (例如 `--layers 64 64` 即為 L=2 模型)。
+    *   `--without_kg`: 剔除知識圖譜，進入純 CF 對照模式。
+    *   `--use_bf16`: 強制啟動 BFloat16 原生加速。
+    *   `--no_compile`: 避開 `torch.compile` 與稀疏運算圖的不相容問題。
 
-### `src/train_att.py` (KGAT Attention Training)
+### `train_bi_interaction.py`
 
-*   **功能**: 訓練帶有真實注意力機制 (Shifted Softmax) 的 KGAT 模型。
-*   **特色**: 支援 Ingredient Bias 與數值穩定性優化。
+*   **功能**: 獨立訓練僅具備 Bi-Interaction 聚合但無 Attention 權重分配的退化模型。
 *   **參數**:
-    *   (同上 `train.py` 通用參數)
-    *   `--no_compile`: 停用 `torch.compile` (若遇環境相容性問題時使用)。
+    *   (同 `train_att.py` 大多數參數)
+    *   此版本架構簡潔，在 XPU 下具備最傲人的前/反向傳播效能。
 
+### `run_experiments.bat`
 
-### `src/generate_explanations.py`
-
-*   **功能**: 自動化推理與解釋生成工具。
-*   **用途**: 載入訓練好的模型，對隨機或指定的使用者進行推理，找出最佳推薦項目，並生成包含實際名稱（User ID, Recipe Name, Ingredients/Tags）的解釋路徑 JSON。
-*   **參數**:
-    *   `--model_path`: 模型權重路徑 (Default: `models/kgat_checkpoint_e20.pth`)。
-    *   `--data_dir`: 處理後資料目錄 (Default: `data/processed`)。
-    *   `--raw_data_dir`: 原始資料目錄 (Default: `data/raw`)，用於讀取實際名稱。
-    *   `--output`: 輸出檔名 (Default: `explanations.json`)，檔案將儲存於 `output/` 目錄下。
-    *   `--num_users`: 隨機挑選的使用者數量 (Default: 5)。
-    *   `--user_ids`: 指定的使用者 ID 列表 (例如 `"123,456"`)，若指定則忽略 `num_users`。
-    *   `--top_k_explain`: 每個推薦結果保留的解釋路徑數量 (Default: 3)。
+*   **功能**: 一鍵消融實驗排程腳本。包含前五大對照組 (Ablation configurations)，會透過內建虛擬環境呼叫 `python` 自動走完排程、掛載 `logs`，免除手動啟動的困擾。

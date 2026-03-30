@@ -1,0 +1,48 @@
+2026-03-28 07:14:25,011 [INFO] Training started. Args: Namespace(epochs=10, batch_size=1024, lr=0.001, embed_dim=64, layers=[64], use_bf16=True, resume=None, model_dir='models/wo_attn', cpu=False, debug=False, log_dir='output/logs/wo_attn')
+2026-03-28 07:14:25,011 [INFO] Log file: output/logs/wo_attn\kgat_20260328_071425.txt
+2026-03-28 07:14:25,011 [INFO] Using Intel Arc GPU (XPU)
+2026-03-28 07:14:32,024 [INFO] Data Split - Train: 905893, Test: 226474
+2026-03-28 07:14:32,024 [INFO] Constructing adjacency matrix (CPU)...
+2026-03-28 07:14:35,080 [INFO] Adjacency matrix created. Edges: 7200165
+2026-03-28 07:14:35,081 [INFO] Moving adjacency matrix to xpu...
+2026-03-28 07:14:35,152 [INFO] Adjacency matrix cast to BFloat16.
+2026-03-28 07:14:35,181 [INFO] Done. Coalesced: True
+2026-03-28 07:14:35,181 [INFO] Initializing KGAT model...
+2026-03-28 07:14:35,401 [INFO] Model cast to BFloat16.
+2026-03-28 07:14:35,401 [INFO] Model moved to device.
+2026-03-28 07:14:40,809 [INFO] Starting training from epoch 0 to 10...
+2026-03-28 12:47:37,420 [INFO] Epoch 1 Complete. Average Loss: 0.4911
+2026-03-28 12:48:00,284 [INFO] Epoch 1 Evaluation - Recall@10: 0.5457, Recall@20: 0.6558, Recall@50: 0.8410
+2026-03-28 12:48:00,284 [INFO] Epoch 1 Current LR: 1.000000e-03
+2026-03-28 17:58:29,154 [INFO] Epoch 2 Complete. Average Loss: 0.4342
+2026-03-28 17:58:51,040 [INFO] Epoch 2 Evaluation - Recall@10: 0.5512, Recall@20: 0.6641, Recall@50: 0.8332
+2026-03-28 17:58:51,040 [INFO] Epoch 2 Current LR: 1.000000e-03
+2026-03-28 17:58:51,879 [INFO] Checkpoint saved to models/wo_attn\kgat_checkpoint_e2.pth
+2026-03-28 23:04:30,656 [INFO] Epoch 3 Complete. Average Loss: 0.4225
+2026-03-28 23:04:52,417 [INFO] Epoch 3 Evaluation - Recall@10: 0.5570, Recall@20: 0.6684, Recall@50: 0.8300
+2026-03-28 23:04:52,417 [INFO] Epoch 3 Current LR: 1.000000e-03
+2026-03-29 04:07:54,440 [INFO] Epoch 4 Complete. Average Loss: 0.4135
+2026-03-29 04:08:15,887 [INFO] Epoch 4 Evaluation - Recall@10: 0.5569, Recall@20: 0.6705, Recall@50: 0.8270
+2026-03-29 04:08:15,887 [INFO] Epoch 4 Current LR: 1.000000e-03
+2026-03-29 04:08:16,524 [INFO] Checkpoint saved to models/wo_attn\kgat_checkpoint_e4.pth
+2026-03-29 09:11:06,566 [INFO] Epoch 5 Complete. Average Loss: 0.4075
+2026-03-29 09:11:28,535 [INFO] Epoch 5 Evaluation - Recall@10: 0.5582, Recall@20: 0.6725, Recall@50: 0.8224
+2026-03-29 09:11:28,535 [INFO] Epoch 5 Current LR: 1.000000e-03
+2026-03-29 14:17:37,598 [INFO] Epoch 6 Complete. Average Loss: 0.4032
+2026-03-29 14:17:58,981 [INFO] Epoch 6 Evaluation - Recall@10: 0.5608, Recall@20: 0.6740, Recall@50: 0.8208
+2026-03-29 14:17:58,981 [INFO] Epoch 6 Current LR: 1.000000e-03
+2026-03-29 14:17:59,637 [INFO] Checkpoint saved to models/wo_attn\kgat_checkpoint_e6.pth
+2026-03-29 19:25:29,835 [INFO] Epoch 7 Complete. Average Loss: 0.3988
+2026-03-29 19:25:52,483 [INFO] Epoch 7 Evaluation - Recall@10: 0.5619, Recall@20: 0.6747, Recall@50: 0.8202
+2026-03-29 19:25:52,483 [INFO] Epoch 7 Current LR: 1.000000e-03
+2026-03-30 00:35:57,930 [INFO] Epoch 8 Complete. Average Loss: 0.3953
+2026-03-30 00:36:19,943 [INFO] Epoch 8 Evaluation - Recall@10: 0.5633, Recall@20: 0.6770, Recall@50: 0.8192
+2026-03-30 00:36:19,943 [INFO] Epoch 8 Current LR: 1.000000e-03
+2026-03-30 00:36:20,578 [INFO] Checkpoint saved to models/wo_attn\kgat_checkpoint_e8.pth
+2026-03-30 05:43:05,981 [INFO] Epoch 9 Complete. Average Loss: 0.3922
+2026-03-30 05:43:27,741 [INFO] Epoch 9 Evaluation - Recall@10: 0.5635, Recall@20: 0.6778, Recall@50: 0.8181
+2026-03-30 05:43:27,742 [INFO] Epoch 9 Current LR: 1.000000e-03
+2026-03-30 10:52:08,023 [INFO] Epoch 10 Complete. Average Loss: 0.3901
+2026-03-30 10:52:30,029 [INFO] Epoch 10 Evaluation - Recall@10: 0.5632, Recall@20: 0.6772, Recall@50: 0.8166
+2026-03-30 10:52:30,030 [INFO] Epoch 10 Current LR: 1.000000e-03
+2026-03-30 10:52:30,651 [INFO] Checkpoint saved to models/wo_attn\kgat_checkpoint_e10.pth

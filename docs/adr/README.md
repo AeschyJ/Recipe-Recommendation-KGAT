@@ -4,13 +4,11 @@
 
 ## 決策列表
 
-*   [ADR-001: 移除 DGL 依賴並遷移至純 PyTorch 實作](ADR-001-remove-dgl-for-pure-pytorch.md)
-*   [ADR-002: 使用純 PyTorch 實作真實注意力機制](ADR-002-implement-real-attention-mechanism.md)
-*   [ADR-003: Google Colab 訓練環境優化與記憶體管理策略](ADR-003-optimize-colab-memory-training.md)
-*   [ADR-004: 遷移至 PyTorch 原生 XPU 支援以優化 Intel Arc GPU 訓練](ADR-004-migrate-to-native-xpu-support.md)
-*   [ADR-005: 在圖結構中整合使用者互動邊以支援路徑解釋](ADR-005-integrate-interactions-into-graph.md)
-*   [ADR-006: 針對大規模圖譜的 VRAM 顯存優化 (XPU/GPU)](ADR-006-vram-optimization-recomputation.md)
-*   [ADR-007: 去除超級節點、提高權重與 Attention 數值穩定性](ADR-007-data-pruning-and-stability.md)
-*   [ADR-008: 統一超參數、擴展召回指標與日誌系統](ADR-008-metrics-and-logging-standardization.md)
-*   [ADR-009: 支援多維度消融實驗與基礎模型重新命名](ADR-009-ablation-design-and-model-renaming.md)
+### 過往決策的統整與歸檔
+*   [ADR-001: 保留的歷史架構決策 (Retained Decisions)](ADR-001-Retained-Decisions.md)
+*   [ADR-002: 已修改或廢棄的歷史決策 (Superseded Decisions)](ADR-002-Superseded-Decisions.md)
 
+### 最新效能與學術優化 (The Optimization & Ablation Update)
+*   [ADR-003: 訓練效能極致優化 (Training & Performance Optimization)](ADR-003-Training-Optimization.md)
+*   [ADR-004: 回歸原始論文 (Paper Alignment)](ADR-004-Paper-Alignment.md)
+*   [ADR-005: 消融實驗架構設計 (Ablation Study Architecture)](ADR-005-Ablation-Study-Architecture.md)

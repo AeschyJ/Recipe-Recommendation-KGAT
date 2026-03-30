@@ -1,99 +1,58 @@
-# 食譜推薦系統 (Recipe Recommendation with KGAT)
+# 食譜推薦系統 - Knowledge Graph Attention Network 消融實驗套件
 
-這是一個基於知識圖譜注意力網絡 (Knowledge Graph Attention Network, KGAT) 的食譜推薦系統專案。本專案利用 Food.com 的資料集，結合使用者互動與食譜的成分、標籤等知識圖譜資訊，提供精準的推薦，並包含一個用於解釋推薦結果的模組 (Graph Explainer)。
+這是一個基於知識圖譜注意力網絡 (KGAT) 的推薦系統專案。專案經過大規模重構，專為 Intel Arc (XPU) 加速、BFloat16 訓練而生，並將注意力放在嚴謹的論文覆現與消融實驗。
 
 ## 功能特色
-
-*   **資料處理管道**: 自動下載並處理 Kaggle 上的 Food.com 資料集，將原始 CSV 轉換為知識圖譜結構 (三元組)。
-*   **KGAT 模型**: 實作 KGAT 模型，利用圖神經網路 (GNN) 聚合知識圖譜中的鄰居資訊。
-*   **可解釋性 AI (XAI)**: 包含一個基於 `dgl.nn.GNNExplainer` 的解釋器模組，用於分析推薦背後的關鍵路徑與節點。
+* **資料處理**: 自動讀取 Kaggle Food.com 食譜資料，過濾雜訊後融合使用者互動建立 `Collaborative Knowledge Graph`。
+* **KGAT 模型**: 實作最純粹的 Relation-Aware Attention ($\pi(h,r,t) = (W_r e_t)^\top \tanh(W_r e_h + e_r)$)、Bi-Interaction，以及對應的正則化與 Dropout 保護。
+* **效能優化**: 具有 `get_final_embeddings()` 查詢快取機制與 PyTorch Checkpointing，能在普通 GPU/XPU 設備上達成深度的圖神經網路訓練。
+* **自動化實驗**: 內置一鍵腳本，輕鬆排程多項變數的控制對照。
 
 ## 專案依賴
+本專案使用 `uv` 進行套件管理。執行：
+```bash
+uv sync
+```
+這將會根據 `uv.lock` 建立虛擬環境並安裝所有必要套件 (`torch`, `pandas` etc.)，Intel XPU 需確保系統已安裝 IPEX 與對應驅動。
 
-本專案使用 `uv` 進行套件管理。主要依賴包括：
-
-*   `torch` (PyTorch)
-*   `pandas`, `numpy`, `scikit-learn` (資料處理)
-
-詳細列表請參閱 `pyproject.toml` 或 `requirements.txt`。
-
-## 安裝指南
-
-1.  **安裝 uv** (如果尚未安裝):
-    ```bash
-    pip install uv
-    ```
-    或者參考 [uv 官方文檔](https://github.com/astral-sh/uv)。
-
-2.  **建立虛擬環境並同步依賴**:
-    在專案根目錄下執行：
-    ```bash
-    uv sync
-    ```
-    這將會根據 `uv.lock` 建立虛擬環境並安裝所有必要的套件。
+---
 
 ## 快速開始 (Quick Start)
 
-1.  **準備資料**:
-    執行資料下載腳本查看指引，需從 Kaggle 下載 `RAW_recipes.csv` 與 `RAW_interactions.csv` 並放入 `data/raw/` 目錄。
-    ```bash
-    python src/data/download_data.py
-    ```
+### 1. 準備資料與前處理
+請確保已經從 Kaggle 下載 `RAW_recipes.csv` 與 `RAW_interactions.csv` 放入 `data/raw/`，接著執行建立圖譜的預處理：
+```bash
+.venv\Scripts\python.exe src/data/preprocess.py
+```
+*(結果將序列化為圖譜與特徵表，存放於 `data/processed/`)*
 
-2.  **資料前處理**:
-    執行預處理腳本，建立知識圖譜實體與關係。結果將儲存於 `data/processed/`。
-    ```bash
-    python src/data/preprocess.py
-    ```
-    *此步驟會過濾互動資料、重新映射使用者與物品 ID，並提取成分 (Ingredients) 與標籤 (Tags) 作為知識圖譜的實體。*
+### 2. 執行消融實驗套件 (Ablation Tests)
+我們提供了 `run_experiments.bat` 來自動化所有對照組（基準 KGAT、消除 Attention、消除 KG、各種網路深度等）。
+在根目錄直接點擊或透過終端機執行：
+```powershell
+./run_experiments.bat
+```
+腳本內建防呆機制，會自動透過專案內的虛擬環境派發下列五種基準訓練腳本：
+1. **Full KGAT** (`src/train_att.py`)
+2. **w/o Attention** (`src/train_bi_interaction.py`)
+3. **w/o KG 推薦** (`src/train_att.py --without_kg`)
+4. **Depth L=2 模型**
+5. **Depth L=3 模型**
 
-3.  **模型開發**:
-    目前的模型核心位於 `src/model/kgat.py`。您可以在自己的訓練腳本中引用它：
-    ```python
-    from src.model.kgat import KGAT
-    # 初始化模型
-    model = KGAT(n_users=..., n_entities=..., n_relations=...)
-    ```
-    *(完整的訓練腳本 `main.py` 仍在開發中)*
+目前預設為 `10` 次 Epoch 以供快跑測試趨勢，所有 Log 與模型權重將獨立匯出。
 
-3.  **模型訓練**:
-    本專案支援多種訓練模式，包含傳統的 KGAT 以及帶有注意力和機制的 KGAT-Attention。
-
-    *   **Intel Arc GPU (XPU) 加速模式** (建議，需 8GB+ VRAM):
-        ```bash
-        # 大 Batch Size (20480) 搭配 BFloat16 優化與重計算技術
-        python src/train.py --use_bf16 --batch_size 20480 --lr 0.001
-        ```
-    
-    *   **CPU 穩定模式** (若無 GPU 或顯存不足):
-         ```bash
-         # 支援 Recall@10/20/50 評估與日誌記錄 (預設 logs/)
-         python src/train_att.py --cpu --batch_size 1024 --log_dir models/logs
-         ```
-
-    *   **斷點續訓 (Resume Training)**:
-        ```bash
-        python src/train.py --resume models/kgat_checkpoint_e10.pth --batch_size 20480
-        ```
-
-    *訓練說明：*
-    - **VRAM 優化**：針對大規模圖譜（15M 邊），模型已實作重計算（Recomputation）策略，有效解決 8GB 顯示卡溢位問題。
-    - **格式**：Checkpoint 會自動儲存包含 Epoch、優化器狀態與超參數的完整資料。
-
-4.  **生成推薦與解釋 (Inference & Explanation)**:
-    使用 `src/generate_explanations.py` 腳本對隨機使用者進行推理並生成解釋 JSON 檔：
-    ```bash
-    # 對 5 個隨機使用者生成解釋，結果存至 output/explanations.json
-    python src/generate_explanations.py --num_users 5 --output explanations.json
-    ```
-    *結果將包含實際的使用者 ID、食譜名稱與解釋路徑。*
-
-5.  **Notebook 實驗**:
-    您也可以使用 Jupyter Notebook 進行互動式開發與觀察：
-    *   `notebooks/train_colab.ipynb`: 包含完整的模型訓練流程。
-    *   `notebooks/inference_xai.ipynb`: 展示如何使用 Explainer 解釋推薦結果。
+### 3. 可選：自訂獨立訓練
+若只想獨立訓練某一款特定配置的模型：
+```bash
+.venv\Scripts\python.exe src/train_att.py --epochs 30 --layers 64 --model_dir models/my_kgat --use_bf16
+```
+若遭逢意外中斷，可利用 `--resume` 旗幟載入舊進度：
+```bash
+.venv\Scripts\python.exe src/train_att.py --resume models/my_kgat/kgat_checkpoint_e10.pth
+```
 
 ## 文檔索引
-
-*   [專案架構說明](docs/architecture.md): 了解專案的目錄結構、模組設計與 Notebooks 用途。
-*   [API 參考文件](docs/api_reference.md): 詳細的程式碼說明、函數定義與 Notebook 流程解析。
+欲深入了解這套系統的心路歷程與各模組實作細節，請參閱：
+* [專案實驗架構與模組設計](docs/architecture.md): 本次實驗架構原理與消融變數詳解。
+* [API 參考文件](docs/api_reference.md): 兩款核心模型程式切入點與優化演算法說明。
+* [架構決策紀錄 (ADR Index)](docs/adr/README.md): 紀錄所有效能卡關與學術選擇的解決歷程。

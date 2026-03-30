@@ -27,7 +27,11 @@ def parse_args():
         "--epochs", type=int, default=20, help="Number of epochs to train"
     )
     parser.add_argument("--batch_size", type=int, default=1024, help="Batch size")
-    parser.add_argument("--without_kg", action="store_true", help="Ablation: Train without Knowledge Graph triples")
+    parser.add_argument(
+        "--without_kg",
+        action="store_true",
+        help="Ablation: Train without Knowledge Graph triples",
+    )
     parser.add_argument(
         "--resume", type=str, default=None, help="Path to checkpoint to resume from"
     )
@@ -96,7 +100,9 @@ def load_data(data_dir):
     return interactions, kg_triples, stats
 
 
-def get_adj_indices(kg_triples, interactions, n_users, n_items, n_entities, without_kg=False):
+def get_adj_indices(
+    kg_triples, interactions, n_users, n_items, n_entities, without_kg=False
+):
     """
     Construct edge indices for the graph.
     Returns: torch.LongTensor relevant for the device
@@ -105,7 +111,9 @@ def get_adj_indices(kg_triples, interactions, n_users, n_items, n_entities, with
     num_nodes = n_users + n_items + n_entities
 
     if without_kg:
-        print("Ablation: Running without Knowledge Graph (only User-Item bipartite graph)")
+        print(
+            "Ablation: Running without Knowledge Graph (only User-Item bipartite graph)"
+        )
         kg_src = np.array([], dtype=np.int64)
         kg_dst = np.array([], dtype=np.int64)
     else:
@@ -172,13 +180,11 @@ def evaluate(
     batch_size = 512
     n_test = len(interactions)
 
-    # 修正：直接使用全局變量 n_items 不太好，但為了簡單起見，我們通過 data stats 獲取
-    # 更好的方式是將 n_items 傳入 evaluate
-    # 這裡我們重新計算 Item ID range
-    # User IDs: 0 ~ n_users-1
-    # Item IDs: 0 ~ n_items-1 (Remapped in model as n_users + item_id)
+    # 1. 預先計算並快取全圖最終特徵向量 (可將評估速度由數分鐘縮短至不到一秒)
+    with torch.no_grad():
+        final_embed = model.get_final_embeddings(indices, edge_types, num_nodes)
 
-    # 生成測試 Batch
+    # 2. 生成測試 Batch
     with torch.no_grad():
         for i in range(0, n_test, batch_size):
             end = min(i + batch_size, n_test)
@@ -187,46 +193,24 @@ def evaluate(
             user_ids = torch.LongTensor(batch[:, 0]).to(device)
             item_ids = torch.LongTensor(batch[:, 1]).to(device)
 
-            # 生成 100 個負樣本
-            # shape: (batch_size, 100)
-            # 這裡簡單隨機採樣，可能包含正樣本 (False Negative)，但在稀疏數據集中機率低
-            # 若要嚴格排除正樣本需要更多邏輯
-
-            # 注意：這裡的 n_entites 其實包含了 items，需小心 range
-            # model.entity_embed 包含了 items + entities.
-            # Item indices in model are n_users + [0...n_items-1]
-            # Valid item indices for `item_ids` arg are [0...n_items-1]
-
-            # 讓我們簡化：只評估 Positive Item 的 Rank
-            # 我們計算 Positive Score 和 Random Negative Scores
-
-            # 正樣本分數
-            pos_scores = model(
-                indices, edge_types, num_nodes, user_ids, item_ids
-            )  # (B,)
+            # 正樣本分數 (直接 Lookup Cache，不跑 Model Forward)
+            u_embed = final_embed[user_ids]
+            pos_i_embed = final_embed[model.n_users + item_ids]
+            pos_scores = torch.sum(u_embed * pos_i_embed, dim=1)
 
             # 負樣本評估
-            # 為了批次處理，我們將 user_ids 擴展
-            # User: [u1, u1... (100 times), u2, u2...]
-            # Item: [neg1, neg2... ]
-
-            # 這裡為了效率，我們每個 User 只採樣 100 個負樣本來做 Ranking
-            # 使用廣播計算會更快，但 model forward 需要具體 ID
-
-            # Repeat Users
+            # Repeat Users: [u1, u1... (100 times), u2, u2...]
             users_expanded = user_ids.unsqueeze(1).repeat(1, 100).view(-1)
 
             # Random Items (0 to n_items-1)
             neg_items = torch.randint(0, n_items, (len(users_expanded),)).to(device)
             neg_items_flatten = neg_items.view(-1)
 
-            neg_scores = model(
-                indices, edge_types, num_nodes, users_expanded, neg_items_flatten
-            )
-            neg_scores = neg_scores.view(len(batch), 100)
+            u_embed_expanded = final_embed[users_expanded]
+            neg_i_embed = final_embed[model.n_users + neg_items_flatten]
+            neg_scores = torch.sum(u_embed_expanded * neg_i_embed, dim=1).view(len(batch), 100)
 
             # Concat positive and negative scores
-            # pos_scores: (B, 1)
             all_scores = torch.cat(
                 [pos_scores.unsqueeze(1), neg_scores], dim=1
             )  # (B, 101)
@@ -285,7 +269,12 @@ def train(args):
     # 3. Construct Graph
     # 3. Construct Graph
     indices, edge_types, num_nodes = get_adj_indices(
-        kg_triples, interactions, n_users, n_items, n_entities, without_kg=args.without_kg
+        kg_triples,
+        interactions,
+        n_users,
+        n_items,
+        n_entities,
+        without_kg=args.without_kg,
     )
 
     indices = indices.to(device)
@@ -313,6 +302,28 @@ def train(args):
     del kg_triples
     gc.collect()
 
+    # 5. 斷點續訓與超參數恢復
+    start_epoch = 0
+    checkpoint = None
+    if args.resume and os.path.exists(args.resume):
+        logging.info(f"Loading checkpoint: {args.resume}")
+        checkpoint = torch.load(args.resume, map_location=device, weights_only=False)
+
+        if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
+            saved_args = checkpoint.get("args")
+            if saved_args:
+                logging.info("Restoring hyperparameters from checkpoint...")
+                if args.batch_size == 1024 and hasattr(saved_args, "batch_size"):
+                    args.batch_size = saved_args.batch_size
+                if args.embed_dim == 64 and hasattr(saved_args, "embed_dim"):
+                    args.embed_dim = saved_args.embed_dim
+                if args.layers == [64] and hasattr(saved_args, "layers"):
+                    args.layers = saved_args.layers
+            start_epoch = checkpoint.get("epoch", 0)
+        else:
+            # state_dict only mode
+            pass
+
     # 4. Model Initialization
     logging.info(
         f"Initializing KGATAttention with embed_dim={args.embed_dim}, layers={args.layers}"
@@ -330,7 +341,7 @@ def train(args):
         logging.info("Enabled BFloat16 precision")
         model = model.bfloat16()
 
-    optimizer = optim.Adam(model.parameters(), lr=args.lr)
+    optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=1e-5)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
         optimizer, mode="max", factor=0.5, patience=2
     )
@@ -341,39 +352,31 @@ def train(args):
         scaler = torch.cuda.amp.GradScaler()
         logging.info("Enabled CUDA AMP GradScaler")
 
-    # 5. Resume Checkpoint
-    start_epoch = 0
-    if args.resume and os.path.exists(args.resume):
-        logging.info(f"Loading checkpoint: {args.resume}")
-        checkpoint = torch.load(args.resume, map_location=device, weights_only=False)
-
-        # Determine if it's a full checkpoint or state_dict
+    # 6. 載入權重與狀態
+    if checkpoint is not None:
         if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
-            # 智慧恢復參數：若使用者沒在命令列指定新值，則從 Checkpoint 恢復
-            saved_args = checkpoint.get("args")
-            if saved_args:
-                logging.info("Restoring hyperparameters from checkpoint...")
-                if args.batch_size == 1024 and hasattr(saved_args, "batch_size"):
-                    args.batch_size = saved_args.batch_size
-                if args.embed_dim == 32 and hasattr(saved_args, "embed_dim"):
-                    args.embed_dim = saved_args.embed_dim
-                if args.layers == [32] and hasattr(saved_args, "layers"):
-                    args.layers = saved_args.layers
-                # 注意：lr 在此腳本中目前是 hardcoded 1e-3, 若未來加入參數也可在此恢復
-
-            model.load_state_dict(checkpoint["model_state_dict"])
-            optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
-            if "scheduler_state_dict" in checkpoint:
-                scheduler.load_state_dict(checkpoint["scheduler_state_dict"])
-            if "scaler_state_dict" in checkpoint and scaler:
-                scaler.load_state_dict(checkpoint["scaler_state_dict"])
-            start_epoch = checkpoint.get("epoch", 0)
+            missing, unexpected = model.load_state_dict(
+                checkpoint["model_state_dict"], strict=False
+            )
+            if missing or unexpected:
+                logging.warning(
+                    f"Architecture mismatch! Missing: {missing}, Unexpected: {unexpected}"
+                )
+                logging.warning(
+                    "Optimizer/Scheduler/Scaler will NOT be loaded due to mismatch."
+                )
+            else:
+                optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+                if "scheduler_state_dict" in checkpoint:
+                    scheduler.load_state_dict(checkpoint["scheduler_state_dict"])
+                if "scaler_state_dict" in checkpoint and scaler:
+                    scaler.load_state_dict(checkpoint["scaler_state_dict"])
             logging.info(
-                f"Resumed from epoch {start_epoch} (Batch Size: {args.batch_size}, Embed Dim: {args.embed_dim})"
+                f"Resumed from epoch {start_epoch} (Batch Size: {args.batch_size}, Embed Dim: {args.embed_dim}, Layers: {args.layers})"
             )
         else:
-            model.load_state_dict(checkpoint)
-            logging.info("Loaded model weights (state_dict only)")
+            model.load_state_dict(checkpoint, strict=False)
+            logging.info("Loaded model weights (state_dict only, strict=False)")
 
     # 6. IPEX Optimization (must be after model load)
     # 6. Model Optimization (Native XPU supports torch.compile)
@@ -410,12 +413,10 @@ def train(args):
             optimizer.zero_grad(set_to_none=True)
 
             # Forward & Loss
-            # Forward & Loss
             if device.type == "cuda":
                 with torch.cuda.amp.autocast():
-                    pos = model(indices, edge_types, num_nodes, u, i)
-                    neg = model(indices, edge_types, num_nodes, u, j)
-                    loss = -torch.mean(torch.log(torch.sigmoid(pos - neg) + 1e-10))
+                    pos_scores, neg_scores = model(indices, edge_types, num_nodes, u, i, j)
+                    loss = -torch.mean(torch.log(torch.sigmoid(pos_scores - neg_scores) + 1e-10))
 
                 scaler.scale(loss).backward()
                 scaler.step(optimizer)
@@ -426,9 +427,8 @@ def train(args):
                 with torch.autocast(
                     device_type="xpu", enabled=args.use_bf16, dtype=torch.bfloat16
                 ):
-                    pos = model(indices, edge_types, num_nodes, u, i)
-                    neg = model(indices, edge_types, num_nodes, u, j)
-                    loss = -torch.mean(torch.log(torch.sigmoid(pos - neg) + 1e-10))
+                    pos_scores, neg_scores = model(indices, edge_types, num_nodes, u, i, j)
+                    loss = -torch.mean(torch.log(torch.sigmoid(pos_scores - neg_scores) + 1e-10))
 
                 loss.backward()
                 optimizer.step()
@@ -438,9 +438,8 @@ def train(args):
                 with torch.autocast(
                     device_type="cpu", enabled=args.use_bf16, dtype=torch.bfloat16
                 ):
-                    pos = model(indices, edge_types, num_nodes, u, i)
-                    neg = model(indices, edge_types, num_nodes, u, j)
-                    loss = -torch.mean(torch.log(torch.sigmoid(pos - neg) + 1e-10))
+                    pos_scores, neg_scores = model(indices, edge_types, num_nodes, u, i, j)
+                    loss = -torch.mean(torch.log(torch.sigmoid(pos_scores - neg_scores) + 1e-10))
                 loss.backward()
                 optimizer.step()
 
@@ -471,7 +470,7 @@ def train(args):
             torch.xpu.empty_cache()
 
         # Save Checkpoint
-        if (epoch + 1) % 5 == 0 or (epoch + 1) == args.epochs:
+        if (epoch + 1) % 2 == 0 or (epoch + 1) == args.epochs:
             ckpt_path = os.path.join(
                 args.model_dir, f"kgat_checkpoint_e{epoch + 1}.pth"
             )
