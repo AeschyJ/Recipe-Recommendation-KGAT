@@ -7,6 +7,7 @@
 * **KGAT 模型**: 實作最純粹的 Relation-Aware Attention ($\pi(h,r,t) = (W_r e_t)^\top \tanh(W_r e_h + e_r)$)、Bi-Interaction，以及對應的正則化與 Dropout 保護。
 * **效能優化**: 具有 `get_final_embeddings()` 查詢快取機制與 PyTorch Checkpointing，能在普通 GPU/XPU 設備上達成深度的圖神經網路訓練。
 * **自動化實驗**: 內置一鍵腳本，輕鬆排程多項變數的控制對照。
+* **可解釋性評估**: 實作 Fidelity 指標 (Fid+, Fid-)，透過數學量化驗證推薦解釋的忠實度與有效性。
 
 ## 專案依賴
 本專案使用 `uv` 進行套件管理。執行：
@@ -39,9 +40,25 @@ uv sync
 4. **Depth L=2 模型**
 5. **Depth L=3 模型**
 
-目前預設為 `10` 次 Epoch 以供快跑測試趨勢，所有 Log 與模型權重將獨立匯出。
+### 3. 對照組模型 (Baseline Models)
+除消融實驗外，專案亦提供三款經典推薦模型作為學術對比基準：
+* **BPR-MF**: 傳統矩陣分解。
+* **LightGCN**: 純圖捲積協同過濾。
+* **NFM**: 深度交互模型。
 
-### 3. 可選：自訂獨立訓練
+執行對照組批次任務：
+```powershell
+./run_baseline_experiments.bat
+```
+*(結果將存放於 `models/baseline/` 與 `output/logs/baseline/`)*
+
+### 4. 可解釋性量化評估 (Fidelity)
+對於已訓練好的 KGAT 模型，可以進行解釋路徑萃取與 Fidelity 指標評估：
+```bash
+.venv\Scripts\python.exe src/evaluate_fidelity.py --model_path models/my_kgat/checkpoint.pth --user_ids_file data/user_test_list.json
+```
+
+### 5. 可選：自訂獨立訓練
 若只想獨立訓練某一款特定配置的模型：
 ```bash
 .venv\Scripts\python.exe src/train_att.py --epochs 30 --layers 64 --model_dir models/my_kgat --use_bf16
@@ -50,6 +67,13 @@ uv sync
 ```bash
 .venv\Scripts\python.exe src/train_att.py --resume models/my_kgat/kgat_checkpoint_e10.pth
 ```
+
+### 6. 實驗結果分析與比對
+專案提供一系列小腳本協助整理實驗數據：
+* **評估與統整**: 使用 `scripts/evaluate_all.py` 一鍵執行所有模型的測試評估。
+* **指標比對**: 使用 `scripts/compare_metrics.py` 自動化比對不同模型的評估結果。
+* **日誌清理**: 使用 `scripts/reformat_logs.py` 重新格式化訓練日誌，方便閱讀。
+* **XAI 分析**: 執行 `output/analyze_xai.py` 與 `output/simplify_output_data.py` 分析與簡化模型產生的解釋路徑。
 
 ## 文檔索引
 欲深入了解這套系統的心路歷程與各模組實作細節，請參閱：

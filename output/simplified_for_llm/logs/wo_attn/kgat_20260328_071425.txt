@@ -1,0 +1,43 @@
+Training started. Args: Namespace(epochs=10, batch_size=1024, lr=0.001, embed_dim=64, layers=[64], use_bf16=True, resume=None, model_dir='models/wo_attn', cpu=False, debug=False, log_dir='output/logs/wo_attn')
+Log file: output/logs/wo_attn\kgat_20260328_071425.txt
+Using Intel Arc GPU (XPU)
+Data Split - Train: 905893, Test: 226474
+Constructing adjacency matrix (CPU)...
+Adjacency matrix created. Edges: 7200165
+Moving adjacency matrix to xpu...
+Adjacency matrix cast to BFloat16.
+Done. Coalesced: True
+Initializing KGAT model...
+Model cast to BFloat16.
+Model moved to device.
+Starting training from epoch 0 to 10...
+Epoch 1 done. Avg Loss: 0.4911
+Epoch 1 Evaluation - HR@[10,20,50]: [0.5457, 0.6558, 0.8410] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 1 Current LR: 1.000000e-03
+Epoch 2 done. Avg Loss: 0.4342
+Epoch 2 Evaluation - HR@[10,20,50]: [0.6029, 0.7211, 0.8943] | Precision@[10,20,50]: [0.0603, 0.0361, 0.0179] | NDCG@[10,20,50]: [0.4002, 0.4302, 0.4640]
+Epoch 2 Current LR: 1.000000e-03
+Epoch 3 done. Avg Loss: 0.4225
+Epoch 3 Evaluation - HR@[10,20,50]: [0.5570, 0.6684, 0.8300] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 3 Current LR: 1.000000e-03
+Epoch 4 done. Avg Loss: 0.4135
+Epoch 4 Evaluation - HR@[10,20,50]: [0.6277, 0.7452, 0.9080] | Precision@[10,20,50]: [0.0628, 0.0373, 0.0182] | NDCG@[10,20,50]: [0.4241, 0.4539, 0.4857]
+Epoch 4 Current LR: 1.000000e-03
+Epoch 5 done. Avg Loss: 0.4075
+Epoch 5 Evaluation - HR@[10,20,50]: [0.5582, 0.6725, 0.8224] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 5 Current LR: 1.000000e-03
+Epoch 6 done. Avg Loss: 0.4032
+Epoch 6 Evaluation - HR@[10,20,50]: [0.6418, 0.7613, 0.9113] | Precision@[10,20,50]: [0.0642, 0.0381, 0.0182] | NDCG@[10,20,50]: [0.4392, 0.4696, 0.4990]
+Epoch 6 Current LR: 1.000000e-03
+Epoch 7 done. Avg Loss: 0.3988
+Epoch 7 Evaluation - HR@[10,20,50]: [0.5619, 0.6747, 0.8202] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 7 Current LR: 1.000000e-03
+Epoch 8 done. Avg Loss: 0.3953
+Epoch 8 Evaluation - HR@[10,20,50]: [0.6521, 0.7727, 0.9147] | Precision@[10,20,50]: [0.0652, 0.0386, 0.0183] | NDCG@[10,20,50]: [0.4496, 0.4802, 0.5081]
+Epoch 8 Current LR: 1.000000e-03
+Epoch 9 done. Avg Loss: 0.3922
+Epoch 9 Evaluation - HR@[10,20,50]: [0.5635, 0.6778, 0.8181] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 9 Current LR: 1.000000e-03
+Epoch 10 done. Avg Loss: 0.3901
+Epoch 10 Evaluation - HR@[10,20,50]: [0.6592, 0.7800, 0.9137] | Precision@[10,20,50]: [0.0659, 0.0390, 0.0183] | NDCG@[10,20,50]: [0.4569, 0.4875, 0.5140]
+Epoch 10 Current LR: 1.000000e-03

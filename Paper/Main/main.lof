@@ -1,0 +1,14 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces 系統架構示意圖}}{16}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces 協同知識圖譜 (CKG) 架構示意：整合使用者-食譜互動圖與食譜知識圖譜，包含互動、食材與標籤三類關係邊。}}{17}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces KGAT 模型架構示意圖}}{21}{figure.caption.11}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces 不同傳播深度 KGAT 模型的訓練過程比較（偶數 Epoch），含三條 Baseline 水平基線。}}{33}{figure.caption.18}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces 案例 A：高忠實度的直接連接路徑示意圖 (User 2410864)}}{37}{figure.caption.22}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces 案例 B：協同過濾路徑示意圖 (User 573230)}}{38}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces 案例 C：KG 語意路徑示意圖 (User 963993)}}{39}{figure.caption.24}%
+\addvspace {10\p@ }
+\contentsfinish 
+\contentsfinish 

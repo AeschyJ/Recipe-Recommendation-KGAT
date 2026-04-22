@@ -2,7 +2,24 @@
 
 本文件紀錄專案的所有重要改動。依據 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 格式撰寫。
 
-## [Unreleased]
+## [1.5.0] - 2026-04-22
+
+### Added
+- **Scripts**: 新增 `scripts/evaluate_all.py` 統整執行所有模型的評估流程。
+- **Scripts**: 新增 `scripts/compare_metrics.py` 用於自動化比對不同模型的評估指標。
+- **Scripts**: 新增 `scripts/reformat_logs.py` 重新格式化與清理訓練日誌輸出。
+- **Scripts**: 新增 `output/analyze_xai.py` 與 `output/simplify_output_data.py` 以分析並簡化 XAI 可解釋性結果資料。
+- **Scripts**: 新增 `models/update_models_list.py` 管理與更新模型列表狀態。
+
+## [1.4.0] - 2026-04-17
+
+### Added
+- **Models**: 新增三款經典對照組模型：BPR-MF (傳統矩陣分解)、NFM (深度特徵交互) 與 LightGCN (純圖神經網路) (ADR-006)。
+- **Training**: 實作 `src/train_baseline.py` 統一訓練管理工具，支援多機型切換與路徑自動組織。
+- **Experiments**: 建立 `run_baseline_experiments.bat` 自動化批次任務腳本，支援 BPR-MF, NFM, LightGCN 各 10 Epochs 訓練。
+- **Evaluation**: 實作 `src/evaluate_fidelity.py` 用於 XAI 可解釋性量化指標 (Fidelity+, Fidelity-) 評估與解釋路徑批次萃取。
+- **Log/Model**: 統一基準模型輸出軌跡於 `models/baseline/` 與 `output/logs/baseline/`。
+
 
 ## [1.3.0] - 2026-03-30
 

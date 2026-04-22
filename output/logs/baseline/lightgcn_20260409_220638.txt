@@ -1,0 +1,122 @@
+2026-04-09 22:06:38,617 [INFO] Training started. Args: Namespace(model='LightGCN', epochs=10, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=True, lr=0.001, log_dir='output/logs/baseline', eval_only=False, resume=None, experiment_id=3)
+2026-04-09 22:06:38,617 [INFO] Using Device: xpu
+2026-04-09 22:06:39,809 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-09 22:40:52,536 [INFO] Epoch 1 Avg Loss: 0.6548
+2026-04-09 22:40:56,742 [INFO] Epoch 1 Evaluation - HR@[10,20,50]: [0.5357, 0.6700, 0.8542] | Precision@[10,20,50]: [0.0536, 0.0335, 0.0171] | NDCG@[10,20,50]: [0.3509, 0.3848, 0.4215]
+2026-04-09 22:40:56,936 [INFO] Saved checkpoint: models/baseline\3_lightgcn_checkpoint_e1.pth
+2026-04-09 23:14:30,187 [INFO] Epoch 2 Avg Loss: 0.6242
+2026-04-09 23:14:34,329 [INFO] Epoch 2 Evaluation - HR@[10,20,50]: [0.5366, 0.6716, 0.8562] | Precision@[10,20,50]: [0.0537, 0.0336, 0.0171] | NDCG@[10,20,50]: [0.3518, 0.3859, 0.4227]
+2026-04-09 23:14:34,524 [INFO] Saved checkpoint: models/baseline\3_lightgcn_checkpoint_e2.pth
+2026-04-09 23:52:02,937 [INFO] Epoch 3 Avg Loss: 0.6169
+2026-04-09 23:52:08,423 [INFO] Epoch 3 Evaluation - HR@[10,20,50]: [0.5351, 0.6703, 0.8546] | Precision@[10,20,50]: [0.0535, 0.0335, 0.0171] | NDCG@[10,20,50]: [0.3505, 0.3847, 0.4213]
+2026-04-09 23:52:08,641 [INFO] Saved checkpoint: models/baseline\3_lightgcn_checkpoint_e3.pth
+2026-04-10 00:37:36,503 [INFO] Epoch 4 Avg Loss: 0.6121
+2026-04-10 00:37:42,083 [INFO] Epoch 4 Evaluation - HR@[10,20,50]: [0.5352, 0.6692, 0.8559] | Precision@[10,20,50]: [0.0535, 0.0335, 0.0171] | NDCG@[10,20,50]: [0.3510, 0.3849, 0.4220]
+2026-04-10 00:37:42,270 [INFO] Saved checkpoint: models/baseline\3_lightgcn_checkpoint_e4.pth
+2026-04-10 01:23:15,961 [INFO] Epoch 5 Avg Loss: 0.6091
+2026-04-10 01:23:21,477 [INFO] Epoch 5 Evaluation - HR@[10,20,50]: [0.5348, 0.6695, 0.8558] | Precision@[10,20,50]: [0.0535, 0.0335, 0.0171] | NDCG@[10,20,50]: [0.3506, 0.3846, 0.4217]
+2026-04-10 01:23:21,767 [INFO] Saved checkpoint: models/baseline\3_lightgcn_checkpoint_e5.pth
+2026-04-10 01:58:48,570 [INFO] Epoch 6 Avg Loss: 0.6065
+2026-04-10 01:58:52,760 [INFO] Epoch 6 Evaluation - HR@[10,20,50]: [0.5352, 0.6687, 0.8551] | Precision@[10,20,50]: [0.0535, 0.0334, 0.0171] | NDCG@[10,20,50]: [0.3511, 0.3848, 0.4219]
+2026-04-10 01:58:53,057 [INFO] Saved checkpoint: models/baseline\3_lightgcn_checkpoint_e6.pth
+2026-04-10 02:32:29,660 [INFO] Epoch 7 Avg Loss: 0.6042
+2026-04-10 02:32:33,788 [INFO] Epoch 7 Evaluation - HR@[10,20,50]: [0.5353, 0.6681, 0.8549] | Precision@[10,20,50]: [0.0535, 0.0334, 0.0171] | NDCG@[10,20,50]: [0.3504, 0.3839, 0.4211]
+2026-04-10 02:32:33,997 [INFO] Saved checkpoint: models/baseline\3_lightgcn_checkpoint_e7.pth
+2026-04-10 03:05:47,383 [INFO] Epoch 8 Avg Loss: 0.6025
+2026-04-10 03:05:51,525 [INFO] Epoch 8 Evaluation - HR@[10,20,50]: [0.5354, 0.6677, 0.8546] | Precision@[10,20,50]: [0.0535, 0.0334, 0.0171] | NDCG@[10,20,50]: [0.3505, 0.3839, 0.4211]
+2026-04-10 03:05:51,744 [INFO] Saved checkpoint: models/baseline\3_lightgcn_checkpoint_e8.pth
+2026-04-10 03:39:18,729 [INFO] Epoch 9 Avg Loss: 0.5996
+2026-04-10 03:39:22,902 [INFO] Epoch 9 Evaluation - HR@[10,20,50]: [0.5362, 0.6691, 0.8563] | Precision@[10,20,50]: [0.0536, 0.0335, 0.0171] | NDCG@[10,20,50]: [0.3500, 0.3836, 0.4209]
+2026-04-10 03:39:23,321 [INFO] Saved checkpoint: models/baseline\3_lightgcn_checkpoint_e9.pth
+2026-04-10 04:12:57,090 [INFO] Epoch 10 Avg Loss: 0.5962
+2026-04-10 04:13:01,333 [INFO] Epoch 10 Evaluation - HR@[10,20,50]: [0.5372, 0.6716, 0.8587] | Precision@[10,20,50]: [0.0537, 0.0336, 0.0172] | NDCG@[10,20,50]: [0.3508, 0.3847, 0.4220]
+2026-04-10 04:13:01,516 [INFO] Saved checkpoint: models/baseline\3_lightgcn_checkpoint_e10.pth2026-04-22 16:37:49,012 [INFO] Training started. Args: Namespace(model='LightGCN', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_lightgcn_checkpoint_e1.pth', experiment_id=1, log_file='output/logs/baseline/lightgcn_20260409_220638.txt')
+2026-04-22 16:37:49,014 [INFO] Using Device: xpu
+2026-04-22 16:37:50,813 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:37:56,027 [INFO] Loading checkpoint: models/baseline\3_lightgcn_checkpoint_e1.pth
+2026-04-22 16:37:56,465 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:37:59,846 [INFO] Evaluation Results:
+2026-04-22 16:37:59,847 [INFO] K=10 -> HR: 0.5357, Precision: 0.0536, NDCG: 0.3514
+2026-04-22 16:37:59,847 [INFO] K=20 -> HR: 0.6695, Precision: 0.0335, NDCG: 0.3852
+2026-04-22 16:37:59,847 [INFO] K=50 -> HR: 0.8544, Precision: 0.0171, NDCG: 0.4220
+2026-04-22 16:38:03,678 [INFO] Training started. Args: Namespace(model='LightGCN', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_lightgcn_checkpoint_e10.pth', experiment_id=1, log_file='output/logs/baseline/lightgcn_20260409_220638.txt')
+2026-04-22 16:38:03,679 [INFO] Using Device: xpu
+2026-04-22 16:38:05,492 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:38:10,678 [INFO] Loading checkpoint: models/baseline\3_lightgcn_checkpoint_e10.pth
+2026-04-22 16:38:11,120 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:38:14,287 [INFO] Evaluation Results:
+2026-04-22 16:38:14,287 [INFO] K=10 -> HR: 0.5375, Precision: 0.0537, NDCG: 0.3507
+2026-04-22 16:38:14,287 [INFO] K=20 -> HR: 0.6717, Precision: 0.0336, NDCG: 0.3846
+2026-04-22 16:38:14,287 [INFO] K=50 -> HR: 0.8588, Precision: 0.0172, NDCG: 0.4219
+2026-04-22 16:38:18,120 [INFO] Training started. Args: Namespace(model='LightGCN', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_lightgcn_checkpoint_e2.pth', experiment_id=1, log_file='output/logs/baseline/lightgcn_20260409_220638.txt')
+2026-04-22 16:38:18,122 [INFO] Using Device: xpu
+2026-04-22 16:38:19,928 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:38:25,086 [INFO] Loading checkpoint: models/baseline\3_lightgcn_checkpoint_e2.pth
+2026-04-22 16:38:25,590 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:38:28,723 [INFO] Evaluation Results:
+2026-04-22 16:38:28,724 [INFO] K=10 -> HR: 0.5361, Precision: 0.0536, NDCG: 0.3510
+2026-04-22 16:38:28,724 [INFO] K=20 -> HR: 0.6719, Precision: 0.0336, NDCG: 0.3853
+2026-04-22 16:38:28,724 [INFO] K=50 -> HR: 0.8562, Precision: 0.0171, NDCG: 0.4220
+2026-04-22 16:38:32,587 [INFO] Training started. Args: Namespace(model='LightGCN', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_lightgcn_checkpoint_e3.pth', experiment_id=1, log_file='output/logs/baseline/lightgcn_20260409_220638.txt')
+2026-04-22 16:38:32,588 [INFO] Using Device: xpu
+2026-04-22 16:38:34,417 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:38:39,747 [INFO] Loading checkpoint: models/baseline\3_lightgcn_checkpoint_e3.pth
+2026-04-22 16:38:40,211 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:38:43,435 [INFO] Evaluation Results:
+2026-04-22 16:38:43,435 [INFO] K=10 -> HR: 0.5350, Precision: 0.0535, NDCG: 0.3515
+2026-04-22 16:38:43,436 [INFO] K=20 -> HR: 0.6696, Precision: 0.0335, NDCG: 0.3855
+2026-04-22 16:38:43,436 [INFO] K=50 -> HR: 0.8541, Precision: 0.0171, NDCG: 0.4222
+2026-04-22 16:38:47,382 [INFO] Training started. Args: Namespace(model='LightGCN', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_lightgcn_checkpoint_e4.pth', experiment_id=1, log_file='output/logs/baseline/lightgcn_20260409_220638.txt')
+2026-04-22 16:38:47,383 [INFO] Using Device: xpu
+2026-04-22 16:38:49,211 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:38:54,546 [INFO] Loading checkpoint: models/baseline\3_lightgcn_checkpoint_e4.pth
+2026-04-22 16:38:54,976 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:38:57,985 [INFO] Evaluation Results:
+2026-04-22 16:38:57,985 [INFO] K=10 -> HR: 0.5346, Precision: 0.0535, NDCG: 0.3508
+2026-04-22 16:38:57,985 [INFO] K=20 -> HR: 0.6698, Precision: 0.0335, NDCG: 0.3849
+2026-04-22 16:38:57,985 [INFO] K=50 -> HR: 0.8556, Precision: 0.0171, NDCG: 0.4219
+2026-04-22 16:39:01,845 [INFO] Training started. Args: Namespace(model='LightGCN', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_lightgcn_checkpoint_e5.pth', experiment_id=1, log_file='output/logs/baseline/lightgcn_20260409_220638.txt')
+2026-04-22 16:39:01,847 [INFO] Using Device: xpu
+2026-04-22 16:39:03,647 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:39:08,922 [INFO] Loading checkpoint: models/baseline\3_lightgcn_checkpoint_e5.pth
+2026-04-22 16:39:09,409 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:39:12,436 [INFO] Evaluation Results:
+2026-04-22 16:39:12,437 [INFO] K=10 -> HR: 0.5353, Precision: 0.0535, NDCG: 0.3507
+2026-04-22 16:39:12,437 [INFO] K=20 -> HR: 0.6697, Precision: 0.0335, NDCG: 0.3847
+2026-04-22 16:39:12,437 [INFO] K=50 -> HR: 0.8555, Precision: 0.0171, NDCG: 0.4217
+2026-04-22 16:39:16,473 [INFO] Training started. Args: Namespace(model='LightGCN', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_lightgcn_checkpoint_e6.pth', experiment_id=1, log_file='output/logs/baseline/lightgcn_20260409_220638.txt')
+2026-04-22 16:39:16,475 [INFO] Using Device: xpu
+2026-04-22 16:39:18,306 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:39:23,661 [INFO] Loading checkpoint: models/baseline\3_lightgcn_checkpoint_e6.pth
+2026-04-22 16:39:24,143 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:39:27,318 [INFO] Evaluation Results:
+2026-04-22 16:39:27,318 [INFO] K=10 -> HR: 0.5351, Precision: 0.0535, NDCG: 0.3506
+2026-04-22 16:39:27,318 [INFO] K=20 -> HR: 0.6687, Precision: 0.0334, NDCG: 0.3843
+2026-04-22 16:39:27,318 [INFO] K=50 -> HR: 0.8553, Precision: 0.0171, NDCG: 0.4215
+2026-04-22 16:39:31,188 [INFO] Training started. Args: Namespace(model='LightGCN', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_lightgcn_checkpoint_e7.pth', experiment_id=1, log_file='output/logs/baseline/lightgcn_20260409_220638.txt')
+2026-04-22 16:39:31,189 [INFO] Using Device: xpu
+2026-04-22 16:39:33,072 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:39:38,071 [INFO] Loading checkpoint: models/baseline\3_lightgcn_checkpoint_e7.pth
+2026-04-22 16:39:38,523 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:39:41,556 [INFO] Evaluation Results:
+2026-04-22 16:39:41,556 [INFO] K=10 -> HR: 0.5347, Precision: 0.0535, NDCG: 0.3501
+2026-04-22 16:39:41,556 [INFO] K=20 -> HR: 0.6681, Precision: 0.0334, NDCG: 0.3837
+2026-04-22 16:39:41,557 [INFO] K=50 -> HR: 0.8549, Precision: 0.0171, NDCG: 0.4209
+2026-04-22 16:39:45,532 [INFO] Training started. Args: Namespace(model='LightGCN', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_lightgcn_checkpoint_e8.pth', experiment_id=1, log_file='output/logs/baseline/lightgcn_20260409_220638.txt')
+2026-04-22 16:39:45,533 [INFO] Using Device: xpu
+2026-04-22 16:39:47,399 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:39:52,717 [INFO] Loading checkpoint: models/baseline\3_lightgcn_checkpoint_e8.pth
+2026-04-22 16:39:53,173 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:39:56,316 [INFO] Evaluation Results:
+2026-04-22 16:39:56,317 [INFO] K=10 -> HR: 0.5350, Precision: 0.0535, NDCG: 0.3502
+2026-04-22 16:39:56,317 [INFO] K=20 -> HR: 0.6680, Precision: 0.0334, NDCG: 0.3837
+2026-04-22 16:39:56,317 [INFO] K=50 -> HR: 0.8548, Precision: 0.0171, NDCG: 0.4209
+2026-04-22 16:40:00,263 [INFO] Training started. Args: Namespace(model='LightGCN', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_lightgcn_checkpoint_e9.pth', experiment_id=1, log_file='output/logs/baseline/lightgcn_20260409_220638.txt')
+2026-04-22 16:40:00,264 [INFO] Using Device: xpu
+2026-04-22 16:40:02,108 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:40:07,375 [INFO] Loading checkpoint: models/baseline\3_lightgcn_checkpoint_e9.pth
+2026-04-22 16:40:07,845 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:40:11,040 [INFO] Evaluation Results:
+2026-04-22 16:40:11,040 [INFO] K=10 -> HR: 0.5361, Precision: 0.0536, NDCG: 0.3507
+2026-04-22 16:40:11,040 [INFO] K=20 -> HR: 0.6692, Precision: 0.0335, NDCG: 0.3843
+2026-04-22 16:40:11,041 [INFO] K=50 -> HR: 0.8565, Precision: 0.0171, NDCG: 0.4216

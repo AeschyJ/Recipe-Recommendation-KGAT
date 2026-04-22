@@ -1,0 +1,394 @@
+[
+  {
+    "user": "User 2001104311",
+    "item": "best banana bread",
+    "score": 3.0782,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2001104311 -> barefoot contessa s hummus -> cuisine -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001104311 -> barefoot contessa s hummus -> dietary -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001104311 -> barefoot contessa s hummus -> equipment -> best banana bread",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 2237210",
+    "item": "mediterranean tortellini  ragu",
+    "score": 2.7411,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2237210 -> thermomix chocolate almond cake  flourless -> preparation -> mediterranean tortellini  ragu",
+        "score": 0.0005
+      },
+      {
+        "path": "User 2237210 -> thermomix chocolate almond cake  flourless -> course -> mediterranean tortellini  ragu",
+        "score": 0.0005
+      },
+      {
+        "path": "User 2237210 -> thermomix chocolate almond cake  flourless -> butter -> mediterranean tortellini  ragu",
+        "score": 0.0005
+      }
+    ]
+  },
+  {
+    "user": "User 1676577",
+    "item": "best banana bread",
+    "score": 7.1985,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1676577 -> mexican ground beef quinoa skillet -> dietary -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 1676577 -> mexican ground beef quinoa skillet -> preparation -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 1676577 -> mexican ground beef quinoa skillet -> course -> best banana bread",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 1374856",
+    "item": "best banana bread",
+    "score": 6.5011,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1374856 -> best grilled pork chops -> User 1102734 -> best banana bread",
+        "score": 0.0015
+      },
+      {
+        "path": "User 1374856 -> thai grilled chicken thighs -> User 364863 -> best banana bread",
+        "score": 0.0003
+      },
+      {
+        "path": "User 1374856 -> asian style grilled tilapia -> User 453856 -> best banana bread",
+        "score": 0.0001
+      }
+    ]
+  },
+  {
+    "user": "User 1800242719",
+    "item": "best banana bread",
+    "score": 6.7522,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1800242719 -> mexican penne -> User 29014 -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 1800242719 -> mexican penne -> User 64583 -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 1800242719 -> mexican penne -> cuisine -> best banana bread",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 2209829",
+    "item": "frittata mama s weeknight special",
+    "score": 3.7922,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2209829 -> frittata mama s weeknight special",
+        "score": 0.4851
+      }
+    ]
+  },
+  {
+    "user": "User 2001353484",
+    "item": "better than olive garden alfredo sauce",
+    "score": 4.0722,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2001353484 -> madhur jaffrey s naan bread -> dietary -> better than olive garden alfredo sauce",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001353484 -> madhur jaffrey s naan bread -> preparation -> better than olive garden alfredo sauce",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001353484 -> madhur jaffrey s naan bread -> course -> better than olive garden alfredo sauce",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 360012",
+    "item": "best ever banana cake with cream cheese frosting",
+    "score": 9.8775,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 360012 -> impossible peanut butter cookies -> User 1895952 -> best ever banana cake with cream cheese frosting",
+        "score": 0.0079
+      },
+      {
+        "path": "User 360012 -> waldorf astoria red velvet cake -> User 651402 -> best ever banana cake with cream cheese frosting",
+        "score": 0.003
+      },
+      {
+        "path": "User 360012 -> impossible peanut butter cookies -> User 1263528 -> best ever banana cake with cream cheese frosting",
+        "score": 0.0029
+      }
+    ]
+  },
+  {
+    "user": "User 2188909",
+    "item": "molasses free gingerbread",
+    "score": 2.5124,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2188909 -> meatballs with raisins -> occasion -> molasses free gingerbread",
+        "score": 0.0005
+      },
+      {
+        "path": "User 2188909 -> meatballs with raisins -> preparation -> molasses free gingerbread",
+        "score": 0.0005
+      },
+      {
+        "path": "User 2188909 -> meatballs with raisins -> course -> molasses free gingerbread",
+        "score": 0.0005
+      }
+    ]
+  },
+  {
+    "user": "User 872836",
+    "item": "best banana bread",
+    "score": 9.2276,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 872836 -> old widow walker s ziploc omelettes -> User 189475 -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 872836 -> old widow walker s ziploc omelettes -> User 25455 -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 872836 -> old widow walker s ziploc omelettes -> dietary -> best banana bread",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 59437",
+    "item": "best banana bread",
+    "score": 7.057,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 59437 -> shepherd s cheddar pie -> cuisine -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 59437 -> shepherd s cheddar pie -> dietary -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 59437 -> shepherd s cheddar pie -> oven -> best banana bread",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 610070",
+    "item": "best banana bread",
+    "score": 12.9845,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 610070 -> oven fried chicken ii -> User 1298609 -> best banana bread",
+        "score": 0.0047
+      },
+      {
+        "path": "User 610070 -> classic baked ziti -> User 760929 -> best banana bread",
+        "score": 0.0034
+      },
+      {
+        "path": "User 610070 -> classic baked ziti -> User 28397 -> best banana bread",
+        "score": 0.0002
+      }
+    ]
+  },
+  {
+    "user": "User 1227397",
+    "item": "best banana bread",
+    "score": 12.0404,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1227397 -> dark chocolate cake -> User 2001121581 -> best banana bread",
+        "score": 0.0407
+      },
+      {
+        "path": "User 1227397 -> dark chocolate cake -> User 2853299 -> best banana bread",
+        "score": 0.013
+      },
+      {
+        "path": "User 1227397 -> dark chocolate cake -> User 261553 -> best banana bread",
+        "score": 0.0028
+      }
+    ]
+  },
+  {
+    "user": "User 2001047380",
+    "item": "best banana bread",
+    "score": 8.4035,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2001047380 -> vegan chocolate chip oatmeal nut cookies -> dietary -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001047380 -> vegan chocolate chip oatmeal nut cookies -> preparation -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001047380 -> vegan chocolate chip oatmeal nut cookies -> course -> best banana bread",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 1803202573",
+    "item": "best banana bread",
+    "score": 6.116,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1803202573 -> perfect turkey in an electric roaster oven -> oven -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 1803202573 -> perfect turkey in an electric roaster oven -> equipment -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 1803202573 -> perfect turkey in an electric roaster oven -> preparation -> best banana bread",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 2001251464",
+    "item": "soft peanut butter cookies",
+    "score": 2.5652,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2001251464 -> aunt dunette s italian anise biscotti -> occasion -> soft peanut butter cookies",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001251464 -> aunt dunette s italian anise biscotti -> cookies-and-brownies -> soft peanut butter cookies",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001251464 -> aunt dunette s italian anise biscotti -> desserts -> soft peanut butter cookies",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 2001155473",
+    "item": "best banana bread",
+    "score": 4.139,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2001155473 -> salsa verde canning recipe -> User 165169 -> best banana bread",
+        "score": 0.0002
+      },
+      {
+        "path": "User 2001155473 -> salsa verde canning recipe -> cuisine -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001155473 -> salsa verde canning recipe -> dietary -> best banana bread",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 2001524703",
+    "item": "best banana bread",
+    "score": 5.7358,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2001524703 -> indonesian fried rice  nasi goreng -> User 188119 -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001524703 -> indonesian fried rice  nasi goreng -> cuisine -> best banana bread",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001524703 -> indonesian fried rice  nasi goreng -> equipment -> best banana bread",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 79997",
+    "item": "best ever banana cake with cream cheese frosting",
+    "score": 11.9831,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 79997 -> south beach muffin -> User 281887 -> best ever banana cake with cream cheese frosting",
+        "score": 0.0003
+      },
+      {
+        "path": "User 79997 -> south beach muffin -> User 319544 -> best ever banana cake with cream cheese frosting",
+        "score": 0.0001
+      },
+      {
+        "path": "User 79997 -> bev s sauteed yellow squash -> User 1178797 -> best ever banana cake with cream cheese frosting",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 1803668919",
+    "item": "best banana bread",
+    "score": 8.4206,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1803668919 -> yes  virginia there is a great meatloaf -> User 1029127 -> best banana bread",
+        "score": 0.0124
+      },
+      {
+        "path": "User 1803668919 -> yes  virginia there is a great meatloaf -> User 100856 -> best banana bread",
+        "score": 0.0115
+      },
+      {
+        "path": "User 1803668919 -> yes  virginia there is a great meatloaf -> User 416292 -> best banana bread",
+        "score": 0.003
+      }
+    ]
+  }
+]

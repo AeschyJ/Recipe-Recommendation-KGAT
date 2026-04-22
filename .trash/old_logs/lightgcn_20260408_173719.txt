@@ -1,0 +1,23 @@
+Training started. Args: Namespace(model='LightGCN', epochs=10, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=True, lr=0.001, log_dir='output/logs/baseline')
+Using Device: xpu
+Train samples: 905893, Test samples: 226474
+Epoch 1 Avg Loss: 0.6552
+Epoch 1 Evaluation - HR@[10,20,50]: [0.5350, 0.6685, 0.8532] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 2 Avg Loss: 0.6242
+Epoch 2 Evaluation - HR@[10,20,50]: [0.5436, 0.6804, 0.8644] | Precision@[10,20,50]: [0.0544, 0.0340, 0.0173] | NDCG@[10,20,50]: [0.3553, 0.3899, 0.4265]
+Epoch 3 Avg Loss: 0.6169
+Epoch 3 Evaluation - HR@[10,20,50]: [0.5365, 0.6714, 0.8549] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 4 Avg Loss: 0.6128
+Epoch 4 Evaluation - HR@[10,20,50]: [0.5424, 0.6800, 0.8646] | Precision@[10,20,50]: [0.0542, 0.0340, 0.0173] | NDCG@[10,20,50]: [0.3543, 0.3891, 0.4259]
+Epoch 5 Avg Loss: 0.6094
+Epoch 5 Evaluation - HR@[10,20,50]: [0.5363, 0.6702, 0.8551] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 6 Avg Loss: 0.6067
+Epoch 6 Evaluation - HR@[10,20,50]: [0.5450, 0.6811, 0.8651] | Precision@[10,20,50]: [0.0545, 0.0341, 0.0173] | NDCG@[10,20,50]: [0.3553, 0.3897, 0.4263]
+Epoch 7 Avg Loss: 0.6030
+Epoch 7 Evaluation - HR@[10,20,50]: [0.5374, 0.6708, 0.8555] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 8 Avg Loss: 0.5993
+Epoch 8 Evaluation - HR@[10,20,50]: [0.5480, 0.6872, 0.8712] | Precision@[10,20,50]: [0.0548, 0.0344, 0.0174] | NDCG@[10,20,50]: [0.3565, 0.3917, 0.4284]
+Epoch 9 Avg Loss: 0.5969
+Epoch 9 Evaluation - HR@[10,20,50]: [0.5386, 0.6721, 0.8564] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 10 Avg Loss: 0.5942
+Epoch 10 Evaluation - HR@[10,20,50]: [0.5490, 0.6890, 0.8730] | Precision@[10,20,50]: [0.0549, 0.0344, 0.0175] | NDCG@[10,20,50]: [0.3570, 0.3924, 0.4291]

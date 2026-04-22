@@ -1,0 +1,539 @@
+[
+  {
+    "user": "User 2001638549",
+    "item": "delicious chicken pot pie",
+    "score": 1.8678,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 106785",
+    "item": "reeses squares   5 ingredients   no bake  reese s",
+    "score": 1.9868,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 106785 -> dave s  special  black forest cake -> User 58515 -> reeses squares   5 ingredients   no bake  reese s",
+        "score": 0.0018
+      },
+      {
+        "path": "User 106785 -> dave s  special  black forest cake -> chocolate -> reeses squares   5 ingredients   no bake  reese s",
+        "score": 0.0
+      },
+      {
+        "path": "User 106785 -> dave s  special  black forest cake -> User 35701 -> reeses squares   5 ingredients   no bake  reese s",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 1134773",
+    "item": "cake mix  up sizer",
+    "score": 1.2748,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 1584891",
+    "item": "pistachio cherry cookies",
+    "score": 2.068,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 1800847804",
+    "item": "baja black beans  corn and rice",
+    "score": 1.5749,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 2002294030",
+    "item": "kittencal s 5 minute cinnamon flop brunch cake",
+    "score": 2.6318,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2002294030 -> kittencal s extreme chocolate brownies -> User 151750 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "score": 0.0144
+      },
+      {
+        "path": "User 2002294030 -> kittencal s italian melt in your mouth meatballs -> User 1800091321 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "score": 0.0048
+      },
+      {
+        "path": "User 2002294030 -> kittencal s italian melt in your mouth meatballs -> User 191790 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "score": 0.002
+      }
+    ]
+  },
+  {
+    "user": "User 2001498878",
+    "item": "reeses squares   5 ingredients   no bake  reese s",
+    "score": 2.085,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2001498878 -> lupo s   chicken spiedies -> User 182358 -> reeses squares   5 ingredients   no bake  reese s",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 646002",
+    "item": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 3.4802,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 37408",
+    "item": "plain lentil soup  vegan   and low fat too",
+    "score": 1.1737,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 432411",
+    "item": "mama s supper club tilapia parmesan",
+    "score": 2.1056,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 432411 -> tilapia -> User 68236 -> mama s supper club tilapia parmesan",
+        "score": 0.0003
+      },
+      {
+        "path": "User 432411 -> stir fried garlic beef with broccoli -> User 1064617 -> mama s supper club tilapia parmesan",
+        "score": 0.0
+      },
+      {
+        "path": "User 432411 -> tilapia -> User 2041603 -> mama s supper club tilapia parmesan",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 257087",
+    "item": "passover miniature potato kugel",
+    "score": 1.232,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 119097",
+    "item": "kittencal s 5 minute cinnamon flop brunch cake",
+    "score": 2.3319,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 119097 -> tuscan cream cheese spread -> User 229605 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 1063030",
+    "item": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 3.2782,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1063030 -> boston market meatloaf by todd wilbur -> User 149043 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0001
+      },
+      {
+        "path": "User 1063030 -> boston market meatloaf by todd wilbur -> User 246936 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0
+      },
+      {
+        "path": "User 1063030 -> boston market meatloaf by todd wilbur -> User 42337 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 2001247153",
+    "item": "fitz s 10  of heaven shake  strawberry cheesecake",
+    "score": 1.5551,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 2894401",
+    "item": "fitz s 10  of heaven shake  strawberry cheesecake",
+    "score": 3.4407,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 2000532661",
+    "item": "farmhouse scallop",
+    "score": 1.1373,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 2001635187",
+    "item": "weight watchers parmesan chicken cutlets",
+    "score": 1.681,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2001635187 -> moroccan pork mince -> User 204024 -> weight watchers parmesan chicken cutlets",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 2002181987",
+    "item": "pete s scratch pancakes",
+    "score": 2.9157,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2002181987 -> white pizza sauce -> User 969481 -> pete s scratch pancakes",
+        "score": 0.0
+      },
+      {
+        "path": "User 2002181987 -> white pizza sauce -> high-calcium -> pete s scratch pancakes",
+        "score": 0.0
+      },
+      {
+        "path": "User 2002181987 -> white pizza sauce -> high-in-something -> pete s scratch pancakes",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 2000396299",
+    "item": "egg salad club sandwiches  or shrimp salad club",
+    "score": 1.5458,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 1155476",
+    "item": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 3.095,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1155476 -> copycat applebee s hot artichoke and spinach dip -> User 2002114474 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0309
+      },
+      {
+        "path": "User 1155476 -> copycat applebee s hot artichoke and spinach dip -> User 1298826 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0006
+      },
+      {
+        "path": "User 1155476 -> copycat applebee s hot artichoke and spinach dip -> User 136369 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0002
+      }
+    ]
+  },
+  {
+    "user": "User 1800134059",
+    "item": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 2.8744,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1800134059 -> new york style pizza crust -> User 491970 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0001
+      },
+      {
+        "path": "User 1800134059 -> new york style pizza crust -> User 637486 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0001
+      },
+      {
+        "path": "User 1800134059 -> new york style pizza crust -> User 646304 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0001
+      }
+    ]
+  },
+  {
+    "user": "User 1336126",
+    "item": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 2.6093,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1336126 -> homemade beef jerky -> User 765437 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0
+      },
+      {
+        "path": "User 1336126 -> homemade beef jerky -> User 574936 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0
+      },
+      {
+        "path": "User 1336126 -> homemade beef jerky -> User 847160 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 1675733",
+    "item": "baja black beans  corn and rice",
+    "score": 1.3152,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1675733 -> copycat olive garden peaches and cream cheesecake -> potluck -> baja black beans  corn and rice",
+        "score": 0.0
+      },
+      {
+        "path": "User 1675733 -> copycat olive garden peaches and cream cheesecake -> to-go -> baja black beans  corn and rice",
+        "score": 0.0
+      },
+      {
+        "path": "User 1675733 -> copycat applebee s hot artichoke and spinach dip -> User 418915 -> baja black beans  corn and rice",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 2001384945",
+    "item": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 2.2847,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2001384945 -> polish pierogies  potato cheese -> User 73988 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0001
+      },
+      {
+        "path": "User 2001384945 -> polish pierogies  potato cheese -> cheese -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001384945 -> polish pierogies  potato cheese -> User 36128 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 918910",
+    "item": "scrum diddly umptious vegan brownies",
+    "score": 1.482,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 918910 -> weight watchers chocolate  cupcakes -> chocolate -> scrum diddly umptious vegan brownies",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 2001802746",
+    "item": "sindhi biryani",
+    "score": 1.4584,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 2001767296",
+    "item": "fitz s 10  of heaven shake  strawberry cheesecake",
+    "score": 1.6768,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 2515349",
+    "item": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 3.2848,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2515349 -> dear abby s famous pecan pie -> User 149363 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 2000854866",
+    "item": "easy crock pot moroccan chicken  chickpea and apricot tagine",
+    "score": 1.1371,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2000854866 -> homemade seitan barbecue  bbq  ribs   vegan -> User 673444 -> easy crock pot moroccan chicken  chickpea and apricot tagine",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 314719",
+    "item": "southern buttermilk biscuits",
+    "score": 2.0402,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 314719 -> pasta with garlic and oil  aglio e olio -> User 879769 -> southern buttermilk biscuits",
+        "score": 0.0004
+      },
+      {
+        "path": "User 314719 -> chewy granola bars -> User 244872 -> southern buttermilk biscuits",
+        "score": 0.0003
+      },
+      {
+        "path": "User 314719 -> chewy granola bars -> User 380358 -> southern buttermilk biscuits",
+        "score": 0.0001
+      }
+    ]
+  },
+  {
+    "user": "User 1449240",
+    "item": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 2.4692,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1449240 -> hawaiian chicken kabobs -> User 108995 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0134
+      },
+      {
+        "path": "User 1449240 -> hawaiian chicken kabobs -> User 75890 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0033
+      },
+      {
+        "path": "User 1449240 -> hawaiian chicken kabobs -> User 696423 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 867436",
+    "item": "pete s scratch pancakes",
+    "score": 2.156,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 867436 -> the best  no kidding  buttermilk pancakes -> pancakes-and-waffles -> pete s scratch pancakes",
+        "score": 0.0
+      },
+      {
+        "path": "User 867436 -> the best  no kidding  buttermilk pancakes -> breakfast -> pete s scratch pancakes",
+        "score": 0.0
+      },
+      {
+        "path": "User 867436 -> the best  no kidding  buttermilk pancakes -> high-calcium -> pete s scratch pancakes",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 2001139991",
+    "item": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 2.7256,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2001139991 -> honey roasted peanuts -> User 308721 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0016
+      }
+    ]
+  },
+  {
+    "user": "User 2001912678",
+    "item": "simple fried egg sandwich",
+    "score": 1.7467,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2001912678 -> crock pot beef with mushroom and red wine gravy -> User 383346 -> simple fried egg sandwich",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 1802551981",
+    "item": "pete s scratch pancakes",
+    "score": 3.1549,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 1802551981 -> barilla no boil lasagna -> User 529278 -> pete s scratch pancakes",
+        "score": 0.0
+      },
+      {
+        "path": "User 1802551981 -> barilla no boil lasagna -> User 140132 -> pete s scratch pancakes",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 847749",
+    "item": "kittencal s moist cheddar garlic oven fried chicken breast",
+    "score": 1.8503,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 847749 -> celery  milan style -> User 284922 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0
+      },
+      {
+        "path": "User 847749 -> celery  milan style -> User 207176 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0
+      },
+      {
+        "path": "User 847749 -> celery  milan style -> User 632249 -> kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 0.0
+      }
+    ]
+  },
+  {
+    "user": "User 432927",
+    "item": "kittencal s 5 minute cinnamon flop brunch cake",
+    "score": 2.8678,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 432927 -> pork chops yum yum -> User 192450 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "score": 0.0065
+      },
+      {
+        "path": "User 432927 -> creamy cajun chicken pasta -> User 1800091321 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "score": 0.0034
+      },
+      {
+        "path": "User 432927 -> pork chops yum yum -> User 103395 -> kittencal s 5 minute cinnamon flop brunch cake",
+        "score": 0.0017
+      }
+    ]
+  },
+  {
+    "user": "User 186637",
+    "item": "chicken fried rice ii",
+    "score": 1.1827,
+    "prob": 0.0,
+    "explanations": []
+  },
+  {
+    "user": "User 442790",
+    "item": "jo mama s world famous spaghetti",
+    "score": 3.0378,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 442790 -> olive garden garlic alfredo sauce -> User 1170119 -> jo mama s world famous spaghetti",
+        "score": 0.0062
+      },
+      {
+        "path": "User 442790 -> olive garden garlic alfredo sauce -> User 1467777 -> jo mama s world famous spaghetti",
+        "score": 0.0009
+      },
+      {
+        "path": "User 442790 -> olive garden garlic alfredo sauce -> User 39946 -> jo mama s world famous spaghetti",
+        "score": 0.0005
+      }
+    ]
+  },
+  {
+    "user": "User 2000824447",
+    "item": "vegetable and pasta soup",
+    "score": 3.6359,
+    "prob": 0.0,
+    "explanations": []
+  }
+]

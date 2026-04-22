@@ -1,0 +1,17 @@
+Training started. Args: Namespace(epochs=3, batch_size=1024, without_kg=False, resume=None, data_dir='data/processed', model_dir='models/depth_3', embed_dim=64, layers=[64, 64, 64], cpu=False, debug=False, use_bf16=True, lr=0.001, no_compile=True, log_dir='output/logs/depth_3')
+Log file: output/logs/depth_3\kgat_20260409_061132.txt
+Using Intel Arc GPU (XPU)
+Train samples: 905893, Test samples: 226474
+Expected iterations per epoch: 884
+Initializing KGATAttention with embed_dim=64, layers=[64, 64, 64]
+Enabled BFloat16 precision
+Model compilation disabled by user.
+Epoch 1 done. Avg Loss: 0.2823
+Epoch 1 Evaluation - HR@[10,20,50]: [0.7538, 0.8906, 0.9859] | Precision@[10,20,50]: [0.0754, 0.0445, 0.0197] | NDCG@[10,20,50]: [0.5059, 0.5406, 0.5601]
+Epoch 1 Current LR: 1.000000e-03
+Epoch 2 done. Avg Loss: 0.2190
+Epoch 2 Evaluation - HR@[10,20,50]: [0.7788, 0.9097, 0.9890] | Precision@[10,20,50]: [0.0779, 0.0455, 0.0198] | NDCG@[10,20,50]: [0.5271, 0.5604, 0.5766]
+Epoch 2 Current LR: 1.000000e-03
+Epoch 3 done. Avg Loss: 0.2026
+Epoch 3 Evaluation - HR@[10,20,50]: [0.7916, 0.9185, 0.9897] | Precision@[10,20,50]: [0.0792, 0.0459, 0.0198] | NDCG@[10,20,50]: [0.5364, 0.5687, 0.5833]
+Epoch 3 Current LR: 1.000000e-03

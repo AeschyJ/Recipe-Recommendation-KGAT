@@ -1,0 +1,23 @@
+Training started. Args: Namespace(model='BPR-MF', epochs=10, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=True, lr=0.001, log_dir='output/logs/baseline', eval_only=False, resume=None, experiment_id=3)
+Using Device: xpu
+Train samples: 905893, Test samples: 226474
+Epoch 1 Avg Loss: 0.6708
+Epoch 1 Evaluation - HR@[10,20,50]: [0.3777, 0.4782, 0.6653] | Precision@[10,20,50]: [0.0378, 0.0239, 0.0133] | NDCG@[10,20,50]: [0.2537, 0.2789, 0.3159]
+Epoch 2 Avg Loss: 0.5861
+Epoch 2 Evaluation - HR@[10,20,50]: [0.4121, 0.5156, 0.6997] | Precision@[10,20,50]: [0.0412, 0.0258, 0.0140] | NDCG@[10,20,50]: [0.2741, 0.3002, 0.3365]
+Epoch 3 Avg Loss: 0.5408
+Epoch 3 Evaluation - HR@[10,20,50]: [0.4277, 0.5347, 0.7114] | Precision@[10,20,50]: [0.0428, 0.0267, 0.0142] | NDCG@[10,20,50]: [0.2826, 0.3096, 0.3445]
+Epoch 4 Avg Loss: 0.5144
+Epoch 4 Evaluation - HR@[10,20,50]: [0.4372, 0.5463, 0.7190] | Precision@[10,20,50]: [0.0437, 0.0273, 0.0144] | NDCG@[10,20,50]: [0.2880, 0.3155, 0.3496]
+Epoch 5 Avg Loss: 0.4977
+Epoch 5 Evaluation - HR@[10,20,50]: [0.4428, 0.5530, 0.7231] | Precision@[10,20,50]: [0.0443, 0.0277, 0.0145] | NDCG@[10,20,50]: [0.2916, 0.3195, 0.3532]
+Epoch 6 Avg Loss: 0.4861
+Epoch 6 Evaluation - HR@[10,20,50]: [0.4481, 0.5579, 0.7257] | Precision@[10,20,50]: [0.0448, 0.0279, 0.0145] | NDCG@[10,20,50]: [0.2939, 0.3216, 0.3549]
+Epoch 7 Avg Loss: 0.4772
+Epoch 7 Evaluation - HR@[10,20,50]: [0.4497, 0.5615, 0.7276] | Precision@[10,20,50]: [0.0450, 0.0281, 0.0146] | NDCG@[10,20,50]: [0.2958, 0.3241, 0.3570]
+Epoch 8 Avg Loss: 0.4703
+Epoch 8 Evaluation - HR@[10,20,50]: [0.4528, 0.5643, 0.7299] | Precision@[10,20,50]: [0.0453, 0.0282, 0.0146] | NDCG@[10,20,50]: [0.2972, 0.3253, 0.3582]
+Epoch 9 Avg Loss: 0.4648
+Epoch 9 Evaluation - HR@[10,20,50]: [0.4548, 0.5670, 0.7318] | Precision@[10,20,50]: [0.0455, 0.0283, 0.0146] | NDCG@[10,20,50]: [0.2982, 0.3265, 0.3593]
+Epoch 10 Avg Loss: 0.4600
+Epoch 10 Evaluation - HR@[10,20,50]: [0.4562, 0.5680, 0.7328] | Precision@[10,20,50]: [0.0456, 0.0284, 0.0147] | NDCG@[10,20,50]: [0.2998, 0.3280, 0.3608]

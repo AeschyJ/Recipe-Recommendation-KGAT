@@ -12,3 +12,4 @@
 *   [ADR-003: 訓練效能極致優化 (Training & Performance Optimization)](ADR-003-Training-Optimization.md)
 *   [ADR-004: 回歸原始論文 (Paper Alignment)](ADR-004-Paper-Alignment.md)
 *   [ADR-005: 消融實驗架構設計 (Ablation Study Architecture)](ADR-005-Ablation-Study-Architecture.md)
+*   [ADR-006: 對照組模型實作 (Baseline Models Implementation)](ADR-006-Baseline-Models-Implementation.md)

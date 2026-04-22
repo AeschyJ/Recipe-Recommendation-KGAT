@@ -1,0 +1,299 @@
+[
+  {
+    "user_id_remapped": 14139,
+    "user_id_original": "119643",
+    "user_name": "User 119643",
+    "recommended_item_id_remapped": 110055,
+    "recommended_item_id_original": "195519",
+    "recommended_item_name": "shredded pork barbacoa",
+    "score": 0.9991135597229004,
+    "original_prob": 0.7308842539787292,
+    "explanations": [],
+    "fidelity": {},
+    "explanations_note": "無法找到解釋路徑。"
+  },
+  {
+    "user_id_remapped": 111880,
+    "user_id_original": "1549375",
+    "user_name": "User 1549375",
+    "recommended_item_id_remapped": 38631,
+    "recommended_item_id_original": "67256",
+    "recommended_item_name": "best ever banana cake with cream cheese frosting",
+    "score": 1.0845757722854614,
+    "original_prob": 0.7473589777946472,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1549375 -> soft snickerdoodle cookies -> User 961101 -> best ever banana cake with cream cheese frosting",
+        "path_details": [
+          {
+            "id_remapped": 111880,
+            "id_original": "1549375",
+            "type": "USER",
+            "name": "User 1549375"
+          },
+          {
+            "id_remapped": 282954,
+            "id_original": "97496",
+            "type": "RECIPE",
+            "name": "soft snickerdoodle cookies"
+          },
+          {
+            "id_remapped": 83105,
+            "id_original": "961101",
+            "type": "USER",
+            "name": "User 961101"
+          },
+          {
+            "id_remapped": 265201,
+            "id_original": "67256",
+            "type": "RECIPE",
+            "name": "best ever banana cake with cream cheese frosting"
+          }
+        ],
+        "contribution_score": 0.018048507730850347
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1549375 -> soft snickerdoodle cookies -> User 573418 -> best ever banana cake with cream cheese frosting",
+        "path_details": [
+          {
+            "id_remapped": 111880,
+            "id_original": "1549375",
+            "type": "USER",
+            "name": "User 1549375"
+          },
+          {
+            "id_remapped": 282954,
+            "id_original": "97496",
+            "type": "RECIPE",
+            "name": "soft snickerdoodle cookies"
+          },
+          {
+            "id_remapped": 58084,
+            "id_original": "573418",
+            "type": "USER",
+            "name": "User 573418"
+          },
+          {
+            "id_remapped": 265201,
+            "id_original": "67256",
+            "type": "RECIPE",
+            "name": "best ever banana cake with cream cheese frosting"
+          }
+        ],
+        "contribution_score": 0.008496219323220224
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1549375 -> soft snickerdoodle cookies -> User 1220448 -> best ever banana cake with cream cheese frosting",
+        "path_details": [
+          {
+            "id_remapped": 111880,
+            "id_original": "1549375",
+            "type": "USER",
+            "name": "User 1549375"
+          },
+          {
+            "id_remapped": 282954,
+            "id_original": "97496",
+            "type": "RECIPE",
+            "name": "soft snickerdoodle cookies"
+          },
+          {
+            "id_remapped": 95966,
+            "id_original": "1220448",
+            "type": "USER",
+            "name": "User 1220448"
+          },
+          {
+            "id_remapped": 265201,
+            "id_original": "67256",
+            "type": "RECIPE",
+            "name": "best ever banana cake with cream cheese frosting"
+          }
+        ],
+        "contribution_score": 0.005844184273397104
+      }
+    ],
+    "fidelity": {
+      "fidelity_plus": 0.06760549545288086,
+      "prob_f_plus": 0.6797534823417664,
+      "fidelity_minus": 4.6193599700927734e-05,
+      "prob_f_minus": 0.7473127841949463
+    }
+  },
+  {
+    "user_id_remapped": 163352,
+    "user_id_original": "1802508407",
+    "user_name": "User 1802508407",
+    "recommended_item_id_remapped": 51312,
+    "recommended_item_id_original": "89204",
+    "recommended_item_name": "crock pot chicken with black beans   cream cheese",
+    "score": 1.105439305305481,
+    "original_prob": 0.7512778639793396,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1802508407 -> pronto pups aka corn dogs -> User 1930368 -> crock pot chicken with black beans   cream cheese",
+        "path_details": [
+          {
+            "id_remapped": 163352,
+            "id_original": "1802508407",
+            "type": "USER",
+            "name": "User 1802508407"
+          },
+          {
+            "id_remapped": 247158,
+            "id_original": "37374",
+            "type": "RECIPE",
+            "name": "pronto pups aka corn dogs"
+          },
+          {
+            "id_remapped": 127902,
+            "id_original": "1930368",
+            "type": "USER",
+            "name": "User 1930368"
+          },
+          {
+            "id_remapped": 277882,
+            "id_original": "89204",
+            "type": "RECIPE",
+            "name": "crock pot chicken with black beans   cream cheese"
+          }
+        ],
+        "contribution_score": 0.08825717842197925
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1802508407 -> pronto pups aka corn dogs -> User 762440 -> crock pot chicken with black beans   cream cheese",
+        "path_details": [
+          {
+            "id_remapped": 163352,
+            "id_original": "1802508407",
+            "type": "USER",
+            "name": "User 1802508407"
+          },
+          {
+            "id_remapped": 247158,
+            "id_original": "37374",
+            "type": "RECIPE",
+            "name": "pronto pups aka corn dogs"
+          },
+          {
+            "id_remapped": 71058,
+            "id_original": "762440",
+            "type": "USER",
+            "name": "User 762440"
+          },
+          {
+            "id_remapped": 277882,
+            "id_original": "89204",
+            "type": "RECIPE",
+            "name": "crock pot chicken with black beans   cream cheese"
+          }
+        ],
+        "contribution_score": 0.009204245423576745
+      },
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1802508407 -> pronto pups aka corn dogs -> User 295018 -> crock pot chicken with black beans   cream cheese",
+        "path_details": [
+          {
+            "id_remapped": 163352,
+            "id_original": "1802508407",
+            "type": "USER",
+            "name": "User 1802508407"
+          },
+          {
+            "id_remapped": 247158,
+            "id_original": "37374",
+            "type": "RECIPE",
+            "name": "pronto pups aka corn dogs"
+          },
+          {
+            "id_remapped": 34012,
+            "id_original": "295018",
+            "type": "USER",
+            "name": "User 295018"
+          },
+          {
+            "id_remapped": 277882,
+            "id_original": "89204",
+            "type": "RECIPE",
+            "name": "crock pot chicken with black beans   cream cheese"
+          }
+        ],
+        "contribution_score": 0.0006427640953192029
+      }
+    ],
+    "fidelity": {
+      "fidelity_plus": 0.0350528359413147,
+      "prob_f_plus": 0.7162250280380249,
+      "fidelity_minus": -0.00012111663818359375,
+      "prob_f_minus": 0.7513989806175232
+    }
+  },
+  {
+    "user_id_remapped": 97023,
+    "user_id_original": "1241754",
+    "user_name": "User 1241754",
+    "recommended_item_id_remapped": 43638,
+    "recommended_item_id_original": "76107",
+    "recommended_item_name": "longhunter s bear roast",
+    "score": 1.0150848627090454,
+    "original_prob": 0.734014093875885,
+    "explanations": [],
+    "fidelity": {},
+    "explanations_note": "無法找到解釋路徑。"
+  },
+  {
+    "user_id_remapped": 160622,
+    "user_id_original": "1800345045",
+    "user_name": "User 1800345045",
+    "recommended_item_id_remapped": 36456,
+    "recommended_item_id_original": "63689",
+    "recommended_item_name": "my family s favorite sloppy joes  pizza joes",
+    "score": 1.1014845371246338,
+    "original_prob": 0.750538170337677,
+    "explanations": [
+      {
+        "path_structure": "USER -> RECIPE -> USER -> RECIPE",
+        "path_description": "User 1800345045 -> chili s chicken crispers -> User 182624 -> my family s favorite sloppy joes  pizza joes",
+        "path_details": [
+          {
+            "id_remapped": 160622,
+            "id_original": "1800345045",
+            "type": "USER",
+            "name": "User 1800345045"
+          },
+          {
+            "id_remapped": 377635,
+            "id_original": "281782",
+            "type": "RECIPE",
+            "name": "chili s chicken crispers"
+          },
+          {
+            "id_remapped": 21619,
+            "id_original": "182624",
+            "type": "USER",
+            "name": "User 182624"
+          },
+          {
+            "id_remapped": 263026,
+            "id_original": "63689",
+            "type": "RECIPE",
+            "name": "my family s favorite sloppy joes  pizza joes"
+          }
+        ],
+        "contribution_score": 8.007810048795055e-06
+      }
+    ],
+    "fidelity": {
+      "fidelity_plus": 0.01483684778213501,
+      "prob_f_plus": 0.735701322555542,
+      "fidelity_minus": 0.0002561211585998535,
+      "prob_f_minus": 0.7502820491790771
+    }
+  }
+]

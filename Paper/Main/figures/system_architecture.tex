@@ -1,0 +1,84 @@
+\documentclass[tikz]{standalone}
+\usepackage{fontspec}
+\usepackage{amssymb}
+\usepackage[english, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{chinese}
+\babelprovide[import, onchar=ids fonts]{english}
+\babelfont{rm}{Noto Sans}
+\babelfont[chinese]{rm}{Noto Sans CJK TC}
+
+\usetikzlibrary{positioning, arrows.meta, shapes.geometric, fit, backgrounds, calc, shadows}
+
+\begin{document}
+
+\begin{tikzpicture}[
+    node distance=0.8cm and 1.2cm,
+    box/.style={rectangle, rounded corners=6pt, draw=gray!60, thick, fill=white, minimum width=3.2cm, minimum height=1cm, align=center, font=\sffamily\small, drop shadow={opacity=0.08, shadow xshift=2pt, shadow yshift=-2pt}},
+    database/.style={cylinder, cylinder uses custom fill, cylinder body fill=white, cylinder end fill=gray!10, shape border rotate=90, draw=gray!60, thick, aspect=0.25, minimum width=2.8cm, minimum height=1.1cm, align=center, font=\sffamily\small, drop shadow={opacity=0.08, shadow xshift=2pt, shadow yshift=-2pt}},
+    arrow/.style={-{Stealth[scale=1.2]}, thick, draw=gray!70},
+    dashedarrow/.style={-{Stealth[scale=1.2]}, thick, dashed, draw=gray!70},
+    % 加大 inner sep 讓空間更寬裕
+    framebox/.style={rectangle, rounded corners=12pt, draw=gray!40, dashed, thick, inner sep=15pt}
+]
+
+% 自訂顏色
+\definecolor{slate}{RGB}{112, 128, 144}
+\definecolor{bg1}{RGB}{245, 247, 250}
+\definecolor{bg2}{RGB}{250, 245, 250}
+\definecolor{bg3}{RGB}{253, 248, 243}
+\definecolor{bg4}{RGB}{243, 250, 246}
+
+% --- 階段 1：資料蒐集與建構 ---
+\node[box] (user) {使用者數據\\(ID, 互動紀錄)};
+\node[box, left=of user] (kg) {外部知識庫\\(實體與關係)};
+\node[box, right=of user] (item) {食譜數據\\(內容屬性)};
+
+\node[box, below=1.2cm of user] (build) {CKG 協同知識圖譜建構};
+\draw[arrow] (kg.south) |- (build.west);
+\draw[arrow] (user.south) -- (build.north);
+\draw[arrow] (item.south) |- (build.east);
+
+\node[database, below=1cm of build] (db) {結構化圖數據 (HDF5)};
+\draw[arrow] (build) -- (db);
+
+\begin{scope}[on background layer]
+    % 增加 inner ysep
+    \node[framebox, fill=bg1, fit=(kg)(item)(db), inner ysep=25pt] (frame1) {};
+    \node[anchor=north west, font=\sffamily\bfseries, text=slate, xshift=5pt, yshift=-5pt] at (frame1.north west) {1. 資料蒐集與知識圖譜建構};
+\end{scope}
+
+% --- 階段 2 & 3 ---
+\node[box, below left=2.2cm and -0.5cm of db] (init) {嵌入向量初始化\\(TransR / 隨機)};
+\node[box, below=0.8cm of init] (split) {資料集分割\\(訓練/驗證/測試)};
+\draw[dashedarrow] (db.south) -| (init.north);
+\draw[arrow] (init) -- (split);
+
+\begin{scope}[on background layer]
+    \node[framebox, fill=bg2, fit=(init)(split), inner ysep=25pt] (frame2) {};
+    \node[anchor=north west, font=\sffamily\bfseries, text=slate, xshift=5pt, yshift=-5pt] at (frame2.north west) {2. 資料預處理};
+\end{scope}
+
+\node[box, right=2.5cm of init] (kgat) {KGAT 編碼器\\(注意力訊息傳播)};
+\node[box, below=0.8cm of kgat] (pred) {偏好分數預測\\($\hat{y}_{ui}$)};
+\draw[arrow] (split) -- (kgat);
+\draw[arrow] (kgat) -- (pred);
+
+\begin{scope}[on background layer]
+    \node[framebox, fill=bg3, fit=(kgat)(pred), inner ysep=25pt] (frame3) {};
+    \node[anchor=north west, font=\sffamily\bfseries, text=slate, xshift=5pt, yshift=-5pt] at (frame3.north west) {3. KGAT 模型訓練};
+\end{scope}
+
+% --- 階段 4 ---
+\node[box, below=2.2cm of split] (engine) {推薦引擎生成\\Top-K 清單};
+\node[box, below=2.2cm of pred] (metrics) {模型量化評估\\(HR, NDCG, Fidelity)};
+
+\draw[arrow] (pred.south) -- ++(0,-0.6) -| (metrics.north);
+\draw[arrow] (pred.south) -- ++(0,-0.6) -| (engine.north);
+
+\begin{scope}[on background layer]
+    \node[framebox, fill=bg4, fit=(engine)(metrics), inner ysep=25pt] (frame4) {};
+    \node[anchor=north west, font=\sffamily\bfseries, text=slate, xshift=5pt, yshift=-5pt] at (frame4.north west) {4. 實驗分析與應用};
+\end{scope}
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,243 @@
+2026-04-17 22:34:36,354 [INFO] Training started. Args: Namespace(epochs=10, batch_size=1024, lr=0.001, embed_dim=64, layers=[64], use_bf16=True, resume=None, model_dir='models/wo_attn', cpu=False, debug=False, log_dir='output/logs/wo_attn', eval_only=False, log_file=None)
+2026-04-17 22:34:36,354 [INFO] Log file: output/logs/wo_attn\kgat_20260417_223436.txt
+2026-04-17 22:34:36,354 [INFO] Using Intel Arc GPU (XPU)
+2026-04-17 22:34:44,786 [INFO] Data Split - Train: 905893, Test: 226474
+2026-04-17 22:34:44,786 [INFO] Constructing adjacency matrix (CPU)...
+2026-04-17 22:34:48,414 [INFO] Adjacency matrix created. Edges: 7200165
+2026-04-17 22:34:48,414 [INFO] Moving adjacency matrix to xpu...
+2026-04-17 22:34:48,522 [INFO] Adjacency matrix cast to BFloat16.
+2026-04-17 22:34:48,522 [INFO] Done. Coalesced: True
+2026-04-17 22:34:48,522 [INFO] Initializing KGAT model...
+2026-04-17 22:34:48,744 [INFO] Model cast to BFloat16.
+2026-04-17 22:34:48,744 [INFO] Model moved to device.
+2026-04-17 22:34:53,044 [INFO] Starting training from epoch 0 to 10...
+2026-04-18 04:34:45,259 [INFO] Epoch 1 Complete. Average Loss: 0.4918
+2026-04-18 04:35:13,811 [INFO] Epoch 1 Evaluation - HR@[10,20,50]: [0.5484, 0.6571, 0.8405] | Precision@[10,20,50]: [0.0548, 0.0329, 0.0168] | NDCG@[10,20,50]: [0.3624, 0.3901, 0.4259]
+2026-04-18 04:35:13,811 [INFO] Epoch 1 Current LR: 1.000000e-03
+2026-04-18 04:35:14,522 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e1.pth
+2026-04-18 10:11:45,598 [INFO] Epoch 2 Complete. Average Loss: 0.4333
+2026-04-18 10:12:12,523 [INFO] Epoch 2 Evaluation - HR@[10,20,50]: [0.5523, 0.6635, 0.8339] | Precision@[10,20,50]: [0.0552, 0.0332, 0.0167] | NDCG@[10,20,50]: [0.3711, 0.3993, 0.4326]
+2026-04-18 10:12:12,523 [INFO] Epoch 2 Current LR: 1.000000e-03
+2026-04-18 10:12:13,376 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e2.pth
+2026-04-18 15:46:04,656 [INFO] Epoch 3 Complete. Average Loss: 0.4226
+2026-04-18 15:46:31,761 [INFO] Epoch 3 Evaluation - HR@[10,20,50]: [0.5559, 0.6683, 0.8289] | Precision@[10,20,50]: [0.0556, 0.0334, 0.0166] | NDCG@[10,20,50]: [0.3773, 0.4057, 0.4372]
+2026-04-18 15:46:31,761 [INFO] Epoch 3 Current LR: 1.000000e-03
+2026-04-18 15:46:32,486 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e3.pth
+2026-04-18 21:22:15,837 [INFO] Epoch 4 Complete. Average Loss: 0.4145
+2026-04-18 21:22:42,872 [INFO] Epoch 4 Evaluation - HR@[10,20,50]: [0.5578, 0.6718, 0.8244] | Precision@[10,20,50]: [0.0558, 0.0336, 0.0165] | NDCG@[10,20,50]: [0.3806, 0.4095, 0.4395]
+2026-04-18 21:22:42,873 [INFO] Epoch 4 Current LR: 1.000000e-03
+2026-04-18 21:22:43,562 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e4.pth
+2026-04-19 03:18:27,345 [INFO] Epoch 5 Complete. Average Loss: 0.4080
+2026-04-19 03:18:49,283 [INFO] Epoch 5 Evaluation - HR@[10,20,50]: [0.5587, 0.6720, 0.8223] | Precision@[10,20,50]: [0.0559, 0.0336, 0.0164] | NDCG@[10,20,50]: [0.3831, 0.4117, 0.4415]
+2026-04-19 03:18:49,284 [INFO] Epoch 5 Current LR: 1.000000e-03
+2026-04-19 03:18:50,151 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e5.pth
+2026-04-19 08:17:20,603 [INFO] Epoch 6 Complete. Average Loss: 0.4033
+2026-04-19 08:17:42,923 [INFO] Epoch 6 Evaluation - HR@[10,20,50]: [0.5611, 0.6739, 0.8209] | Precision@[10,20,50]: [0.0561, 0.0337, 0.0164] | NDCG@[10,20,50]: [0.3865, 0.4150, 0.4441]
+2026-04-19 08:17:42,923 [INFO] Epoch 6 Current LR: 1.000000e-03
+2026-04-19 08:17:43,603 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e6.pth
+2026-04-19 13:40:28,974 [INFO] Epoch 7 Complete. Average Loss: 0.3991
+2026-04-19 13:40:57,140 [INFO] Epoch 7 Evaluation - HR@[10,20,50]: [0.5616, 0.6749, 0.8192] | Precision@[10,20,50]: [0.0562, 0.0337, 0.0164] | NDCG@[10,20,50]: [0.3865, 0.4151, 0.4438]
+2026-04-19 13:40:57,140 [INFO] Epoch 7 Current LR: 1.000000e-03
+2026-04-19 13:40:58,058 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e7.pth
+2026-04-19 20:02:17,212 [INFO] Epoch 8 Complete. Average Loss: 0.3951
+2026-04-19 20:02:45,431 [INFO] Epoch 8 Evaluation - HR@[10,20,50]: [0.5628, 0.6763, 0.8183] | Precision@[10,20,50]: [0.0563, 0.0338, 0.0164] | NDCG@[10,20,50]: [0.3876, 0.4163, 0.4445]
+2026-04-19 20:02:45,468 [INFO] Epoch 8 Current LR: 1.000000e-03
+2026-04-19 20:02:46,136 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e8.pth
+2026-04-20 01:16:40,448 [INFO] Epoch 9 Complete. Average Loss: 0.3923
+2026-04-20 01:17:03,416 [INFO] Epoch 9 Evaluation - HR@[10,20,50]: [0.5632, 0.6761, 0.8167] | Precision@[10,20,50]: [0.0563, 0.0338, 0.0163] | NDCG@[10,20,50]: [0.3885, 0.4170, 0.4451]
+2026-04-20 01:17:03,416 [INFO] Epoch 9 Current LR: 1.000000e-03
+2026-04-20 01:17:04,351 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e9.pth
+2026-04-20 06:27:40,563 [INFO] Epoch 10 Complete. Average Loss: 0.3893
+2026-04-20 06:28:03,470 [INFO] Epoch 10 Evaluation - HR@[10,20,50]: [0.5639, 0.6776, 0.8167] | Precision@[10,20,50]: [0.0564, 0.0339, 0.0163] | NDCG@[10,20,50]: [0.3893, 0.4181, 0.4458]
+2026-04-20 06:28:03,470 [INFO] Epoch 10 Current LR: 1.000000e-03
+2026-04-20 06:28:04,289 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e10.pth
+2026-04-22 16:18:41,699 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, lr=0.001, embed_dim=64, layers=[64, 32], use_bf16=False, resume='models/wo_attn\\2_kgat_checkpoint_e1.pth', model_dir='models', cpu=False, debug=False, log_dir='output/logs', eval_only=True, log_file='output/logs/wo_attn/kgat_20260417_223436.txt', no_compile=False)
+2026-04-22 16:18:41,699 [INFO] Log file: output/logs/wo_attn/kgat_20260417_223436.txt
+2026-04-22 16:18:41,699 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 16:18:42,895 [INFO] Data Split - Train: 905893, Test: 226474
+2026-04-22 16:18:42,895 [INFO] Constructing adjacency matrix (CPU)...
+2026-04-22 16:18:46,066 [INFO] Adjacency matrix created. Edges: 7200165
+2026-04-22 16:18:46,067 [INFO] Moving adjacency matrix to xpu...
+2026-04-22 16:18:46,088 [INFO] Done. Coalesced: True
+2026-04-22 16:18:46,088 [INFO] Loading checkpoint: models/wo_attn\2_kgat_checkpoint_e1.pth
+2026-04-22 16:18:46,138 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 16:18:46,138 [INFO] Initializing KGAT model...
+2026-04-22 16:18:46,364 [INFO] Model moved to device.
+2026-04-22 16:18:47,199 [INFO] Resumed from epoch 1 (Batch Size: 1024, LR: 0.001, Layers: [64])
+2026-04-22 16:18:48,072 [INFO] Model compiled with torch.compile for XPU.
+2026-04-22 16:18:48,073 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:18:54,653 [INFO] Evaluation Results:
+2026-04-22 16:18:54,653 [INFO] K=10 -> HR: 0.5472, Precision: 0.0547, NDCG: 0.3565
+2026-04-22 16:18:54,653 [INFO] K=20 -> HR: 0.6563, Precision: 0.0328, NDCG: 0.3842
+2026-04-22 16:18:54,653 [INFO] K=50 -> HR: 0.8383, Precision: 0.0168, NDCG: 0.4198
+2026-04-22 16:18:57,150 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, lr=0.001, embed_dim=64, layers=[64, 32], use_bf16=False, resume='models/wo_attn\\2_kgat_checkpoint_e10.pth', model_dir='models', cpu=False, debug=False, log_dir='output/logs', eval_only=True, log_file='output/logs/wo_attn/kgat_20260417_223436.txt', no_compile=False)
+2026-04-22 16:18:57,150 [INFO] Log file: output/logs/wo_attn/kgat_20260417_223436.txt
+2026-04-22 16:18:57,150 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 16:18:58,308 [INFO] Data Split - Train: 905893, Test: 226474
+2026-04-22 16:18:58,309 [INFO] Constructing adjacency matrix (CPU)...
+2026-04-22 16:19:01,347 [INFO] Adjacency matrix created. Edges: 7200165
+2026-04-22 16:19:01,347 [INFO] Moving adjacency matrix to xpu...
+2026-04-22 16:19:01,366 [INFO] Done. Coalesced: True
+2026-04-22 16:19:01,366 [INFO] Loading checkpoint: models/wo_attn\2_kgat_checkpoint_e10.pth
+2026-04-22 16:19:02,847 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 16:19:02,847 [INFO] Initializing KGAT model...
+2026-04-22 16:19:03,065 [INFO] Model moved to device.
+2026-04-22 16:19:03,933 [INFO] Resumed from epoch 10 (Batch Size: 1024, LR: 0.001, Layers: [64])
+2026-04-22 16:19:04,831 [INFO] Model compiled with torch.compile for XPU.
+2026-04-22 16:19:04,831 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:19:11,211 [INFO] Evaluation Results:
+2026-04-22 16:19:11,212 [INFO] K=10 -> HR: 0.5630, Precision: 0.0563, NDCG: 0.3851
+2026-04-22 16:19:11,212 [INFO] K=20 -> HR: 0.6761, Precision: 0.0338, NDCG: 0.4138
+2026-04-22 16:19:11,212 [INFO] K=50 -> HR: 0.8162, Precision: 0.0163, NDCG: 0.4417
+2026-04-22 16:19:13,643 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, lr=0.001, embed_dim=64, layers=[64, 32], use_bf16=False, resume='models/wo_attn\\2_kgat_checkpoint_e2.pth', model_dir='models', cpu=False, debug=False, log_dir='output/logs', eval_only=True, log_file='output/logs/wo_attn/kgat_20260417_223436.txt', no_compile=False)
+2026-04-22 16:19:13,643 [INFO] Log file: output/logs/wo_attn/kgat_20260417_223436.txt
+2026-04-22 16:19:13,643 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 16:19:14,818 [INFO] Data Split - Train: 905893, Test: 226474
+2026-04-22 16:19:14,818 [INFO] Constructing adjacency matrix (CPU)...
+2026-04-22 16:19:17,854 [INFO] Adjacency matrix created. Edges: 7200165
+2026-04-22 16:19:17,855 [INFO] Moving adjacency matrix to xpu...
+2026-04-22 16:19:17,874 [INFO] Done. Coalesced: True
+2026-04-22 16:19:17,874 [INFO] Loading checkpoint: models/wo_attn\2_kgat_checkpoint_e2.pth
+2026-04-22 16:19:19,469 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 16:19:19,469 [INFO] Initializing KGAT model...
+2026-04-22 16:19:19,687 [INFO] Model moved to device.
+2026-04-22 16:19:20,541 [INFO] Resumed from epoch 2 (Batch Size: 1024, LR: 0.001, Layers: [64])
+2026-04-22 16:19:21,404 [INFO] Model compiled with torch.compile for XPU.
+2026-04-22 16:19:21,405 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:19:27,581 [INFO] Evaluation Results:
+2026-04-22 16:19:27,581 [INFO] K=10 -> HR: 0.5520, Precision: 0.0552, NDCG: 0.3656
+2026-04-22 16:19:27,581 [INFO] K=20 -> HR: 0.6627, Precision: 0.0331, NDCG: 0.3937
+2026-04-22 16:19:27,581 [INFO] K=50 -> HR: 0.8323, Precision: 0.0166, NDCG: 0.4269
+2026-04-22 16:19:29,957 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, lr=0.001, embed_dim=64, layers=[64, 32], use_bf16=False, resume='models/wo_attn\\2_kgat_checkpoint_e3.pth', model_dir='models', cpu=False, debug=False, log_dir='output/logs', eval_only=True, log_file='output/logs/wo_attn/kgat_20260417_223436.txt', no_compile=False)
+2026-04-22 16:19:29,957 [INFO] Log file: output/logs/wo_attn/kgat_20260417_223436.txt
+2026-04-22 16:19:29,957 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 16:19:31,182 [INFO] Data Split - Train: 905893, Test: 226474
+2026-04-22 16:19:31,182 [INFO] Constructing adjacency matrix (CPU)...
+2026-04-22 16:19:34,423 [INFO] Adjacency matrix created. Edges: 7200165
+2026-04-22 16:19:34,423 [INFO] Moving adjacency matrix to xpu...
+2026-04-22 16:19:34,444 [INFO] Done. Coalesced: True
+2026-04-22 16:19:34,444 [INFO] Loading checkpoint: models/wo_attn\2_kgat_checkpoint_e3.pth
+2026-04-22 16:19:35,774 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 16:19:35,774 [INFO] Initializing KGAT model...
+2026-04-22 16:19:35,991 [INFO] Model moved to device.
+2026-04-22 16:19:36,842 [INFO] Resumed from epoch 3 (Batch Size: 1024, LR: 0.001, Layers: [64])
+2026-04-22 16:19:37,743 [INFO] Model compiled with torch.compile for XPU.
+2026-04-22 16:19:37,743 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:19:43,884 [INFO] Evaluation Results:
+2026-04-22 16:19:43,884 [INFO] K=10 -> HR: 0.5556, Precision: 0.0556, NDCG: 0.3713
+2026-04-22 16:19:43,884 [INFO] K=20 -> HR: 0.6675, Precision: 0.0334, NDCG: 0.3996
+2026-04-22 16:19:43,884 [INFO] K=50 -> HR: 0.8278, Precision: 0.0166, NDCG: 0.4310
+2026-04-22 16:19:46,253 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, lr=0.001, embed_dim=64, layers=[64, 32], use_bf16=False, resume='models/wo_attn\\2_kgat_checkpoint_e4.pth', model_dir='models', cpu=False, debug=False, log_dir='output/logs', eval_only=True, log_file='output/logs/wo_attn/kgat_20260417_223436.txt', no_compile=False)
+2026-04-22 16:19:46,253 [INFO] Log file: output/logs/wo_attn/kgat_20260417_223436.txt
+2026-04-22 16:19:46,253 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 16:19:47,419 [INFO] Data Split - Train: 905893, Test: 226474
+2026-04-22 16:19:47,419 [INFO] Constructing adjacency matrix (CPU)...
+2026-04-22 16:19:50,566 [INFO] Adjacency matrix created. Edges: 7200165
+2026-04-22 16:19:50,566 [INFO] Moving adjacency matrix to xpu...
+2026-04-22 16:19:50,586 [INFO] Done. Coalesced: True
+2026-04-22 16:19:50,586 [INFO] Loading checkpoint: models/wo_attn\2_kgat_checkpoint_e4.pth
+2026-04-22 16:19:52,062 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 16:19:52,063 [INFO] Initializing KGAT model...
+2026-04-22 16:19:52,280 [INFO] Model moved to device.
+2026-04-22 16:19:53,122 [INFO] Resumed from epoch 4 (Batch Size: 1024, LR: 0.001, Layers: [64])
+2026-04-22 16:19:53,991 [INFO] Model compiled with torch.compile for XPU.
+2026-04-22 16:19:53,992 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:20:00,116 [INFO] Evaluation Results:
+2026-04-22 16:20:00,116 [INFO] K=10 -> HR: 0.5568, Precision: 0.0557, NDCG: 0.3751
+2026-04-22 16:20:00,116 [INFO] K=20 -> HR: 0.6705, Precision: 0.0335, NDCG: 0.4039
+2026-04-22 16:20:00,116 [INFO] K=50 -> HR: 0.8236, Precision: 0.0165, NDCG: 0.4340
+2026-04-22 16:20:02,539 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, lr=0.001, embed_dim=64, layers=[64, 32], use_bf16=False, resume='models/wo_attn\\2_kgat_checkpoint_e5.pth', model_dir='models', cpu=False, debug=False, log_dir='output/logs', eval_only=True, log_file='output/logs/wo_attn/kgat_20260417_223436.txt', no_compile=False)
+2026-04-22 16:20:02,539 [INFO] Log file: output/logs/wo_attn/kgat_20260417_223436.txt
+2026-04-22 16:20:02,539 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 16:20:03,706 [INFO] Data Split - Train: 905893, Test: 226474
+2026-04-22 16:20:03,706 [INFO] Constructing adjacency matrix (CPU)...
+2026-04-22 16:20:06,851 [INFO] Adjacency matrix created. Edges: 7200165
+2026-04-22 16:20:06,852 [INFO] Moving adjacency matrix to xpu...
+2026-04-22 16:20:06,871 [INFO] Done. Coalesced: True
+2026-04-22 16:20:06,871 [INFO] Loading checkpoint: models/wo_attn\2_kgat_checkpoint_e5.pth
+2026-04-22 16:20:08,720 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 16:20:08,720 [INFO] Initializing KGAT model...
+2026-04-22 16:20:08,957 [INFO] Model moved to device.
+2026-04-22 16:20:09,825 [INFO] Resumed from epoch 5 (Batch Size: 1024, LR: 0.001, Layers: [64])
+2026-04-22 16:20:10,731 [INFO] Model compiled with torch.compile for XPU.
+2026-04-22 16:20:10,731 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:20:16,927 [INFO] Evaluation Results:
+2026-04-22 16:20:16,927 [INFO] K=10 -> HR: 0.5575, Precision: 0.0558, NDCG: 0.3787
+2026-04-22 16:20:16,927 [INFO] K=20 -> HR: 0.6710, Precision: 0.0336, NDCG: 0.4074
+2026-04-22 16:20:16,927 [INFO] K=50 -> HR: 0.8214, Precision: 0.0164, NDCG: 0.4371
+2026-04-22 16:20:19,319 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, lr=0.001, embed_dim=64, layers=[64, 32], use_bf16=False, resume='models/wo_attn\\2_kgat_checkpoint_e6.pth', model_dir='models', cpu=False, debug=False, log_dir='output/logs', eval_only=True, log_file='output/logs/wo_attn/kgat_20260417_223436.txt', no_compile=False)
+2026-04-22 16:20:19,320 [INFO] Log file: output/logs/wo_attn/kgat_20260417_223436.txt
+2026-04-22 16:20:19,320 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 16:20:20,575 [INFO] Data Split - Train: 905893, Test: 226474
+2026-04-22 16:20:20,576 [INFO] Constructing adjacency matrix (CPU)...
+2026-04-22 16:20:23,673 [INFO] Adjacency matrix created. Edges: 7200165
+2026-04-22 16:20:23,673 [INFO] Moving adjacency matrix to xpu...
+2026-04-22 16:20:23,696 [INFO] Done. Coalesced: True
+2026-04-22 16:20:23,696 [INFO] Loading checkpoint: models/wo_attn\2_kgat_checkpoint_e6.pth
+2026-04-22 16:20:25,171 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 16:20:25,171 [INFO] Initializing KGAT model...
+2026-04-22 16:20:25,390 [INFO] Model moved to device.
+2026-04-22 16:20:26,245 [INFO] Resumed from epoch 6 (Batch Size: 1024, LR: 0.001, Layers: [64])
+2026-04-22 16:20:27,118 [INFO] Model compiled with torch.compile for XPU.
+2026-04-22 16:20:27,118 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:20:33,239 [INFO] Evaluation Results:
+2026-04-22 16:20:33,240 [INFO] K=10 -> HR: 0.5604, Precision: 0.0560, NDCG: 0.3814
+2026-04-22 16:20:33,240 [INFO] K=20 -> HR: 0.6732, Precision: 0.0337, NDCG: 0.4100
+2026-04-22 16:20:33,240 [INFO] K=50 -> HR: 0.8203, Precision: 0.0164, NDCG: 0.4391
+2026-04-22 16:20:35,585 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, lr=0.001, embed_dim=64, layers=[64, 32], use_bf16=False, resume='models/wo_attn\\2_kgat_checkpoint_e7.pth', model_dir='models', cpu=False, debug=False, log_dir='output/logs', eval_only=True, log_file='output/logs/wo_attn/kgat_20260417_223436.txt', no_compile=False)
+2026-04-22 16:20:35,585 [INFO] Log file: output/logs/wo_attn/kgat_20260417_223436.txt
+2026-04-22 16:20:35,585 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 16:20:36,768 [INFO] Data Split - Train: 905893, Test: 226474
+2026-04-22 16:20:36,768 [INFO] Constructing adjacency matrix (CPU)...
+2026-04-22 16:20:39,828 [INFO] Adjacency matrix created. Edges: 7200165
+2026-04-22 16:20:39,828 [INFO] Moving adjacency matrix to xpu...
+2026-04-22 16:20:39,847 [INFO] Done. Coalesced: True
+2026-04-22 16:20:39,847 [INFO] Loading checkpoint: models/wo_attn\2_kgat_checkpoint_e7.pth
+2026-04-22 16:20:41,659 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 16:20:41,675 [INFO] Initializing KGAT model...
+2026-04-22 16:20:41,893 [INFO] Model moved to device.
+2026-04-22 16:20:42,752 [INFO] Resumed from epoch 7 (Batch Size: 1024, LR: 0.001, Layers: [64])
+2026-04-22 16:20:43,636 [INFO] Model compiled with torch.compile for XPU.
+2026-04-22 16:20:43,636 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:20:49,815 [INFO] Evaluation Results:
+2026-04-22 16:20:49,815 [INFO] K=10 -> HR: 0.5596, Precision: 0.0560, NDCG: 0.3812
+2026-04-22 16:20:49,815 [INFO] K=20 -> HR: 0.6732, Precision: 0.0337, NDCG: 0.4099
+2026-04-22 16:20:49,815 [INFO] K=50 -> HR: 0.8186, Precision: 0.0164, NDCG: 0.4388
+2026-04-22 16:20:52,193 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, lr=0.001, embed_dim=64, layers=[64, 32], use_bf16=False, resume='models/wo_attn\\2_kgat_checkpoint_e8.pth', model_dir='models', cpu=False, debug=False, log_dir='output/logs', eval_only=True, log_file='output/logs/wo_attn/kgat_20260417_223436.txt', no_compile=False)
+2026-04-22 16:20:52,193 [INFO] Log file: output/logs/wo_attn/kgat_20260417_223436.txt
+2026-04-22 16:20:52,194 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 16:20:53,356 [INFO] Data Split - Train: 905893, Test: 226474
+2026-04-22 16:20:53,357 [INFO] Constructing adjacency matrix (CPU)...
+2026-04-22 16:20:56,436 [INFO] Adjacency matrix created. Edges: 7200165
+2026-04-22 16:20:56,436 [INFO] Moving adjacency matrix to xpu...
+2026-04-22 16:20:56,456 [INFO] Done. Coalesced: True
+2026-04-22 16:20:56,456 [INFO] Loading checkpoint: models/wo_attn\2_kgat_checkpoint_e8.pth
+2026-04-22 16:20:57,976 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 16:20:57,976 [INFO] Initializing KGAT model...
+2026-04-22 16:20:58,196 [INFO] Model moved to device.
+2026-04-22 16:20:59,058 [INFO] Resumed from epoch 8 (Batch Size: 1024, LR: 0.001, Layers: [64])
+2026-04-22 16:20:59,990 [INFO] Model compiled with torch.compile for XPU.
+2026-04-22 16:20:59,991 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:21:06,136 [INFO] Evaluation Results:
+2026-04-22 16:21:06,137 [INFO] K=10 -> HR: 0.5614, Precision: 0.0561, NDCG: 0.3824
+2026-04-22 16:21:06,137 [INFO] K=20 -> HR: 0.6752, Precision: 0.0338, NDCG: 0.4111
+2026-04-22 16:21:06,137 [INFO] K=50 -> HR: 0.8175, Precision: 0.0164, NDCG: 0.4395
+2026-04-22 16:21:08,506 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, lr=0.001, embed_dim=64, layers=[64, 32], use_bf16=False, resume='models/wo_attn\\2_kgat_checkpoint_e9.pth', model_dir='models', cpu=False, debug=False, log_dir='output/logs', eval_only=True, log_file='output/logs/wo_attn/kgat_20260417_223436.txt', no_compile=False)
+2026-04-22 16:21:08,506 [INFO] Log file: output/logs/wo_attn/kgat_20260417_223436.txt
+2026-04-22 16:21:08,506 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 16:21:09,705 [INFO] Data Split - Train: 905893, Test: 226474
+2026-04-22 16:21:09,705 [INFO] Constructing adjacency matrix (CPU)...
+2026-04-22 16:21:12,781 [INFO] Adjacency matrix created. Edges: 7200165
+2026-04-22 16:21:12,781 [INFO] Moving adjacency matrix to xpu...
+2026-04-22 16:21:12,801 [INFO] Done. Coalesced: True
+2026-04-22 16:21:12,801 [INFO] Loading checkpoint: models/wo_attn\2_kgat_checkpoint_e9.pth
+2026-04-22 16:21:14,907 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 16:21:14,907 [INFO] Initializing KGAT model...
+2026-04-22 16:21:15,126 [INFO] Model moved to device.
+2026-04-22 16:21:15,981 [INFO] Resumed from epoch 9 (Batch Size: 1024, LR: 0.001, Layers: [64])
+2026-04-22 16:21:16,858 [INFO] Model compiled with torch.compile for XPU.
+2026-04-22 16:21:16,859 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:21:23,057 [INFO] Evaluation Results:
+2026-04-22 16:21:23,057 [INFO] K=10 -> HR: 0.5612, Precision: 0.0561, NDCG: 0.3835
+2026-04-22 16:21:23,058 [INFO] K=20 -> HR: 0.6749, Precision: 0.0337, NDCG: 0.4123
+2026-04-22 16:21:23,058 [INFO] K=50 -> HR: 0.8164, Precision: 0.0163, NDCG: 0.4405

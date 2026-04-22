@@ -1,0 +1,105 @@
+\documentclass[tikz, border=10pt]{standalone}
+
+% --- UNIVERSAL PREAMBLE BLOCK ---
+\usepackage{fontspec}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage[english, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{chinese}
+\babelprovide[import, onchar=ids fonts]{english}
+
+% Set default/Latin font to Sans Serif in the main (rm) slot
+\babelfont{rm}{Noto Sans}
+% Assign a specific font for Traditional Chinese text
+\babelfont[chinese]{rm}{Noto Sans CJK TC}
+
+% Add because main language is not English
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+% --- END UNIVERSAL PREAMBLE BLOCK ---
+
+\usetikzlibrary{positioning, arrows.meta, shapes.geometric, fit, backgrounds, calc, shadows}
+
+\begin{document}
+
+\begin{tikzpicture}[
+    node distance=1.3cm and 2.5cm,
+    % 基礎方塊樣式
+    module/.style={rectangle, rounded corners=6pt, draw=gray!60, thick, fill=white, minimum width=5.5cm, minimum height=1.3cm, align=center, font=\sffamily\small, drop shadow={opacity=0.08, shadow xshift=2pt, shadow yshift=-2pt}},
+    % 特殊標記方塊
+    highlight/.style={module, draw=orange!60, fill=orange!5},
+    % 節點樣式
+    user_node/.style={circle, draw=blue!60, fill=blue!10, inner sep=4pt, font=\sffamily\small},
+    item_node/.style={circle, draw=orange!60, fill=orange!10, inner sep=4pt, font=\sffamily\small},
+    entity_node/.style={diamond, draw=green!60, fill=green!10, inner sep=3pt, font=\sffamily\small},
+    % 箭頭樣式
+    arrow/.style={-{Stealth[scale=1.2]}, thick, draw=gray!70},
+    dashedarrow/.style={-{Stealth[scale=1.2]}, thick, dashed, draw=gray!70},
+    % 背景外框樣式：加大 inner sep 讓空間更寬裕
+    framebox/.style={rectangle, rounded corners=12pt, draw=gray!40, dashed, thick, inner sep=20pt}
+]
+
+% 定義顏色
+\definecolor{slate}{RGB}{112, 128, 144}
+\definecolor{bg_input}{RGB}{245, 247, 250}
+\definecolor{bg_prop}{RGB}{253, 248, 243}
+\definecolor{bg_pred}{RGB}{243, 250, 246}
+
+% ==========================================
+% 1. 輸入層 (CKG 與嵌入初始化)
+% ==========================================
+\node[module, minimum width=11.5cm] (init) {嵌入向量初始化\\(使用者、食譜、實體 $\rightarrow$ 預訓練或隨機向量)};
+
+% 模擬小圖譜：放大節點內部字體與標籤
+\node[user_node, above left=0.8cm and 3cm of init.north] (u1) {用};
+\node[item_node, right=2cm of u1] (i1) {食};
+\node[entity_node, right=2cm of i1] (e1) {實};
+
+% 放大標籤字體
+\draw[arrow] (u1) -- node[below, font=\sffamily\scriptsize, yshift=-7pt] {互動 (interact)} (i1);
+\draw[arrow] (i1) -- node[below, font=\sffamily\scriptsize, yshift=-7pt] {包含食材 (has\_ingredient)} (e1);
+
+\begin{scope}[on background layer]
+    % 加大向上偏移，給予標題空間
+    \node[framebox, fill=bg_input, fit=(init)(u1)(e1), inner ysep=25pt] (input_frame) {};
+    \node[anchor=north west, font=\sffamily\bfseries, text=slate, xshift=5pt, yshift=-5pt] at (input_frame.north west) {1. 輸入層：協同知識圖譜 (CKG)};
+\end{scope}
+
+% ==========================================
+% 2. 注意力訊息傳播層
+% ==========================================
+\node[highlight, below=1.8cm of init] (attn) {關係感知注意力機制\\(根據關係類型計算動態權重)};
+\node[module, below=1cm of attn] (agg) {雙向互動聚合 (Bi-Interaction Aggregation)\\(特徵組合與增強機制)};
+
+\draw[arrow] (init) -- (attn);
+\draw[arrow] (attn) -- (agg);
+
+\draw[arrow, bend right=60] (agg.east) to node[right=12pt, align=left, font=\sffamily\footnotesize] {重複進行 \\$L$ 層傳播\\(例如 $L=3$)} (attn.east);
+
+\begin{scope}[on background layer]
+    \node[framebox, fill=bg_prop, fit=(attn)(agg), inner ysep=25pt] (prop_frame) {};
+    \node[anchor=north west, font=\sffamily\bfseries, text=slate, xshift=5pt, yshift=-5pt] at (prop_frame.north west) {2. 注意力訊息傳播層};
+\end{scope}
+
+% ==========================================
+% 3. 預測層
+% ==========================================
+\node[module, below=2cm of agg, minimum width=9.5cm] (concat) {各層特徵拼接 (跳躍連接)\\融合初始嵌入與所有跳數 $(0 \rightarrow L)$ 的特徵};
+
+\node[module, below=1cm of concat, minimum width=6cm] (pred) {內積運算層\\預測最終用戶偏好分數};
+
+\draw[arrow] (agg) -- (concat);
+\draw[arrow] (concat) -- (pred);
+
+\draw[dashedarrow] (init.west) -- ++(-0.8,0) |- node[pos=0.25, font=\sffamily\footnotesize] {初始嵌入 (Hop 0)} (concat.west);
+\draw[dashedarrow] (agg.south west) -- ++(-0.8,-0.8) |- node[pos=0.3, left=5pt, yshift=-5pt, font=\sffamily\footnotesize] {高階特徵 (Hop $1 \sim L$)} (concat.west);
+
+\begin{scope}[on background layer]
+    \node[framebox, fill=bg_pred, fit=(concat)(pred), inner ysep=25pt] (pred_frame) {};
+    \node[anchor=north west, font=\sffamily\bfseries, text=slate, xshift=5pt, yshift=-5pt] at (pred_frame.north west) {3. 預測層};
+\end{scope}
+
+\end{tikzpicture}
+
+\end{document}

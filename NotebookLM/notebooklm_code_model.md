@@ -1,0 +1,455 @@
+# Source Code: Explainer & Common Models
+
+## File: src\model\explainer.py
+
+```python
+import types
+
+import matplotlib.pyplot as plt
+import networkx as nx
+import torch
+
+
+class SparseMMFunction(torch.autograd.Function):
+    """
+    Memory-efficient Sparse x Dense Matrix Multiplication for Gradient Calculation.
+    Avoids materializing (N, N) dense gradient matrix for the sparse adjacency.
+    """
+
+    @staticmethod
+    def forward(ctx, adj, features):
+        # adj: Sparse Tensor
+        # features: Dense Tensor
+        ctx.save_for_backward(adj, features)
+        return torch.sparse.mm(adj, features)
+
+    @staticmethod
+    def backward(ctx, grad_output):
+        adj, features = ctx.saved_tensors
+        grad_adj = None
+        grad_features = None
+
+        # 1. Gradient w.r.t features (Dense)
+        # dL/dX = A^T * dL/dY
+        if ctx.needs_input_grad[1]:
+            grad_features = torch.sparse.mm(adj.t(), grad_output)
+
+        # 2. Gradient w.r.t adj (Sparse)
+        # We compute gradient only for the non-zero elements (indices) of adj.
+        if ctx.needs_input_grad[0]:
+            indices = adj._indices()
+            row, col = indices
+
+            # Efficient computation: dot product of rows
+            # grad_val[k] = sum(grad_output[row[k]] * features[col[k]])
+            # This avoids creating (N, N) dense matrix
+
+            # Gather relevant rows
+            grad_out_rows = grad_output[row]  # (E, out_dim)
+            feat_rows = features[
+                col
+            ]  # (E, in_dim) aka (E, out_dim since W is applied later) wait mm is first.
+            # features is (N, in_dim). grad_output is (N, in_dim) (result of sparse.mm)
+
+            vals_grad = (grad_out_rows * feat_rows).sum(dim=1)
+
+            # Create sparse gradient tensor
+            grad_adj = torch.sparse_coo_tensor(
+                indices, vals_grad, adj.shape, device=adj.device
+            )
+
+        return grad_adj, grad_features
+
+
+class KGATExplainer:
+    def __init__(self, model):
+        """
+        KGAT 解釋器 (Gradient-based Saliency).
+
+        Args:
+            model: 訓練好的 KGAT 模型 (Pure PyTorch)
+        """
+        self.model = model
+        self.model.eval()
+        self._patch_model()
+
+    def _patch_model(self):
+        """
+        Monkey-patch GNN layers to use memory-efficient SparseMM.
+        """
+        for layer in self.model.aggregator_layers:
+            layer.forward = types.MethodType(self._manual_gnn_forward, layer)
+
+    @staticmethod
+    def _manual_gnn_forward(self, all_embed, target, neighbor, values):
+        """
+        最佳化的 Patch 版 forward，減少記憶體占用。
+        """
+        num_nodes = all_embed.shape[0]
+        num_edges = target.shape[0]
+        h_neigh = torch.zeros(
+            num_nodes,
+            all_embed.shape[1],
+            device=all_embed.device,
+            dtype=all_embed.dtype,
+        )
+
+        # 核心優化：分批處理邊 (Chunking)
+        # 避免一次產生巨大的 msg (num_edges, embed_dim) 矩陣導致 OOM
+        chunk_size = 1000000  # 每次處理 100 萬條邊
+        for i in range(0, num_edges, chunk_size):
+            end = min(i + chunk_size, num_edges)
+            t_chunk = target[i:end]
+            n_chunk = neighbor[i:end]
+            v_chunk = values[i:end]
+
+            # 只有這一塊會暫時占用記憶體，加法完後會釋放
+            h_neigh.index_add_(0, t_chunk, all_embed[n_chunk] * v_chunk.unsqueeze(1))
+
+        # Bi-Interaction Aggregation
+        return self.leaky_relu(
+            self.W1(all_embed + h_neigh) + self.W2(all_embed * h_neigh)
+        )
+
+    def explain(self, adj, user_ids, item_ids, n_hops=2, top_k=10):
+        """
+        解釋為何模型推薦了特定物品給特定使用者。
+        計算 Adjacency Matrix 上的梯度，以此作為邊的重要性分數。
+
+        Args:
+            adj: torch.sparse_coo_tensor (N, N), 歸一化後的鄰接矩陣
+            user_ids: int or tensor, 目標使用者 ID (全域 ID)
+            item_ids: int or tensor, 目標物品 ID (全域 ID)
+            n_hops: int, 考慮的跳數 (對應 GNN 層數)
+            top_k: int, 取前 k 條最重要的路徑
+
+        Returns:
+            explanation (dict): 包含 'subgraph' (nx.DiGraph), 'important_edges' (list), 'score'
+        """
+        # 確保輸入是 Tensor
+        # 確保輸入是 Tensor
+        if not torch.is_tensor(user_ids):
+            user_ids = torch.as_tensor(user_ids, dtype=torch.long).view(-1)
+        if not torch.is_tensor(item_ids):
+            item_ids = torch.as_tensor(item_ids, dtype=torch.long).view(-1)
+
+        user_ids = user_ids.to(adj.device)
+        item_ids = item_ids.to(adj.device)
+
+        # 1. 準備可微分的 Adjacency Matrix Values
+        # 注意: torch.sparse 不支援直接對 values 求導，我們需要重建一個新的 sparse tensor
+        indices = adj._indices()
+        values = adj._values().detach().clone()
+        values.requires_grad_(True)
+
+        adj_grad = torch.sparse_coo_tensor(indices, values, adj.shape).to(adj.device)
+
+        # 2. Forward Pass
+        # 直接調用模型的內部 logic，但傳入帶梯度的 values
+        all_embed = torch.cat(
+            [self.model.user_embed.weight, self.model.entity_embed.weight], dim=0
+        )
+        ego_embeddings = [all_embed]
+
+        for layer in self.model.aggregator_layers:
+            all_embed = layer(all_embed, indices[0], indices[1], values)
+            all_embed = torch.nn.functional.normalize(all_embed, p=2, dim=1)
+            ego_embeddings.append(all_embed)
+
+        final_embed = torch.cat(ego_embeddings, dim=1)
+        u_embed = final_embed[user_ids]
+        i_embed = final_embed[self.model.n_users + item_ids]
+        scores = torch.sum(u_embed * i_embed, dim=1)
+
+        # 3. Backward Pass (計算梯度)
+        # 我們只關心目標分數對 adj values 的梯度
+        target_score = scores.sum()
+        target_score.backward()
+
+        # 梯度即為重要性 (Saliency)
+        # 取絕對值，因為負影響也是一種影響 (或者只取正值視需求而定)
+        grads = values.grad
+        edge_importance = torch.abs(grads)
+
+        # 4. 提取子圖 (Subgraph Extraction)
+        # 我們只對與 User 或 Item 相關的鄰居感興趣 (k-hop)
+        # 使用 networkx 來找路徑比較方便
+
+        # 轉換為 CPU 處理圖結構
+        u_id = user_ids.item()
+        # Item ID 在圖中是偏移過的 (n_users + item_id)
+        # model.n_users 是 KGAT 儲存的 User 數量
+        i_id_global = self.model.n_users + item_ids.item()
+
+        edge_indices = indices.t().cpu().numpy()
+        edge_weights = edge_importance.detach().cpu().numpy()
+
+        # 建立一個臨時圖包含所有邊權重
+        # 為了效率，先過濾掉梯度為 0 的邊
+        mask = edge_weights > 0
+        active_edges = edge_indices[mask]
+        active_weights = edge_weights[mask]
+
+        # 構建 NetworkX 圖
+        G = nx.Graph()  # 無向圖
+        for (src, dst), w in zip(active_edges, active_weights):
+            G.add_edge(src, dst, weight=w)
+
+        # 找出從 User 到 Item 的路徑 (限制長度)
+        important_paths = []
+        try:
+            # 尋找所有簡單路徑 (限制長度 <= n_hops + 1)
+            # 因為 KGAT 是 2 層，User -> Entity -> Item 是 2 跳
+            # 注意: target 必須是全域 ID
+            paths = list(
+                nx.all_simple_paths(
+                    G, source=u_id, target=i_id_global, cutoff=n_hops + 1
+                )
+            )
+
+            # 計算路徑分數 (路徑上邊權重的總和或平均)
+            path_scores = []
+            for path in paths:
+                score = 0
+                for k in range(len(path) - 1):
+                    # 累加邊權重
+                    score += G[path[k]][path[k + 1]]["weight"]
+                path_scores.append((path, score))
+
+            # 取前 top_k
+            path_scores.sort(key=lambda x: x[1], reverse=True)
+            important_paths = path_scores[:top_k]
+
+        except nx.NetworkXNoPath:
+            print(
+                f"No path found between User {u_id} and Item {i_id_global} within {n_hops + 1} hops."
+            )
+
+        # 建構解釋子圖
+        explanation_subgraph = nx.Graph()
+        for path, score in important_paths:
+            nx.add_path(explanation_subgraph, path, weight=score)
+
+        return {
+            "subgraph": explanation_subgraph,
+            "top_paths": important_paths,
+            "target_score": target_score.item(),
+        }
+
+    def visualize(self, explanation, id_maps=None):
+        """
+        視覺化解釋子圖。
+
+        Args:
+            explanation: `explain` 方法的回傳值
+            id_maps: dict, 可選，包含 'user_map', 'item_map', 'ingredient_map' 等，用於顯示真實名稱
+        """
+        graph = explanation["subgraph"]
+        if graph.number_of_nodes() == 0:
+            print("Empty explanation graph.")
+            return
+
+        pos = nx.spring_layout(graph)
+        plt.figure(figsize=(10, 8))
+
+        # 繪製節點
+        # 可以根據節點類型上不同顏色 (需知道 ID range)
+        # 這裡簡化統一繪製
+        nx.draw_networkx_nodes(graph, pos, node_size=500, node_color="lightblue")
+
+        # 繪製標籤
+        labels = {}
+        for node in graph.nodes():
+            labels[node] = str(node)  # 預設顯示 ID
+            # 如果有 id_maps，可以嘗試反查名稱 (需實作反查邏輯)
+
+        nx.draw_networkx_labels(graph, pos, labels=labels)
+
+        # 繪製邊 (粗細代表權重)
+        weights = [graph[u][v]["weight"] for u, v in graph.edges()]
+
+        # 正規化權重以便繪圖
+        if weights:
+            max_w = max(weights)
+            min_w = min(weights)
+            if max_w > min_w:
+                params = [(w - min_w) / (max_w - min_w) * 5 + 1 for w in weights]
+            else:
+                params = [2 for _ in weights]
+        else:
+            params = []
+
+        nx.draw_networkx_edges(graph, pos, width=params, edge_color="gray", alpha=0.6)
+
+        plt.title("KGAT Explanation (Gradient-based Saliency)")
+        plt.axis("off")
+        plt.show()
+
+```
+
+## File: src\model\explainer_attention.py
+
+```python
+import matplotlib.pyplot as plt
+import networkx as nx
+import torch
+
+
+class KGATAttentionExplainer:
+    def __init__(self, model):
+        """
+        KGAT Attention 解釋器.
+        專門用於解釋 KGATAttention 模型，直接利用模型回傳的 Attention Weights。
+
+        Args:
+            model: 訓練好的 KGATAttention 模型
+        """
+        self.model = model
+        self.model.eval()
+
+    def explain(
+        self, indices, edge_types, num_nodes, user_ids, item_ids, n_hops=2, top_k=10
+    ):
+        """
+        解釋推薦原因。
+
+        Args:
+            indices: torch.LongTensor (2, E)
+            num_nodes: int
+            user_ids: int or tensor
+            item_ids: int or tensor
+            n_hops: int
+            top_k: int
+
+        Returns:
+            explanation (dict)
+        """
+        # 確保輸入是 Tensor
+        if isinstance(user_ids, int):
+            user_ids = torch.LongTensor([user_ids])
+        if isinstance(item_ids, int):
+            item_ids = torch.LongTensor([item_ids])
+
+        user_ids = user_ids.to(indices.device)
+        item_ids = item_ids.to(indices.device)
+
+        # 1. 取得 Attention Weights
+        # KGATAttention.forward(..., return_attention=True) 會回傳 (scores, attentions)
+        with torch.no_grad():
+            scores, attentions = self.model(
+                indices,
+                edge_types,
+                num_nodes,
+                user_ids,
+                item_ids,
+                return_attention=True,
+            )
+
+        # attentions 是一個 list，包含每一層 GNN 的 attention weights
+        # attentions[i] shape: (E, 1) or (E, heads)
+        # 這裡假設單頭注意力 (E, 1)
+
+        # 我們可以将所有層的 attention 取平均，或者只看最後一層
+        # 這裡採用平均策略，更能反映整個訊息傳遞過程
+        if len(attentions) > 0:
+            # stack: (L, E, 1) -> mean: (E, 1) -> squeeze: (E,)
+            final_att = torch.mean(torch.stack(attentions, dim=0), dim=0).squeeze()
+        else:
+            print("No attention weights returned.")
+            return None
+
+        # 2. 構建解釋圖 (使用 Attention 作為權重)
+        u_id = user_ids.item()
+        # 注意: KGATAttention 預期輸入的 item_ids 是原始 ID，但在圖中已偏移
+        i_id_global = self.model.n_users + item_ids.item()
+
+        edge_indices = indices.t().cpu().numpy()  # (E, 2)
+        edge_weights = final_att.cpu().numpy()  # (E, )
+
+        # 建立 NetworkX 圖
+        G = nx.Graph()
+        for (src, dst), w in zip(edge_indices, edge_weights):
+            # 只加入權重非零的邊 (雖 softmax 後通常都非零，但可設閾值)
+            if w > 1e-6:
+                G.add_edge(src, dst, weight=float(w))
+
+        # 3. 尋找路徑
+        important_paths = []
+        try:
+            # KGAT 預設 2 層，所以我們找長度 <= 3 的路徑 (nodes: u -> e1 -> e2 -> i)
+            paths = list(
+                nx.all_simple_paths(
+                    G, source=u_id, target=i_id_global, cutoff=n_hops + 1
+                )
+            )
+
+            path_scores = []
+            for path in paths:
+                # 計算路徑分數
+                # 這裡定義路徑分數為邊權重的乘積 (Joint Probability 概念)
+                score = 1.0
+                for k in range(len(path) - 1):
+                    w = G[path[k]][path[k + 1]].get("weight", 0.0)
+                    score *= w
+                path_scores.append((path, score))
+
+            # 排序並取 Top K
+            path_scores.sort(key=lambda x: x[1], reverse=True)
+            important_paths = path_scores[:top_k]
+
+        except nx.NetworkXNoPath:
+            print(f"No path found between User {u_id} and Item {i_id_global}")
+
+        # 4. 建立子圖
+        explanation_subgraph = nx.Graph()
+        for path, score in important_paths:
+            nx.add_path(explanation_subgraph, path, weight=score)
+
+        return {
+            "subgraph": explanation_subgraph,
+            "top_paths": important_paths,
+            "target_score": scores.item(),
+        }
+
+    def visualize(self, explanation, id_maps=None):
+        """
+        視覺化
+        """
+        graph = explanation["subgraph"]
+        if graph.number_of_nodes() == 0:
+            print("Empty explanation graph.")
+            return
+
+        pos = nx.spring_layout(graph)
+        plt.figure(figsize=(10, 8))
+
+        # Draw Nodes
+        nx.draw_networkx_nodes(graph, pos, node_size=500, node_color="lightblue")
+
+        # Draw Labels
+        labels = {node: str(node) for node in graph.nodes()}
+        # TODO: Implement ID mapping to names if id_maps is provided
+        nx.draw_networkx_labels(graph, pos, labels=labels)
+
+        # Draw Edges with width proportional to attention
+        weights = [graph[u][v]["weight"] for u, v in graph.edges()]
+
+        if weights:
+            max_w = max(weights)
+            min_w = min(weights)
+            # Normalize for visualization width (1 ~ 5)
+            if max_w > min_w:
+                width = [(w - min_w) / (max_w - min_w) * 4 + 1 for w in weights]
+            else:
+                width = [2 for _ in weights]
+        else:
+            width = []
+
+        nx.draw_networkx_edges(graph, pos, width=width, edge_color="gray", alpha=0.7)
+
+        plt.title("KGAT Attention Explanation")
+        plt.axis("off")
+        plt.show()
+
+```
+

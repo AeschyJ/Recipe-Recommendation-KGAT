@@ -1,0 +1,80 @@
+[
+  {
+    "user": "User 119643",
+    "item": "shredded pork barbacoa",
+    "score": 0.9991,
+    "prob": 0.7309,
+    "explanations": []
+  },
+  {
+    "user": "User 1549375",
+    "item": "best ever banana cake with cream cheese frosting",
+    "score": 1.0846,
+    "prob": 0.7474,
+    "explanations": [
+      {
+        "path": "User 1549375 -> soft snickerdoodle cookies -> User 961101 -> best ever banana cake with cream cheese frosting",
+        "score": 0.018
+      },
+      {
+        "path": "User 1549375 -> soft snickerdoodle cookies -> User 573418 -> best ever banana cake with cream cheese frosting",
+        "score": 0.0085
+      },
+      {
+        "path": "User 1549375 -> soft snickerdoodle cookies -> User 1220448 -> best ever banana cake with cream cheese frosting",
+        "score": 0.0058
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0676,
+      "minus": 0.0
+    }
+  },
+  {
+    "user": "User 1802508407",
+    "item": "crock pot chicken with black beans   cream cheese",
+    "score": 1.1054,
+    "prob": 0.7513,
+    "explanations": [
+      {
+        "path": "User 1802508407 -> pronto pups aka corn dogs -> User 1930368 -> crock pot chicken with black beans   cream cheese",
+        "score": 0.0883
+      },
+      {
+        "path": "User 1802508407 -> pronto pups aka corn dogs -> User 762440 -> crock pot chicken with black beans   cream cheese",
+        "score": 0.0092
+      },
+      {
+        "path": "User 1802508407 -> pronto pups aka corn dogs -> User 295018 -> crock pot chicken with black beans   cream cheese",
+        "score": 0.0006
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0351,
+      "minus": -0.0001
+    }
+  },
+  {
+    "user": "User 1241754",
+    "item": "longhunter s bear roast",
+    "score": 1.0151,
+    "prob": 0.734,
+    "explanations": []
+  },
+  {
+    "user": "User 1800345045",
+    "item": "my family s favorite sloppy joes  pizza joes",
+    "score": 1.1015,
+    "prob": 0.7505,
+    "explanations": [
+      {
+        "path": "User 1800345045 -> chili s chicken crispers -> User 182624 -> my family s favorite sloppy joes  pizza joes",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0148,
+      "minus": 0.0003
+    }
+  }
+]

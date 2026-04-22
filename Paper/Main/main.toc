@@ -1,0 +1,58 @@
+~\hfill \textbf {Page}\par 
+\contentsline {chapter}{致謝}{3}{chapter*.1}%
+\contentsline {chapter}{摘要}{5}{chapter*.2}%
+\contentsline {chapter}{Abstract}{7}{chapter*.3}%
+\contentsline {chapter}{目錄}{9}{section*.4}%
+\contentsline {chapter}{圖目錄}{13}{section*.5}%
+\contentsline {chapter}{表目錄}{15}{section*.6}%
+\contentsline {chapter}{符號列表}{17}{chapter*.7}%
+\contentsline {chapter}{\numberline {1}緒論}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}研究背景與動機}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}現有方法之不足與研究缺口}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}研究目的}{3}{section.1.3}%
+\contentsline {section}{\numberline {1.4}研究貢獻}{4}{section.1.4}%
+\contentsline {section}{\numberline {1.5}論文架構}{5}{section.1.5}%
+\contentsline {chapter}{\numberline {2}文獻探討}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}推薦系統}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}圖神經網路 (Graph Neural Networks)}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}知識圖譜與推薦系統之結合}{10}{section.2.3}%
+\contentsline {section}{\numberline {2.4}可解釋性推薦 (Explainable Recommendation)}{12}{section.2.4}%
+\contentsline {section}{\numberline {2.5}現有方法之比較與研究缺口}{13}{section.2.5}%
+\contentsline {chapter}{\numberline {3}研究方法}{15}{chapter.3}%
+\contentsline {section}{\numberline {3.1}系統架構}{15}{section.3.1}%
+\contentsline {section}{\numberline {3.2}資料預處理與知識圖譜建構}{15}{section.3.2}%
+\contentsline {section}{\numberline {3.3}知識圖譜注意力網路 (KGAT)}{19}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Relation-Aware Attention 機制}{19}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Bi-Interaction 聚合機制}{20}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}損失函數與模型訓練}{22}{section.3.4}%
+\contentsline {section}{\numberline {3.5}可解釋性評估框架 (Fidelity)}{22}{section.3.5}%
+\contentsline {chapter}{\numberline {4}實驗設計與結果分析}{25}{chapter.4}%
+\contentsline {section}{\numberline {4.1}實驗環境與資料集}{25}{section.4.1}%
+\contentsline {section}{\numberline {4.2}對照組模型 (Baselines)}{27}{section.4.2}%
+\contentsline {section}{\numberline {4.3}實驗結果分析}{29}{section.4.3}%
+\contentsline {section}{\numberline {4.4}消融實驗 (Ablation Study)}{30}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}注意力機制之影響}{30}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}知識圖譜之影響}{31}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}圖神經網路深度之影響}{32}{subsection.4.4.3}%
+\contentsline {section}{\numberline {4.5}可解釋性評估 (Explainability Evaluation)}{34}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Fidelity 量化評估結果}{35}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}路徑類型對忠實度的影響}{35}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}案例分析}{37}{subsection.4.5.3}%
+\contentsline {chapter}{\numberline {5}結論與未來研究方向}{41}{chapter.5}%
+\contentsline {section}{\numberline {5.1}研究結論}{41}{section.5.1}%
+\contentsline {section}{\numberline {5.2}研究限制}{44}{section.5.2}%
+\contentsline {section}{\numberline {5.3}未來研究方向}{45}{section.5.3}%
+\contentsline {chapter}{參考文獻}{47}{section*.25}%
+\contentsline {chapter}{附錄~{A}~---~實驗日誌與訓練細節}{51}{section*.28}%
+\contentsline {section}{\numberline {A.1}KGAT ($L{=}3$) 訓練過程}{51}{section.6.1}%
+\contentsline {section}{\numberline {A.2}Baseline 模型訓練過程}{51}{section.6.2}%
+\contentsline {chapter}{附錄~{B}~---~消融實驗偶數 Epoch 完整數據}{53}{section*.34}%
+\contentsline {section}{\numberline {B.1}Full KGAT ($L{=}1$) 偶數 Epoch 訓練過程}{53}{section.7.1}%
+\contentsline {section}{\numberline {B.2}w/o Attention ($L{=}1$) 偶數 Epoch 訓練過程}{53}{section.7.2}%
+\contentsline {section}{\numberline {B.3}w/o KG ($L{=}1$) 偶數 Epoch 訓練過程}{54}{section.7.3}%
+\contentsline {section}{\numberline {B.4}KGAT ($L{=}2$) 偶數 Epoch 訓練過程}{54}{section.7.4}%
+\contentsline {section}{\numberline {B.5}KGAT ($L{=}3$) 偶數 Epoch 訓練過程}{54}{section.7.5}%
+\contentsline {chapter}{附錄~{C}~---~知識圖譜預處理與超級節點過濾清單}{55}{section*.41}%
+\contentsline {section}{\numberline {C.1}食材 (Ingredients) 噪音與過濾清單}{55}{section.8.1}%
+\contentsline {section}{\numberline {C.2}標籤 (Tags) 噪音與過濾清單}{56}{section.8.2}%
+\contentsfinish 

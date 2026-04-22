@@ -32,7 +32,7 @@ echo ==============================================
 echo ==============================================
 echo [Exp 5/5] Depth Variation L=3
 echo ==============================================
-.venv\Scripts\python.exe src/train_att.py --epochs 10 --layers 64 64 64 --model_dir models/depth_3 --log_dir output/logs/depth_3 --use_bf16 --no_compile
+.venv\Scripts\python.exe src/train_att.py --epochs 10 --layers 64 64 64 --model_dir models/depth_3 --log_dir output/logs/depth_3 --use_bf16 --no_compile --resume models/depth_3/2_kgat_checkpoint_e3.pth
 
 echo ==============================================
 echo All experiments completed!

@@ -1,0 +1,1414 @@
+[
+  {
+    "user": "User 2951693",
+    "item": "chocolate and peanut butter protein bars",
+    "score": 2.9293,
+    "prob": 0.9493,
+    "explanations": [
+      {
+        "path": "User 2951693 -> chocolate and peanut butter protein bars",
+        "score": 0.7782
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1047,
+      "minus": -0.004
+    }
+  },
+  {
+    "user": "User 963993",
+    "item": "fantastic tropical thai chicken salad",
+    "score": 2.6394,
+    "prob": 0.9334,
+    "explanations": [
+      {
+        "path": "User 963993 -> awesome  and easy sweet and sour chicken -> chicken -> fantastic tropical thai chicken salad",
+        "score": 0.0002
+      },
+      {
+        "path": "User 963993 -> ain t none better chicken breast -> chicken -> fantastic tropical thai chicken salad",
+        "score": 0.0002
+      },
+      {
+        "path": "User 963993 -> pizza chicken -> chicken -> fantastic tropical thai chicken salad",
+        "score": 0.0002
+      }
+    ],
+    "fidelity": {
+      "plus": -0.001,
+      "minus": 0.5415
+    }
+  },
+  {
+    "user": "User 499434",
+    "item": "broccoli  sausage and pasta ears",
+    "score": 2.9833,
+    "prob": 0.9518,
+    "explanations": [
+      {
+        "path": "User 499434 -> egg drop soup  restaurant style -> stove-top -> broccoli  sausage and pasta ears",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0061,
+      "minus": 0.3517
+    }
+  },
+  {
+    "user": "User 1801866426",
+    "item": "chicken broccoli rice and cheese casserole",
+    "score": 2.9622,
+    "prob": 0.9508,
+    "explanations": [
+      {
+        "path": "User 1801866426 -> chicken broccoli rice and cheese casserole",
+        "score": 0.7785
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0627,
+      "minus": -0.0017
+    }
+  },
+  {
+    "user": "User 42985",
+    "item": "chopped salad appetizer shells",
+    "score": 2.9612,
+    "prob": 0.9508,
+    "explanations": []
+  },
+  {
+    "user": "User 118065",
+    "item": "pepperoni puffs",
+    "score": 2.9495,
+    "prob": 0.9502,
+    "explanations": [
+      {
+        "path": "User 118065 -> sky high strawberry pie -> potluck -> pepperoni puffs",
+        "score": 0.0001
+      },
+      {
+        "path": "User 118065 -> sky high strawberry pie -> to-go -> pepperoni puffs",
+        "score": 0.0001
+      },
+      {
+        "path": "User 118065 -> guinness and filet mignon chili -> User 110433 -> pepperoni puffs",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.001,
+      "minus": 0.0215
+    }
+  },
+  {
+    "user": "User 2001583649",
+    "item": "boranie bademjan  persian eggplant yogurt dip",
+    "score": 2.844,
+    "prob": 0.945,
+    "explanations": []
+  },
+  {
+    "user": "User 1273842",
+    "item": "just 1 dozen easy oatmeal cookies",
+    "score": 2.9564,
+    "prob": 0.9506,
+    "explanations": [
+      {
+        "path": "User 1273842 -> easy authentic guacamole -> User 428885 -> just 1 dozen easy oatmeal cookies",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0396,
+      "minus": 0.04
+    }
+  },
+  {
+    "user": "User 254362",
+    "item": "zurie s holey rustic olive and cheddar bread",
+    "score": 2.8706,
+    "prob": 0.9464,
+    "explanations": [
+      {
+        "path": "User 254362 -> cake doughnuts -> breads -> zurie s holey rustic olive and cheddar bread",
+        "score": 0.0017
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0192,
+      "minus": 0.6074
+    }
+  },
+  {
+    "user": "User 2001039240",
+    "item": "honey oatmeal bread  abm",
+    "score": 2.9227,
+    "prob": 0.949,
+    "explanations": []
+  },
+  {
+    "user": "User 1404689",
+    "item": "better than olive garden alfredo sauce",
+    "score": 2.9721,
+    "prob": 0.9513,
+    "explanations": [
+      {
+        "path": "User 1404689 -> better than olive garden alfredo sauce",
+        "score": 0.8095
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1956,
+      "minus": -0.0006
+    }
+  },
+  {
+    "user": "User 1148892",
+    "item": "pleasant pheasant",
+    "score": 2.9175,
+    "prob": 0.9487,
+    "explanations": [
+      {
+        "path": "User 1148892 -> pleasant pheasant",
+        "score": 0.8074
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0417,
+      "minus": -0.0043
+    }
+  },
+  {
+    "user": "User 577552",
+    "item": "irish goose with potato stuffing",
+    "score": 2.9285,
+    "prob": 0.9492,
+    "explanations": []
+  },
+  {
+    "user": "User 895900",
+    "item": "sausage kolaches   klobasnicky",
+    "score": 2.8705,
+    "prob": 0.9464,
+    "explanations": []
+  },
+  {
+    "user": "User 321095",
+    "item": "fresh strawberry cobbler cake",
+    "score": 2.9583,
+    "prob": 0.9507,
+    "explanations": []
+  },
+  {
+    "user": "User 2001805836",
+    "item": "jamaican beef patties  aka meat pies or pasties",
+    "score": 2.8798,
+    "prob": 0.9468,
+    "explanations": []
+  },
+  {
+    "user": "User 1803024121",
+    "item": "a1 chicken thighs en croute on a bed of dijon cooked spinach  a1",
+    "score": 2.965,
+    "prob": 0.951,
+    "explanations": [
+      {
+        "path": "User 1803024121 -> a1 chicken thighs en croute on a bed of dijon cooked spinach  a1",
+        "score": 0.761
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1982,
+      "minus": -0.0011
+    }
+  },
+  {
+    "user": "User 1081632",
+    "item": "tzatziki    gyro sauce",
+    "score": 2.9083,
+    "prob": 0.9483,
+    "explanations": []
+  },
+  {
+    "user": "User 952152",
+    "item": "chicken in garlic white wine cream sauce",
+    "score": 2.9548,
+    "prob": 0.9505,
+    "explanations": [
+      {
+        "path": "User 952152 -> fajita seasoning mix -> User 134624 -> chicken in garlic white wine cream sauce",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.016,
+      "minus": 0.0231
+    }
+  },
+  {
+    "user": "User 2410864",
+    "item": "bacon lattice tomato muffins  rsc",
+    "score": 2.9872,
+    "prob": 0.952,
+    "explanations": [
+      {
+        "path": "User 2410864 -> bacon lattice tomato muffins  rsc",
+        "score": 0.767
+      }
+    ],
+    "fidelity": {
+      "plus": 0.2415,
+      "minus": 0.0004
+    }
+  },
+  {
+    "user": "User 858320",
+    "item": "caramelized mango tart with mexican chocolate and pepitas",
+    "score": 2.8405,
+    "prob": 0.9448,
+    "explanations": []
+  },
+  {
+    "user": "User 1802666341",
+    "item": "gyro meat",
+    "score": 2.9963,
+    "prob": 0.9524,
+    "explanations": [
+      {
+        "path": "User 1802666341 -> delicious chicken pot pie -> User 1410992 -> gyro meat",
+        "score": 0.0204
+      },
+      {
+        "path": "User 1802666341 -> delicious chicken pot pie -> User 37036 -> gyro meat",
+        "score": 0.0
+      },
+      {
+        "path": "User 1802666341 -> delicious chicken pot pie -> User 140132 -> gyro meat",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0729,
+      "minus": 0.0018
+    }
+  },
+  {
+    "user": "User 400233",
+    "item": "leftover pizza frittata  using leftover pizza",
+    "score": 2.8738,
+    "prob": 0.9465,
+    "explanations": []
+  },
+  {
+    "user": "User 2001672857",
+    "item": "amish macaroni salad",
+    "score": 2.9876,
+    "prob": 0.952,
+    "explanations": []
+  },
+  {
+    "user": "User 2001417044",
+    "item": "stoemp aux poireaux stoemp met prei   belgian mashed potatoes",
+    "score": 2.8805,
+    "prob": 0.9469,
+    "explanations": []
+  },
+  {
+    "user": "User 2652771",
+    "item": "french toast sticks   oamc",
+    "score": 2.9927,
+    "prob": 0.9522,
+    "explanations": [
+      {
+        "path": "User 2652771 -> the best ever waffles -> User 1282298 -> french toast sticks   oamc",
+        "score": 0.0081
+      },
+      {
+        "path": "User 2652771 -> the best ever waffles -> User 447123 -> french toast sticks   oamc",
+        "score": 0.0002
+      },
+      {
+        "path": "User 2652771 -> the best ever waffles -> User 1244621 -> french toast sticks   oamc",
+        "score": 0.0001
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1387,
+      "minus": 0.0013
+    }
+  },
+  {
+    "user": "User 2000558696",
+    "item": "breakfast burritos  once a month cooking",
+    "score": 2.9819,
+    "prob": 0.9517,
+    "explanations": [
+      {
+        "path": "User 2000558696 -> pasta with sausage  tomatoes  and cream -> User 11009 -> breakfast burritos  once a month cooking",
+        "score": 0.0001
+      },
+      {
+        "path": "User 2000558696 -> pasta with sausage  tomatoes  and cream -> User 128950 -> breakfast burritos  once a month cooking",
+        "score": 0.0
+      },
+      {
+        "path": "User 2000558696 -> pasta with sausage  tomatoes  and cream -> pork -> breakfast burritos  once a month cooking",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.2011,
+      "minus": 0.0093
+    }
+  },
+  {
+    "user": "User 775635",
+    "item": "kelly s apple pork chops with stuffing",
+    "score": 2.9891,
+    "prob": 0.9521,
+    "explanations": [
+      {
+        "path": "User 775635 -> reeses squares   5 ingredients   no bake  reese s -> User 168423 -> kelly s apple pork chops with stuffing",
+        "score": 0.0
+      },
+      {
+        "path": "User 775635 -> reeses squares   5 ingredients   no bake  reese s -> User 147109 -> kelly s apple pork chops with stuffing",
+        "score": 0.0
+      },
+      {
+        "path": "User 775635 -> reeses squares   5 ingredients   no bake  reese s -> User 189616 -> kelly s apple pork chops with stuffing",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0014,
+      "minus": 0.003
+    }
+  },
+  {
+    "user": "User 2002060836",
+    "item": "homemade pancake syrup",
+    "score": 2.8983,
+    "prob": 0.9478,
+    "explanations": []
+  },
+  {
+    "user": "User 2002155102",
+    "item": "blt nibbles",
+    "score": 3.0079,
+    "prob": 0.9529,
+    "explanations": [
+      {
+        "path": "User 2002155102 -> fruit salad with pudding -> User 229850 -> blt nibbles",
+        "score": 0.0
+      },
+      {
+        "path": "User 2002155102 -> fruit salad with pudding -> User 1052873 -> blt nibbles",
+        "score": 0.0
+      },
+      {
+        "path": "User 2002155102 -> fruit salad with pudding -> User 33159 -> blt nibbles",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0307,
+      "minus": 0.0025
+    }
+  },
+  {
+    "user": "User 2001651333",
+    "item": "fig preserves",
+    "score": 2.9652,
+    "prob": 0.951,
+    "explanations": [
+      {
+        "path": "User 2001651333 -> fig preserves",
+        "score": 0.7977
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0629,
+      "minus": -0.0016
+    }
+  },
+  {
+    "user": "User 1882806",
+    "item": "close to mimi s honey bran muffins",
+    "score": 2.7691,
+    "prob": 0.941,
+    "explanations": [
+      {
+        "path": "User 1882806 -> weight watchers baked oatmeal -> breakfast -> close to mimi s honey bran muffins",
+        "score": 0.0009
+      }
+    ],
+    "fidelity": {
+      "plus": -0.0023,
+      "minus": 0.5226
+    }
+  },
+  {
+    "user": "User 1800352432",
+    "item": "kidd kraddick s famous brown bag turkey",
+    "score": 2.9721,
+    "prob": 0.9513,
+    "explanations": [
+      {
+        "path": "User 1800352432 -> kidd kraddick s famous brown bag turkey",
+        "score": 0.7691
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0747,
+      "minus": -0.0012
+    }
+  },
+  {
+    "user": "User 218928",
+    "item": "chicken and potato florentine soup  olive garden",
+    "score": 2.8616,
+    "prob": 0.9459,
+    "explanations": []
+  },
+  {
+    "user": "User 2001791217",
+    "item": "basmati rice   indian style",
+    "score": 2.9681,
+    "prob": 0.9511,
+    "explanations": [
+      {
+        "path": "User 2001791217 -> basmati rice   indian style",
+        "score": 0.7911
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1233,
+      "minus": -0.0015
+    }
+  },
+  {
+    "user": "User 2001321112",
+    "item": "baked macaroni and cheese with stewed tomatoes",
+    "score": 2.9867,
+    "prob": 0.952,
+    "explanations": [
+      {
+        "path": "User 2001321112 -> boursin cheese  homemade -> cheese -> baked macaroni and cheese with stewed tomatoes",
+        "score": 0.0
+      },
+      {
+        "path": "User 2001321112 -> boursin cheese  homemade -> novelty -> baked macaroni and cheese with stewed tomatoes",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1429,
+      "minus": 0.4904
+    }
+  },
+  {
+    "user": "User 1896042",
+    "item": "loquat jam",
+    "score": 2.8653,
+    "prob": 0.9461,
+    "explanations": []
+  },
+  {
+    "user": "User 2000911443",
+    "item": "sweet butter bread  bread machine",
+    "score": 2.9159,
+    "prob": 0.9486,
+    "explanations": []
+  },
+  {
+    "user": "User 2001262910",
+    "item": "basic vanilla custard",
+    "score": 2.9633,
+    "prob": 0.9509,
+    "explanations": []
+  },
+  {
+    "user": "User 315210",
+    "item": "cinnamon baked apples",
+    "score": 2.9571,
+    "prob": 0.9506,
+    "explanations": [
+      {
+        "path": "User 315210 -> white pizza or pizza blanca -> User 663997 -> cinnamon baked apples",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0044,
+      "minus": 0.0069
+    }
+  },
+  {
+    "user": "User 2026158",
+    "item": "chicken breasts smothered in tomatoes and mozzarella",
+    "score": 2.922,
+    "prob": 0.9489,
+    "explanations": []
+  },
+  {
+    "user": "User 298350",
+    "item": "beef stew in a pumpkin",
+    "score": 2.8473,
+    "prob": 0.9452,
+    "explanations": []
+  },
+  {
+    "user": "User 336111",
+    "item": "self iced date cake",
+    "score": 2.8783,
+    "prob": 0.9468,
+    "explanations": []
+  },
+  {
+    "user": "User 1486462",
+    "item": "stew meat",
+    "score": 2.9536,
+    "prob": 0.9504,
+    "explanations": [
+      {
+        "path": "User 1486462 -> stew meat",
+        "score": 0.7996
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1969,
+      "minus": -0.002
+    }
+  },
+  {
+    "user": "User 1613425",
+    "item": "spicy african peanut soup",
+    "score": 2.96,
+    "prob": 0.9507,
+    "explanations": []
+  },
+  {
+    "user": "User 1154318",
+    "item": "mueller s baked macaroni and cheese",
+    "score": 2.9629,
+    "prob": 0.9509,
+    "explanations": [
+      {
+        "path": "User 1154318 -> mueller s baked macaroni and cheese",
+        "score": 0.7836
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0255,
+      "minus": -0.0022
+    }
+  },
+  {
+    "user": "User 48227",
+    "item": "italian antipasto squares",
+    "score": 2.8372,
+    "prob": 0.9447,
+    "explanations": [
+      {
+        "path": "User 48227 -> old fashioned walnut bread -> gifts -> italian antipasto squares",
+        "score": 0.0002
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0136,
+      "minus": 0.0052
+    }
+  },
+  {
+    "user": "User 2685063",
+    "item": "motichoor ladoo",
+    "score": 2.8818,
+    "prob": 0.9469,
+    "explanations": []
+  },
+  {
+    "user": "User 1223227",
+    "item": "extra easy lazy day lasagna",
+    "score": 2.8895,
+    "prob": 0.9473,
+    "explanations": [
+      {
+        "path": "User 1223227 -> smoked turkey casserole -> pasta -> extra easy lazy day lasagna",
+        "score": 0.0004
+      },
+      {
+        "path": "User 1223227 -> smoked turkey casserole -> one-dish-meal -> extra easy lazy day lasagna",
+        "score": 0.0003
+      },
+      {
+        "path": "User 1223227 -> mexican ham and bean soup -> weeknight -> extra easy lazy day lasagna",
+        "score": 0.0001
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0096,
+      "minus": 0.2754
+    }
+  },
+  {
+    "user": "User 2001646908",
+    "item": "beans 101   beans and cornbread",
+    "score": 2.9668,
+    "prob": 0.9511,
+    "explanations": [
+      {
+        "path": "User 2001646908 -> fried zucchini batter -> User 91584 -> beans 101   beans and cornbread",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0731,
+      "minus": 0.0115
+    }
+  },
+  {
+    "user": "User 2001924908",
+    "item": "almost fried plantains   virtually fat free",
+    "score": 2.96,
+    "prob": 0.9507,
+    "explanations": [
+      {
+        "path": "User 2001924908 -> soft peanut butter cookies -> User 37449 -> almost fried plantains   virtually fat free",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0063,
+      "minus": 0.025
+    }
+  },
+  {
+    "user": "User 573230",
+    "item": "joanne s creamy bruschetta",
+    "score": 2.9896,
+    "prob": 0.9521,
+    "explanations": [
+      {
+        "path": "User 573230 -> creamy cajun chicken pasta -> User 603504 -> joanne s creamy bruschetta",
+        "score": 0.0006
+      },
+      {
+        "path": "User 573230 -> creamy cajun chicken pasta -> User 868551 -> joanne s creamy bruschetta",
+        "score": 0.0005
+      },
+      {
+        "path": "User 573230 -> creamy cajun chicken pasta -> User 1506604 -> joanne s creamy bruschetta",
+        "score": 0.0001
+      }
+    ],
+    "fidelity": {
+      "plus": 0.2061,
+      "minus": 0.0019
+    }
+  },
+  {
+    "user": "User 34196",
+    "item": "lime bars",
+    "score": 2.9165,
+    "prob": 0.9487,
+    "explanations": []
+  },
+  {
+    "user": "User 1073874",
+    "item": "famous challah",
+    "score": 2.9861,
+    "prob": 0.9519,
+    "explanations": [
+      {
+        "path": "User 1073874 -> panera s cream cheese potato soup -> User 385423 -> famous challah",
+        "score": 0.0
+      },
+      {
+        "path": "User 1073874 -> panera s cream cheese potato soup -> User 457661 -> famous challah",
+        "score": 0.0
+      },
+      {
+        "path": "User 1073874 -> panera s cream cheese potato soup -> User 52262 -> famous challah",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0013,
+      "minus": 0.0013
+    }
+  },
+  {
+    "user": "User 2458578",
+    "item": "sour cream and 7 up biscuits",
+    "score": 2.9716,
+    "prob": 0.9513,
+    "explanations": [
+      {
+        "path": "User 2458578 -> creamy cucumber salad -> User 128473 -> sour cream and 7 up biscuits",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.001,
+      "minus": 0.025
+    }
+  },
+  {
+    "user": "User 1153796",
+    "item": "paula deen s mac and cheese",
+    "score": 2.9767,
+    "prob": 0.9515,
+    "explanations": []
+  },
+  {
+    "user": "User 2001573912",
+    "item": "marinated cucumbers  onions  and tomatoes",
+    "score": 2.9812,
+    "prob": 0.9517,
+    "explanations": [
+      {
+        "path": "User 2001573912 -> marinated cucumbers  onions  and tomatoes",
+        "score": 0.7967
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1661,
+      "minus": -0.0002
+    }
+  },
+  {
+    "user": "User 1501478",
+    "item": "butternut squash   leeks",
+    "score": 2.8746,
+    "prob": 0.9466,
+    "explanations": []
+  },
+  {
+    "user": "User 1055474",
+    "item": "classic san francisco sourdough bread",
+    "score": 2.9762,
+    "prob": 0.9515,
+    "explanations": []
+  },
+  {
+    "user": "User 2001181537",
+    "item": "honey rhubarb muffins",
+    "score": 2.8507,
+    "prob": 0.9454,
+    "explanations": []
+  },
+  {
+    "user": "User 2001926510",
+    "item": "peanut butter chocolate chip cookies",
+    "score": 2.9768,
+    "prob": 0.9515,
+    "explanations": [
+      {
+        "path": "User 2001926510 -> peanut butter chocolate chip cookies",
+        "score": 0.7944
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1984,
+      "minus": -0.0005
+    }
+  },
+  {
+    "user": "User 2001446407",
+    "item": "best low carb bread  bread machine",
+    "score": 2.9895,
+    "prob": 0.9521,
+    "explanations": [
+      {
+        "path": "User 2001446407 -> best low carb bread  bread machine",
+        "score": 0.7931
+      }
+    ],
+    "fidelity": {
+      "plus": 0.2218,
+      "minus": 0.0005
+    }
+  },
+  {
+    "user": "User 2001952228",
+    "item": "chinese wontons",
+    "score": 2.9775,
+    "prob": 0.9515,
+    "explanations": [
+      {
+        "path": "User 2001952228 -> chicken pot pie with 2 crusts -> User 140132 -> chinese wontons",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1313,
+      "minus": 0.0098
+    }
+  },
+  {
+    "user": "User 1800228041",
+    "item": "crock pot chicken taco meat",
+    "score": 2.9889,
+    "prob": 0.9521,
+    "explanations": [
+      {
+        "path": "User 1800228041 -> olive garden copycat zuppa toscana -> User 537578 -> crock pot chicken taco meat",
+        "score": 0.0004
+      },
+      {
+        "path": "User 1800228041 -> olive garden copycat zuppa toscana -> User 113517 -> crock pot chicken taco meat",
+        "score": 0.0004
+      },
+      {
+        "path": "User 1800228041 -> olive garden copycat zuppa toscana -> User 122577 -> crock pot chicken taco meat",
+        "score": 0.0002
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1848,
+      "minus": 0.0016
+    }
+  },
+  {
+    "user": "User 321227",
+    "item": "guava cream cheese filling",
+    "score": 2.9697,
+    "prob": 0.9512,
+    "explanations": []
+  },
+  {
+    "user": "User 221716",
+    "item": "blue ribbon dill pickles",
+    "score": 2.9617,
+    "prob": 0.9508,
+    "explanations": [
+      {
+        "path": "User 221716 -> amaretto biscotti with almonds -> to-go -> blue ribbon dill pickles",
+        "score": 0.0
+      },
+      {
+        "path": "User 221716 -> amaretto biscotti with almonds -> gifts -> blue ribbon dill pickles",
+        "score": 0.0
+      },
+      {
+        "path": "User 221716 -> chocolate  chocolate  chocolate  bundt cake with chocolate glaze -> for-large-groups -> blue ribbon dill pickles",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0021,
+      "minus": 0.0334
+    }
+  },
+  {
+    "user": "User 2819666",
+    "item": "spelt biscuits",
+    "score": 2.9479,
+    "prob": 0.9502,
+    "explanations": [
+      {
+        "path": "User 2819666 -> spelt biscuits",
+        "score": 0.8188
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0108,
+      "minus": -0.0028
+    }
+  },
+  {
+    "user": "User 1012385",
+    "item": "chile lovers spicy three meat chili",
+    "score": 2.9449,
+    "prob": 0.95,
+    "explanations": [
+      {
+        "path": "User 1012385 -> chile lovers spicy three meat chili",
+        "score": 0.8179
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1143,
+      "minus": -0.0025
+    }
+  },
+  {
+    "user": "User 1064955",
+    "item": "pierogies and kielbasa skillet casserole",
+    "score": 2.9589,
+    "prob": 0.9507,
+    "explanations": [
+      {
+        "path": "User 1064955 -> brown gravy mix -> User 126440 -> pierogies and kielbasa skillet casserole",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0265,
+      "minus": 0.0424
+    }
+  },
+  {
+    "user": "User 177044",
+    "item": "bisquick chicken fingers",
+    "score": 2.9482,
+    "prob": 0.9502,
+    "explanations": [
+      {
+        "path": "User 177044 -> 2 alarm chili -> garlic salt -> bisquick chicken fingers",
+        "score": 0.0002
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0706,
+      "minus": 0.4244
+    }
+  },
+  {
+    "user": "User 2198371",
+    "item": "the best bread machine challah",
+    "score": 2.9592,
+    "prob": 0.9507,
+    "explanations": [
+      {
+        "path": "User 2198371 -> the best bread machine challah",
+        "score": 0.7918
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1159,
+      "minus": -0.0019
+    }
+  },
+  {
+    "user": "User 19021",
+    "item": "fiesta lime chicken",
+    "score": 2.9009,
+    "prob": 0.9479,
+    "explanations": []
+  },
+  {
+    "user": "User 54048",
+    "item": "panko fried oysters for two",
+    "score": 2.9804,
+    "prob": 0.9517,
+    "explanations": [
+      {
+        "path": "User 54048 -> horseradish chive butter -> appetizers -> panko fried oysters for two",
+        "score": 0.0001
+      },
+      {
+        "path": "User 54048 -> stuffed tomato -> appetizers -> panko fried oysters for two",
+        "score": 0.0
+      },
+      {
+        "path": "User 54048 -> baked spam -> southern-united-states -> panko fried oysters for two",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": -0.0002,
+      "minus": 0.2943
+    }
+  },
+  {
+    "user": "User 2001966665",
+    "item": "bread machine condensed milk sweet bread",
+    "score": 2.8959,
+    "prob": 0.9476,
+    "explanations": []
+  },
+  {
+    "user": "User 1416949",
+    "item": "vegetable skewers  ww",
+    "score": 2.7813,
+    "prob": 0.9417,
+    "explanations": []
+  },
+  {
+    "user": "User 2000164295",
+    "item": "simple vanilla cupcakes",
+    "score": 2.9903,
+    "prob": 0.9521,
+    "explanations": [
+      {
+        "path": "User 2000164295 -> simple vanilla cupcakes",
+        "score": 0.7915
+      }
+    ],
+    "fidelity": {
+      "plus": 0.202,
+      "minus": 0.0005
+    }
+  },
+  {
+    "user": "User 509357",
+    "item": "cantonese lobster",
+    "score": 2.8994,
+    "prob": 0.9478,
+    "explanations": []
+  },
+  {
+    "user": "User 848766",
+    "item": "chocolate dessert crepes",
+    "score": 2.8602,
+    "prob": 0.9458,
+    "explanations": [
+      {
+        "path": "User 848766 -> samosa chickpea -> weeknight -> chocolate dessert crepes",
+        "score": 0.0003
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0156,
+      "minus": 0.6307
+    }
+  },
+  {
+    "user": "User 1802427004",
+    "item": "blond toffee brownies",
+    "score": 2.8912,
+    "prob": 0.9474,
+    "explanations": []
+  },
+  {
+    "user": "User 118278",
+    "item": "yams a la francaise",
+    "score": 2.8912,
+    "prob": 0.9474,
+    "explanations": []
+  },
+  {
+    "user": "User 1001444",
+    "item": "creamy souper rice",
+    "score": 2.8477,
+    "prob": 0.9452,
+    "explanations": []
+  },
+  {
+    "user": "User 116948",
+    "item": "olive garden fettuccine alfredo",
+    "score": 3.0053,
+    "prob": 0.9528,
+    "explanations": [
+      {
+        "path": "User 116948 -> sirloin tips -> User 709548 -> olive garden fettuccine alfredo",
+        "score": 0.0001
+      },
+      {
+        "path": "User 116948 -> honduran liver -> stove-top -> olive garden fettuccine alfredo",
+        "score": 0.0
+      },
+      {
+        "path": "User 116948 -> crock pot creamy italian chicken -> pasta -> olive garden fettuccine alfredo",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0056,
+      "minus": 0.0444
+    }
+  },
+  {
+    "user": "User 324470",
+    "item": "zesty fried chicken",
+    "score": 2.8846,
+    "prob": 0.9471,
+    "explanations": [
+      {
+        "path": "User 324470 -> purist s guacamole -> technique -> zesty fried chicken",
+        "score": 0.0
+      },
+      {
+        "path": "User 324470 -> karage tofu -> technique -> zesty fried chicken",
+        "score": 0.0
+      },
+      {
+        "path": "User 324470 -> slightly spicy  black bean burgers -> cumin -> zesty fried chicken",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.002,
+      "minus": 0.3193
+    }
+  },
+  {
+    "user": "User 728702",
+    "item": "shrimp nicoise quiche",
+    "score": 2.96,
+    "prob": 0.9507,
+    "explanations": [
+      {
+        "path": "User 728702 -> shrimp nicoise quiche",
+        "score": 0.7803
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1854,
+      "minus": -0.0015
+    }
+  },
+  {
+    "user": "User 2002101352",
+    "item": "tabbouli   tabouli   tabbouleh salad  parsley salad",
+    "score": 2.921,
+    "prob": 0.9489,
+    "explanations": [
+      {
+        "path": "User 2002101352 -> tabbouli   tabouli   tabbouleh salad  parsley salad",
+        "score": 0.7879
+      }
+    ],
+    "fidelity": {
+      "plus": 0.1208,
+      "minus": -0.0034
+    }
+  },
+  {
+    "user": "User 2392741",
+    "item": "easy sugar cookies",
+    "score": 2.9604,
+    "prob": 0.9508,
+    "explanations": []
+  },
+  {
+    "user": "User 2406751",
+    "item": "red velvet cake from the bubble room",
+    "score": 2.8285,
+    "prob": 0.9442,
+    "explanations": []
+  },
+  {
+    "user": "User 1759099",
+    "item": "fantastic double chocolate pecan biscotti",
+    "score": 2.9376,
+    "prob": 0.9497,
+    "explanations": [
+      {
+        "path": "User 1759099 -> fantastic double chocolate pecan biscotti",
+        "score": 0.7769
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0501,
+      "minus": -0.0031
+    }
+  },
+  {
+    "user": "User 578543",
+    "item": "patti labelle s macaroni and cheese",
+    "score": 2.9875,
+    "prob": 0.952,
+    "explanations": [
+      {
+        "path": "User 578543 -> tsr 1993 version of cinnabon cinnamon rolls by todd wilbur -> User 194282 -> patti labelle s macaroni and cheese",
+        "score": 0.0019
+      },
+      {
+        "path": "User 578543 -> tsr 1993 version of cinnabon cinnamon rolls by todd wilbur -> User 136369 -> patti labelle s macaroni and cheese",
+        "score": 0.0001
+      },
+      {
+        "path": "User 578543 -> tsr 1993 version of cinnabon cinnamon rolls by todd wilbur -> User 140132 -> patti labelle s macaroni and cheese",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0035,
+      "minus": 0.0018
+    }
+  },
+  {
+    "user": "User 2000056072",
+    "item": "easy chili mac",
+    "score": 2.8503,
+    "prob": 0.9453,
+    "explanations": []
+  },
+  {
+    "user": "User 293349",
+    "item": "world famous paradise bakery sugar cookies",
+    "score": 2.9672,
+    "prob": 0.9511,
+    "explanations": [
+      {
+        "path": "User 293349 -> gnocchi   tomato bake  with freezing instructions -> User 307214 -> world famous paradise bakery sugar cookies",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": -0.0006,
+      "minus": 0.0235
+    }
+  },
+  {
+    "user": "User 458914",
+    "item": "tons of blueberry coffee cake",
+    "score": 3.0285,
+    "prob": 0.9538,
+    "explanations": [
+      {
+        "path": "User 458914 -> kittencal s italian melt in your mouth meatballs -> User 935050 -> tons of blueberry coffee cake",
+        "score": 0.0003
+      },
+      {
+        "path": "User 458914 -> olive garden pasta e fagioli soup in a crock pot  copycat -> User 156352 -> tons of blueberry coffee cake",
+        "score": 0.0002
+      },
+      {
+        "path": "User 458914 -> kittencal s chocolate frosting icing -> User 1471487 -> tons of blueberry coffee cake",
+        "score": 0.0001
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0005,
+      "minus": 0.0044
+    }
+  },
+  {
+    "user": "User 2945240",
+    "item": "balsamic pan seared pork chops",
+    "score": 2.9563,
+    "prob": 0.9506,
+    "explanations": []
+  },
+  {
+    "user": "User 1949760",
+    "item": "oven roasted pork tenderloin with brown sugar garlic glaze",
+    "score": 2.9705,
+    "prob": 0.9512,
+    "explanations": [
+      {
+        "path": "User 1949760 -> oven roasted pork tenderloin with brown sugar garlic glaze",
+        "score": 0.7958
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0255,
+      "minus": -0.0017
+    }
+  },
+  {
+    "user": "User 94769",
+    "item": "jumbo shrimp parmesan",
+    "score": 3.0338,
+    "prob": 0.9541,
+    "explanations": [
+      {
+        "path": "User 94769 -> carne guisada  mexican beef stew -> User 176153 -> jumbo shrimp parmesan",
+        "score": 0.0016
+      },
+      {
+        "path": "User 94769 -> to die for crock pot roast -> User 299720 -> jumbo shrimp parmesan",
+        "score": 0.001
+      },
+      {
+        "path": "User 94769 -> creamy cajun chicken pasta -> User 65988 -> jumbo shrimp parmesan",
+        "score": 0.0009
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0006,
+      "minus": 0.0006
+    }
+  },
+  {
+    "user": "User 380637",
+    "item": "gluten free buttermilk biscuits",
+    "score": 2.9742,
+    "prob": 0.9514,
+    "explanations": [
+      {
+        "path": "User 380637 -> yoghurt homemade -> free-of-something -> gluten free buttermilk biscuits",
+        "score": 0.0001
+      },
+      {
+        "path": "User 380637 -> yoghurt homemade -> gluten-free -> gluten free buttermilk biscuits",
+        "score": 0.0001
+      },
+      {
+        "path": "User 380637 -> uncle bill s microwave potato chips -> User 215898 -> gluten free buttermilk biscuits",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0016,
+      "minus": 0.0672
+    }
+  },
+  {
+    "user": "User 2000141599",
+    "item": "banana bread brownies",
+    "score": 2.9737,
+    "prob": 0.9514,
+    "explanations": [
+      {
+        "path": "User 2000141599 -> banana bread brownies",
+        "score": 0.7976
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0917,
+      "minus": -0.0013
+    }
+  },
+  {
+    "user": "User 191915",
+    "item": "overnight french toast casserole",
+    "score": 3.0356,
+    "prob": 0.9542,
+    "explanations": [
+      {
+        "path": "User 191915 -> fruit salad with pudding -> User 192856 -> overnight french toast casserole",
+        "score": 0.0001
+      },
+      {
+        "path": "User 191915 -> vanilla  buttercream frosting  from sprinkles cupcakes -> User 142414 -> overnight french toast casserole",
+        "score": 0.0
+      },
+      {
+        "path": "User 191915 -> edna s apple crumble  aka  apple crisp -> User 229052 -> overnight french toast casserole",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0019,
+      "minus": -0.0006
+    }
+  },
+  {
+    "user": "User 698347",
+    "item": "comfort soup  spinach   meatballs",
+    "score": 2.9655,
+    "prob": 0.951,
+    "explanations": [
+      {
+        "path": "User 698347 -> chicken marinade -> stove-top -> comfort soup  spinach   meatballs",
+        "score": 0.0
+      },
+      {
+        "path": "User 698347 -> baked chicken breasts -> one-dish-meal -> comfort soup  spinach   meatballs",
+        "score": 0.0
+      },
+      {
+        "path": "User 698347 -> artichoke and chicken bake -> User 63128 -> comfort soup  spinach   meatballs",
+        "score": 0.0
+      }
+    ],
+    "fidelity": {
+      "plus": 0.0083,
+      "minus": 0.116
+    }
+  },
+  {
+    "user": "User 2002102039",
+    "item": "chinese hot and sour pork soup",
+    "score": 2.964,
+    "prob": 0.9509,
+    "explanations": []
+  }
+]

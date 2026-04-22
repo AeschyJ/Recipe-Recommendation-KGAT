@@ -1,0 +1,81 @@
+% !TeX root = ../main.tex
+
+\begin{denotation}[4cm]
+
+\item[$\mathcal{G}$]{
+  協同知識圖譜 (Collaborative Knowledge Graph, CKG)
+}
+
+\item[$\mathcal{U}$]{
+  使用者集合 (User Set)
+}
+
+\item[$\mathcal{V}$]{
+  物品集合 (Item Set)
+}
+
+\item[$\mathcal{E}$]{
+  實體集合 (Entity Set)
+}
+
+\item[$\mathcal{R}$]{
+  關係集合 (Relation Set)
+}
+
+\item[$\bm{e}_u, \bm{e}_v$]{
+  使用者 $u$ 與物品 $v$ 的嵌入向量 (Embedding Vector)
+}
+
+\item[$\bm{e}_r$]{
+  關係 $r$ 的嵌入向量
+}
+
+\item[$d$]{
+  嵌入維度 (Embedding Dimension)
+}
+
+\item[$L$]{
+  圖神經網路的訊息傳播層數 (Number of Propagation Layers)
+}
+
+\item[$\alpha_{ij}$]{
+  節點 $i$ 對鄰居節點 $j$ 的注意力權重 (Attention Weight)
+}
+
+\item[$\mathcal{N}_i$]{
+  節點 $i$ 的鄰居集合 (Neighborhood Set)
+}
+
+\item[$\hat{y}_{uv}$]{
+  使用者 $u$ 對物品 $v$ 的預測偏好分數
+}
+
+\item[$p_{uv}$]{
+  使用者 $u$ 對物品 $v$ 的預測機率 (亦即 $\sigma(\hat{y}_{uv})$)
+}
+
+\item[$\mathcal{L}_{\text{BPR}}$]{
+  貝葉斯個人化排序損失函數 (BPR Loss)
+}
+
+\item[HR@$K$]{
+  命中率，Top-$K$ 推薦清單中包含真實正樣本的比例
+}
+
+\item[NDCG@$K$]{
+  歸一化折損累計增益，衡量推薦排序品質
+}
+
+\item[P@$K$]{
+  精確率，Top-$K$ 推薦清單中正確推薦的比例
+}
+
+\item[$S$]{
+  解釋路徑萃取框架中所選定的解釋邊集合 (Explanatory Subgraph)
+}
+
+\item[$F^+, F^-$]{
+  必要性 (Necessity) 與充分性 (Sufficiency) 忠實度量化指標 (Fidelity)
+}
+
+\end{denotation}

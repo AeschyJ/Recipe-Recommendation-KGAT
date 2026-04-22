@@ -56,6 +56,20 @@
 5. **Depth Variation (L=3)**: `train_att.py --layers 64 64 64`
    - 將 GNN 深度推展至 3 跳 (3-hop)。
    - **目的**: 探索神經網路極限，測試是否發生 Oversmoothing (過度平滑導致特徵無法區分)。
+6. **對照組實驗 (Baseline Matrix)**: `train_baseline.py`
+   - 包含 BPR-MF, NFM, LightGCN 三款模型。
+   - **目的**: 建立與經典 Matrix Factorization、Feature Interaction 模型以及純 GNN 模型的對比基準，驗證 KGAT 的綜合效能優勢。
+
+---
+
+## 4. 可解釋性驗證框架 (Explainability Framework)
+
+除了推薦效能（Recall, NDCG），本專案強調對於推薦原因的量化驗證：
+* **Attention 為基的解釋器**: 利用模型學習到的關係感知注意力權重，搜尋模型路徑中貢獻度最高的解釋路徑。
+* **Fidelity 指標**: 
+  - **Fidelity+**: 通過「遮擋 (Occlusion)」解釋路徑來觀察模型分數的下降程度，驗證路徑的 **必要性**。
+  - **Fidelity-**: 通過「僅保留 (Sufficiency)」解釋路徑來觀察模型是否仍能維持預測，驗證路徑的 **充分性**。
+* **評估工具**: `src/evaluate_fidelity.py` 整合了路徑搜尋與機率變化運算。
 
 ### 專案目錄分佈
 ```
@@ -65,11 +79,19 @@ Experiment/
 │   └── processed/          # 預處理後的圖譜檔案 (.pkl)
 ├── docs/                   # ADR 與架構文檔
 ├── models/                 # 實驗訓練好的權重模型
+│   └── baseline/           # 對照組模型權重
 ├── output/                 # 產出的各種 Metrics Logs
+│   ├── logs/
+│   │   └── baseline/       # 對照組訓練日誌
+│   └── explanations/       # XAI 產生的路徑解釋檔案
+├── scripts/                # 自動化批次處理與數據分析腳本 (evaluate_all, compare_metrics)
 ├── src/                    # 原始程式碼
 │   ├── data/               # 資料預處理
-│   ├── model/              # 模型定義 (kgat_bi_interaction.py, kgat_attention.py)
+│   ├── model/              # 模型定義 (kgat_bi_interaction.py, kgat_attention.py, bpr_mf.py, nfm.py, lightgcn.py)
 │   ├── train_att.py        # 包含 Attention 架構的訓練腳本
-│   └── train_bi_interaction.py # 僅 Bi-Interaction 的退化訓練腳本
+│   ├── train_bi_interaction.py # 僅 Bi-Interaction 的退化訓練腳本
+│   ├── train_baseline.py   # 對照組模型統一訓練腳本
+│   └── evaluate_fidelity.py # 可解釋性與 Fidelity 評估腳本
 ├── run_experiments.bat     # 消融實驗自動化啟動腳本
+└── run_baseline_experiments.bat # 對照組實驗自動化啟動腳本
 ```

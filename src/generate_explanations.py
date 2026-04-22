@@ -18,7 +18,7 @@ from src.model.explainer import KGATExplainer
 from src.model.explainer_attention import KGATAttentionExplainer
 from src.model.kgat_attention import KGATAttention
 from src.model.kgat_bi_interaction import KGAT_BiInteraction
-from src.train import construct_adj, load_data
+from src.train_bi_interaction import construct_adj, load_data
 
 
 def parse_args():
@@ -56,6 +56,12 @@ def parse_args():
         type=str,
         default=None,
         help="指定使用者 ID (逗號分隔)，若指定則忽略 num_users",
+    )
+    parser.add_argument(
+        "--user_ids_file",
+        type=str,
+        default=None,
+        help="指定包含使用者 ID 列表的 JSON 檔案路徑",
     )
     parser.add_argument(
         "--top_k_explain", type=int, default=3, help="每個推薦保留的解釋路徑數量"
@@ -269,7 +275,43 @@ def run():
     print("模型載入成功。")
 
     # 4. 挑選使用者
-    if args.user_ids:
+    if args.user_ids_file and os.path.exists(args.user_ids_file):
+        try:
+            with open(args.user_ids_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+
+                def extract_ids_recursively(obj):
+                    """遞迴提取 JSON 中所有 id 欄位或數值"""
+                    ids = []
+                    if isinstance(obj, list):
+                        for item in obj:
+                            ids.extend(extract_ids_recursively(item))
+                    elif isinstance(obj, dict):
+                        # 如果當前層有 id 或 user_id，直接使用
+                        if "id" in obj:
+                            ids.append(int(obj["id"]))
+                        elif "user_id" in obj:
+                            ids.append(int(obj["user_id"]))
+                        else:
+                            # 否則往下層找 (例如 user: [...], favorite: [...] 等類別)
+                            for val in obj.values():
+                                ids.extend(extract_ids_recursively(val))
+                    elif isinstance(obj, (int, str)):
+                        try:
+                            ids.append(int(obj))
+                        except (ValueError, TypeError):
+                            pass
+                    return ids
+
+                target_users = extract_ids_recursively(data)
+            
+            # 去除重複並保持順序
+            target_users = list(dict.fromkeys(target_users))
+            print(f"從 {args.user_ids_file} 成功載入 {len(target_users)} 個唯一使用者 ID。")
+        except Exception as e:
+            print(f"錯誤：解析 user_ids_file 失敗 ({e})。請確認 JSON 格式。")
+            return
+    elif args.user_ids:
         try:
             target_users = [int(uid.strip()) for uid in args.user_ids.split(",")]
         except ValueError:

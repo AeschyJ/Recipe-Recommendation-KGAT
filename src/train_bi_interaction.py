@@ -115,13 +115,24 @@ def bpr_loss(pos_scores, neg_scores):
 
 
 def evaluate(model, test_interactions, adj, n_items, device):
-    """計算 Recall@K 指標 (使用隨機負採樣)"""
+    """計算 HR@K, Precision@K, NDCG@K (使用隨機負採樣)"""
     model.eval()
-    hits_10, hits_20, hits_50 = 0, 0, 0
-    total = 0
-    batch_size = 512  # 評估時的 Batch Size
 
-    # 1. 預先計算並快取全圖最終特徵向量 (可將評估速度由數分鐘縮短至不到一秒)
+    metrics = {
+        "hr_10": 0,
+        "hr_20": 0,
+        "hr_50": 0,
+        "ndcg_10": 0,
+        "ndcg_20": 0,
+        "ndcg_50": 0,
+        "prec_10": 0,
+        "prec_20": 0,
+        "prec_50": 0,
+    }
+    total = 0
+    batch_size = 512
+
+    # 1. 預先計算並快取全圖最終特徵向量
     with torch.no_grad():
         final_embed = model.get_final_embeddings(adj)
 
@@ -133,39 +144,45 @@ def evaluate(model, test_interactions, adj, n_items, device):
             u = torch.LongTensor(batch[:, 0]).to(device)
             i = torch.LongTensor(batch[:, 1]).to(device)
 
-            # 2. 正樣本評估 (直接 Lookup Cache，不跑 Model Forward)
+            # 2. 正樣本評估
             u_embed = final_embed[u]
             pos_i_embed = final_embed[model.n_users + i]
             pos_scores = torch.sum(u_embed * pos_i_embed, dim=1)  # (B,)
 
             # 3. 負樣本評估
-            # 每個使用者點選 100 個隨機負樣本進行排行
-            # 注意：這裡假設 items 的範圍是 0 ~ n_items-1
             neg_items = torch.randint(0, n_items, (len(batch), 100)).to(device)
-            
-            # 為了效率，將 User 擴展並 Flatten 查找
             u_expanded = u.unsqueeze(1).repeat(1, 100).view(-1)
             neg_items_flatten = neg_items.view(-1)
 
             u_embed_expanded = final_embed[u_expanded]
             neg_i_embed = final_embed[model.n_users + neg_items_flatten]
-            neg_scores = torch.sum(u_embed_expanded * neg_i_embed, dim=1)
-            neg_scores = neg_scores.view(len(batch), 100)
+            neg_scores = torch.sum(u_embed_expanded * neg_i_embed, dim=1).view(
+                len(batch), 100
+            )
 
             # 合併分數並計算排名
             all_scores = torch.cat(
                 [pos_scores.unsqueeze(1), neg_scores], dim=1
             )  # (B, 101)
 
-            # 使用 topk 計算 Hits (k=50 涵蓋所有指標)
-            top50_indices = torch.topk(all_scores, k=50, dim=1).indices
+            # --- 新指標計算 ---
+            _, sorted_indices = torch.sort(all_scores, dim=1, descending=True)
+            pos_ranks = (sorted_indices == 0).nonzero(as_tuple=True)[1]
 
-            hits_10 += torch.sum((top50_indices[:, :10] == 0).any(dim=1)).item()
-            hits_20 += torch.sum((top50_indices[:, :20] == 0).any(dim=1)).item()
-            hits_50 += torch.sum((top50_indices[:, :50] == 0).any(dim=1)).item()
+            for k in [10, 20, 50]:
+                hits = (pos_ranks < k).float()
+                metrics[f"hr_{k}"] += hits.sum().item()
+                metrics[f"prec_{k}"] += (hits / k).sum().item()
+                metrics[f"ndcg_{k}"] += (
+                    (hits / torch.log2(pos_ranks.float() + 2)).sum().item()
+                )
+
             total += len(batch)
 
-    return hits_10 / total, hits_20 / total, hits_50 / total
+    for k in metrics:
+        metrics[k] /= total
+
+    return metrics
 
 
 def parse_args():
@@ -198,20 +215,42 @@ def parse_args():
     parser.add_argument(
         "--log_dir", type=str, default="output/logs", help="Directory to save logs"
     )
+    parser.add_argument(
+        "--eval_only",
+        action="store_true",
+        help="Run evaluation on the loaded checkpoint and exit",
+    )
+    parser.add_argument(
+        "--log_file",
+        type=str,
+        default=None,
+        help="Explicitly specify the log file to use (append mode)",
+    )
+    parser.add_argument(
+        "--no_compile", action="store_true", help="Disable torch.compile"
+    )
     return parser.parse_args()
 
 
-def setup_logging(log_dir, model_name="kgat"):
-    os.makedirs(log_dir, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_file = os.path.join(log_dir, f"{model_name}_{timestamp}.txt")
+def setup_logging(log_dir, model_name="kgat", log_file=None):
+    if log_file is None:
+        os.makedirs(log_dir, exist_ok=True)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        log_file = os.path.join(log_dir, f"{model_name}_{timestamp}.txt")
+        file_mode = "w"
+    else:
+        file_mode = "a"
+
+    # 移除舊的 handlers 以避免重複輸出
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
 
     # 設定 Logging
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(message)s",
         handlers=[
-            logging.FileHandler(log_file, encoding="utf-8"),
+            logging.FileHandler(log_file, encoding="utf-8", mode=file_mode),
             logging.StreamHandler(),
         ],
     )
@@ -222,7 +261,7 @@ def train():
     args = parse_args()
 
     # 0. 初始化 Logging
-    log_file = setup_logging(args.log_dir, model_name="kgat")
+    log_file = setup_logging(args.log_dir, model_name="kgat", log_file=args.log_file)
     logging.info(f"Training started. Args: {args}")
     logging.info(f"Log file: {log_file}")
 
@@ -259,6 +298,7 @@ def train():
         interactions = interactions[:2000]
 
     # 資料分割 (Train/Test)
+    np.random.seed(42)
     np.random.shuffle(interactions)
     split_idx = int(0.8 * len(interactions))
     train_data = interactions[:split_idx]
@@ -332,10 +372,16 @@ def train():
     # 5. 載入權重與狀態
     if checkpoint is not None:
         if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
-            missing, unexpected = model.load_state_dict(checkpoint["model_state_dict"], strict=False)
+            missing, unexpected = model.load_state_dict(
+                checkpoint["model_state_dict"], strict=False
+            )
             if missing or unexpected:
-                logging.warning(f"Architecture mismatch! Missing: {missing}, Unexpected: {unexpected}")
-                logging.warning("Optimizer and scheduler will NOT be loaded due to architectural mismatch.")
+                logging.warning(
+                    f"Architecture mismatch! Missing: {missing}, Unexpected: {unexpected}"
+                )
+                logging.warning(
+                    "Optimizer and scheduler will NOT be loaded due to architectural mismatch."
+                )
             else:
                 optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
                 if "scheduler_state_dict" in checkpoint:
@@ -350,10 +396,44 @@ def train():
     if HAS_XPU:
         torch.xpu.empty_cache()
 
+    # 6. torch.compile 最佳化 (與 train_att.py 對齊)
+    if HAS_XPU and not args.cpu and not args.no_compile:
+        try:
+            model = torch.compile(model)
+            logging.info("Model compiled with torch.compile for XPU.")
+        except Exception as e:
+            logging.warning(f"Warning: torch.compile failed: {e}")
+    elif args.no_compile:
+        logging.info("Model compilation disabled by user.")
+
+    if args.eval_only:
+        logging.info("Running evaluation ONLY mode...")
+        metrics = evaluate(model, test_data, adj, n_items, device)
+        logging.info("Evaluation Results:")
+        for k in [10, 20, 50]:
+            logging.info(
+                f"K={k} -> HR: {metrics[f'hr_{k}']:.4f}, Precision: {metrics[f'prec_{k}']:.4f}, NDCG: {metrics[f'ndcg_{k}']:.4f}"
+            )
+        return
+
     # 5. 訓練迴圈
     epochs = args.epochs
     batch_size = args.batch_size
     logging.info(f"Starting training from epoch {start_epoch} to {epochs}...")
+
+    # 提前解構 adj 索引，避免每個 batch 重複呼叫 .indices()/.values()
+    if adj.layout == torch.sparse_coo:
+        _adj_target = adj.indices()[0]
+        _adj_neighbor = adj.indices()[1]
+        _adj_values = adj.values()
+    elif adj.layout == torch.sparse_csr:
+        _adj_coo = adj.to_sparse_coo().coalesce()
+        _adj_target = _adj_coo.indices()[0]
+        _adj_neighbor = _adj_coo.indices()[1]
+        _adj_values = _adj_coo.values()
+    else:
+        raise ValueError(f"Unsupported adjacency layout: {adj.layout}")
+    logging.info("Adjacency indices pre-extracted for training loop.")
 
     for epoch in range(start_epoch, epochs):
         model.train()
@@ -365,15 +445,24 @@ def train():
             u, i, j = sample_bpr_batch(train_data, n_items, batch_size)
             u, i, j = u.to(device), i.to(device), j.to(device)
 
-            # 如果使用 BF16，模型輸出會是 BF16
             try:
-                # 僅調用一次前向傳播，同時獲得正負樣本分數
-                pos_scores, neg_scores = model(adj, u, i, j)
+                optimizer.zero_grad(set_to_none=True)
+                if device.type == "xpu":
+                    with torch.autocast(
+                        device_type="xpu", enabled=args.use_bf16, dtype=torch.bfloat16
+                    ):
+                        pos_scores, neg_scores = model(
+                            adj, u, i, j,
+                            _target=_adj_target, _neighbor=_adj_neighbor, _values=_adj_values
+                        )
+                        loss = bpr_loss(pos_scores.float(), neg_scores.float())
+                else:
+                    pos_scores, neg_scores = model(
+                        adj, u, i, j,
+                        _target=_adj_target, _neighbor=_adj_neighbor, _values=_adj_values
+                    )
+                    loss = bpr_loss(pos_scores.float(), neg_scores.float())
 
-                # 計算 Loss，轉回 Float32 以保證數值穩定性
-                loss = bpr_loss(pos_scores.float(), neg_scores.float())
-
-                optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()
 
@@ -390,23 +479,24 @@ def train():
         logging.info(f"Epoch {epoch + 1} Complete. Average Loss: {avg_loss:.4f}")
 
         # 評估 Recall Metrics
-        recall_10, recall_20, recall_50 = evaluate(
-            model, test_data, adj, n_items, device
-        )
+        metrics = evaluate(model, test_data, adj, n_items, device)
         logging.info(
-            f"Epoch {epoch + 1} Evaluation - Recall@10: {recall_10:.4f}, Recall@20: {recall_20:.4f}, Recall@50: {recall_50:.4f}"
+            f"Epoch {epoch + 1} Evaluation - "
+            f"HR@[10,20,50]: [{metrics['hr_10']:.4f}, {metrics['hr_20']:.4f}, {metrics['hr_50']:.4f}] | "
+            f"Precision@[10,20,50]: [{metrics['prec_10']:.4f}, {metrics['prec_20']:.4f}, {metrics['prec_50']:.4f}] | "
+            f"NDCG@[10,20,50]: [{metrics['ndcg_10']:.4f}, {metrics['ndcg_20']:.4f}, {metrics['ndcg_50']:.4f}]"
         )
 
         # Step Scheduler
-        scheduler.step(recall_20)
+        scheduler.step(metrics["hr_20"])
         current_lr = optimizer.param_groups[0]["lr"]
         logging.info(f"Epoch {epoch + 1} Current LR: {current_lr:.6e}")
 
         # 6. 儲存模組 (每 2 個 epoch 或是最後一個儲存一次)
-        if (epoch + 1) % 2 == 0 or (epoch + 1) == epochs:
+        if (epoch + 1) % 1 == 0 or (epoch + 1) == epochs:
             os.makedirs(args.model_dir, exist_ok=True)
             ckpt_path = os.path.join(
-                args.model_dir, f"kgat_checkpoint_e{epoch + 1}.pth"
+                args.model_dir, f"2_kgat_checkpoint_e{epoch + 1}.pth"
             )
             checkpoint = {
                 "epoch": epoch + 1,

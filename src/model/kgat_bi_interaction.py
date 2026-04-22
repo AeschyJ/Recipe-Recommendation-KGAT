@@ -44,15 +44,18 @@ class KGAT_BiInteraction(nn.Module):
         nn.init.xavier_uniform_(self.relation_embed.weight)
         nn.init.xavier_uniform_(self.W_R)
 
-    def forward(self, adj, user_ids, pos_item_ids, neg_item_ids=None):
+    def forward(self, adj, user_ids, pos_item_ids, neg_item_ids=None, _target=None, _neighbor=None, _values=None):
         """
         adj: Normalized graph adjacency matrix (sparse tensor)
         user_ids: tensor of user indices
         pos_item_ids: tensor of positive item indices
         neg_item_ids: (Optional) tensor of negative item indices
+        _target/_neighbor/_values: (Optional) 預解構的 adj 索引，避免每 batch 重複 .indices()
         """
-        # 1. 優化：預先提取稀疏矩陣索引，避免在每一層重複提取與檢查 layout
-        if adj.layout == torch.sparse_coo:
+        # 1. 優化：優先使用傳入的預解構索引，退化時才即時解構
+        if _target is not None and _neighbor is not None and _values is not None:
+            target, neighbor, values = _target, _neighbor, _values
+        elif adj.layout == torch.sparse_coo:
             target, neighbor = adj.indices()[0], adj.indices()[1]
             values = adj.values()
         elif adj.layout == torch.sparse_csr:
@@ -72,11 +75,17 @@ class KGAT_BiInteraction(nn.Module):
             # 傳遞預提取的矩陣參數
             all_embed = layer(all_embed, target, neighbor, values)
             all_embed = F.normalize(all_embed, p=2, dim=1)
-            
+
             # 實作原論文的 Message Dropout (避免 overfitting)
-            if self.training and len(self.mess_dropout) > i and self.mess_dropout[i] > 0:
-                all_embed = F.dropout(all_embed, p=self.mess_dropout[i], training=self.training)
-                
+            if (
+                self.training
+                and len(self.mess_dropout) > i
+                and self.mess_dropout[i] > 0
+            ):
+                all_embed = F.dropout(
+                    all_embed, p=self.mess_dropout[i], training=self.training
+                )
+
             ego_embeddings.append(all_embed)
 
         # 2. 合併多層特徵

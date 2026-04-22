@@ -1,0 +1,123 @@
+2026-04-09 22:04:51,024 [INFO] Training started. Args: Namespace(model='BPR-MF', epochs=10, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=True, lr=0.001, log_dir='output/logs/baseline', eval_only=False, resume=None, experiment_id=3)
+2026-04-09 22:04:51,024 [INFO] Using Device: xpu
+2026-04-09 22:04:52,229 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-09 22:05:01,866 [INFO] Epoch 1 Avg Loss: 0.6708
+2026-04-09 22:05:03,839 [INFO] Epoch 1 Evaluation - HR@[10,20,50]: [0.3777, 0.4782, 0.6653] | Precision@[10,20,50]: [0.0378, 0.0239, 0.0133] | NDCG@[10,20,50]: [0.2537, 0.2789, 0.3159]
+2026-04-09 22:05:04,105 [INFO] Saved checkpoint: models/baseline\3_bprmf_checkpoint_e1.pth
+2026-04-09 22:05:12,221 [INFO] Epoch 2 Avg Loss: 0.5861
+2026-04-09 22:05:14,076 [INFO] Epoch 2 Evaluation - HR@[10,20,50]: [0.4121, 0.5156, 0.6997] | Precision@[10,20,50]: [0.0412, 0.0258, 0.0140] | NDCG@[10,20,50]: [0.2741, 0.3002, 0.3365]
+2026-04-09 22:05:14,313 [INFO] Saved checkpoint: models/baseline\3_bprmf_checkpoint_e2.pth
+2026-04-09 22:05:22,362 [INFO] Epoch 3 Avg Loss: 0.5408
+2026-04-09 22:05:24,225 [INFO] Epoch 3 Evaluation - HR@[10,20,50]: [0.4277, 0.5347, 0.7114] | Precision@[10,20,50]: [0.0428, 0.0267, 0.0142] | NDCG@[10,20,50]: [0.2826, 0.3096, 0.3445]
+2026-04-09 22:05:24,468 [INFO] Saved checkpoint: models/baseline\3_bprmf_checkpoint_e3.pth
+2026-04-09 22:05:32,607 [INFO] Epoch 4 Avg Loss: 0.5144
+2026-04-09 22:05:34,486 [INFO] Epoch 4 Evaluation - HR@[10,20,50]: [0.4372, 0.5463, 0.7190] | Precision@[10,20,50]: [0.0437, 0.0273, 0.0144] | NDCG@[10,20,50]: [0.2880, 0.3155, 0.3496]
+2026-04-09 22:05:34,696 [INFO] Saved checkpoint: models/baseline\3_bprmf_checkpoint_e4.pth
+2026-04-09 22:05:42,777 [INFO] Epoch 5 Avg Loss: 0.4977
+2026-04-09 22:05:44,640 [INFO] Epoch 5 Evaluation - HR@[10,20,50]: [0.4428, 0.5530, 0.7231] | Precision@[10,20,50]: [0.0443, 0.0277, 0.0145] | NDCG@[10,20,50]: [0.2916, 0.3195, 0.3532]
+2026-04-09 22:05:45,219 [INFO] Saved checkpoint: models/baseline\3_bprmf_checkpoint_e5.pth
+2026-04-09 22:05:53,395 [INFO] Epoch 6 Avg Loss: 0.4861
+2026-04-09 22:05:55,293 [INFO] Epoch 6 Evaluation - HR@[10,20,50]: [0.4481, 0.5579, 0.7257] | Precision@[10,20,50]: [0.0448, 0.0279, 0.0145] | NDCG@[10,20,50]: [0.2939, 0.3216, 0.3549]
+2026-04-09 22:05:55,507 [INFO] Saved checkpoint: models/baseline\3_bprmf_checkpoint_e6.pth
+2026-04-09 22:06:03,660 [INFO] Epoch 7 Avg Loss: 0.4772
+2026-04-09 22:06:05,549 [INFO] Epoch 7 Evaluation - HR@[10,20,50]: [0.4497, 0.5615, 0.7276] | Precision@[10,20,50]: [0.0450, 0.0281, 0.0146] | NDCG@[10,20,50]: [0.2958, 0.3241, 0.3570]
+2026-04-09 22:06:05,872 [INFO] Saved checkpoint: models/baseline\3_bprmf_checkpoint_e7.pth
+2026-04-09 22:06:14,033 [INFO] Epoch 8 Avg Loss: 0.4703
+2026-04-09 22:06:15,886 [INFO] Epoch 8 Evaluation - HR@[10,20,50]: [0.4528, 0.5643, 0.7299] | Precision@[10,20,50]: [0.0453, 0.0282, 0.0146] | NDCG@[10,20,50]: [0.2972, 0.3253, 0.3582]
+2026-04-09 22:06:16,181 [INFO] Saved checkpoint: models/baseline\3_bprmf_checkpoint_e8.pth
+2026-04-09 22:06:24,273 [INFO] Epoch 9 Avg Loss: 0.4648
+2026-04-09 22:06:26,168 [INFO] Epoch 9 Evaluation - HR@[10,20,50]: [0.4548, 0.5670, 0.7318] | Precision@[10,20,50]: [0.0455, 0.0283, 0.0146] | NDCG@[10,20,50]: [0.2982, 0.3265, 0.3593]
+2026-04-09 22:06:26,386 [INFO] Saved checkpoint: models/baseline\3_bprmf_checkpoint_e9.pth
+2026-04-09 22:06:34,532 [INFO] Epoch 10 Avg Loss: 0.4600
+2026-04-09 22:06:36,429 [INFO] Epoch 10 Evaluation - HR@[10,20,50]: [0.4562, 0.5680, 0.7328] | Precision@[10,20,50]: [0.0456, 0.0284, 0.0147] | NDCG@[10,20,50]: [0.2998, 0.3280, 0.3608]
+2026-04-09 22:06:36,636 [INFO] Saved checkpoint: models/baseline\3_bprmf_checkpoint_e10.pth
+2026-04-22 16:35:28,892 [INFO] Training started. Args: Namespace(model='BPR-MF', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_bprmf_checkpoint_e1.pth', experiment_id=1, log_file='output/logs/baseline/bprmf_20260409_220451.txt')
+2026-04-22 16:35:28,902 [INFO] Using Device: xpu
+2026-04-22 16:35:30,723 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:35:35,919 [INFO] Loading checkpoint: models/baseline\3_bprmf_checkpoint_e1.pth
+2026-04-22 16:35:36,368 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:35:38,836 [INFO] Evaluation Results:
+2026-04-22 16:35:38,837 [INFO] K=10 -> HR: 0.3784, Precision: 0.0378, NDCG: 0.2539
+2026-04-22 16:35:38,837 [INFO] K=20 -> HR: 0.4777, Precision: 0.0239, NDCG: 0.2789
+2026-04-22 16:35:38,838 [INFO] K=50 -> HR: 0.6651, Precision: 0.0133, NDCG: 0.3159
+2026-04-22 16:35:42,603 [INFO] Training started. Args: Namespace(model='BPR-MF', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_bprmf_checkpoint_e10.pth', experiment_id=1, log_file='output/logs/baseline/bprmf_20260409_220451.txt')
+2026-04-22 16:35:42,605 [INFO] Using Device: xpu
+2026-04-22 16:35:44,475 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:35:49,748 [INFO] Loading checkpoint: models/baseline\3_bprmf_checkpoint_e10.pth
+2026-04-22 16:35:50,200 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:35:52,814 [INFO] Evaluation Results:
+2026-04-22 16:35:52,814 [INFO] K=10 -> HR: 0.4565, Precision: 0.0456, NDCG: 0.2995
+2026-04-22 16:35:52,814 [INFO] K=20 -> HR: 0.5683, Precision: 0.0284, NDCG: 0.3277
+2026-04-22 16:35:52,814 [INFO] K=50 -> HR: 0.7332, Precision: 0.0147, NDCG: 0.3604
+2026-04-22 16:35:56,636 [INFO] Training started. Args: Namespace(model='BPR-MF', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_bprmf_checkpoint_e2.pth', experiment_id=1, log_file='output/logs/baseline/bprmf_20260409_220451.txt')
+2026-04-22 16:35:56,638 [INFO] Using Device: xpu
+2026-04-22 16:35:58,466 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:36:03,797 [INFO] Loading checkpoint: models/baseline\3_bprmf_checkpoint_e2.pth
+2026-04-22 16:36:04,256 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:36:06,890 [INFO] Evaluation Results:
+2026-04-22 16:36:06,890 [INFO] K=10 -> HR: 0.4124, Precision: 0.0412, NDCG: 0.2741
+2026-04-22 16:36:06,890 [INFO] K=20 -> HR: 0.5155, Precision: 0.0258, NDCG: 0.3001
+2026-04-22 16:36:06,891 [INFO] K=50 -> HR: 0.6997, Precision: 0.0140, NDCG: 0.3364
+2026-04-22 16:36:10,657 [INFO] Training started. Args: Namespace(model='BPR-MF', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_bprmf_checkpoint_e3.pth', experiment_id=1, log_file='output/logs/baseline/bprmf_20260409_220451.txt')
+2026-04-22 16:36:10,659 [INFO] Using Device: xpu
+2026-04-22 16:36:12,492 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:36:17,732 [INFO] Loading checkpoint: models/baseline\3_bprmf_checkpoint_e3.pth
+2026-04-22 16:36:18,180 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:36:20,843 [INFO] Evaluation Results:
+2026-04-22 16:36:20,843 [INFO] K=10 -> HR: 0.4277, Precision: 0.0428, NDCG: 0.2827
+2026-04-22 16:36:20,843 [INFO] K=20 -> HR: 0.5343, Precision: 0.0267, NDCG: 0.3096
+2026-04-22 16:36:20,843 [INFO] K=50 -> HR: 0.7109, Precision: 0.0142, NDCG: 0.3445
+2026-04-22 16:36:24,610 [INFO] Training started. Args: Namespace(model='BPR-MF', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_bprmf_checkpoint_e4.pth', experiment_id=1, log_file='output/logs/baseline/bprmf_20260409_220451.txt')
+2026-04-22 16:36:24,612 [INFO] Using Device: xpu
+2026-04-22 16:36:26,469 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:36:31,802 [INFO] Loading checkpoint: models/baseline\3_bprmf_checkpoint_e4.pth
+2026-04-22 16:36:32,253 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:36:34,915 [INFO] Evaluation Results:
+2026-04-22 16:36:34,915 [INFO] K=10 -> HR: 0.4369, Precision: 0.0437, NDCG: 0.2878
+2026-04-22 16:36:34,915 [INFO] K=20 -> HR: 0.5462, Precision: 0.0273, NDCG: 0.3153
+2026-04-22 16:36:34,915 [INFO] K=50 -> HR: 0.7188, Precision: 0.0144, NDCG: 0.3495
+2026-04-22 16:36:38,842 [INFO] Training started. Args: Namespace(model='BPR-MF', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_bprmf_checkpoint_e5.pth', experiment_id=1, log_file='output/logs/baseline/bprmf_20260409_220451.txt')
+2026-04-22 16:36:38,844 [INFO] Using Device: xpu
+2026-04-22 16:36:40,669 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:36:45,899 [INFO] Loading checkpoint: models/baseline\3_bprmf_checkpoint_e5.pth
+2026-04-22 16:36:46,336 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:36:49,008 [INFO] Evaluation Results:
+2026-04-22 16:36:49,008 [INFO] K=10 -> HR: 0.4425, Precision: 0.0443, NDCG: 0.2914
+2026-04-22 16:36:49,008 [INFO] K=20 -> HR: 0.5531, Precision: 0.0277, NDCG: 0.3193
+2026-04-22 16:36:49,008 [INFO] K=50 -> HR: 0.7229, Precision: 0.0145, NDCG: 0.3529
+2026-04-22 16:36:52,867 [INFO] Training started. Args: Namespace(model='BPR-MF', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_bprmf_checkpoint_e6.pth', experiment_id=1, log_file='output/logs/baseline/bprmf_20260409_220451.txt')
+2026-04-22 16:36:52,869 [INFO] Using Device: xpu
+2026-04-22 16:36:54,690 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:36:59,965 [INFO] Loading checkpoint: models/baseline\3_bprmf_checkpoint_e6.pth
+2026-04-22 16:37:00,418 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:37:03,065 [INFO] Evaluation Results:
+2026-04-22 16:37:03,066 [INFO] K=10 -> HR: 0.4480, Precision: 0.0448, NDCG: 0.2944
+2026-04-22 16:37:03,066 [INFO] K=20 -> HR: 0.5585, Precision: 0.0279, NDCG: 0.3223
+2026-04-22 16:37:03,066 [INFO] K=50 -> HR: 0.7253, Precision: 0.0145, NDCG: 0.3553
+2026-04-22 16:37:06,828 [INFO] Training started. Args: Namespace(model='BPR-MF', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_bprmf_checkpoint_e7.pth', experiment_id=1, log_file='output/logs/baseline/bprmf_20260409_220451.txt')
+2026-04-22 16:37:06,829 [INFO] Using Device: xpu
+2026-04-22 16:37:08,707 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:37:14,056 [INFO] Loading checkpoint: models/baseline\3_bprmf_checkpoint_e7.pth
+2026-04-22 16:37:14,502 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:37:17,184 [INFO] Evaluation Results:
+2026-04-22 16:37:17,184 [INFO] K=10 -> HR: 0.4502, Precision: 0.0450, NDCG: 0.2959
+2026-04-22 16:37:17,184 [INFO] K=20 -> HR: 0.5617, Precision: 0.0281, NDCG: 0.3240
+2026-04-22 16:37:17,185 [INFO] K=50 -> HR: 0.7281, Precision: 0.0146, NDCG: 0.3570
+2026-04-22 16:37:21,000 [INFO] Training started. Args: Namespace(model='BPR-MF', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_bprmf_checkpoint_e8.pth', experiment_id=1, log_file='output/logs/baseline/bprmf_20260409_220451.txt')
+2026-04-22 16:37:21,002 [INFO] Using Device: xpu
+2026-04-22 16:37:22,827 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:37:28,123 [INFO] Loading checkpoint: models/baseline\3_bprmf_checkpoint_e8.pth
+2026-04-22 16:37:28,562 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:37:31,224 [INFO] Evaluation Results:
+2026-04-22 16:37:31,224 [INFO] K=10 -> HR: 0.4525, Precision: 0.0453, NDCG: 0.2970
+2026-04-22 16:37:31,224 [INFO] K=20 -> HR: 0.5643, Precision: 0.0282, NDCG: 0.3253
+2026-04-22 16:37:31,224 [INFO] K=50 -> HR: 0.7298, Precision: 0.0146, NDCG: 0.3581
+2026-04-22 16:37:34,990 [INFO] Training started. Args: Namespace(model='BPR-MF', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\3_bprmf_checkpoint_e9.pth', experiment_id=1, log_file='output/logs/baseline/bprmf_20260409_220451.txt')
+2026-04-22 16:37:34,992 [INFO] Using Device: xpu
+2026-04-22 16:37:36,860 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:37:42,188 [INFO] Loading checkpoint: models/baseline\3_bprmf_checkpoint_e9.pth
+2026-04-22 16:37:42,606 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:37:45,276 [INFO] Evaluation Results:
+2026-04-22 16:37:45,276 [INFO] K=10 -> HR: 0.4546, Precision: 0.0455, NDCG: 0.2981
+2026-04-22 16:37:45,277 [INFO] K=20 -> HR: 0.5665, Precision: 0.0283, NDCG: 0.3263
+2026-04-22 16:37:45,277 [INFO] K=50 -> HR: 0.7320, Precision: 0.0146, NDCG: 0.3592

@@ -378,7 +378,7 @@ wheels = [
 
 [[package]]
 name = "experiment"
-version = "1.1.0"
+version = "1.3.0"
 source = { editable = "." }
 dependencies = [
     { name = "ipykernel" },
@@ -1172,8 +1172,8 @@ name = "oneccl"
 version = "2021.16.1"
 source = { registry = "https://download.pytorch.org/whl/xpu" }
 dependencies = [
-    { name = "impi-rt" },
-    { name = "intel-sycl-rt" },
+    { name = "impi-rt", marker = "(python_full_version < '3.11' and sys_platform == 'emscripten') or (python_full_version < '3.11' and sys_platform == 'win32') or (sys_platform != 'emscripten' and sys_platform != 'win32')" },
+    { name = "intel-sycl-rt", marker = "(python_full_version < '3.11' and sys_platform == 'emscripten') or (python_full_version < '3.11' and sys_platform == 'win32') or (sys_platform != 'emscripten' and sys_platform != 'win32')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/95/38/e31cc932bd62ede7813dad2062caef6b745550e699766cdf6ba3a8e2ff8e/oneccl-2021.16.1-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:371c2ebd6590216a1cbbeaf0ba70b26e9a275a708993aba43c9ee82a1947a3c6" },
@@ -1184,7 +1184,7 @@ name = "oneccl-devel"
 version = "2021.16.1"
 source = { registry = "https://download.pytorch.org/whl/xpu" }
 dependencies = [
-    { name = "oneccl" },
+    { name = "oneccl", marker = "(python_full_version < '3.11' and sys_platform == 'emscripten') or (python_full_version < '3.11' and sys_platform == 'win32') or (sys_platform != 'emscripten' and sys_platform != 'win32')" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f6/05/fd082b1da0fdd8082b99d721fd69a4a954f61639fbe7d024ca93b16e4dc1/oneccl_devel-2021.16.1-py2.py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:9154ab9c10e9864464c7163857f87c3de05b80030b4dc4ad9bdbd8084cb85ac2" },
@@ -1638,20 +1638,20 @@ dependencies = [
     { name = "setuptools" },
 ]
 wheels = [
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:c169a1de14c19673b17c751290d467fa282fc90fa5da4314b2e5cdab1f553146" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp310-cp310-win_amd64.whl", hash = "sha256:c83ab007311d9cfb6e809ee5a4587d99a9eef4be720b90da4f1aaa68b45139a0" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:013d9dd5d6479bd22983161f462e61c8dbe1d82e6730624a7a8d5945507eaa61" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp311-cp311-win_amd64.whl", hash = "sha256:debf75348da8e8c7166b4d4a9b91d1508bb8d6581e339f79f7604b2e6746bacd" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:afc8cabfbf7ed51fd278d1e0f88d6afc157b0201bad4b99d681e4d542f9e66d4" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp312-cp312-win_amd64.whl", hash = "sha256:97337a47425f1963a723475bd61037460e84ba01db4f87a1d662c3718ff6c47e" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:0d24c1716088f2764d0d24c64227732195b6a42706c3c5fc89eeb4904bfa0818" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp313-cp313-win_amd64.whl", hash = "sha256:2caf8138695f6abb023ecd02031a2611ba1bf8fff2f19802567cb2fadefe9e87" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp313-cp313t-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:74f00689800e2fe4e75b5db26ace8084eaa44e6df9a30e2ad65ddb89abf5a152" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp313-cp313t-win_amd64.whl", hash = "sha256:5f4bf283a9f3c163e7bf30aa18feaae65157213ba4236c198e3d5ebadc237ea4" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:0b06dfbb7ec5e52f1d3a19f59b0e8cd9190cb53a7f9f2b31cdb359ae467fe49b" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp314-cp314-win_amd64.whl", hash = "sha256:25f4673254d82c97f4475122a3c56fdb2f0f7a1b62a88e2373a9452a0c03ace6" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp314-cp314t-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:3db1f86fd6587c5b4c8ee9611dc0f8cae6c848a24ab7b54aac03f0afb853a538" },
-    { url = "https://download.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp314-cp314t-win_amd64.whl", hash = "sha256:78e28bb14d081a75f0a6d2d8332eaedf1fcd4a944d391eacec3f38ba2665d14c" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:c169a1de14c19673b17c751290d467fa282fc90fa5da4314b2e5cdab1f553146" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp310-cp310-win_amd64.whl", hash = "sha256:c83ab007311d9cfb6e809ee5a4587d99a9eef4be720b90da4f1aaa68b45139a0" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:013d9dd5d6479bd22983161f462e61c8dbe1d82e6730624a7a8d5945507eaa61" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp311-cp311-win_amd64.whl", hash = "sha256:debf75348da8e8c7166b4d4a9b91d1508bb8d6581e339f79f7604b2e6746bacd" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:afc8cabfbf7ed51fd278d1e0f88d6afc157b0201bad4b99d681e4d542f9e66d4" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp312-cp312-win_amd64.whl", hash = "sha256:97337a47425f1963a723475bd61037460e84ba01db4f87a1d662c3718ff6c47e" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:0d24c1716088f2764d0d24c64227732195b6a42706c3c5fc89eeb4904bfa0818" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp313-cp313-win_amd64.whl", hash = "sha256:2caf8138695f6abb023ecd02031a2611ba1bf8fff2f19802567cb2fadefe9e87" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp313-cp313t-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:74f00689800e2fe4e75b5db26ace8084eaa44e6df9a30e2ad65ddb89abf5a152" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp313-cp313t-win_amd64.whl", hash = "sha256:5f4bf283a9f3c163e7bf30aa18feaae65157213ba4236c198e3d5ebadc237ea4" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:0b06dfbb7ec5e52f1d3a19f59b0e8cd9190cb53a7f9f2b31cdb359ae467fe49b" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp314-cp314-win_amd64.whl", hash = "sha256:25f4673254d82c97f4475122a3c56fdb2f0f7a1b62a88e2373a9452a0c03ace6" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp314-cp314t-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:3db1f86fd6587c5b4c8ee9611dc0f8cae6c848a24ab7b54aac03f0afb853a538" },
+    { url = "https://download-r2.pytorch.org/whl/pytorch_triton_xpu-3.5.0-cp314-cp314t-win_amd64.whl", hash = "sha256:78e28bb14d081a75f0a6d2d8332eaedf1fcd4a944d391eacec3f38ba2665d14c" },
 ]
 
 [[package]]
@@ -2094,20 +2094,20 @@ dependencies = [
     { name = "umf" },
 ]
 wheels = [
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp310-cp310-linux_x86_64.whl", hash = "sha256:fb7895c744132d6a8e56ce8434ae1d8355c9bda4e9f58832744ff742d6268eaf" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp310-cp310-win_amd64.whl", hash = "sha256:2f318fb6a4bf1101cc17f35a5371f7c1768b41fceed03628397834e85b3edfdd" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp311-cp311-linux_x86_64.whl", hash = "sha256:da2604a9114a28de71ce654819424d20a246adf644d191ae160837df9731b79e" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp311-cp311-win_amd64.whl", hash = "sha256:c9cedc3fb099366b2e6c563df6578e323564b1b5d40ac27be73c674755343a1d" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp312-cp312-linux_x86_64.whl", hash = "sha256:d5968d78d81c1d01efc1b3bf83d7da3d83161dcc3a9fcf91f500591db1c6c75d" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp312-cp312-win_amd64.whl", hash = "sha256:bee9623254d0f95a1ca115dbd17e9a9d966fdb8ae123e2ada4a9eb2fb8d38db8" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp313-cp313-linux_x86_64.whl", hash = "sha256:b56d6b0d65863f370527e971dbfa046a5dd2a1f61cc95071db26c764f36e4dce" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp313-cp313-win_amd64.whl", hash = "sha256:cd5c857da52a63c121561b30b0979e69ade70b575fd74e389787bc7c1ee2ac11" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp313-cp313t-linux_x86_64.whl", hash = "sha256:63a26be5a39d61052521139868b78a36b43023b611ab34a4257ec70848ba6df9" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp313-cp313t-win_amd64.whl", hash = "sha256:87d4a94d1c857f28372fabc0f103d9af4b521a4063ff89ea79906cde74192118" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp314-cp314-linux_x86_64.whl", hash = "sha256:8c7915006752dabe5d752614db3dc54ce2e81636bae61bb96cc142e7cc9bdd1d" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp314-cp314-win_amd64.whl", hash = "sha256:dfe69347d120dbb577a4df2d4f35a61b881856353ab2c1cd4b0f66b7b3aa971a" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp314-cp314t-linux_x86_64.whl", hash = "sha256:3a8a3722b18ad63d75e876bf2c053e60e3e5d0677d039b0b73537413644375b4" },
-    { url = "https://download.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp314-cp314t-win_amd64.whl", hash = "sha256:4043d8acf1badae0878dfa7f3aac30151229e81ebeda0191727b5541aa7a1c6c" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp310-cp310-linux_x86_64.whl", hash = "sha256:fb7895c744132d6a8e56ce8434ae1d8355c9bda4e9f58832744ff742d6268eaf" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp310-cp310-win_amd64.whl", hash = "sha256:2f318fb6a4bf1101cc17f35a5371f7c1768b41fceed03628397834e85b3edfdd" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp311-cp311-linux_x86_64.whl", hash = "sha256:da2604a9114a28de71ce654819424d20a246adf644d191ae160837df9731b79e" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp311-cp311-win_amd64.whl", hash = "sha256:c9cedc3fb099366b2e6c563df6578e323564b1b5d40ac27be73c674755343a1d" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp312-cp312-linux_x86_64.whl", hash = "sha256:d5968d78d81c1d01efc1b3bf83d7da3d83161dcc3a9fcf91f500591db1c6c75d" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp312-cp312-win_amd64.whl", hash = "sha256:bee9623254d0f95a1ca115dbd17e9a9d966fdb8ae123e2ada4a9eb2fb8d38db8" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp313-cp313-linux_x86_64.whl", hash = "sha256:b56d6b0d65863f370527e971dbfa046a5dd2a1f61cc95071db26c764f36e4dce" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp313-cp313-win_amd64.whl", hash = "sha256:cd5c857da52a63c121561b30b0979e69ade70b575fd74e389787bc7c1ee2ac11" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp313-cp313t-linux_x86_64.whl", hash = "sha256:63a26be5a39d61052521139868b78a36b43023b611ab34a4257ec70848ba6df9" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp313-cp313t-win_amd64.whl", hash = "sha256:87d4a94d1c857f28372fabc0f103d9af4b521a4063ff89ea79906cde74192118" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp314-cp314-linux_x86_64.whl", hash = "sha256:8c7915006752dabe5d752614db3dc54ce2e81636bae61bb96cc142e7cc9bdd1d" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp314-cp314-win_amd64.whl", hash = "sha256:dfe69347d120dbb577a4df2d4f35a61b881856353ab2c1cd4b0f66b7b3aa971a" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp314-cp314t-linux_x86_64.whl", hash = "sha256:3a8a3722b18ad63d75e876bf2c053e60e3e5d0677d039b0b73537413644375b4" },
+    { url = "https://download-r2.pytorch.org/whl/xpu/torch-2.9.1%2Bxpu-cp314-cp314t-win_amd64.whl", hash = "sha256:4043d8acf1badae0878dfa7f3aac30151229e81ebeda0191727b5541aa7a1c6c" },
 ]
 
 [[package]]

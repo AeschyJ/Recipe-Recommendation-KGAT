@@ -1,0 +1,34 @@
+[
+  {
+    "user": "User 2206691",
+    "item": "honey barbecue chicken wings",
+    "score": 2.0254,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2206691 -> great pumpkin cookie -> easy -> honey barbecue chicken wings",
+        "score": 0.0014
+      },
+      {
+        "path": "User 2206691 -> great pumpkin cookie -> preparation -> honey barbecue chicken wings",
+        "score": 0.0013
+      },
+      {
+        "path": "User 2206691 -> great pumpkin cookie -> time-to-make -> honey barbecue chicken wings",
+        "score": 0.0013
+      }
+    ]
+  },
+  {
+    "user": "User 2001272784",
+    "item": "leftover mashed potato pancakes",
+    "score": 1.9782,
+    "prob": 0.0,
+    "explanations": [
+      {
+        "path": "User 2001272784 -> leftover mashed potato pancakes",
+        "score": 0.005
+      }
+    ]
+  }
+]

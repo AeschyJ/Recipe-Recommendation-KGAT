@@ -1,0 +1,65 @@
+2026-04-09 06:11:32,250 [INFO] Training started. Args: Namespace(epochs=3, batch_size=1024, without_kg=False, resume=None, data_dir='data/processed', model_dir='models/depth_3', embed_dim=64, layers=[64, 64, 64], cpu=False, debug=False, use_bf16=True, lr=0.001, no_compile=True, log_dir='output/logs/depth_3')
+2026-04-09 06:11:32,250 [INFO] Log file: output/logs/depth_3\kgat_20260409_061132.txt
+2026-04-09 06:11:32,250 [INFO] Using Intel Arc GPU (XPU)
+2026-04-09 06:11:38,349 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-09 06:11:38,350 [INFO] Expected iterations per epoch: 884
+2026-04-09 06:11:38,401 [INFO] Initializing KGATAttention with embed_dim=64, layers=[64, 64, 64]
+2026-04-09 06:11:38,630 [INFO] Enabled BFloat16 precision
+2026-04-09 06:11:44,756 [INFO] Model compilation disabled by user.
+2026-04-09 08:59:53,462 [INFO] Epoch 1 done. Avg Loss: 0.2823
+2026-04-09 09:00:00,345 [INFO] Epoch 1 Evaluation - HR@[10,20,50]: [0.7542, 0.8904, 0.9860] | Precision@[10,20,50]: [0.0754, 0.0445, 0.0197] | NDCG@[10,20,50]: [0.5063, 0.5409, 0.5604]
+2026-04-09 09:00:00,346 [INFO] Epoch 1 Current LR: 1.000000e-03
+2026-04-09 09:00:02,125 [INFO] Saved checkpoint: models/depth_3\3_kgat_checkpoint_e1.pth
+2026-04-09 11:47:19,880 [INFO] Epoch 2 done. Avg Loss: 0.2190
+2026-04-09 11:47:25,928 [INFO] Epoch 2 Evaluation - HR@[10,20,50]: [0.7798, 0.9098, 0.9890] | Precision@[10,20,50]: [0.0780, 0.0455, 0.0198] | NDCG@[10,20,50]: [0.5272, 0.5603, 0.5765]
+2026-04-09 11:47:25,928 [INFO] Epoch 2 Current LR: 1.000000e-03
+2026-04-09 11:47:27,369 [INFO] Saved checkpoint: models/depth_3\3_kgat_checkpoint_e2.pth
+2026-04-09 14:38:54,801 [INFO] Epoch 3 done. Avg Loss: 0.2026
+2026-04-09 14:39:01,099 [INFO] Epoch 3 Evaluation - HR@[10,20,50]: [0.7911, 0.9183, 0.9896] | Precision@[10,20,50]: [0.0791, 0.0459, 0.0198] | NDCG@[10,20,50]: [0.5361, 0.5686, 0.5832]
+2026-04-09 14:39:01,100 [INFO] Epoch 3 Current LR: 1.000000e-03
+2026-04-09 14:39:03,217 [INFO] Saved checkpoint: models/depth_3\3_kgat_checkpoint_e3.pth
+2026-04-22 17:16:41,835 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, without_kg=False, resume='models/depth_3\\3_kgat_checkpoint_e1.pth', data_dir='data/processed', model_dir='models', embed_dim=64, layers=[64, 64, 64], cpu=False, debug=False, use_bf16=False, lr=0.001, no_compile=True, log_dir='output/logs', eval_only=True, log_file=None)
+2026-04-22 17:16:41,835 [INFO] Log file: output/logs\kgat_20260422_171641.txt
+2026-04-22 17:16:41,835 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 17:16:43,458 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 17:16:43,459 [INFO] Expected iterations per epoch: 884
+2026-04-22 17:16:43,514 [INFO] Loading checkpoint: models/depth_3\3_kgat_checkpoint_e1.pth
+2026-04-22 17:16:44,865 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 17:16:44,865 [INFO] Initializing KGATAttention with embed_dim=64, layers=[64, 64, 64]
+2026-04-22 17:16:50,729 [INFO] Resumed from epoch 1 (Batch Size: 1024, Embed Dim: 64, Layers: [64, 64, 64])
+2026-04-22 17:16:50,730 [INFO] Model compilation disabled by user.
+2026-04-22 17:16:50,730 [INFO] Running evaluation ONLY mode...
+2026-04-22 17:16:59,976 [INFO] Evaluation Results:
+2026-04-22 17:16:59,977 [INFO] K=10 -> HR: 0.7542, Precision: 0.0754, NDCG: 0.5063
+2026-04-22 17:16:59,977 [INFO] K=20 -> HR: 0.8904, Precision: 0.0445, NDCG: 0.5409
+2026-04-22 17:16:59,977 [INFO] K=50 -> HR: 0.9860, Precision: 0.0197, NDCG: 0.5604
+2026-04-22 17:17:03,789 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, without_kg=False, resume='models/depth_3\\3_kgat_checkpoint_e2.pth', data_dir='data/processed', model_dir='models', embed_dim=64, layers=[64, 64, 64], cpu=False, debug=False, use_bf16=False, lr=0.001, no_compile=True, log_dir='output/logs', eval_only=True, log_file=None)
+2026-04-22 17:17:03,789 [INFO] Log file: output/logs\kgat_20260422_171703.txt
+2026-04-22 17:17:03,790 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 17:17:05,407 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 17:17:05,407 [INFO] Expected iterations per epoch: 884
+2026-04-22 17:17:05,463 [INFO] Loading checkpoint: models/depth_3\3_kgat_checkpoint_e2.pth
+2026-04-22 17:17:06,897 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 17:17:06,897 [INFO] Initializing KGATAttention with embed_dim=64, layers=[64, 64, 64]
+2026-04-22 17:17:12,490 [INFO] Resumed from epoch 2 (Batch Size: 1024, Embed Dim: 64, Layers: [64, 64, 64])
+2026-04-22 17:17:12,490 [INFO] Model compilation disabled by user.
+2026-04-22 17:17:12,490 [INFO] Running evaluation ONLY mode...
+2026-04-22 17:17:22,075 [INFO] Evaluation Results:
+2026-04-22 17:17:22,075 [INFO] K=10 -> HR: 0.7798, Precision: 0.0780, NDCG: 0.5272
+2026-04-22 17:17:22,076 [INFO] K=20 -> HR: 0.9098, Precision: 0.0455, NDCG: 0.5603
+2026-04-22 17:17:22,076 [INFO] K=50 -> HR: 0.9890, Precision: 0.0198, NDCG: 0.5765
+2026-04-22 17:17:25,955 [INFO] Training started. Args: Namespace(epochs=20, batch_size=1024, without_kg=False, resume='models/depth_3\\3_kgat_checkpoint_e3.pth', data_dir='data/processed', model_dir='models', embed_dim=64, layers=[64, 64, 64], cpu=False, debug=False, use_bf16=False, lr=0.001, no_compile=True, log_dir='output/logs', eval_only=True, log_file=None)
+2026-04-22 17:17:25,956 [INFO] Log file: output/logs\kgat_20260422_171725.txt
+2026-04-22 17:17:25,957 [INFO] Using Intel Arc GPU (XPU)
+2026-04-22 17:17:27,625 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 17:17:27,625 [INFO] Expected iterations per epoch: 884
+2026-04-22 17:17:27,681 [INFO] Loading checkpoint: models/depth_3\3_kgat_checkpoint_e3.pth
+2026-04-22 17:17:29,519 [INFO] Restoring hyperparameters from checkpoint...
+2026-04-22 17:17:29,519 [INFO] Initializing KGATAttention with embed_dim=64, layers=[64, 64, 64]
+2026-04-22 17:17:35,230 [INFO] Resumed from epoch 3 (Batch Size: 1024, Embed Dim: 64, Layers: [64, 64, 64])
+2026-04-22 17:17:35,231 [INFO] Model compilation disabled by user.
+2026-04-22 17:17:35,231 [INFO] Running evaluation ONLY mode...
+2026-04-22 17:17:45,033 [INFO] Evaluation Results:
+2026-04-22 17:17:45,033 [INFO] K=10 -> HR: 0.7911, Precision: 0.0791, NDCG: 0.5361
+2026-04-22 17:17:45,033 [INFO] K=20 -> HR: 0.9183, Precision: 0.0459, NDCG: 0.5686
+2026-04-22 17:17:45,034 [INFO] K=50 -> HR: 0.9896, Precision: 0.0198, NDCG: 0.5832

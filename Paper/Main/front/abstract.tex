@@ -1,0 +1,17 @@
+% !TeX root = ../main.tex
+
+\begin{abstract}
+
+隨著網路食譜平台的蓬勃發展，使用者面臨嚴重的資訊過載問題，亟需有效的推薦系統協助探索潛在偏好的食譜內容。本研究以知識圖譜注意力網路 (Knowledge Graph Attention Network, KGAT) 為核心，在 Food.com 食譜推薦資料集上進行系統性的效能評估與可解釋性研究。
+
+本研究的主要貢獻包含三個面向。首先，透過嚴謹的消融實驗，顯示圖神經網路的訊息傳播深度是影響推薦效能的關鍵因素：三層架構 ($L{=}3$) 的 HR@20 達 0.9368，較單層架構 ($L{=}1$) 提升逾 18\%，較最強的基準方法 LightGCN 更提升達 39\%，全面超越 BPR-MF、LightGCN 及 NFM 等傳統基準方法。其次，發現在淺層架構 ($L{=}1$) 下，引入知識圖譜反而因雜訊稀釋協同過濾訊號而導致效能下降，此反直覺結果為知識圖譜整合策略提供了重要啟示。最後，本研究抽取 100 位使用者，其中 60 位成功萃取路徑並納入 Fidelity 分析，指出注意力機制解釋路徑的有效性：93.3\% 的路徑 Fidelity$^+$ 大於零，顯示注意力權重確實標記了對預測有貢獻的關鍵邊。同時發現直接連接路徑的忠實度最高 (Avg $F^+=0.1231$)，而 KG 語意路徑的充分性忠實度較低 ($F^-=0.3134$)，暗示深層模型已學會超越顯式圖譜結構的分散式表示。
+
+\end{abstract}
+
+\begin{abstract*}
+
+With the rapid growth of online recipe platforms, users face severe information overload, necessitating effective recommender systems to help discover recipes matching their preferences. This study systematically evaluates the performance and explainability of the Knowledge Graph Attention Network (KGAT) on the Food.com recipe recommendation dataset.
+
+Our contributions are threefold. First, through rigorous ablation experiments, we show that the message propagation depth of graph neural networks is a key factor for recommendation performance: the three-layer architecture ($L{=}3$) achieves an HR@20 of 0.9368, representing an 18\% improvement over the single-layer architecture ($L{=}1$) and a 39\% improvement over the strongest baseline, and substantially outperforms baseline methods including BPR-MF, LightGCN, and NFM. Second, we discover that incorporating the knowledge graph in the shallow architecture ($L{=}1$) paradoxically degrades performance, as noise dilutes the collaborative filtering signals---providing important insights for knowledge graph integration strategies. Third, by sampling 100 users, of whom 60 successfully yielded explanation paths and were included in the Fidelity analysis, we assess the effectiveness of attention-based explanation paths: 93.3\% of paths exhibit positive Fidelity$^+$, showing that attention weights reliably identify edges contributing to predictions. We further find that direct connection paths show the highest fidelity (Avg $F^+=0.1231$), while KG semantic paths exhibit poorer sufficiency fidelity ($F^-=0.3134$), suggesting that deep models learn distributed representations beyond explicit graph structures.
+
+\end{abstract*}

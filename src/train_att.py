@@ -64,20 +64,30 @@ def parse_args():
     parser.add_argument(
         "--log_dir", type=str, default="output/logs", help="Directory to save logs"
     )
+    parser.add_argument("--eval_only", action="store_true", help="Run evaluation on the loaded checkpoint and exit")
+    parser.add_argument("--log_file", type=str, default=None, help="Explicitly specify the log file to use (append mode)")
     return parser.parse_args()
 
 
-def setup_logging(log_dir, model_name="kgat"):
-    os.makedirs(log_dir, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_file = os.path.join(log_dir, f"{model_name}_{timestamp}.txt")
+def setup_logging(log_dir, model_name="kgat", log_file=None):
+    if log_file is None:
+        os.makedirs(log_dir, exist_ok=True)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        log_file = os.path.join(log_dir, f"{model_name}_{timestamp}.txt")
+        file_mode = "w"
+    else:
+        file_mode = "a"
+
+    # 移除舊的 handlers 以避免重複輸出
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
 
     # 設定 Logging
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(message)s",
         handlers=[
-            logging.FileHandler(log_file, encoding="utf-8"),
+            logging.FileHandler(log_file, encoding="utf-8", mode=file_mode),
             logging.StreamHandler(),
         ],
     )
@@ -169,12 +179,16 @@ def evaluate(
     model, interactions, indices, edge_types, num_nodes, n_items, device="cpu"
 ):
     """
-    Validation Metric: Recall@K
-    計算模型在測試集上的 Recall@10, @20, @50。
-    為了效率，這裡使用隨機負採樣進行評估 (100個負樣本 + 1個正樣本)。
+    Validation Metric: HR@K, Precision@K, NDCG@K
+    計算模型在測試集上的表現。(100個負樣本 + 1個正樣本)
     """
     model.eval()
-    hits_10, hits_20, hits_50 = 0, 0, 0
+    
+    metrics = {
+        'hr_10': 0, 'hr_20': 0, 'hr_50': 0,
+        'ndcg_10': 0, 'ndcg_20': 0, 'ndcg_50': 0,
+        'prec_10': 0, 'prec_20': 0, 'prec_50': 0,
+    }
     total = 0
 
     batch_size = 512
@@ -208,27 +222,36 @@ def evaluate(
 
             u_embed_expanded = final_embed[users_expanded]
             neg_i_embed = final_embed[model.n_users + neg_items_flatten]
-            neg_scores = torch.sum(u_embed_expanded * neg_i_embed, dim=1).view(len(batch), 100)
+            neg_scores = torch.sum(u_embed_expanded * neg_i_embed, dim=1).view(
+                len(batch), 100
+            )
 
             # Concat positive and negative scores
             all_scores = torch.cat(
                 [pos_scores.unsqueeze(1), neg_scores], dim=1
             )  # (B, 101)
 
-            # Calculate Rank using topk
-            top50_indices = torch.topk(all_scores, k=50, dim=1).indices
+            # Calculate metrics
+            _, sorted_indices = torch.sort(all_scores, dim=1, descending=True)
+            pos_ranks = (sorted_indices == 0).nonzero(as_tuple=True)[1]
 
-            hits_10 += torch.sum((top50_indices[:, :10] == 0).any(dim=1)).item()
-            hits_20 += torch.sum((top50_indices[:, :20] == 0).any(dim=1)).item()
-            hits_50 += torch.sum((top50_indices[:, :50] == 0).any(dim=1)).item()
+            for k in [10, 20, 50]:
+                hits = (pos_ranks < k).float()
+                metrics[f'hr_{k}'] += hits.sum().item()
+                metrics[f'prec_{k}'] += (hits / k).sum().item()
+                metrics[f'ndcg_{k}'] += (hits / torch.log2(pos_ranks.float() + 2)).sum().item()
+
             total += len(batch)
 
-    return hits_10 / total, hits_20 / total, hits_50 / total
+    for k in metrics:
+        metrics[k] /= total
+
+    return metrics
 
 
 def train(args):
     # 0. 初始化 Logging
-    log_file = setup_logging(args.log_dir, model_name="kgat")
+    log_file = setup_logging(args.log_dir, model_name="kgat", log_file=args.log_file)
     logging.info(f"Training started. Args: {args}")
     logging.info(f"Log file: {log_file}")
 
@@ -281,6 +304,7 @@ def train(args):
     edge_types = edge_types.to(device)
 
     # Train/Test Split
+    np.random.seed(42)
     np.random.shuffle(interactions)
     split_idx = int(len(interactions) * 0.8)
     train_data = interactions[:split_idx]
@@ -389,6 +413,15 @@ def train(args):
     elif args.no_compile:
         logging.info("Model compilation disabled by user.")
 
+    # 如果僅進行評估
+    if args.eval_only:
+        logging.info("Running evaluation ONLY mode...")
+        metrics = evaluate(model, test_data, indices, edge_types, num_nodes, n_items, device=device)
+        logging.info("Evaluation Results:")
+        for k in [10, 20, 50]:
+            logging.info(f"K={k} -> HR: {metrics[f'hr_{k}']:.4f}, Precision: {metrics[f'prec_{k}']:.4f}, NDCG: {metrics[f'ndcg_{k}']:.4f}")
+        return
+
     # 7. Training Loop
     os.makedirs(args.model_dir, exist_ok=True)
 
@@ -415,8 +448,12 @@ def train(args):
             # Forward & Loss
             if device.type == "cuda":
                 with torch.cuda.amp.autocast():
-                    pos_scores, neg_scores = model(indices, edge_types, num_nodes, u, i, j)
-                    loss = -torch.mean(torch.log(torch.sigmoid(pos_scores - neg_scores) + 1e-10))
+                    pos_scores, neg_scores = model(
+                        indices, edge_types, num_nodes, u, i, j
+                    )
+                    loss = -torch.mean(
+                        torch.log(torch.sigmoid(pos_scores - neg_scores) + 1e-10)
+                    )
 
                 scaler.scale(loss).backward()
                 scaler.step(optimizer)
@@ -427,8 +464,12 @@ def train(args):
                 with torch.autocast(
                     device_type="xpu", enabled=args.use_bf16, dtype=torch.bfloat16
                 ):
-                    pos_scores, neg_scores = model(indices, edge_types, num_nodes, u, i, j)
-                    loss = -torch.mean(torch.log(torch.sigmoid(pos_scores - neg_scores) + 1e-10))
+                    pos_scores, neg_scores = model(
+                        indices, edge_types, num_nodes, u, i, j
+                    )
+                    loss = -torch.mean(
+                        torch.log(torch.sigmoid(pos_scores - neg_scores) + 1e-10)
+                    )
 
                 loss.backward()
                 optimizer.step()
@@ -438,8 +479,12 @@ def train(args):
                 with torch.autocast(
                     device_type="cpu", enabled=args.use_bf16, dtype=torch.bfloat16
                 ):
-                    pos_scores, neg_scores = model(indices, edge_types, num_nodes, u, i, j)
-                    loss = -torch.mean(torch.log(torch.sigmoid(pos_scores - neg_scores) + 1e-10))
+                    pos_scores, neg_scores = model(
+                        indices, edge_types, num_nodes, u, i, j
+                    )
+                    loss = -torch.mean(
+                        torch.log(torch.sigmoid(pos_scores - neg_scores) + 1e-10)
+                    )
                 loss.backward()
                 optimizer.step()
 
@@ -450,15 +495,18 @@ def train(args):
         logging.info(f"Epoch {epoch + 1} done. Avg Loss: {avg_loss:.4f}")
 
         # Validation Per Epoch
-        recall_10, recall_20, recall_50 = evaluate(
+        metrics = evaluate(
             model, test_data, indices, edge_types, num_nodes, n_items, device=device
         )
         logging.info(
-            f"Epoch {epoch + 1} Evaluation - Recall@10: {recall_10:.4f}, Recall@20: {recall_20:.4f}, Recall@50: {recall_50:.4f}"
+            f"Epoch {epoch + 1} Evaluation - "
+            f"HR@[10,20,50]: [{metrics['hr_10']:.4f}, {metrics['hr_20']:.4f}, {metrics['hr_50']:.4f}] | "
+            f"Precision@[10,20,50]: [{metrics['prec_10']:.4f}, {metrics['prec_20']:.4f}, {metrics['prec_50']:.4f}] | "
+            f"NDCG@[10,20,50]: [{metrics['ndcg_10']:.4f}, {metrics['ndcg_20']:.4f}, {metrics['ndcg_50']:.4f}]"
         )
 
         # Step Scheduler
-        scheduler.step(recall_20)
+        scheduler.step(metrics['hr_20'])
         current_lr = optimizer.param_groups[0]["lr"]
         logging.info(f"Epoch {epoch + 1} Current LR: {current_lr:.6e}")
 
@@ -470,9 +518,9 @@ def train(args):
             torch.xpu.empty_cache()
 
         # Save Checkpoint
-        if (epoch + 1) % 2 == 0 or (epoch + 1) == args.epochs:
+        if (epoch + 1) % 1 == 0 or (epoch + 1) == args.epochs:
             ckpt_path = os.path.join(
-                args.model_dir, f"kgat_checkpoint_e{epoch + 1}.pth"
+                args.model_dir, f"2_kgat_checkpoint_e{epoch + 1}.pth"
             )
             save_dict = {
                 "epoch": epoch + 1,

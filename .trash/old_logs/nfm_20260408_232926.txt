@@ -1,0 +1,23 @@
+Training started. Args: Namespace(model='NFM', epochs=10, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=True, lr=0.001, log_dir='output/logs/baseline')
+Using Device: xpu
+Train samples: 905893, Test samples: 226474
+Epoch 1 Avg Loss: 0.2616
+Epoch 1 Evaluation - HR@[10,20,50]: [0.3156, 0.4463, 0.6662] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 2 Avg Loss: 0.0943
+Epoch 2 Evaluation - HR@[10,20,50]: [0.3607, 0.4769, 0.7000] | Precision@[10,20,50]: [0.0361, 0.0238, 0.0140] | NDCG@[10,20,50]: [0.2321, 0.2614, 0.3054]
+Epoch 3 Avg Loss: 0.0637
+Epoch 3 Evaluation - HR@[10,20,50]: [0.3213, 0.4392, 0.6920] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 4 Avg Loss: 0.0532
+Epoch 4 Evaluation - HR@[10,20,50]: [0.3009, 0.3979, 0.6040] | Precision@[10,20,50]: [0.0301, 0.0199, 0.0121] | NDCG@[10,20,50]: [0.2016, 0.2260, 0.2665]
+Epoch 5 Avg Loss: 0.0447
+Epoch 5 Evaluation - HR@[10,20,50]: [0.3224, 0.4373, 0.6800] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 6 Avg Loss: 0.0396
+Epoch 6 Evaluation - HR@[10,20,50]: [0.3281, 0.4265, 0.6386] | Precision@[10,20,50]: [0.0328, 0.0213, 0.0128] | NDCG@[10,20,50]: [0.2124, 0.2371, 0.2788]
+Epoch 7 Avg Loss: 0.0371
+Epoch 7 Evaluation - HR@[10,20,50]: [0.2948, 0.4049, 0.6345] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 8 Avg Loss: 0.0350
+Epoch 8 Evaluation - HR@[10,20,50]: [0.3216, 0.4113, 0.6172] | Precision@[10,20,50]: [0.0322, 0.0206, 0.0123] | NDCG@[10,20,50]: [0.2228, 0.2453, 0.2858]
+Epoch 9 Avg Loss: 0.0341
+Epoch 9 Evaluation - HR@[10,20,50]: [0.3070, 0.4236, 0.6799] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+Epoch 10 Avg Loss: 0.0337
+Epoch 10 Evaluation - HR@[10,20,50]: [0.3272, 0.4213, 0.6282] | Precision@[10,20,50]: [0.0327, 0.0211, 0.0126] | NDCG@[10,20,50]: [0.2149, 0.2385, 0.2791]

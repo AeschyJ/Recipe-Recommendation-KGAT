@@ -1,0 +1,72 @@
+2026-04-08 23:29:26,940 [INFO] Training started. Args: Namespace(model='NFM', epochs=10, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=True, lr=0.001, log_dir='output/logs/baseline')
+2026-04-08 23:29:26,940 [INFO] Using Device: xpu
+2026-04-08 23:29:33,880 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-08 23:29:54,869 [INFO] Epoch 1 Avg Loss: 0.2616
+2026-04-08 23:29:56,733 [INFO] Epoch 1 Evaluation - HR@[10,20,50]: [0.3156, 0.4463, 0.6662] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+2026-04-08 23:30:10,800 [INFO] Epoch 2 Avg Loss: 0.0943
+2026-04-08 23:30:12,507 [INFO] Epoch 2 Evaluation - HR@[10,20,50]: [0.3604, 0.4767, 0.6998] | Precision@[10,20,50]: [0.0360, 0.0238, 0.0140] | NDCG@[10,20,50]: [0.2322, 0.2615, 0.3054]
+2026-04-08 23:30:12,794 [INFO] Saved checkpoint: models/baseline\1_nfm_checkpoint_e2.pth
+2026-04-08 23:30:27,110 [INFO] Epoch 3 Avg Loss: 0.0637
+2026-04-08 23:30:28,789 [INFO] Epoch 3 Evaluation - HR@[10,20,50]: [0.3213, 0.4392, 0.6920] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+2026-04-08 23:30:43,162 [INFO] Epoch 4 Avg Loss: 0.0532
+2026-04-08 23:30:44,834 [INFO] Epoch 4 Evaluation - HR@[10,20,50]: [0.3002, 0.3978, 0.6041] | Precision@[10,20,50]: [0.0300, 0.0199, 0.0121] | NDCG@[10,20,50]: [0.2013, 0.2258, 0.2664]
+2026-04-08 23:30:45,113 [INFO] Saved checkpoint: models/baseline\1_nfm_checkpoint_e4.pth
+2026-04-08 23:30:59,338 [INFO] Epoch 5 Avg Loss: 0.0447
+2026-04-08 23:31:01,035 [INFO] Epoch 5 Evaluation - HR@[10,20,50]: [0.3224, 0.4373, 0.6800] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+2026-04-08 23:31:15,445 [INFO] Epoch 6 Avg Loss: 0.0396
+2026-04-08 23:31:17,120 [INFO] Epoch 6 Evaluation - HR@[10,20,50]: [0.3283, 0.4265, 0.6385] | Precision@[10,20,50]: [0.0328, 0.0213, 0.0128] | NDCG@[10,20,50]: [0.2129, 0.2376, 0.2793]
+2026-04-08 23:31:17,384 [INFO] Saved checkpoint: models/baseline\1_nfm_checkpoint_e6.pth
+2026-04-08 23:31:31,974 [INFO] Epoch 7 Avg Loss: 0.0371
+2026-04-08 23:31:33,670 [INFO] Epoch 7 Evaluation - HR@[10,20,50]: [0.2948, 0.4049, 0.6345] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+2026-04-08 23:31:48,201 [INFO] Epoch 8 Avg Loss: 0.0350
+2026-04-08 23:31:49,917 [INFO] Epoch 8 Evaluation - HR@[10,20,50]: [0.3219, 0.4120, 0.6174] | Precision@[10,20,50]: [0.0322, 0.0206, 0.0123] | NDCG@[10,20,50]: [0.2229, 0.2456, 0.2859]
+2026-04-08 23:31:50,217 [INFO] Saved checkpoint: models/baseline\1_nfm_checkpoint_e8.pth
+2026-04-08 23:32:04,852 [INFO] Epoch 9 Avg Loss: 0.0341
+2026-04-08 23:32:06,752 [INFO] Epoch 9 Evaluation - HR@[10,20,50]: [0.3070, 0.4236, 0.6799] | Precision@[10,20,50]: [None, None, None] | NDCG@[10,20,50]: [None, None, None]
+2026-04-08 23:32:20,772 [INFO] Epoch 10 Avg Loss: 0.0337
+2026-04-08 23:32:22,430 [INFO] Epoch 10 Evaluation - HR@[10,20,50]: [0.3272, 0.4213, 0.6282] | Precision@[10,20,50]: [0.0327, 0.0211, 0.0126] | NDCG@[10,20,50]: [0.2149, 0.2385, 0.2791]
+2026-04-08 23:32:22,725 [INFO] Saved checkpoint: models/baseline\1_nfm_checkpoint_e10.pth2026-04-22 16:26:56,119 [INFO] Training started. Args: Namespace(model='NFM', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\1_nfm_checkpoint_e10.pth', experiment_id=1, log_file='output/logs/baseline/nfm_20260408_232926.txt')
+2026-04-22 16:26:56,121 [INFO] Using Device: xpu
+2026-04-22 16:26:57,922 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:27:03,350 [INFO] Loading checkpoint: models/baseline\1_nfm_checkpoint_e10.pth
+2026-04-22 16:27:03,871 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:27:07,217 [INFO] Evaluation Results:
+2026-04-22 16:27:07,217 [INFO] K=10 -> HR: 0.3272, Precision: 0.0327, NDCG: 0.2149
+2026-04-22 16:27:07,217 [INFO] K=20 -> HR: 0.4220, Precision: 0.0211, NDCG: 0.2387
+2026-04-22 16:27:07,217 [INFO] K=50 -> HR: 0.6280, Precision: 0.0126, NDCG: 0.2791
+2026-04-22 16:27:11,049 [INFO] Training started. Args: Namespace(model='NFM', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\1_nfm_checkpoint_e2.pth', experiment_id=1, log_file='output/logs/baseline/nfm_20260408_232926.txt')
+2026-04-22 16:27:11,051 [INFO] Using Device: xpu
+2026-04-22 16:27:12,885 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:27:18,293 [INFO] Loading checkpoint: models/baseline\1_nfm_checkpoint_e2.pth
+2026-04-22 16:27:18,776 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:27:22,416 [INFO] Evaluation Results:
+2026-04-22 16:27:22,416 [INFO] K=10 -> HR: 0.3604, Precision: 0.0360, NDCG: 0.2322
+2026-04-22 16:27:22,417 [INFO] K=20 -> HR: 0.4767, Precision: 0.0238, NDCG: 0.2615
+2026-04-22 16:27:22,417 [INFO] K=50 -> HR: 0.6998, Precision: 0.0140, NDCG: 0.3054
+2026-04-22 16:27:26,336 [INFO] Training started. Args: Namespace(model='NFM', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\1_nfm_checkpoint_e4.pth', experiment_id=1, log_file='output/logs/baseline/nfm_20260408_232926.txt')
+2026-04-22 16:27:26,337 [INFO] Using Device: xpu
+2026-04-22 16:27:28,186 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:27:33,582 [INFO] Loading checkpoint: models/baseline\1_nfm_checkpoint_e4.pth
+2026-04-22 16:27:34,111 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:27:37,764 [INFO] Evaluation Results:
+2026-04-22 16:27:37,764 [INFO] K=10 -> HR: 0.3002, Precision: 0.0300, NDCG: 0.2013
+2026-04-22 16:27:37,764 [INFO] K=20 -> HR: 0.3978, Precision: 0.0199, NDCG: 0.2258
+2026-04-22 16:27:37,764 [INFO] K=50 -> HR: 0.6041, Precision: 0.0121, NDCG: 0.2664
+2026-04-22 16:27:41,521 [INFO] Training started. Args: Namespace(model='NFM', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\1_nfm_checkpoint_e6.pth', experiment_id=1, log_file='output/logs/baseline/nfm_20260408_232926.txt')
+2026-04-22 16:27:41,523 [INFO] Using Device: xpu
+2026-04-22 16:27:43,421 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:27:48,688 [INFO] Loading checkpoint: models/baseline\1_nfm_checkpoint_e6.pth
+2026-04-22 16:27:49,176 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:27:52,828 [INFO] Evaluation Results:
+2026-04-22 16:27:52,829 [INFO] K=10 -> HR: 0.3283, Precision: 0.0328, NDCG: 0.2129
+2026-04-22 16:27:52,829 [INFO] K=20 -> HR: 0.4265, Precision: 0.0213, NDCG: 0.2376
+2026-04-22 16:27:52,829 [INFO] K=50 -> HR: 0.6385, Precision: 0.0128, NDCG: 0.2793
+2026-04-22 16:27:56,662 [INFO] Training started. Args: Namespace(model='NFM', epochs=20, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=False, lr=0.001, log_dir='output/logs/baseline', eval_only=True, resume='models/baseline\\1_nfm_checkpoint_e8.pth', experiment_id=1, log_file='output/logs/baseline/nfm_20260408_232926.txt')
+2026-04-22 16:27:56,664 [INFO] Using Device: xpu
+2026-04-22 16:27:58,516 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-22 16:28:03,829 [INFO] Loading checkpoint: models/baseline\1_nfm_checkpoint_e8.pth
+2026-04-22 16:28:04,312 [INFO] Running evaluation ONLY mode...
+2026-04-22 16:28:07,955 [INFO] Evaluation Results:
+2026-04-22 16:28:07,956 [INFO] K=10 -> HR: 0.3219, Precision: 0.0322, NDCG: 0.2229
+2026-04-22 16:28:07,956 [INFO] K=20 -> HR: 0.4120, Precision: 0.0206, NDCG: 0.2456
+2026-04-22 16:28:07,956 [INFO] K=50 -> HR: 0.6174, Precision: 0.0123, NDCG: 0.2859
