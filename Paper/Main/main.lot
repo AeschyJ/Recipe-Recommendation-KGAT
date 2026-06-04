@@ -5,22 +5,25 @@
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {4.1}{\ignorespaces Food.com 資料集統計量}}{26}{table.caption.12}%
 \contentsline {table}{\numberline {4.2}{\ignorespaces 實驗超參數設定}}{26}{table.caption.13}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces 主要推薦效能比較}}{29}{table.caption.14}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces 消融實驗結果（偶數 Epoch 中最佳值）}}{30}{table.caption.15}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces GNN 深度對推薦效能的影響}}{32}{table.caption.16}%
-\contentsline {table}{\numberline {4.6}{\ignorespaces 不同深度模型的偶數 Epoch 效能趨勢}}{33}{table.caption.17}%
-\contentsline {table}{\numberline {4.7}{\ignorespaces 解釋路徑類型分布（103 條路徑，來自 60 位使用者）}}{34}{table.caption.19}%
-\contentsline {table}{\numberline {4.8}{\ignorespaces Fidelity 量化評估結果（$n = 60$）}}{35}{table.caption.20}%
-\contentsline {table}{\numberline {4.9}{\ignorespaces Fidelity 按路徑類型分析}}{36}{table.caption.21}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces 主要推薦效能比較（三次獨立運行平均值）}}{29}{table.caption.14}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces 消融實驗結果（三次獨立運行平均值）}}{30}{table.caption.15}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces GNN 深度對推薦效能的影響（三次獨立運行平均值）}}{32}{table.caption.16}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces 不同深度模型的 Epoch 效能趨勢（三次獨立運行平均值）}}{33}{table.caption.17}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces 不同深度 KGAT 模型之可解釋性比較（$n = 500$）}}{34}{table.caption.19}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces KGAT-3L 解釋路徑類型分布（488 條路徑，來自 278 位使用者）}}{35}{table.caption.20}%
+\contentsline {table}{\numberline {4.9}{\ignorespaces KGAT-3L Fidelity 量化評估結果（$n = 278$）}}{35}{table.caption.21}%
+\contentsline {table}{\numberline {4.10}{\ignorespaces KGAT-3L Fidelity 按路徑類型分析}}{36}{table.caption.22}%
+\contentsline {table}{\numberline {4.11}{\ignorespaces 有路徑與無路徑使用者之特徵比較（KGAT-3L，$n = 500$）}}{37}{table.caption.23}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {A.1}{\ignorespaces KGAT ($L{=}3$) 訓練過程詳細數據}}{51}{table.caption.29}%
-\contentsline {table}{\numberline {A.2}{\ignorespaces BPR-MF 兩次運行最佳 Epoch 結果}}{51}{table.caption.30}%
-\contentsline {table}{\numberline {A.3}{\ignorespaces LightGCN 兩次運行最佳 Epoch 結果}}{52}{table.caption.31}%
-\contentsline {table}{\numberline {A.4}{\ignorespaces NFM 兩次運行最佳 Epoch 結果}}{52}{table.caption.32}%
-\contentsline {table}{\numberline {B.1}{\ignorespaces Full KGAT ($L{=}1$) 偶數 Epoch 評估結果}}{53}{table.caption.35}%
-\contentsline {table}{\numberline {B.2}{\ignorespaces w/o Attention ($L{=}1$) 偶數 Epoch 評估結果}}{53}{table.caption.36}%
-\contentsline {table}{\numberline {B.3}{\ignorespaces w/o KG ($L{=}1$) 偶數 Epoch 評估結果}}{54}{table.caption.37}%
-\contentsline {table}{\numberline {B.4}{\ignorespaces KGAT ($L{=}2$) 偶數 Epoch 評估結果}}{54}{table.caption.38}%
-\contentsline {table}{\numberline {B.5}{\ignorespaces KGAT ($L{=}3$) 偶數 Epoch 評估結果}}{54}{table.caption.39}%
+\contentsline {table}{\numberline {A.1}{\ignorespaces 各模型三次獨立運行最佳效能摘要（平均值 $\pm $ 標準差）}}{55}{table.caption.31}%
+\contentsline {table}{\numberline {A.2}{\ignorespaces 各模型最佳效能完整指標（三次獨立運行平均值 $\pm $ 標準差）}}{56}{table.caption.32}%
+\contentsline {table}{\numberline {B.1}{\ignorespaces BPR-MF 三次運行最佳 Epoch 結果}}{57}{table.caption.35}%
+\contentsline {table}{\numberline {B.2}{\ignorespaces LightGCN 三次運行最佳 Epoch 結果}}{57}{table.caption.36}%
+\contentsline {table}{\numberline {B.3}{\ignorespaces NFM 三次運行最佳 Epoch 結果}}{58}{table.caption.37}%
+\contentsline {table}{\numberline {B.4}{\ignorespaces Full KGAT ($L{=}1$) 三次運行最佳 Epoch 結果}}{58}{table.caption.38}%
+\contentsline {table}{\numberline {B.5}{\ignorespaces w/o Attention ($L{=}1$) 三次運行最佳 Epoch 結果}}{58}{table.caption.39}%
+\contentsline {table}{\numberline {B.6}{\ignorespaces w/o KG ($L{=}1$) 三次運行最佳 Epoch 結果}}{58}{table.caption.40}%
+\contentsline {table}{\numberline {B.7}{\ignorespaces KGAT ($L{=}2$) 三次運行最佳 Epoch 結果}}{59}{table.caption.41}%
+\contentsline {table}{\numberline {B.8}{\ignorespaces KGAT ($L{=}3$) 三次運行最佳 Epoch 結果}}{59}{table.caption.42}%
 \contentsfinish 
 \contentsfinish 

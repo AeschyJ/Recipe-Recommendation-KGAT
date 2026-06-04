@@ -92,6 +92,22 @@ def reformat_content(lines):
                 processed_lines[last_eval_idx] = formatted_line
                 last_eval_idx = -1 # 用過了重置
                     
+    # --- 第三階段：清除最後一次儲存點之後的冗餘資料 (例如重新評估的資料) ---
+    last_saved_pos = -1
+    for i, line in enumerate(processed_lines):
+        if re.search(r"(?:Saved checkpoint:|Checkpoint saved to)", line):
+            last_saved_pos = i
+            
+    if last_saved_pos != -1:
+        # 尋找最後一個儲存點之後的第一個 "Training started"
+        truncate_idx = -1
+        for i in range(last_saved_pos + 1, len(processed_lines)):
+            if "Training started" in processed_lines[i]:
+                truncate_idx = i
+                break
+        if truncate_idx != -1:
+            processed_lines = processed_lines[:truncate_idx]
+
     return processed_lines
 
 def main():

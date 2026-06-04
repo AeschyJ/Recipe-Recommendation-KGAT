@@ -1,0 +1,65 @@
+=== 基本統計 ===
+分析檔案: output/fidelity/depth_3/explanations.json
+總使用者數: 500
+有解釋路徑: 278 (55.6%)
+無解釋路徑: 222 (44.4%)
+有 Fidelity 數據: 278 (55.6%)
+
+=== Fidelity+ 統計 ===
+Mean: 0.0351
+Median: 0.0254
+Std: 0.0372
+Min: -0.0044
+Max: 0.2630
+F+ > 0: 262 (94.2%)
+F+ > 0.05: 83 (29.9%)
+F+ > 0.10: 14 (5.0%)
+
+=== Fidelity- 統計 ===
+Mean: 0.0867
+Median: 0.0072
+Std: 0.1582
+Min: -0.0070
+Max: 0.7598
+abs(F-) <= 0.01: 151 (54.3%)
+
+=== 路徑類型分析 ===
+總路徑數: 488
+  協同過濾 (U->R->U->R): 218 (44.7%)
+  KG 語意 (U->R->E->R): 186 (38.1%)
+  直接連接 (User->Recipe): 84 (17.2%)
+
+=== Attention Score 按路徑類型 ===
+全部路徑 Avg: 0.1312
+  直接連接 (User->Recipe): Avg=0.7580 (n=84)
+  協同過濾 (U->R->U->R): Avg=0.0015 (n=218)
+  KG 語意 (U->R->E->R): Avg=0.0003 (n=186)
+
+=== Fidelity 按路徑類型 ===
+  直接連接: F+=0.0494, F-=-0.0004, n=84
+  協同過濾: F+=0.0349, F-=0.0134, n=101
+  KG 語意: F+=0.0223, F-=0.2449, n=93
+
+=== F+ 為負數的用戶: 16 (5.8%) ===
+
+=== 預測機率分布 ===
+Mean: 0.9490
+Min: 0.9304
+Max: 0.9554
+
+=== KG 中介實體分布 (Top 15) ===
+  chicken: 14
+  weeknight: 12
+  breads: 10
+  stove-top: 10
+  cookies-and-brownies: 10
+  seasonal: 8
+  for-large-groups: 7
+  chocolate: 5
+  free-of-something: 5
+  mexican: 4
+  pork: 4
+  cheese: 4
+  chicken-breasts: 4
+  asian: 4
+  to-go: 3

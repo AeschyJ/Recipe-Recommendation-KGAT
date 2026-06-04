@@ -1,4 +1,4 @@
-\documentclass[tikz]{standalone}
+﻿\documentclass[tikz]{standalone}
 \usepackage{fontspec}
 \usepackage{amssymb}
 \usepackage[english, bidi=basic, provide=*]{babel}
@@ -49,7 +49,7 @@
 
 % --- 階段 2 & 3 ---
 \node[box, below left=2.2cm and -0.5cm of db] (init) {嵌入向量初始化\\(TransR / 隨機)};
-\node[box, below=0.8cm of init] (split) {資料集分割\\(訓練/驗證/測試)};
+\node[box, below=0.8cm of init] (split) {資料集分割\\(訓練/測試)};
 \draw[dashedarrow] (db.south) -| (init.north);
 \draw[arrow] (init) -- (split);
 

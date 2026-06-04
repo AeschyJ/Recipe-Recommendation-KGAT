@@ -33,8 +33,8 @@
 \end{figure}
 
 \begin{enumerate}[leftmargin=2em]
-  \item \textbf{互動圖：}若使用者 $u$ 曾與食譜 $v$ 互動（例如收藏或評分），則建立邊 $(u, \text{interact}, v)$。
-  \item \textbf{食譜屬性圖：}將食譜的標籤（如 \texttt{breakfast}、\texttt{chicken}、\texttt{weeknight}）、烹飪方式、食材等屬性作為知識圖譜中的實體節點，並建立對應的關係邊。例如，「食譜 A 包含食材 chicken」表示為三元組 $(v_A, \text{has\_ingredient}, e_\text{chicken})$。
+  \item \textbf{互動圖：}若使用者 $u$ 在訓練集中曾與食譜 $v$ 互動（例如收藏或評分），則建立邊 $(u, \text{interact}, v)$。測試集中的互動不納入 CKG，以避免資訊洩漏。
+  \item \textbf{食譜屬性圖：}將食譜的標籤（如 \texttt{breakfast}、\texttt{chicken}、\texttt{weeknight}）與食材等屬性作為知識圖譜中的實體節點，並建立對應的關係邊，共形成食材（\texttt{has\_ingredient}）與標籤（\texttt{has\_tag}）兩類知識關係。例如，「食譜 A 包含食材 chicken」表示為三元組 $(v_A, \text{has\_ingredient}, e_\text{chicken})$。
   \item \textbf{反向邊擴充：}為確保訊息的雙向傳播，對每條邊 $(h, r, t)$ 均建立其反向邊 $(t, r^{-1}, h)$。
 \end{enumerate}
 
@@ -46,7 +46,7 @@
 在建構知識圖譜三元組之前，本研究先對高頻屬性實體進行超級節點修剪，以避免過度通用的節點在訊息傳播過程中引入大量雜訊路徑。
 
 \begin{itemize}[leftmargin=2em]
-  \item \textbf{食材超級節點：}統計所有食材的出現頻率後，移除出現頻率排名前 0.5\% 的高頻食材（共 74 個）以及 13 個語義過於通用的基礎食材（包含 \texttt{salt}、\texttt{water}、\texttt{butter}、\texttt{sugar}、\texttt{eggs} 等）。這些食材出現在絕大多數食譜中，若納入 KG 將成為連結數萬節點的超級節點，其嵌入幾乎無法攜帶具有區辨力的語義資訊。
+  \item \textbf{食材超級節點：}統計所有食材的出現頻率後，移除出現頻率排名前 0.5\% 的高頻食材，以及根據先驗常識加入的基礎調味料（如 \texttt{salt}、\texttt{water}、\texttt{butter}、\texttt{sugar}、\texttt{eggs} 等）。兩部分取聯集後，共排除 74 個食材實體（詳細清單見附錄~\ref{app:preprocessing}）。這些食材出現在絕大多數食譜中，若納入 KG 將成為連結數萬節點的超級節點，其嵌入幾乎無法攜帶具有區辨力的語義資訊。
   \item \textbf{標籤超級節點：}統計所有標籤的出現頻率後，移除出現頻率排名前 50 的高頻標籤（如 \texttt{easy}、\texttt{healthy}、\texttt{main-dish} 等），這些標籤涵蓋面過廣，無法有效區分食譜的特色屬性。
 \end{itemize}
 

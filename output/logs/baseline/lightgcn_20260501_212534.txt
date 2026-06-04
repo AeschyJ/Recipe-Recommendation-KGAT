@@ -1,0 +1,48 @@
+2026-05-01 21:25:34,351 [INFO] Training started. Args: Namespace(model='LightGCN', epochs=100, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=True, lr=0.001, log_dir='output/logs/baseline', eval_only=False, resume=None, experiment_id=2, log_file=None)
+2026-05-01 21:25:34,352 [INFO] Using Device: xpu
+2026-05-01 21:25:35,598 [INFO] Train samples: 905893, Test samples: 226474
+2026-05-01 21:29:21,906 [INFO] Epoch 1 Avg Loss: 0.6440
+2026-05-01 21:29:25,085 [INFO] Epoch 1 Evaluation - HR@[10,20,50]: [0.5321, 0.6671, 0.8514] | Precision@[10,20,50]: [0.0532, 0.0334, 0.0170] | NDCG@[10,20,50]: [0.3496, 0.3837, 0.4203]
+2026-05-01 21:29:25,085 [INFO] Epoch 1 Current LR: 1.000000e-03
+2026-05-01 21:29:26,025 [INFO] Saved NEW BEST checkpoint: models/baseline\2_lightgcn_checkpoint_e1.pth
+2026-05-01 21:33:28,408 [INFO] Epoch 2 Avg Loss: 0.6104
+2026-05-01 21:33:30,605 [INFO] Epoch 2 Evaluation - HR@[10,20,50]: [0.5280, 0.6619, 0.8498] | Precision@[10,20,50]: [0.0528, 0.0331, 0.0170] | NDCG@[10,20,50]: [0.3467, 0.3806, 0.4180]
+2026-05-01 21:33:30,605 [INFO] Epoch 2 Current LR: 1.000000e-03
+2026-05-01 21:33:31,492 [INFO] Saved checkpoint: models/baseline\2_lightgcn_checkpoint_e2.pth. Patience: 1/10
+2026-05-01 21:37:06,120 [INFO] Epoch 3 Avg Loss: 0.6017
+2026-05-01 21:37:08,478 [INFO] Epoch 3 Evaluation - HR@[10,20,50]: [0.5252, 0.6585, 0.8483] | Precision@[10,20,50]: [0.0525, 0.0329, 0.0170] | NDCG@[10,20,50]: [0.3446, 0.3782, 0.4160]
+2026-05-01 21:37:08,479 [INFO] Epoch 3 Current LR: 1.000000e-03
+2026-05-01 21:37:09,231 [INFO] Saved checkpoint: models/baseline\2_lightgcn_checkpoint_e3.pth. Patience: 2/10
+2026-05-01 21:41:29,341 [INFO] Epoch 4 Avg Loss: 0.5958
+2026-05-01 21:41:32,591 [INFO] Epoch 4 Evaluation - HR@[10,20,50]: [0.5222, 0.6549, 0.8461] | Precision@[10,20,50]: [0.0522, 0.0327, 0.0169] | NDCG@[10,20,50]: [0.3437, 0.3772, 0.4152]
+2026-05-01 21:41:32,591 [INFO] Epoch 4 Current LR: 5.000000e-04
+2026-05-01 21:41:33,259 [INFO] Saved checkpoint: models/baseline\2_lightgcn_checkpoint_e4.pth. Patience: 3/10
+2026-05-01 21:45:56,413 [INFO] Epoch 5 Avg Loss: 0.5917
+2026-05-01 21:45:59,740 [INFO] Epoch 5 Evaluation - HR@[10,20,50]: [0.5231, 0.6567, 0.8487] | Precision@[10,20,50]: [0.0523, 0.0328, 0.0170] | NDCG@[10,20,50]: [0.3433, 0.3770, 0.4152]
+2026-05-01 21:45:59,740 [INFO] Epoch 5 Current LR: 5.000000e-04
+2026-05-01 21:46:00,406 [INFO] Saved checkpoint: models/baseline\2_lightgcn_checkpoint_e5.pth. Patience: 4/10
+2026-05-01 21:50:27,604 [INFO] Epoch 6 Avg Loss: 0.5883
+2026-05-01 21:50:30,915 [INFO] Epoch 6 Evaluation - HR@[10,20,50]: [0.5232, 0.6566, 0.8490] | Precision@[10,20,50]: [0.0523, 0.0328, 0.0170] | NDCG@[10,20,50]: [0.3433, 0.3770, 0.4153]
+2026-05-01 21:50:30,915 [INFO] Epoch 6 Current LR: 5.000000e-04
+2026-05-01 21:50:31,576 [INFO] Saved checkpoint: models/baseline\2_lightgcn_checkpoint_e6.pth. Patience: 5/10
+2026-05-01 21:55:01,964 [INFO] Epoch 7 Avg Loss: 0.5861
+2026-05-01 21:55:04,667 [INFO] Epoch 7 Evaluation - HR@[10,20,50]: [0.5232, 0.6565, 0.8489] | Precision@[10,20,50]: [0.0523, 0.0328, 0.0170] | NDCG@[10,20,50]: [0.3429, 0.3766, 0.4148]
+2026-05-01 21:55:04,667 [INFO] Epoch 7 Current LR: 2.500000e-04
+2026-05-01 21:55:05,398 [INFO] Saved checkpoint: models/baseline\2_lightgcn_checkpoint_e7.pth. Patience: 6/10
+2026-05-01 21:59:25,515 [INFO] Epoch 8 Avg Loss: 0.5844
+2026-05-01 21:59:28,783 [INFO] Epoch 8 Evaluation - HR@[10,20,50]: [0.5234, 0.6563, 0.8485] | Precision@[10,20,50]: [0.0523, 0.0328, 0.0170] | NDCG@[10,20,50]: [0.3433, 0.3769, 0.4151]
+2026-05-01 21:59:28,783 [INFO] Epoch 8 Current LR: 2.500000e-04
+2026-05-01 21:59:29,421 [INFO] Saved checkpoint: models/baseline\2_lightgcn_checkpoint_e8.pth. Patience: 7/10
+2026-05-01 22:03:14,362 [INFO] Epoch 9 Avg Loss: 0.5838
+2026-05-01 22:03:17,039 [INFO] Epoch 9 Evaluation - HR@[10,20,50]: [0.5237, 0.6562, 0.8490] | Precision@[10,20,50]: [0.0524, 0.0328, 0.0170] | NDCG@[10,20,50]: [0.3430, 0.3764, 0.4148]
+2026-05-01 22:03:17,039 [INFO] Epoch 9 Current LR: 2.500000e-04
+2026-05-01 22:03:17,802 [INFO] Saved checkpoint: models/baseline\2_lightgcn_checkpoint_e9.pth. Patience: 8/10
+2026-05-01 22:06:50,112 [INFO] Epoch 10 Avg Loss: 0.5830
+2026-05-01 22:06:52,820 [INFO] Epoch 10 Evaluation - HR@[10,20,50]: [0.5231, 0.6560, 0.8485] | Precision@[10,20,50]: [0.0523, 0.0328, 0.0170] | NDCG@[10,20,50]: [0.3430, 0.3765, 0.4147]
+2026-05-01 22:06:52,820 [INFO] Epoch 10 Current LR: 1.250000e-04
+2026-05-01 22:06:53,606 [INFO] Saved checkpoint: models/baseline\2_lightgcn_checkpoint_e10.pth. Patience: 9/10
+2026-05-01 22:10:26,055 [INFO] Epoch 11 Avg Loss: 0.5833
+2026-05-01 22:10:28,760 [INFO] Epoch 11 Evaluation - HR@[10,20,50]: [0.5223, 0.6549, 0.8478] | Precision@[10,20,50]: [0.0522, 0.0327, 0.0170] | NDCG@[10,20,50]: [0.3422, 0.3757, 0.4140]
+2026-05-01 22:10:28,760 [INFO] Epoch 11 Current LR: 1.250000e-04
+2026-05-01 22:10:29,405 [INFO] Saved checkpoint: models/baseline\2_lightgcn_checkpoint_e11.pth. Patience: 10/10
+2026-05-01 22:10:29,405 [INFO] Early stop. No improvement for 10 epochs. Best epoch was 1 with HR@20: 0.6671

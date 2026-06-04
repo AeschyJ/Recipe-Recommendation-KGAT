@@ -1,84 +1,73 @@
 % !TeX root = ../main.tex
 
-\appendix{A}{實驗日誌與訓練細節}
+\appendix{A}{各模型最佳效能統計摘要}
 \refstepcounter{chapter}
-\label{app:training_log}
+\label{app:performance_stats}
 
-\section{KGAT ($L{=}3$) 訓練過程}
+本附錄彙整所有模型（含三個 Baseline 與五個 KGAT 變體）三次獨立運行最佳 Epoch 結果之平均值與標準差，以補充正文表格之統計信度資訊。
 
-表~\ref{tab:kgat_l3_training} 呈現了 KGAT $L{=}3$ 模型的完整訓練過程，包含每個 Epoch 的損失值與評估指標。
+\section{摘要指標表}
+
+表~\ref{tab:best_summary} 以 HR@20、Precision@20 與 NDCG@20 三項核心指標呈現各模型效能摘要。
 
 \begin{table}[htbp]
   \centering
   \footnotesize
-  \setlength{\tabcolsep}{3.5pt}
-  \caption{KGAT ($L{=}3$) 訓練過程詳細數據}
-  \label{tab:kgat_l3_training}
-  \begin{tabular}{c c ccc ccc ccc}
+  \setlength{\tabcolsep}{3pt}
+  \caption{各模型三次獨立運行最佳效能摘要（平均值 $\pm$ 標準差）}
+  \label{tab:best_summary}
+  \begin{tabular}{l ccc}
     \toprule
-    Epoch & Loss & HR@10 & HR@20 & HR@50 & Prec@10 & Prec@20 & Prec@50 & NDCG@10 & NDCG@20 & NDCG@50 \\
+    模型 & HR@20 & Precision@20 & NDCG@20 \\
     \midrule
-    1 & 0.2823 & 0.7538 & 0.8906 & 0.9859 & 0.0754 & 0.0445 & 0.0197 & 0.5059 & 0.5406 & 0.5601 \\
-    2 & 0.2190 & 0.7788 & 0.9097 & 0.9890 & 0.0779 & 0.0455 & 0.0198 & 0.5271 & 0.5604 & 0.5766 \\
-    3 & 0.2026 & \textbf{0.7916} & \textbf{0.9185} & \textbf{0.9897} & \textbf{0.0792} & \textbf{0.0459} & \textbf{0.0198} & \textbf{0.5364} & \textbf{0.5687} & \textbf{0.5833} \\
+    \multicolumn{4}{l}{\textit{Baseline 模型}} \\
+    BPR-MF & $0.5830 \pm 0.0013$ & $0.0291 \pm 0.0000$ & $0.3355 \pm 0.0009$ \\
+    NFM & $0.6313 \pm 0.0001$ & $0.0316 \pm 0.0000$ & $0.3712 \pm 0.0001$ \\
+    LightGCN & $0.6668 \pm 0.0002$ & $0.0333 \pm 0.0000$ & $0.3836 \pm 0.0001$ \\
+    \midrule
+    \multicolumn{4}{l}{\textit{消融實驗（$L{=}1$）}} \\
+    Full KGAT ($L{=}1$) & $0.6761 \pm 0.0014$ & $0.0338 \pm 0.0001$ & $0.3749 \pm 0.0078$ \\
+    w/o Attention ($L{=}1$) & $0.6636 \pm 0.0018$ & $0.0332 \pm 0.0001$ & $0.3945 \pm 0.0017$ \\
+    w/o KG ($L{=}1$) & $0.7076 \pm 0.0062$ & $0.0354 \pm 0.0003$ & $0.4114 \pm 0.0133$ \\
+    \midrule
+    \multicolumn{4}{l}{\textit{深度實驗}} \\
+    KGAT ($L{=}2$) & $0.7711 \pm 0.0044$ & $0.0386 \pm 0.0002$ & $0.4383 \pm 0.0072$ \\
+    \textbf{KGAT ($L{=}3$)} & $\mathbf{0.8775 \pm 0.0291}$ & $\mathbf{0.0439 \pm 0.0015}$ & $\mathbf{0.5309 \pm 0.0267}$ \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-\section{Baseline 模型訓練過程}
+\section{完整九項指標表}
 
-每個 Baseline 模型均執行兩次獨立運行，取最佳 Epoch 之平均值作為報告結果。以下呈現各 Baseline 最佳 Epoch 的詳細數據。
+表~\ref{tab:best_full} 進一步呈現所有九項指標（@10, @20, @50）的完整統計數據。
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \footnotesize
-  \setlength{\tabcolsep}{4.5pt}
-  \caption{BPR-MF 兩次運行最佳 Epoch 結果}
-  \label{tab:bprmf_runs}
-  \begin{tabular}{c ccc ccc ccc}
+  \setlength{\tabcolsep}{2.5pt}
+  \caption{各模型最佳效能完整指標（三次獨立運行平均值 $\pm$ 標準差）}
+  \label{tab:best_full}
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{l ccc ccc ccc}
     \toprule
-    Run & HR@10 & HR@20 & HR@50 & Prec@10 & Prec@20 & Prec@50 & NDCG@10 & NDCG@20 & NDCG@50 \\
+    \multirow{2}{*}{模型} & \multicolumn{3}{c}{HR@$K$} & \multicolumn{3}{c}{Precision@$K$} & \multicolumn{3}{c}{NDCG@$K$} \\
+    \cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+    & @10 & @20 & @50 & @10 & @20 & @50 & @10 & @20 & @50 \\
     \midrule
-    2 (E10) & 0.4544 & 0.5671 & 0.7319 & 0.0454 & 0.0284 & 0.0146 & 0.2982 & 0.3266 & 0.3593 \\
-    3 (E10) & 0.4562 & 0.5680 & 0.7328 & 0.0456 & 0.0284 & 0.0147 & 0.2998 & 0.3280 & 0.3608 \\
+    \multicolumn{10}{l}{\textit{Baseline 模型}} \\
+    BPR-MF & $.4683{\scriptstyle\pm.0015}$ & $.5830{\scriptstyle\pm.0013}$ & $.7416{\scriptstyle\pm.0012}$ & $.0468{\scriptstyle\pm.0001}$ & $.0291{\scriptstyle\pm.0000}$ & $.0148{\scriptstyle\pm.0000}$ & $.3066{\scriptstyle\pm.0009}$ & $.3355{\scriptstyle\pm.0009}$ & $.3670{\scriptstyle\pm.0009}$ \\
+    NFM & $.5108{\scriptstyle\pm.0000}$ & $.6313{\scriptstyle\pm.0001}$ & $.7946{\scriptstyle\pm.0001}$ & $.0511{\scriptstyle\pm.0000}$ & $.0316{\scriptstyle\pm.0000}$ & $.0159{\scriptstyle\pm.0000}$ & $.3408{\scriptstyle\pm.0001}$ & $.3712{\scriptstyle\pm.0001}$ & $.4037{\scriptstyle\pm.0001}$ \\
+    LightGCN & $.5320{\scriptstyle\pm.0002}$ & $.6668{\scriptstyle\pm.0002}$ & $.8516{\scriptstyle\pm.0002}$ & $.0532{\scriptstyle\pm.0000}$ & $.0333{\scriptstyle\pm.0000}$ & $.0170{\scriptstyle\pm.0000}$ & $.3495{\scriptstyle\pm.0000}$ & $.3836{\scriptstyle\pm.0001}$ & $.4203{\scriptstyle\pm.0000}$ \\
     \midrule
-    Average & 0.4553 & 0.5675 & 0.7324 & 0.0455 & 0.0284 & 0.0146 & 0.2990 & 0.3273 & 0.3600 \\
+    \multicolumn{10}{l}{\textit{消融實驗（$L{=}1$）}} \\
+    Full KGAT ($L{=}1$) & $.5483{\scriptstyle\pm.0042}$ & $.6761{\scriptstyle\pm.0014}$ & $.8366{\scriptstyle\pm.0023}$ & $.0548{\scriptstyle\pm.0004}$ & $.0338{\scriptstyle\pm.0001}$ & $.0167{\scriptstyle\pm.0000}$ & $.3426{\scriptstyle\pm.0082}$ & $.3749{\scriptstyle\pm.0078}$ & $.4068{\scriptstyle\pm.0078}$ \\
+    w/o Attention & $.5483{\scriptstyle\pm.0009}$ & $.6636{\scriptstyle\pm.0018}$ & $.8081{\scriptstyle\pm.0037}$ & $.0548{\scriptstyle\pm.0001}$ & $.0332{\scriptstyle\pm.0001}$ & $.0162{\scriptstyle\pm.0000}$ & $.3653{\scriptstyle\pm.0015}$ & $.3945{\scriptstyle\pm.0017}$ & $.4231{\scriptstyle\pm.0021}$ \\
+    w/o KG & $.5704{\scriptstyle\pm.0147}$ & $.7076{\scriptstyle\pm.0062}$ & $.8761{\scriptstyle\pm.0068}$ & $.0571{\scriptstyle\pm.0015}$ & $.0354{\scriptstyle\pm.0003}$ & $.0175{\scriptstyle\pm.0001}$ & $.3768{\scriptstyle\pm.0158}$ & $.4114{\scriptstyle\pm.0133}$ & $.4450{\scriptstyle\pm.0114}$ \\
+    \midrule
+    \multicolumn{10}{l}{\textit{深度實驗}} \\
+    KGAT ($L{=}2$) & $.6219{\scriptstyle\pm.0058}$ & $.7711{\scriptstyle\pm.0044}$ & $.9464{\scriptstyle\pm.0059}$ & $.0622{\scriptstyle\pm.0006}$ & $.0386{\scriptstyle\pm.0002}$ & $.0189{\scriptstyle\pm.0001}$ & $.4005{\scriptstyle\pm.0078}$ & $.4383{\scriptstyle\pm.0072}$ & $.4735{\scriptstyle\pm.0063}$ \\
+    \textbf{KGAT ($L{=}3$)} & $\mathbf{.7348{\scriptstyle\pm.0399}}$ & $\mathbf{.8775{\scriptstyle\pm.0291}}$ & $\mathbf{.9830{\scriptstyle\pm.0050}}$ & $\mathbf{.0735{\scriptstyle\pm.0040}}$ & $\mathbf{.0439{\scriptstyle\pm.0015}}$ & $\mathbf{.0197{\scriptstyle\pm.0001}}$ & $\mathbf{.4946{\scriptstyle\pm.0294}}$ & $\mathbf{.5309{\scriptstyle\pm.0267}}$ & $\mathbf{.5524{\scriptstyle\pm.0218}}$ \\
     \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \footnotesize
-  \setlength{\tabcolsep}{4.5pt}
-  \caption{LightGCN 兩次運行最佳 Epoch 結果}
-  \label{tab:lightgcn_runs}
-  \begin{tabular}{c ccc ccc ccc}
-    \toprule
-    Run & HR@10 & HR@20 & HR@50 & Prec@10 & Prec@20 & Prec@50 & NDCG@10 & NDCG@20 & NDCG@50 \\
-    \midrule
-    2 (E2) & 0.5371 & 0.6718 & 0.8560 & 0.0537 & 0.0336 & 0.0171 & 0.3516 & 0.3856 & 0.4223 \\
-    3 (E2) & 0.5366 & 0.6716 & 0.8562 & 0.0537 & 0.0336 & 0.0171 & 0.3518 & 0.3859 & 0.4227 \\
-    \midrule
-    Average & 0.5369 & 0.6717 & 0.8561 & 0.0537 & 0.0336 & 0.0171 & 0.3517 & 0.3858 & 0.4225 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \footnotesize
-  \setlength{\tabcolsep}{4.5pt}
-  \caption{NFM 兩次運行最佳 Epoch 結果}
-  \label{tab:nfm_runs}
-  \begin{tabular}{c ccc ccc ccc}
-    \toprule
-    Run & HR@10 & HR@20 & HR@50 & Prec@10 & Prec@20 & Prec@50 & NDCG@10 & NDCG@20 & NDCG@50 \\
-    \midrule
-    2 (E3) & 0.3507 & 0.4521 & 0.6788 & 0.0351 & 0.0226 & 0.0136 & 0.2277 & 0.2531 & 0.2976 \\
-    3 (E6) & 0.3471 & 0.4430 & 0.6731 & 0.0347 & 0.0222 & 0.0135 & 0.2350 & 0.2590 & 0.3041 \\
-    \midrule
-    Average & 0.3489 & 0.4476 & 0.6760 & 0.0349 & 0.0224 & 0.0135 & 0.2314 & 0.2560 & 0.3008 \\
-    \bottomrule
-  \end{tabular}
+  \end{tabular}%
+  }
 \end{table}

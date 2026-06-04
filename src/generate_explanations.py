@@ -16,9 +16,8 @@ if project_root not in sys.path:
 
 from src.model.explainer import KGATExplainer
 from src.model.explainer_attention import KGATAttentionExplainer
-from src.model.kgat_attention import KGATAttention
-from src.model.kgat_bi_interaction import KGAT_BiInteraction
-from src.train_bi_interaction import construct_adj, load_data
+from src.model.kgat import KGATAttention, KGAT_BiInteraction
+from src.train import construct_adj, load_data
 
 
 def parse_args():
@@ -209,7 +208,7 @@ def run():
 
     # 初始化模型與解釋器
     if is_attention:
-        # Note: train_att.py adds 2 to n_relations (for Interatction and Self-loop)
+        # Note: train.py adds 2 to n_relations (for Interaction and Self-loop)
         model = KGATAttention(
             n_users, n_all_entities, n_relations + 2, embed_dim=embed_dim, layers=layers
         ).to(device)
@@ -236,7 +235,7 @@ def run():
         # Interaction: 2
         # Inverse Interaction: 2
         # Self-loop: 3
-        # Must match logic in train_att.py get_adj_indices
+        # Must match logic in train.py get_adj_indices
         kg_rels = kg_triples[:, 1]
         n_int = len(int_src)
         n_self = num_nodes

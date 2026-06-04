@@ -14,7 +14,7 @@ if project_root not in sys.path:
     sys.path.append(project_root)
 
 from src.model.explainer import KGATExplainer
-from src.model.kgat_bi_interaction import KGAT_BiInteraction
+from src.model.kgat import KGAT_BiInteraction
 from src.train import construct_adj, load_data
 
 

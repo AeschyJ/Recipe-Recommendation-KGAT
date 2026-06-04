@@ -1,0 +1,69 @@
+Training started. Args: Namespace(epochs=10, batch_size=1024, without_kg=True, resume=None, data_dir='data/processed', model_dir='models/wo_kg', embed_dim=64, layers=[64], cpu=False, debug=False, use_bf16=True, lr=0.001, no_compile=True, log_dir='output/logs/wo_kg', eval_only=False, log_file=None)
+Log file: output/logs/wo_kg\kgat_20260420_062823.txt
+Using Intel Arc GPU (XPU)
+Train samples: 905893, Test samples: 226474
+Expected iterations per epoch: 884
+Initializing KGATAttention with embed_dim=64, layers=[64]
+Enabled BFloat16 precision
+Model compilation disabled by user.
+Epoch 1 done. Avg Loss: 0.5043
+Epoch 1 Evaluation - HR@[10,20,50]: [0.5340, 0.6860, 0.8833] | Precision@[10,20,50]: [0.0534, 0.0343, 0.0177] | NDCG@[10,20,50]: [0.3443, 0.3827, 0.4221]
+Epoch 1 Current LR: 1.000000e-03
+Epoch 2 done. Avg Loss: 0.4431
+Epoch 2 Evaluation - HR@[10,20,50]: [0.5618, 0.7037, 0.8887] | Precision@[10,20,50]: [0.0562, 0.0352, 0.0178] | NDCG@[10,20,50]: [0.3684, 0.4043, 0.4412]
+Epoch 2 Current LR: 1.000000e-03
+Epoch 3 done. Avg Loss: 0.4240
+Epoch 3 Evaluation - HR@[10,20,50]: [0.5721, 0.7130, 0.8922] | Precision@[10,20,50]: [0.0572, 0.0357, 0.0178] | NDCG@[10,20,50]: [0.3786, 0.4142, 0.4500]
+Epoch 3 Current LR: 1.000000e-03
+Epoch 4 done. Avg Loss: 0.4095
+Epoch 4 Evaluation - HR@[10,20,50]: [0.5756, 0.7150, 0.8905] | Precision@[10,20,50]: [0.0576, 0.0358, 0.0178] | NDCG@[10,20,50]: [0.3821, 0.4174, 0.4524]
+Epoch 4 Current LR: 1.000000e-03
+Epoch 5 done. Avg Loss: 0.3967
+Epoch 5 Evaluation - HR@[10,20,50]: [0.5777, 0.7136, 0.8849] | Precision@[10,20,50]: [0.0578, 0.0357, 0.0177] | NDCG@[10,20,50]: [0.3845, 0.4189, 0.4530]
+Epoch 5 Current LR: 1.000000e-03
+Epoch 6 done. Avg Loss: 0.3860
+Epoch 6 Evaluation - HR@[10,20,50]: [0.5805, 0.7145, 0.8806] | Precision@[10,20,50]: [0.0581, 0.0357, 0.0176] | NDCG@[10,20,50]: [0.3883, 0.4222, 0.4553]
+Epoch 6 Current LR: 1.000000e-03
+Epoch 7 done. Avg Loss: 0.3774
+Epoch 7 Evaluation - HR@[10,20,50]: [0.5834, 0.7123, 0.8762] | Precision@[10,20,50]: [0.0583, 0.0356, 0.0175] | NDCG@[10,20,50]: [0.3915, 0.4242, 0.4568]
+Epoch 7 Current LR: 5.000000e-04
+Epoch 8 done. Avg Loss: 0.3716
+Epoch 8 Evaluation - HR@[10,20,50]: [0.5877, 0.7147, 0.8738] | Precision@[10,20,50]: [0.0588, 0.0357, 0.0175] | NDCG@[10,20,50]: [0.3950, 0.4271, 0.4587]
+Epoch 8 Current LR: 5.000000e-04
+Epoch 9 done. Avg Loss: 0.3679
+Epoch 9 Evaluation - HR@[10,20,50]: [0.5906, 0.7159, 0.8717] | Precision@[10,20,50]: [0.0591, 0.0358, 0.0174] | NDCG@[10,20,50]: [0.3976, 0.4292, 0.4603]
+Epoch 9 Current LR: 5.000000e-04
+Epoch 10 done. Avg Loss: 0.3651
+Epoch 10 Evaluation - HR@[10,20,50]: [0.5920, 0.7159, 0.8700] | Precision@[10,20,50]: [0.0592, 0.0358, 0.0174] | NDCG@[10,20,50]: [0.3982, 0.4296, 0.4603]
+Epoch 10 Current LR: 5.000000e-04
+Epoch 11 done. Avg Loss: 0.3537
+Epoch 11 Evaluation - HR@[10,20,50]: [0.5932, 0.7152, 0.8691] | Precision@[10,20,50]: [0.0593, 0.0358, 0.0174] | NDCG@[10,20,50]: [0.4001, 0.4310, 0.4617]
+Epoch 11 Current LR: 5.000000e-04
+Epoch 12 done. Avg Loss: 0.3498
+Epoch 12 Evaluation - HR@[10,20,50]: [0.5939, 0.7152, 0.8677] | Precision@[10,20,50]: [0.0594, 0.0358, 0.0174] | NDCG@[10,20,50]: [0.4011, 0.4318, 0.4621]
+Epoch 12 Current LR: 5.000000e-04
+Epoch 13 done. Avg Loss: 0.3481
+Epoch 13 Evaluation - HR@[10,20,50]: [0.5942, 0.7148, 0.8656] | Precision@[10,20,50]: [0.0594, 0.0357, 0.0173] | NDCG@[10,20,50]: [0.4023, 0.4329, 0.4628]
+Epoch 13 Current LR: 2.500000e-04
+Epoch 14 done. Avg Loss: 0.3464
+Epoch 14 Evaluation - HR@[10,20,50]: [0.5945, 0.7144, 0.8653] | Precision@[10,20,50]: [0.0594, 0.0357, 0.0173] | NDCG@[10,20,50]: [0.4032, 0.4336, 0.4636]
+Epoch 14 Current LR: 2.500000e-04
+Epoch 15 done. Avg Loss: 0.3446
+Epoch 15 Evaluation - HR@[10,20,50]: [0.5952, 0.7151, 0.8650] | Precision@[10,20,50]: [0.0595, 0.0358, 0.0173] | NDCG@[10,20,50]: [0.4036, 0.4339, 0.4638]
+Epoch 15 Current LR: 2.500000e-04
+Epoch 16 done. Avg Loss: 0.3421
+Epoch 16 Evaluation - HR@[10,20,50]: [0.5957, 0.7149, 0.8646] | Precision@[10,20,50]: [0.0596, 0.0357, 0.0173] | NDCG@[10,20,50]: [0.4037, 0.4339, 0.4636]
+Epoch 16 Current LR: 1.250000e-04
+Epoch 17 done. Avg Loss: 0.3394
+Epoch 17 Evaluation - HR@[10,20,50]: [0.5957, 0.7146, 0.8643] | Precision@[10,20,50]: [0.0596, 0.0357, 0.0173] | NDCG@[10,20,50]: [0.4040, 0.4340, 0.4638]
+Epoch 17 Current LR: 1.250000e-04
+Epoch 18 done. Avg Loss: 0.3492
+Epoch 18 Evaluation - HR@[10,20,50]: [0.5962, 0.7149, 0.8646] | Precision@[10,20,50]: [0.0596, 0.0357, 0.0173] | NDCG@[10,20,50]: [0.4049, 0.4349, 0.4647]
+Epoch 18 Current LR: 1.250000e-04
+Epoch 19 done. Avg Loss: 0.3488
+Epoch 19 Evaluation - HR@[10,20,50]: [0.5965, 0.7152, 0.8644] | Precision@[10,20,50]: [0.0596, 0.0358, 0.0173] | NDCG@[10,20,50]: [0.4044, 0.4344, 0.4641]
+Epoch 19 Current LR: 6.250000e-05
+Epoch 20 done. Avg Loss: 0.3481
+Epoch 20 Evaluation - HR@[10,20,50]: [0.5960, 0.7153, 0.8645] | Precision@[10,20,50]: [0.0596, 0.0358, 0.0173] | NDCG@[10,20,50]: [0.4043, 0.4345, 0.4642]
+Epoch 20 Current LR: 6.250000e-05
+Early stop. No improvement for 10 epochs. Best epoch was 10 with HR@20: 0.7160

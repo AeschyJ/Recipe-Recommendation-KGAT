@@ -2,38 +2,49 @@
 
 \bibitem{agarwal2024fidelity}
 C.~Agarwal, E.~Saxena, S.~Krishna, H.~Lakkaraju, and M.~Zitnik.
-\newblock Evaluating the faithfulness of importance measures in {NLP} by recursively masking allegedly important tokens and retraining.
-\newblock In {\em Findings of the Association for Computational Linguistics: EMNLP 2024}, 2024.
+\newblock Evaluating the faithfulness of importance measures in {NLP} by
+  recursively masking allegedly important tokens and retraining.
+\newblock In {\em Findings of the Association for Computational Linguistics:
+  EMNLP 2024}, 2024.
 
 \bibitem{bordes2013transe}
 A.~Bordes, N.~Usunier, A.~Garcia-Duran, J.~Weston, and O.~Yakhnenko.
 \newblock Translating embeddings for modeling multi-relational data.
-\newblock In {\em Advances in Neural Information Processing Systems}, volume~26, 2013.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~26, 2013.
 
 \bibitem{gao2023chat}
 Y.~Gao, T.~Sheng, Y.~Xiang, Y.~Xiong, H.~Wang, and J.~Zhang.
-\newblock Chat-{REC}: Towards interactive and explainable {LLMs}-augmented recommender system.
+\newblock Chat-{REC}: Towards interactive and explainable {LLMs}-augmented
+  recommender system.
 \newblock In {\em arXiv preprint arXiv:2303.14524}, 2023.
 
 \bibitem{gilmer2017mpnn}
 J.~Gilmer, S.~S. Schoenholz, P.~F. Riley, O.~Vinyals, and G.~E. Dahl.
 \newblock Neural message passing for quantum chemistry.
-\newblock In {\em Proceedings of the 34th International Conference on Machine Learning}, pages 1263--1272, 2017.
+\newblock In {\em Proceedings of the 34th International Conference on Machine
+  Learning}, pages 1263--1272, 2017.
 
 \bibitem{he2017nfm}
 X.~He and T.-S. Chua.
 \newblock Neural factorization machines for sparse predictive analytics.
-\newblock In {\em Proceedings of the 40th International ACM SIGIR Conference on Research and Development in Information Retrieval}, pages 355--364. ACM, 2017.
+\newblock In {\em Proceedings of the 40th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval}, pages 355--364. ACM,
+  2017.
 
 \bibitem{he2020lightgcn}
 X.~He, K.~Deng, X.~Wang, Y.~Li, Y.~Zhang, and M.~Wang.
-\newblock {LightGCN}: Simplifying and powering graph convolution network for recommendation.
-\newblock In {\em Proceedings of the 43rd International ACM SIGIR Conference on Research and Development in Information Retrieval}, pages 639--648. ACM, 2020.
+\newblock {LightGCN}: Simplifying and powering graph convolution network for
+  recommendation.
+\newblock In {\em Proceedings of the 43rd International ACM SIGIR Conference on
+  Research and Development in Information Retrieval}, pages 639--648. ACM,
+  2020.
 
 \bibitem{kipf2017gcn}
 T.~N. Kipf and M.~Welling.
 \newblock Semi-supervised classification with graph convolutional networks.
-\newblock In {\em International Conference on Learning Representations (ICLR)}, 2017.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2017.
 
 \bibitem{koren2009matrix}
 Y.~Koren, R.~Bell, and C.~Volinsky.
@@ -42,28 +53,35 @@ Y.~Koren, R.~Bell, and C.~Volinsky.
 
 \bibitem{li2018deeper}
 Q.~Li, Z.~Han, and X.-M. Wu.
-\newblock Deeper insights into graph convolutional networks for semi-supervised learning.
-\newblock In {\em Proceedings of the AAAI Conference on Artificial Intelligence}, volume~32, 2018.
+\newblock Deeper insights into graph convolutional networks for semi-supervised
+  learning.
+\newblock In {\em Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~32, 2018.
 
 \bibitem{majumder2019foodcom}
 B.~P. Majumder, S.~Li, J.~Ni, and J.~McAuley.
 \newblock Generating personalized recipes from historical user preferences.
-\newblock In {\em Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing}, pages 5976--5982, 2019.
+\newblock In {\em Proceedings of the 2019 Conference on Empirical Methods in
+  Natural Language Processing}, pages 5976--5982, 2019.
 
 \bibitem{rendle2010fm}
 S.~Rendle.
 \newblock Factorization machines.
-\newblock In {\em Proceedings of the 10th IEEE International Conference on Data Mining}, pages 995--1000. IEEE, 2010.
+\newblock In {\em Proceedings of the 10th IEEE International Conference on Data
+  Mining}, pages 995--1000. IEEE, 2010.
 
 \bibitem{rendle2009bpr}
 S.~Rendle, C.~Freudenthaler, Z.~Gantner, and L.~Schmidt-Thieme.
 \newblock {BPR}: Bayesian personalized ranking from implicit feedback.
-\newblock In {\em Proceedings of the 25th Conference on Uncertainty in Artificial Intelligence}, pages 452--461. AUAI Press, 2009.
+\newblock In {\em Proceedings of the 25th Conference on Uncertainty in
+  Artificial Intelligence}, pages 452--461. AUAI Press, 2009.
 
 \bibitem{rong2020dropedge}
 Y.~Rong, W.~Huang, T.~Xu, and J.~Huang.
-\newblock {DropEdge}: Towards deep graph convolutional networks on node classification.
-\newblock In {\em International Conference on Learning Representations (ICLR)}, 2020.
+\newblock {DropEdge}: Towards deep graph convolutional networks on node
+  classification.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2020.
 
 \bibitem{su2009survey}
 X.~Su and T.~M. Khoshgoftaar.
@@ -71,58 +89,79 @@ X.~Su and T.~M. Khoshgoftaar.
 \newblock {\em Advances in Artificial Intelligence}, 2009:1--19, 2009.
 
 \bibitem{velickovic2018gat}
-P.~Veli{\v{c}}kovi{\'c}, G.~Cucurull, A.~Casanova, A.~Romero, P.~Li{\`o}, and Y.~Bengio.
+P.~Veli{\v{c}}kovi{\'c}, G.~Cucurull, A.~Casanova, A.~Romero, P.~Li{\`o}, and
+  Y.~Bengio.
 \newblock Graph attention networks.
-\newblock In {\em International Conference on Learning Representations (ICLR)}, 2018.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2018.
 
 \bibitem{wang2018ripplenet}
 H.~Wang, F.~Zhang, J.~Wang, M.~Zhao, W.~Li, X.~Xie, and M.~Guo.
-\newblock {RippleNet}: Propagating user preferences on the knowledge graph for recommender systems.
-\newblock In {\em Proceedings of the 27th ACM International Conference on Information and Knowledge Management}, pages 417--426. ACM, 2018.
+\newblock {RippleNet}: Propagating user preferences on the knowledge graph for
+  recommender systems.
+\newblock In {\em Proceedings of the 27th ACM International Conference on
+  Information and Knowledge Management}, pages 417--426. ACM, 2018.
 
 \bibitem{wang2019kgcn}
 H.~Wang, M.~Zhao, X.~Xie, W.~Li, and M.~Guo.
-\newblock {KGCN}: Knowledge graph convolutional networks for recommender systems.
+\newblock {KGCN}: Knowledge graph convolutional networks for recommender
+  systems.
 \newblock In {\em The World Wide Web Conference}, pages 3307--3313. ACM, 2019.
 
 \bibitem{wang2019kgat}
 X.~Wang, X.~He, Y.~Cao, M.~Liu, and T.-S. Chua.
 \newblock {KGAT}: Knowledge graph attention network for recommendation.
-\newblock In {\em Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery \& Data Mining}, pages 950--958. ACM, 2019.
+\newblock In {\em Proceedings of the 25th ACM SIGKDD International Conference
+  on Knowledge Discovery \& Data Mining}, pages 950--958. ACM, 2019.
 
 \bibitem{wu2020gib}
 T.~Wu, H.~Ren, P.~Li, and J.~Leskovec.
 \newblock Graph information bottleneck.
-\newblock In {\em Advances in Neural Information Processing Systems}, volume~33, pages 20437--20448, 2020.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~33, pages 20437--20448, 2020.
 
 \bibitem{xian2019kgpolicy}
 Y.~Xian, Z.~Fu, S.~Muthukrishnan, G.~de~Melo, and Y.~Zhang.
-\newblock Reinforcement knowledge graph reasoning for explainable recommendation.
-\newblock In {\em Proceedings of the 42nd International ACM SIGIR Conference on Research and Development in Information Retrieval}, pages 285--294. ACM, 2019.
+\newblock Reinforcement knowledge graph reasoning for explainable
+  recommendation.
+\newblock In {\em Proceedings of the 42nd International ACM SIGIR Conference on
+  Research and Development in Information Retrieval}, pages 285--294. ACM,
+  2019.
 
 \bibitem{ying2019gnnexplainer}
 R.~Ying, D.~Bourgeois, J.~You, M.~Zitnik, and J.~Leskovec.
 \newblock {GNN}explainer: Generating explanations for graph neural networks.
-\newblock In {\em Advances in Neural Information Processing Systems}, volume~32, 2019.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~32, 2019.
 
 \bibitem{yuan2022explainability}
 H.~Yuan, H.~Yu, S.~Gui, and S.~Ji.
 \newblock Explainability in graph neural networks: A taxonomic survey.
-\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence}, 45(5):5782--5799, 2023.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  45(5):5782--5799, 2023.
 
 \bibitem{wang2019cke}
 F.~Zhang, N.~J. Yuan, D.~Lian, X.~Xie, and W.-Y. Ma.
 \newblock Collaborative knowledge base embedding for recommender systems.
-\newblock In {\em Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, pages 353--362. ACM, 2016.
+\newblock In {\em Proceedings of the 22nd ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining}, pages 353--362. ACM, 2016.
+
+\bibitem{zhang2024kg4receval}
+H.~Zhang, D.~Wang, Z.~Sun, Y.~Li, Y.~Sun, H.~Liang, and W.~Wang.
+\newblock Kg4receval: Does knowledge graph really matter for recommender
+  systems?
+\newblock {\em ACM Trans. Inf. Syst.}, 43(3), Feb. 2025.
 
 \bibitem{zhang2020explainable}
 Y.~Zhang and X.~Chen.
 \newblock Explainable recommendation: A survey and new perspectives.
-\newblock {\em Foundations and Trends in Information Retrieval}, 14(1):1--101, 2020.
+\newblock {\em Foundations and Trends in Information Retrieval}, 14(1):1--101,
+  2020.
 
 \bibitem{zhao2020pairnorm}
 L.~Zhao and L.~Akoglu.
 \newblock {PairNorm}: Tackling oversmoothing in {GNNs}.
-\newblock In {\em International Conference on Learning Representations (ICLR)}, 2020.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2020.
 
 \end{thebibliography}

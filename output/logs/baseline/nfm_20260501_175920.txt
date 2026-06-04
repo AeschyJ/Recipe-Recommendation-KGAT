@@ -1,0 +1,178 @@
+2026-05-01 17:59:20,542 [INFO] Training started. Args: Namespace(model='NFM', epochs=100, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=True, lr=0.001, log_dir='output/logs/baseline', eval_only=False, resume=None, experiment_id=2, log_file=None)
+2026-05-01 17:59:20,542 [INFO] Using Device: xpu
+2026-05-01 17:59:21,759 [INFO] Train samples: 905893, Test samples: 226474
+2026-05-01 17:59:37,324 [INFO] Epoch 1 Avg Loss: 0.6737
+2026-05-01 17:59:40,202 [INFO] Epoch 1 Evaluation - HR@[10,20,50]: [0.4829, 0.5893, 0.7626] | Precision@[10,20,50]: [0.0483, 0.0295, 0.0153] | NDCG@[10,20,50]: [0.3266, 0.3535, 0.3877]
+2026-05-01 17:59:40,202 [INFO] Epoch 1 Current LR: 1.000000e-03
+2026-05-01 17:59:41,042 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e1.pth
+2026-05-01 17:59:54,690 [INFO] Epoch 2 Avg Loss: 0.6535
+2026-05-01 17:59:57,237 [INFO] Epoch 2 Evaluation - HR@[10,20,50]: [0.4969, 0.6092, 0.7732] | Precision@[10,20,50]: [0.0497, 0.0305, 0.0155] | NDCG@[10,20,50]: [0.3330, 0.3614, 0.3939]
+2026-05-01 17:59:57,237 [INFO] Epoch 2 Current LR: 1.000000e-03
+2026-05-01 17:59:57,883 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e2.pth
+2026-05-01 17:59:57,895 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e1.pth
+2026-05-01 18:00:11,592 [INFO] Epoch 3 Avg Loss: 0.6443
+2026-05-01 18:00:14,143 [INFO] Epoch 3 Evaluation - HR@[10,20,50]: [0.5025, 0.6169, 0.7781] | Precision@[10,20,50]: [0.0502, 0.0308, 0.0156] | NDCG@[10,20,50]: [0.3359, 0.3648, 0.3968]
+2026-05-01 18:00:14,143 [INFO] Epoch 3 Current LR: 1.000000e-03
+2026-05-01 18:00:15,000 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e3.pth
+2026-05-01 18:00:15,011 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e2.pth
+2026-05-01 18:00:28,780 [INFO] Epoch 4 Avg Loss: 0.6386
+2026-05-01 18:00:31,333 [INFO] Epoch 4 Evaluation - HR@[10,20,50]: [0.5054, 0.6211, 0.7815] | Precision@[10,20,50]: [0.0505, 0.0311, 0.0156] | NDCG@[10,20,50]: [0.3371, 0.3663, 0.3982]
+2026-05-01 18:00:31,333 [INFO] Epoch 4 Current LR: 1.000000e-03
+2026-05-01 18:00:31,963 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e4.pth
+2026-05-01 18:00:31,974 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e3.pth
+2026-05-01 18:00:45,762 [INFO] Epoch 5 Avg Loss: 0.6349
+2026-05-01 18:00:48,321 [INFO] Epoch 5 Evaluation - HR@[10,20,50]: [0.5069, 0.6233, 0.7841] | Precision@[10,20,50]: [0.0507, 0.0312, 0.0157] | NDCG@[10,20,50]: [0.3374, 0.3668, 0.3988]
+2026-05-01 18:00:48,321 [INFO] Epoch 5 Current LR: 1.000000e-03
+2026-05-01 18:00:49,047 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e5.pth
+2026-05-01 18:00:49,058 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e4.pth
+2026-05-01 18:01:02,775 [INFO] Epoch 6 Avg Loss: 0.6321
+2026-05-01 18:01:05,427 [INFO] Epoch 6 Evaluation - HR@[10,20,50]: [0.5076, 0.6246, 0.7859] | Precision@[10,20,50]: [0.0508, 0.0312, 0.0157] | NDCG@[10,20,50]: [0.3383, 0.3678, 0.4000]
+2026-05-01 18:01:05,427 [INFO] Epoch 6 Current LR: 1.000000e-03
+2026-05-01 18:01:06,055 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e6.pth
+2026-05-01 18:01:06,065 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e5.pth
+2026-05-01 18:01:19,817 [INFO] Epoch 7 Avg Loss: 0.6300
+2026-05-01 18:01:22,377 [INFO] Epoch 7 Evaluation - HR@[10,20,50]: [0.5079, 0.6261, 0.7873] | Precision@[10,20,50]: [0.0508, 0.0313, 0.0157] | NDCG@[10,20,50]: [0.3383, 0.3682, 0.4003]
+2026-05-01 18:01:22,377 [INFO] Epoch 7 Current LR: 1.000000e-03
+2026-05-01 18:01:23,082 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e7.pth
+2026-05-01 18:01:23,092 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e6.pth
+2026-05-01 18:01:36,817 [INFO] Epoch 8 Avg Loss: 0.6284
+2026-05-01 18:01:39,361 [INFO] Epoch 8 Evaluation - HR@[10,20,50]: [0.5084, 0.6271, 0.7885] | Precision@[10,20,50]: [0.0508, 0.0314, 0.0158] | NDCG@[10,20,50]: [0.3388, 0.3687, 0.4009]
+2026-05-01 18:01:39,361 [INFO] Epoch 8 Current LR: 1.000000e-03
+2026-05-01 18:01:39,990 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e8.pth
+2026-05-01 18:01:40,002 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e7.pth
+2026-05-01 18:01:53,879 [INFO] Epoch 9 Avg Loss: 0.6273
+2026-05-01 18:01:56,437 [INFO] Epoch 9 Evaluation - HR@[10,20,50]: [0.5084, 0.6279, 0.7890] | Precision@[10,20,50]: [0.0508, 0.0314, 0.0158] | NDCG@[10,20,50]: [0.3390, 0.3691, 0.4012]
+2026-05-01 18:01:56,437 [INFO] Epoch 9 Current LR: 1.000000e-03
+2026-05-01 18:01:57,352 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e9.pth
+2026-05-01 18:01:57,361 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e8.pth
+2026-05-01 18:02:11,101 [INFO] Epoch 10 Avg Loss: 0.6265
+2026-05-01 18:02:13,648 [INFO] Epoch 10 Evaluation - HR@[10,20,50]: [0.5091, 0.6282, 0.7900] | Precision@[10,20,50]: [0.0509, 0.0314, 0.0158] | NDCG@[10,20,50]: [0.3393, 0.3694, 0.4016]
+2026-05-01 18:02:13,648 [INFO] Epoch 10 Current LR: 1.000000e-03
+2026-05-01 18:02:14,270 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e10.pth
+2026-05-01 18:02:14,282 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e9.pth
+2026-05-01 18:02:28,022 [INFO] Epoch 11 Avg Loss: 0.6259
+2026-05-01 18:02:30,565 [INFO] Epoch 11 Evaluation - HR@[10,20,50]: [0.5093, 0.6286, 0.7912] | Precision@[10,20,50]: [0.0509, 0.0314, 0.0158] | NDCG@[10,20,50]: [0.3400, 0.3701, 0.4025]
+2026-05-01 18:02:30,565 [INFO] Epoch 11 Current LR: 1.000000e-03
+2026-05-01 18:02:31,365 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e11.pth
+2026-05-01 18:02:31,376 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e10.pth
+2026-05-01 18:02:45,114 [INFO] Epoch 12 Avg Loss: 0.6254
+2026-05-01 18:02:47,681 [INFO] Epoch 12 Evaluation - HR@[10,20,50]: [0.5098, 0.6291, 0.7916] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0158] | NDCG@[10,20,50]: [0.3399, 0.3700, 0.4023]
+2026-05-01 18:02:47,681 [INFO] Epoch 12 Current LR: 1.000000e-03
+2026-05-01 18:02:48,351 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e12.pth
+2026-05-01 18:02:48,361 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e11.pth
+2026-05-01 18:03:02,095 [INFO] Epoch 13 Avg Loss: 0.6252
+2026-05-01 18:03:04,636 [INFO] Epoch 13 Evaluation - HR@[10,20,50]: [0.5096, 0.6291, 0.7925] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0158] | NDCG@[10,20,50]: [0.3396, 0.3698, 0.4023]
+2026-05-01 18:03:04,637 [INFO] Epoch 13 Current LR: 1.000000e-03
+2026-05-01 18:03:05,335 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e13.pth
+2026-05-01 18:03:05,345 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e12.pth
+2026-05-01 18:03:19,074 [INFO] Epoch 14 Avg Loss: 0.6248
+2026-05-01 18:03:21,677 [INFO] Epoch 14 Evaluation - HR@[10,20,50]: [0.5099, 0.6297, 0.7929] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3403, 0.3705, 0.4030]
+2026-05-01 18:03:21,677 [INFO] Epoch 14 Current LR: 1.000000e-03
+2026-05-01 18:03:22,309 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e14.pth
+2026-05-01 18:03:22,319 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e13.pth
+2026-05-01 18:03:36,066 [INFO] Epoch 15 Avg Loss: 0.6244
+2026-05-01 18:03:38,718 [INFO] Epoch 15 Evaluation - HR@[10,20,50]: [0.5094, 0.6295, 0.7933] | Precision@[10,20,50]: [0.0509, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3397, 0.3701, 0.4027]
+2026-05-01 18:03:38,718 [INFO] Epoch 15 Current LR: 1.000000e-03
+2026-05-01 18:03:39,626 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e15.pth. Patience: 1/10
+2026-05-01 18:03:53,349 [INFO] Epoch 16 Avg Loss: 0.6243
+2026-05-01 18:03:55,910 [INFO] Epoch 16 Evaluation - HR@[10,20,50]: [0.5101, 0.6296, 0.7935] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3401, 0.3702, 0.4029]
+2026-05-01 18:03:55,910 [INFO] Epoch 16 Current LR: 1.000000e-03
+2026-05-01 18:03:56,535 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e16.pth. Patience: 2/10
+2026-05-01 18:04:10,348 [INFO] Epoch 17 Avg Loss: 0.6242
+2026-05-01 18:04:12,950 [INFO] Epoch 17 Evaluation - HR@[10,20,50]: [0.5102, 0.6300, 0.7940] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3404, 0.3706, 0.4033]
+2026-05-01 18:04:12,950 [INFO] Epoch 17 Current LR: 1.000000e-03
+2026-05-01 18:04:14,024 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e17.pth
+2026-05-01 18:04:14,033 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e14.pth
+2026-05-01 18:04:14,044 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e15.pth
+2026-05-01 18:04:14,054 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e16.pth
+2026-05-01 18:04:27,871 [INFO] Epoch 18 Avg Loss: 0.6240
+2026-05-01 18:04:30,441 [INFO] Epoch 18 Evaluation - HR@[10,20,50]: [0.5108, 0.6308, 0.7942] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3407, 0.3710, 0.4035]
+2026-05-01 18:04:30,442 [INFO] Epoch 18 Current LR: 1.000000e-03
+2026-05-01 18:04:31,148 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e18.pth
+2026-05-01 18:04:31,160 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e17.pth
+2026-05-01 18:04:44,889 [INFO] Epoch 19 Avg Loss: 0.6241
+2026-05-01 18:04:47,466 [INFO] Epoch 19 Evaluation - HR@[10,20,50]: [0.5102, 0.6299, 0.7941] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3406, 0.3708, 0.4035]
+2026-05-01 18:04:47,466 [INFO] Epoch 19 Current LR: 1.000000e-03
+2026-05-01 18:04:48,237 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e19.pth. Patience: 1/10
+2026-05-01 18:05:02,099 [INFO] Epoch 20 Avg Loss: 0.6239
+2026-05-01 18:05:04,740 [INFO] Epoch 20 Evaluation - HR@[10,20,50]: [0.5104, 0.6303, 0.7942] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3403, 0.3706, 0.4032]
+2026-05-01 18:05:04,740 [INFO] Epoch 20 Current LR: 1.000000e-03
+2026-05-01 18:05:05,474 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e20.pth. Patience: 2/10
+2026-05-01 18:05:19,232 [INFO] Epoch 21 Avg Loss: 0.6239
+2026-05-01 18:05:21,786 [INFO] Epoch 21 Evaluation - HR@[10,20,50]: [0.5107, 0.6307, 0.7943] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3406, 0.3709, 0.4035]
+2026-05-01 18:05:21,786 [INFO] Epoch 21 Current LR: 5.000000e-04
+2026-05-01 18:05:22,421 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e21.pth. Patience: 3/10
+2026-05-01 18:05:36,191 [INFO] Epoch 22 Avg Loss: 0.6237
+2026-05-01 18:05:38,733 [INFO] Epoch 22 Evaluation - HR@[10,20,50]: [0.5111, 0.6307, 0.7948] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3406, 0.3708, 0.4035]
+2026-05-01 18:05:38,733 [INFO] Epoch 22 Current LR: 5.000000e-04
+2026-05-01 18:05:39,374 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e22.pth. Patience: 4/10
+2026-05-01 18:05:53,137 [INFO] Epoch 23 Avg Loss: 0.6236
+2026-05-01 18:05:55,666 [INFO] Epoch 23 Evaluation - HR@[10,20,50]: [0.5108, 0.6312, 0.7945] | Precision@[10,20,50]: [0.0511, 0.0316, 0.0159] | NDCG@[10,20,50]: [0.3407, 0.3711, 0.4036]
+2026-05-01 18:05:55,666 [INFO] Epoch 23 Current LR: 5.000000e-04
+2026-05-01 18:05:56,376 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e23.pth
+2026-05-01 18:05:56,386 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e18.pth
+2026-05-01 18:05:56,396 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e19.pth
+2026-05-01 18:05:56,405 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e20.pth
+2026-05-01 18:05:56,415 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e21.pth
+2026-05-01 18:05:56,424 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e22.pth
+2026-05-01 18:06:10,176 [INFO] Epoch 24 Avg Loss: 0.6238
+2026-05-01 18:06:12,725 [INFO] Epoch 24 Evaluation - HR@[10,20,50]: [0.5110, 0.6305, 0.7944] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3408, 0.3710, 0.4036]
+2026-05-01 18:06:12,725 [INFO] Epoch 24 Current LR: 5.000000e-04
+2026-05-01 18:06:13,348 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e24.pth. Patience: 1/10
+2026-05-01 18:06:27,093 [INFO] Epoch 25 Avg Loss: 0.6238
+2026-05-01 18:06:29,650 [INFO] Epoch 25 Evaluation - HR@[10,20,50]: [0.5101, 0.6303, 0.7944] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3406, 0.3709, 0.4036]
+2026-05-01 18:06:29,651 [INFO] Epoch 25 Current LR: 5.000000e-04
+2026-05-01 18:06:30,299 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e25.pth. Patience: 2/10
+2026-05-01 18:06:44,110 [INFO] Epoch 26 Avg Loss: 0.6237
+2026-05-01 18:06:46,669 [INFO] Epoch 26 Evaluation - HR@[10,20,50]: [0.5105, 0.6307, 0.7947] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3404, 0.3708, 0.4034]
+2026-05-01 18:06:46,669 [INFO] Epoch 26 Current LR: 2.500000e-04
+2026-05-01 18:06:47,457 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e26.pth. Patience: 3/10
+2026-05-01 18:07:01,237 [INFO] Epoch 27 Avg Loss: 0.6238
+2026-05-01 18:07:03,786 [INFO] Epoch 27 Evaluation - HR@[10,20,50]: [0.5113, 0.6312, 0.7947] | Precision@[10,20,50]: [0.0511, 0.0316, 0.0159] | NDCG@[10,20,50]: [0.3409, 0.3712, 0.4038]
+2026-05-01 18:07:03,786 [INFO] Epoch 27 Current LR: 2.500000e-04
+2026-05-01 18:07:04,604 [INFO] Saved NEW BEST checkpoint: models/baseline\2_nfm_checkpoint_e27.pth
+2026-05-01 18:07:04,614 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e23.pth
+2026-05-01 18:07:04,623 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e24.pth
+2026-05-01 18:07:04,633 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e25.pth
+2026-05-01 18:07:04,642 [INFO] Deleted old checkpoint: models/baseline\2_nfm_checkpoint_e26.pth
+2026-05-01 18:07:18,425 [INFO] Epoch 28 Avg Loss: 0.6236
+2026-05-01 18:07:20,976 [INFO] Epoch 28 Evaluation - HR@[10,20,50]: [0.5112, 0.6305, 0.7951] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3408, 0.3710, 0.4037]
+2026-05-01 18:07:20,976 [INFO] Epoch 28 Current LR: 2.500000e-04
+2026-05-01 18:07:21,770 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e28.pth. Patience: 1/10
+2026-05-01 18:07:35,546 [INFO] Epoch 29 Avg Loss: 0.6238
+2026-05-01 18:07:38,105 [INFO] Epoch 29 Evaluation - HR@[10,20,50]: [0.5105, 0.6307, 0.7946] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3406, 0.3710, 0.4036]
+2026-05-01 18:07:38,106 [INFO] Epoch 29 Current LR: 1.250000e-04
+2026-05-01 18:07:38,830 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e29.pth. Patience: 2/10
+2026-05-01 18:07:52,629 [INFO] Epoch 30 Avg Loss: 0.6239
+2026-05-01 18:07:55,259 [INFO] Epoch 30 Evaluation - HR@[10,20,50]: [0.5111, 0.6307, 0.7948] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3406, 0.3708, 0.4035]
+2026-05-01 18:07:55,259 [INFO] Epoch 30 Current LR: 1.250000e-04
+2026-05-01 18:07:55,889 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e30.pth. Patience: 3/10
+2026-05-01 18:08:10,039 [INFO] Epoch 31 Avg Loss: 0.6238
+2026-05-01 18:08:12,606 [INFO] Epoch 31 Evaluation - HR@[10,20,50]: [0.5104, 0.6309, 0.7945] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3407, 0.3711, 0.4037]
+2026-05-01 18:08:12,606 [INFO] Epoch 31 Current LR: 1.250000e-04
+2026-05-01 18:08:13,252 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e31.pth. Patience: 4/10
+2026-05-01 18:08:27,019 [INFO] Epoch 32 Avg Loss: 0.6237
+2026-05-01 18:08:29,581 [INFO] Epoch 32 Evaluation - HR@[10,20,50]: [0.5112, 0.6308, 0.7946] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3411, 0.3713, 0.4039]
+2026-05-01 18:08:29,581 [INFO] Epoch 32 Current LR: 6.250000e-05
+2026-05-01 18:08:30,209 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e32.pth. Patience: 5/10
+2026-05-01 18:08:43,947 [INFO] Epoch 33 Avg Loss: 0.6237
+2026-05-01 18:08:46,536 [INFO] Epoch 33 Evaluation - HR@[10,20,50]: [0.5109, 0.6306, 0.7945] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3405, 0.3707, 0.4033]
+2026-05-01 18:08:46,556 [INFO] Epoch 33 Current LR: 6.250000e-05
+2026-05-01 18:08:47,352 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e33.pth. Patience: 6/10
+2026-05-01 18:09:01,077 [INFO] Epoch 34 Avg Loss: 0.6236
+2026-05-01 18:09:03,623 [INFO] Epoch 34 Evaluation - HR@[10,20,50]: [0.5107, 0.6307, 0.7945] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3405, 0.3708, 0.4034]
+2026-05-01 18:09:03,623 [INFO] Epoch 34 Current LR: 6.250000e-05
+2026-05-01 18:09:04,681 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e34.pth. Patience: 7/10
+2026-05-01 18:09:18,419 [INFO] Epoch 35 Avg Loss: 0.6238
+2026-05-01 18:09:20,956 [INFO] Epoch 35 Evaluation - HR@[10,20,50]: [0.5108, 0.6306, 0.7943] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3407, 0.3709, 0.4035]
+2026-05-01 18:09:20,956 [INFO] Epoch 35 Current LR: 3.125000e-05
+2026-05-01 18:09:21,753 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e35.pth. Patience: 8/10
+2026-05-01 18:09:35,523 [INFO] Epoch 36 Avg Loss: 0.6236
+2026-05-01 18:09:38,061 [INFO] Epoch 36 Evaluation - HR@[10,20,50]: [0.5107, 0.6310, 0.7944] | Precision@[10,20,50]: [0.0511, 0.0316, 0.0159] | NDCG@[10,20,50]: [0.3404, 0.3708, 0.4033]
+2026-05-01 18:09:38,061 [INFO] Epoch 36 Current LR: 3.125000e-05
+2026-05-01 18:09:39,000 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e36.pth. Patience: 9/10
+2026-05-01 18:09:52,756 [INFO] Epoch 37 Avg Loss: 0.6236
+2026-05-01 18:09:55,300 [INFO] Epoch 37 Evaluation - HR@[10,20,50]: [0.5107, 0.6307, 0.7945] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3406, 0.3709, 0.4035]
+2026-05-01 18:09:55,300 [INFO] Epoch 37 Current LR: 3.125000e-05
+2026-05-01 18:09:56,037 [INFO] Saved checkpoint: models/baseline\2_nfm_checkpoint_e37.pth. Patience: 10/10
+2026-05-01 18:09:56,037 [INFO] Early stop. No improvement for 10 epochs. Best epoch was 27 with HR@20: 0.6312

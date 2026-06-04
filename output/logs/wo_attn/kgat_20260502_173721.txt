@@ -1,0 +1,113 @@
+2026-05-02 17:37:21,037 [INFO] Training started. Args: Namespace(no_attention=True, epochs=100, batch_size=1024, without_kg=False, resume=None, data_dir='data/processed', model_dir='models/wo_attn', embed_dim=64, layers=[64], cpu=False, debug=False, use_bf16=True, lr=0.001, no_compile=True, log_dir='output/logs/wo_attn', eval_only=False, log_file=None, experiment_id='2')
+2026-05-02 17:37:21,037 [INFO] Log file: output/logs/wo_attn\kgat_20260502_173721.txt
+2026-05-02 17:37:21,037 [INFO] Using Intel Arc GPU (XPU)
+2026-05-02 17:37:22,242 [INFO] Train samples: 905893, Test samples: 226474
+2026-05-02 17:37:22,242 [INFO] Expected iterations per epoch: 884
+2026-05-02 17:37:25,521 [INFO] Initializing KGAT_BiInteraction with embed_dim=64, layers=[64]
+2026-05-02 17:37:25,744 [INFO] Enabled BFloat16 precision
+2026-05-02 17:37:26,490 [INFO] Model compilation disabled by user.
+2026-05-02 17:41:07,447 [INFO] Epoch 1 done. Avg Loss: 0.4914
+2026-05-02 17:41:09,657 [INFO] Epoch 1 Evaluation - HR@[10,20,50]: [0.5318, 0.6308, 0.8303] | Precision@[10,20,50]: [0.0532, 0.0315, 0.0166] | NDCG@[10,20,50]: [0.3419, 0.3670, 0.4063]
+2026-05-02 17:41:09,657 [INFO] Epoch 1 Current LR: 1.000000e-03
+2026-05-02 17:41:10,414 [INFO] Saved NEW BEST checkpoint: models/wo_attn\2_kgat_checkpoint_e1.pth
+2026-05-02 17:44:51,104 [INFO] Epoch 2 done. Avg Loss: 0.4374
+2026-05-02 17:44:53,309 [INFO] Epoch 2 Evaluation - HR@[10,20,50]: [0.5404, 0.6444, 0.8251] | Precision@[10,20,50]: [0.0540, 0.0322, 0.0165] | NDCG@[10,20,50]: [0.3467, 0.3731, 0.4084]
+2026-05-02 17:44:53,309 [INFO] Epoch 2 Current LR: 1.000000e-03
+2026-05-02 17:44:54,364 [INFO] Saved NEW BEST checkpoint: models/wo_attn\2_kgat_checkpoint_e2.pth
+2026-05-02 17:44:54,371 [INFO] Deleted old checkpoint: models/wo_attn\2_kgat_checkpoint_e1.pth
+2026-05-02 17:48:35,170 [INFO] Epoch 3 done. Avg Loss: 0.4229
+2026-05-02 17:48:37,369 [INFO] Epoch 3 Evaluation - HR@[10,20,50]: [0.5432, 0.6516, 0.8206] | Precision@[10,20,50]: [0.0543, 0.0326, 0.0164] | NDCG@[10,20,50]: [0.3517, 0.3792, 0.4123]
+2026-05-02 17:48:37,369 [INFO] Epoch 3 Current LR: 1.000000e-03
+2026-05-02 17:48:38,115 [INFO] Saved NEW BEST checkpoint: models/wo_attn\2_kgat_checkpoint_e3.pth
+2026-05-02 17:48:38,123 [INFO] Deleted old checkpoint: models/wo_attn\2_kgat_checkpoint_e2.pth
+2026-05-02 17:52:18,963 [INFO] Epoch 4 done. Avg Loss: 0.4136
+2026-05-02 17:52:21,162 [INFO] Epoch 4 Evaluation - HR@[10,20,50]: [0.5456, 0.6566, 0.8171] | Precision@[10,20,50]: [0.0546, 0.0328, 0.0163] | NDCG@[10,20,50]: [0.3559, 0.3840, 0.4155]
+2026-05-02 17:52:21,163 [INFO] Epoch 4 Current LR: 1.000000e-03
+2026-05-02 17:52:22,084 [INFO] Saved NEW BEST checkpoint: models/wo_attn\2_kgat_checkpoint_e4.pth
+2026-05-02 17:52:22,092 [INFO] Deleted old checkpoint: models/wo_attn\2_kgat_checkpoint_e3.pth
+2026-05-02 17:56:02,977 [INFO] Epoch 5 done. Avg Loss: 0.4070
+2026-05-02 17:56:05,148 [INFO] Epoch 5 Evaluation - HR@[10,20,50]: [0.5472, 0.6599, 0.8149] | Precision@[10,20,50]: [0.0547, 0.0330, 0.0163] | NDCG@[10,20,50]: [0.3586, 0.3871, 0.4175]
+2026-05-02 17:56:05,148 [INFO] Epoch 5 Current LR: 1.000000e-03
+2026-05-02 17:56:05,902 [INFO] Saved NEW BEST checkpoint: models/wo_attn\2_kgat_checkpoint_e5.pth
+2026-05-02 17:56:05,910 [INFO] Deleted old checkpoint: models/wo_attn\2_kgat_checkpoint_e4.pth
+2026-05-02 17:59:46,728 [INFO] Epoch 6 done. Avg Loss: 0.4015
+2026-05-02 17:59:48,915 [INFO] Epoch 6 Evaluation - HR@[10,20,50]: [0.5488, 0.6617, 0.8136] | Precision@[10,20,50]: [0.0549, 0.0331, 0.0163] | NDCG@[10,20,50]: [0.3611, 0.3897, 0.4196]
+2026-05-02 17:59:48,915 [INFO] Epoch 6 Current LR: 1.000000e-03
+2026-05-02 17:59:49,914 [INFO] Saved NEW BEST checkpoint: models/wo_attn\2_kgat_checkpoint_e6.pth
+2026-05-02 17:59:49,923 [INFO] Deleted old checkpoint: models/wo_attn\2_kgat_checkpoint_e5.pth
+2026-05-02 18:03:30,741 [INFO] Epoch 7 done. Avg Loss: 0.3974
+2026-05-02 18:03:32,928 [INFO] Epoch 7 Evaluation - HR@[10,20,50]: [0.5487, 0.6631, 0.8132] | Precision@[10,20,50]: [0.0549, 0.0332, 0.0163] | NDCG@[10,20,50]: [0.3626, 0.3916, 0.4212]
+2026-05-02 18:03:32,929 [INFO] Epoch 7 Current LR: 1.000000e-03
+2026-05-02 18:03:33,866 [INFO] Saved NEW BEST checkpoint: models/wo_attn\2_kgat_checkpoint_e7.pth
+2026-05-02 18:03:33,875 [INFO] Deleted old checkpoint: models/wo_attn\2_kgat_checkpoint_e6.pth
+2026-05-02 18:07:14,705 [INFO] Epoch 8 done. Avg Loss: 0.3943
+2026-05-02 18:07:16,883 [INFO] Epoch 8 Evaluation - HR@[10,20,50]: [0.5502, 0.6639, 0.8123] | Precision@[10,20,50]: [0.0550, 0.0332, 0.0162] | NDCG@[10,20,50]: [0.3640, 0.3928, 0.4221]
+2026-05-02 18:07:16,883 [INFO] Epoch 8 Current LR: 1.000000e-03
+2026-05-02 18:07:17,890 [INFO] Saved NEW BEST checkpoint: models/wo_attn\2_kgat_checkpoint_e8.pth
+2026-05-02 18:07:17,900 [INFO] Deleted old checkpoint: models/wo_attn\2_kgat_checkpoint_e7.pth
+2026-05-02 18:10:58,784 [INFO] Epoch 9 done. Avg Loss: 0.3911
+2026-05-02 18:11:00,982 [INFO] Epoch 9 Evaluation - HR@[10,20,50]: [0.5507, 0.6644, 0.8134] | Precision@[10,20,50]: [0.0551, 0.0332, 0.0163] | NDCG@[10,20,50]: [0.3646, 0.3934, 0.4229]
+2026-05-02 18:11:00,982 [INFO] Epoch 9 Current LR: 1.000000e-03
+2026-05-02 18:11:01,742 [INFO] Saved NEW BEST checkpoint: models/wo_attn\2_kgat_checkpoint_e9.pth
+2026-05-02 18:11:01,751 [INFO] Deleted old checkpoint: models/wo_attn\2_kgat_checkpoint_e8.pth
+2026-05-02 18:14:42,672 [INFO] Epoch 10 done. Avg Loss: 0.3878
+2026-05-02 18:14:44,841 [INFO] Epoch 10 Evaluation - HR@[10,20,50]: [0.5522, 0.6646, 0.8133] | Precision@[10,20,50]: [0.0552, 0.0332, 0.0163] | NDCG@[10,20,50]: [0.3660, 0.3945, 0.4239]
+2026-05-02 18:14:44,841 [INFO] Epoch 10 Current LR: 1.000000e-03
+2026-05-02 18:14:45,731 [INFO] Saved NEW BEST checkpoint: models/wo_attn\2_kgat_checkpoint_e10.pth
+2026-05-02 18:14:45,745 [INFO] Deleted old checkpoint: models/wo_attn\2_kgat_checkpoint_e9.pth
+2026-05-02 18:18:26,517 [INFO] Epoch 11 done. Avg Loss: 0.3863
+2026-05-02 18:18:28,698 [INFO] Epoch 11 Evaluation - HR@[10,20,50]: [0.5517, 0.6653, 0.8132] | Precision@[10,20,50]: [0.0552, 0.0333, 0.0163] | NDCG@[10,20,50]: [0.3667, 0.3955, 0.4248]
+2026-05-02 18:18:28,698 [INFO] Epoch 11 Current LR: 1.000000e-03
+2026-05-02 18:18:29,661 [INFO] Saved NEW BEST checkpoint: models/wo_attn\2_kgat_checkpoint_e11.pth
+2026-05-02 18:18:29,671 [INFO] Deleted old checkpoint: models/wo_attn\2_kgat_checkpoint_e10.pth
+2026-05-02 18:22:10,526 [INFO] Epoch 12 done. Avg Loss: 0.3839
+2026-05-02 18:22:12,710 [INFO] Epoch 12 Evaluation - HR@[10,20,50]: [0.5502, 0.6652, 0.8127] | Precision@[10,20,50]: [0.0550, 0.0333, 0.0163] | NDCG@[10,20,50]: [0.3662, 0.3954, 0.4246]
+2026-05-02 18:22:12,711 [INFO] Epoch 12 Current LR: 1.000000e-03
+2026-05-02 18:22:13,585 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e12.pth. Patience: 1/10
+2026-05-02 18:25:54,523 [INFO] Epoch 13 done. Avg Loss: 0.3829
+2026-05-02 18:25:56,703 [INFO] Epoch 13 Evaluation - HR@[10,20,50]: [0.5495, 0.6655, 0.8120] | Precision@[10,20,50]: [0.0549, 0.0333, 0.0162] | NDCG@[10,20,50]: [0.3668, 0.3962, 0.4253]
+2026-05-02 18:25:56,703 [INFO] Epoch 13 Current LR: 1.000000e-03
+2026-05-02 18:25:57,440 [INFO] Saved NEW BEST checkpoint: models/wo_attn\2_kgat_checkpoint_e13.pth
+2026-05-02 18:25:57,449 [INFO] Deleted old checkpoint: models/wo_attn\2_kgat_checkpoint_e11.pth
+2026-05-02 18:25:57,459 [INFO] Deleted old checkpoint: models/wo_attn\2_kgat_checkpoint_e12.pth
+2026-05-02 18:30:30,116 [INFO] Epoch 14 done. Avg Loss: 0.3805
+2026-05-02 18:30:33,117 [INFO] Epoch 14 Evaluation - HR@[10,20,50]: [0.5501, 0.6639, 0.8117] | Precision@[10,20,50]: [0.0550, 0.0332, 0.0162] | NDCG@[10,20,50]: [0.3674, 0.3962, 0.4255]
+2026-05-02 18:30:33,117 [INFO] Epoch 14 Current LR: 1.000000e-03
+2026-05-02 18:30:33,857 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e14.pth. Patience: 1/10
+2026-05-02 18:40:00,074 [INFO] Epoch 15 done. Avg Loss: 0.3786
+2026-05-02 18:40:03,106 [INFO] Epoch 15 Evaluation - HR@[10,20,50]: [0.5517, 0.6635, 0.8125] | Precision@[10,20,50]: [0.0552, 0.0332, 0.0162] | NDCG@[10,20,50]: [0.3684, 0.3967, 0.4263]
+2026-05-02 18:40:03,106 [INFO] Epoch 15 Current LR: 1.000000e-03
+2026-05-02 18:40:04,114 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e15.pth. Patience: 2/10
+2026-05-02 18:50:30,866 [INFO] Epoch 16 done. Avg Loss: 0.3776
+2026-05-02 18:50:33,794 [INFO] Epoch 16 Evaluation - HR@[10,20,50]: [0.5516, 0.6643, 0.8129] | Precision@[10,20,50]: [0.0552, 0.0332, 0.0163] | NDCG@[10,20,50]: [0.3680, 0.3965, 0.4260]
+2026-05-02 18:50:33,794 [INFO] Epoch 16 Current LR: 5.000000e-04
+2026-05-02 18:50:34,697 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e16.pth. Patience: 3/10
+2026-05-02 19:02:04,346 [INFO] Epoch 17 done. Avg Loss: 0.3772
+2026-05-02 19:02:07,963 [INFO] Epoch 17 Evaluation - HR@[10,20,50]: [0.5511, 0.6645, 0.8131] | Precision@[10,20,50]: [0.0551, 0.0332, 0.0163] | NDCG@[10,20,50]: [0.3680, 0.3967, 0.4262]
+2026-05-02 19:02:07,963 [INFO] Epoch 17 Current LR: 5.000000e-04
+2026-05-02 19:02:08,848 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e17.pth. Patience: 4/10
+2026-05-02 19:14:58,826 [INFO] Epoch 18 done. Avg Loss: 0.3758
+2026-05-02 19:15:02,436 [INFO] Epoch 18 Evaluation - HR@[10,20,50]: [0.5516, 0.6645, 0.8131] | Precision@[10,20,50]: [0.0552, 0.0332, 0.0163] | NDCG@[10,20,50]: [0.3683, 0.3969, 0.4264]
+2026-05-02 19:15:02,436 [INFO] Epoch 18 Current LR: 5.000000e-04
+2026-05-02 19:15:03,259 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e18.pth. Patience: 5/10
+2026-05-02 19:26:33,353 [INFO] Epoch 19 done. Avg Loss: 0.3752
+2026-05-02 19:26:39,185 [INFO] Epoch 19 Evaluation - HR@[10,20,50]: [0.5519, 0.6648, 0.8129] | Precision@[10,20,50]: [0.0552, 0.0332, 0.0163] | NDCG@[10,20,50]: [0.3685, 0.3970, 0.4265]
+2026-05-02 19:26:39,185 [INFO] Epoch 19 Current LR: 2.500000e-04
+2026-05-02 19:26:39,974 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e19.pth. Patience: 6/10
+2026-05-02 19:38:43,830 [INFO] Epoch 20 done. Avg Loss: 0.3743
+2026-05-02 19:38:47,457 [INFO] Epoch 20 Evaluation - HR@[10,20,50]: [0.5523, 0.6646, 0.8135] | Precision@[10,20,50]: [0.0552, 0.0332, 0.0163] | NDCG@[10,20,50]: [0.3688, 0.3972, 0.4267]
+2026-05-02 19:38:47,458 [INFO] Epoch 20 Current LR: 2.500000e-04
+2026-05-02 19:38:48,207 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e20.pth. Patience: 7/10
+2026-05-02 19:51:39,042 [INFO] Epoch 21 done. Avg Loss: 0.3743
+2026-05-02 19:51:42,730 [INFO] Epoch 21 Evaluation - HR@[10,20,50]: [0.5519, 0.6648, 0.8135] | Precision@[10,20,50]: [0.0552, 0.0332, 0.0163] | NDCG@[10,20,50]: [0.3691, 0.3976, 0.4272]
+2026-05-02 19:51:42,730 [INFO] Epoch 21 Current LR: 2.500000e-04
+2026-05-02 19:51:43,511 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e21.pth. Patience: 8/10
+2026-05-02 20:03:14,191 [INFO] Epoch 22 done. Avg Loss: 0.3738
+2026-05-02 20:03:20,087 [INFO] Epoch 22 Evaluation - HR@[10,20,50]: [0.5524, 0.6646, 0.8136] | Precision@[10,20,50]: [0.0552, 0.0332, 0.0163] | NDCG@[10,20,50]: [0.3691, 0.3975, 0.4271]
+2026-05-02 20:03:20,088 [INFO] Epoch 22 Current LR: 1.250000e-04
+2026-05-02 20:03:20,887 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e22.pth. Patience: 9/10
+2026-05-02 20:14:19,230 [INFO] Epoch 23 done. Avg Loss: 0.3732
+2026-05-02 20:14:22,211 [INFO] Epoch 23 Evaluation - HR@[10,20,50]: [0.5517, 0.6648, 0.8136] | Precision@[10,20,50]: [0.0552, 0.0332, 0.0163] | NDCG@[10,20,50]: [0.3688, 0.3974, 0.4269]
+2026-05-02 20:14:22,211 [INFO] Epoch 23 Current LR: 1.250000e-04
+2026-05-02 20:14:23,019 [INFO] Saved checkpoint: models/wo_attn\2_kgat_checkpoint_e23.pth. Patience: 10/10
+2026-05-02 20:14:23,019 [INFO] Early stop. No improvement for 10 epochs. Best epoch was 13 with HR@20: 0.6655

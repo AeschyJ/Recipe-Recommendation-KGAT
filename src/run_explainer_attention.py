@@ -14,8 +14,8 @@ if project_root not in sys.path:
     sys.path.append(project_root)
 
 from src.model.explainer_attention import KGATAttentionExplainer
-from src.model.kgat_attention import KGATAttention
-from src.train_att import get_adj_indices, load_data
+from src.model.kgat import KGATAttention
+from src.train import get_adj_indices, load_data
 
 
 def run():

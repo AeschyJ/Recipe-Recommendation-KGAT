@@ -87,7 +87,7 @@ Wang 等人~\cite{wang2019kgat} 提出的 KGAT 是目前知識圖譜推薦系統
 
 理想的解釋應同時具備高 Fidelity$^+$（標記了關鍵邊）與低 Fidelity$^-$（涵蓋了完整資訊）。然而，Agarwal 等人~\cite{agarwal2024fidelity} 指出，傳統基於遮罩 (masking) 的 Fidelity 評估方法可能因引入分佈偏移 (Distribution Shift) 而導致失真——模型在訓練期間從未見過如此「殘缺」的輸入圖結構，因此在評估時的預測行為可能偏離其正常運作模式。此問題在深層 GNN 中可能更加嚴重，但目前相關文獻甚少在推薦場景中加以討論。
 
-此外，目前多數研究在 Fidelity 評估時面臨樣本量不足、僅在淺層模型上驗證等限制，深層模型（$L \geq 3$）的可解釋性驗證仍為一個尚未被充分探索的研究方向。本研究即針對此缺口，在最佳效能的 $L{=}3$ 模型上進行初步的 Fidelity 評估。
+此外，目前多數研究在 Fidelity 評估時面臨樣本量不足、僅在淺層模型上驗證等限制，深層模型（$L \geq 3$）的可解釋性驗證仍為一個尚未被充分探索的研究方向。本研究即針對此缺口，在三種不同深度的 KGAT 模型（$L{=}1$、$L{=}2$、$L{=}3$）上，以 500 位使用者為基礎進行系統性的 Fidelity 比較評估。
 
 \section{現有方法之比較與研究缺口}
 
@@ -110,7 +110,7 @@ Wang 等人~\cite{wang2019kgat} 提出的 KGAT 是目前知識圖譜推薦系統
     GNNExplainer~\cite{ying2019gnnexplainer} & \ding{55} & \ding{51} & 小規模  & \ding{55} & \ding{55} \\
     KGAT~\cite{wang2019kgat}           & \ding{51} & 潛在     & \ding{55} & \ding{55} & \ding{55} \\
     \midrule
-    \textbf{本研究}                     & \ding{51} & \ding{51} & 初步  & \textbf{\ding{51}} & \textbf{\ding{51}} \\
+    \textbf{本研究}                     & \ding{51} & \ding{51} & 系統性  & \textbf{\ding{51}} & \textbf{\ding{51}} \\
     \bottomrule
   \end{tabular}%
   }

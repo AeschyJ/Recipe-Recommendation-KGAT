@@ -11,9 +11,9 @@ from tqdm import tqdm
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.model.kgat_attention import KGATAttention
+from src.model.kgat import KGATAttention
 from src.model.explainer_attention import KGATAttentionExplainer
-from src.train_att import get_adj_indices
+from src.train import get_adj_indices
 from src.generate_explanations import load_names_and_maps, get_node_name
 
 HAS_XPU = hasattr(torch, "xpu") and torch.xpu.is_available()
@@ -27,6 +27,7 @@ def parse_args():
     parser.add_argument("--output_explain", type=str, default="output/fidelity/explanations.json", help="Path to output explanations")
     parser.add_argument("--output_metrics", type=str, default="output/fidelity/metrics.json", help="Path to output metrics")
     parser.add_argument("--top_k_paths", type=int, default=3, help="Number of paths to extract and use for Fidelity")
+    parser.add_argument("--n_hops", type=int, default=None, help="Max hops for path search (default: auto from model layers)")
     parser.add_argument("--cpu", action="store_true", help="Force CPU")
     return parser.parse_args()
 
@@ -40,6 +41,27 @@ def load_data(data_dir):
     with open(os.path.join(data_dir, "stats.pkl"), "rb") as f:
         stats = pickle.load(f)
     return interactions, kg_triples, stats
+
+def compute_user_interaction_counts(interactions, n_users):
+    """計算每位使用者的歷史互動數量。"""
+    user_counts = np.zeros(n_users, dtype=np.int32)
+    for row in interactions:
+        uid = int(row[0])
+        if uid < n_users:
+            user_counts[uid] += 1
+    return user_counts
+
+def compute_item_kg_degree(kg_triples, n_items):
+    """計算每個物品在 KG 中的鄰居數（度數）。"""
+    item_degrees = np.zeros(n_items, dtype=np.int32)
+    for row in kg_triples:
+        head = int(row[0])
+        tail = int(row[2]) if len(row) > 2 else int(row[1])
+        if head < n_items:
+            item_degrees[head] += 1
+        if tail < n_items:
+            item_degrees[tail] += 1
+    return item_degrees
 
 def evaluate_fidelity(args):
     # Setup Device
@@ -65,6 +87,11 @@ def evaluate_fidelity(args):
     indices = indices.to(device)
     edge_types = edge_types.to(device)
 
+    # 預計算用戶互動數與物品 KG 度數
+    print("預計算用戶互動數與物品 KG 度數...")
+    user_interaction_counts = compute_user_interaction_counts(interactions, n_users)
+    item_kg_degrees = compute_item_kg_degree(kg_triples, n_items)
+
     # Load User IDs
     if not os.path.exists(args.user_ids_file):
         print(f"Error: 找不到使用者清單 {args.user_ids_file}")
@@ -81,6 +108,14 @@ def evaluate_fidelity(args):
     embed_dim = getattr(saved_args, "embed_dim", 64) if saved_args else 64
     layers = getattr(saved_args, "layers", [64, 32]) if saved_args else [64, 32]
     
+    # 自動推斷 n_hops（若未指定）
+    n_hops = args.n_hops
+    if n_hops is None:
+        n_hops = min(len(layers), 2)  # 預設最多 2 hops
+        print(f"自動推斷 n_hops={n_hops}（模型層數={len(layers)}）")
+    else:
+        print(f"使用指定 n_hops={n_hops}")
+
     model = KGATAttention(
         n_users, n_items + n_entities, n_relations + 2,
         embed_dim=embed_dim, layers=layers
@@ -105,7 +140,7 @@ def evaluate_fidelity(args):
     edge_hash = src * num_nodes + dst
     all_items = torch.arange(n_items, device=device)
 
-    print(f"開始評估 Fidelity 與擷取推薦解釋...")
+    print(f"開始評估 Fidelity 與擷取推薦解釋（n_hops={n_hops}）...")
 
     for user_id in tqdm(target_users, desc="Processing Users"):
         u_batch = torch.full((n_items,), user_id, dtype=torch.long, device=device)
@@ -128,6 +163,10 @@ def evaluate_fidelity(args):
             user_id, n_users, n_items, user_le, item_le, entity_maps, recipe_name_map
         )
 
+        # 用戶與物品的額外統計
+        user_n_interactions = int(user_interaction_counts[user_id]) if user_id < n_users else 0
+        item_kg_deg = int(item_kg_degrees[recommended_item_id]) if recommended_item_id < n_items else 0
+
         user_result = {
             "user_id_remapped": user_id,
             "user_id_original": user_real_id,
@@ -137,13 +176,16 @@ def evaluate_fidelity(args):
             "recommended_item_name": rec_name,
             "score": float(best_score),
             "original_prob": float(p_orig),
+            "user_n_interactions": user_n_interactions,
+            "item_kg_degree": item_kg_deg,
             "explanations": [],
             "fidelity": {}
         }
 
         # 獲取注意力解釋路徑
         explanations = explainer.explain(
-            indices, edge_types, num_nodes, user_id, recommended_item_id, top_k=args.top_k_paths
+            indices, edge_types, num_nodes, user_id, recommended_item_id,
+            n_hops=n_hops, top_k=args.top_k_paths
         )
         
         important_edges = set()
@@ -228,30 +270,77 @@ def evaluate_fidelity(args):
     with open(args.output_explain, "w", encoding="utf-8") as f:
         json.dump(all_results, f, indent=2, ensure_ascii=False)
 
+    # 統計有路徑 vs 無路徑
+    path_users = [r for r in all_results if r.get("explanations") and len(r["explanations"]) > 0]
+    no_path_users = [r for r in all_results if not r.get("explanations") or len(r["explanations"]) == 0]
+
     metrics_result = {
         "num_evaluated": len(f_plus_list),
-        "total_requested": len(target_users)
+        "total_requested": len(target_users),
+        "n_hops": n_hops,
+        "model_layers": len(layers),
+        "path_coverage": {
+            "has_path": len(path_users),
+            "no_path": len(no_path_users),
+            "coverage_rate": len(path_users) / len(target_users) if target_users else 0,
+        },
+        "no_path_user_stats": {},
     }
 
     if len(f_plus_list) > 0:
         avg_f_plus = float(np.mean(f_plus_list))
         avg_f_minus = float(np.mean(f_minus_list))
+        std_f_plus = float(np.std(f_plus_list))
+        std_f_minus = float(np.std(f_minus_list))
         metrics_result["avg_fidelity_plus"] = avg_f_plus
         metrics_result["avg_fidelity_minus"] = avg_f_minus
+        metrics_result["std_fidelity_plus"] = std_f_plus
+        metrics_result["std_fidelity_minus"] = std_f_minus
         
         print("="*40)
         print("可解釋性量化指標 (Fidelity) 評估結果")
-        print(f"樣本數: {len(f_plus_list)}")
-        print(f"Fidelity+ (越正越好, 去除關鍵路徑後的效能降幅): {avg_f_plus:.4f}")
-        print(f"Fidelity- (越小越好, 僅保留關鍵路徑的效能降幅): {avg_f_minus:.4f}")
+        print(f"樣本數: {len(f_plus_list)} / {len(target_users)}")
+        print(f"路徑覆蓋率: {len(path_users)}/{len(target_users)} ({len(path_users)/len(target_users)*100:.1f}%)")
+        print(f"Fidelity+ (越正越好): {avg_f_plus:.4f} ± {std_f_plus:.4f}")
+        print(f"Fidelity- (越小越好): {avg_f_minus:.4f} ± {std_f_minus:.4f}")
         print("="*40)
     else:
         print("無法評估：未找到任何成功萃取的路徑。")
 
+    # 無路徑用戶統計
+    if no_path_users:
+        no_path_interactions = [r.get("user_n_interactions", 0) for r in no_path_users]
+        no_path_kg_degrees = [r.get("item_kg_degree", 0) for r in no_path_users]
+        no_path_probs = [r.get("original_prob", 0) for r in no_path_users]
+
+        path_interactions = [r.get("user_n_interactions", 0) for r in path_users]
+        path_kg_degrees = [r.get("item_kg_degree", 0) for r in path_users]
+        path_probs = [r.get("original_prob", 0) for r in path_users]
+
+        metrics_result["no_path_user_stats"] = {
+            "avg_interactions": float(np.mean(no_path_interactions)),
+            "median_interactions": float(np.median(no_path_interactions)),
+            "avg_item_kg_degree": float(np.mean(no_path_kg_degrees)),
+            "median_item_kg_degree": float(np.median(no_path_kg_degrees)),
+            "avg_prob": float(np.mean(no_path_probs)),
+        }
+        metrics_result["path_user_stats"] = {
+            "avg_interactions": float(np.mean(path_interactions)),
+            "median_interactions": float(np.median(path_interactions)),
+            "avg_item_kg_degree": float(np.mean(path_kg_degrees)),
+            "median_item_kg_degree": float(np.median(path_kg_degrees)),
+            "avg_prob": float(np.mean(path_probs)),
+        }
+
+        print(f"\n--- 有路徑 vs 無路徑 用戶比較 ---")
+        print(f"有路徑用戶平均互動數: {np.mean(path_interactions):.1f} | 無路徑: {np.mean(no_path_interactions):.1f}")
+        print(f"有路徑用戶平均物品KG度數: {np.mean(path_kg_degrees):.1f} | 無路徑: {np.mean(no_path_kg_degrees):.1f}")
+        print(f"有路徑用戶平均預測信心: {np.mean(path_probs):.4f} | 無路徑: {np.mean(no_path_probs):.4f}")
+
     with open(args.output_metrics, "w", encoding="utf-8") as f:
         json.dump(metrics_result, f, indent=2, ensure_ascii=False)
         
-    print(f"解釋路徑已儲存至: {args.output_explain}")
+    print(f"\n解釋路徑已儲存至: {args.output_explain}")
     print(f"Fidelity 指標已儲存至: {args.output_metrics}")
 
 if __name__ == "__main__":

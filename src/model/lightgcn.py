@@ -63,12 +63,20 @@ class LightGCN(nn.Module):
         src, dst = indices[0], indices[1]
         
         for layer in range(self.layers):
-            msg = all_embed[src] * edge_weight.unsqueeze(1).to(all_embed.dtype)
+            current_dtype = all_embed.dtype
+            device = all_embed.device
             
-            new_embed = torch.zeros_like(all_embed)
-            new_embed.index_add_(0, dst, msg)
-            
-            all_embed = new_embed
+            # ★ XPU bfloat16 index_add_ 效能 Bug Workaround
+            # 在 Intel XPU 上，bfloat16 的 index_add_ 會慢 140 倍，因此將聚合區段強制轉為 float32
+            with torch.autocast(device_type=device.type, enabled=False):
+                msg = all_embed[src].float() * edge_weight.unsqueeze(1).float()
+                
+                new_embed = torch.zeros(
+                    all_embed.shape[0], all_embed.shape[1], device=device, dtype=torch.float32
+                )
+                new_embed.index_add_(0, dst, msg)
+                
+            all_embed = new_embed.to(current_dtype)
             embs.append(all_embed)
             
         return torch.mean(torch.stack(embs, dim=0), dim=0)

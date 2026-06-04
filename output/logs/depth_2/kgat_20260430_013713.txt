@@ -1,0 +1,48 @@
+2026-04-30 01:37:13,472 [INFO] Training started. Args: Namespace(model_type='attention', epochs=10, batch_size=1024, without_kg=False, resume=None, data_dir='data/processed', model_dir='models/depth_2', embed_dim=64, layers=[64, 64], cpu=False, debug=False, use_bf16=True, lr=0.001, no_compile=True, log_dir='output/logs/depth_2', eval_only=False, log_file=None)
+2026-04-30 01:37:13,472 [INFO] Log file: output/logs/depth_2\kgat_20260430_013713.txt
+2026-04-30 01:37:13,472 [INFO] Using Intel Arc GPU (XPU)
+2026-04-30 01:37:14,643 [INFO] Train samples: 905893, Test samples: 226474
+2026-04-30 01:37:14,643 [INFO] Expected iterations per epoch: 884
+2026-04-30 01:37:14,759 [INFO] Initializing KGATAttention with embed_dim=64, layers=[64, 64]
+2026-04-30 01:37:14,982 [INFO] Enabled BFloat16 precision
+2026-04-30 01:37:15,792 [INFO] Model compilation disabled by user.
+2026-04-30 02:35:38,244 [INFO] Epoch 1 done. Avg Loss: 0.3445
+2026-04-30 02:35:43,198 [INFO] Epoch 1 Evaluation - HR@[10,20,50]: [0.6288, 0.7774, 0.9498] | Precision@[10,20,50]: [0.0629, 0.0389, 0.0190] | NDCG@[10,20,50]: [0.4084, 0.4460, 0.4807]
+2026-04-30 02:35:43,198 [INFO] Epoch 1 Current LR: 1.000000e-03
+2026-04-30 02:35:44,951 [INFO] Saved checkpoint: models/depth_2\1_kgat_checkpoint_e1.pth
+2026-04-30 03:37:52,545 [INFO] Epoch 2 done. Avg Loss: 0.2893
+2026-04-30 03:37:56,752 [INFO] Epoch 2 Evaluation - HR@[10,20,50]: [0.6258, 0.7684, 0.9376] | Precision@[10,20,50]: [0.0626, 0.0384, 0.0188] | NDCG@[10,20,50]: [0.4113, 0.4473, 0.4813]
+2026-04-30 03:37:56,752 [INFO] Epoch 2 Current LR: 1.000000e-03
+2026-04-30 03:37:58,036 [INFO] Saved checkpoint: models/depth_2\1_kgat_checkpoint_e2.pth
+2026-04-30 04:40:05,840 [INFO] Epoch 3 done. Avg Loss: 0.2838
+2026-04-30 04:40:10,040 [INFO] Epoch 3 Evaluation - HR@[10,20,50]: [0.6189, 0.7523, 0.9144] | Precision@[10,20,50]: [0.0619, 0.0376, 0.0183] | NDCG@[10,20,50]: [0.4074, 0.4411, 0.4735]
+2026-04-30 04:40:10,040 [INFO] Epoch 3 Current LR: 1.000000e-03
+2026-04-30 04:40:11,187 [INFO] Saved checkpoint: models/depth_2\1_kgat_checkpoint_e3.pth
+2026-04-30 05:42:18,662 [INFO] Epoch 4 done. Avg Loss: 0.2748
+2026-04-30 05:42:22,867 [INFO] Epoch 4 Evaluation - HR@[10,20,50]: [0.6174, 0.7463, 0.9045] | Precision@[10,20,50]: [0.0617, 0.0373, 0.0181] | NDCG@[10,20,50]: [0.4081, 0.4407, 0.4723]
+2026-04-30 05:42:22,867 [INFO] Epoch 4 Current LR: 5.000000e-04
+2026-04-30 05:42:24,026 [INFO] Saved checkpoint: models/depth_2\1_kgat_checkpoint_e4.pth
+2026-04-30 06:47:24,498 [INFO] Epoch 5 done. Avg Loss: 0.2673
+2026-04-30 06:47:28,789 [INFO] Epoch 5 Evaluation - HR@[10,20,50]: [0.6182, 0.7449, 0.9011] | Precision@[10,20,50]: [0.0618, 0.0372, 0.0180] | NDCG@[10,20,50]: [0.4093, 0.4414, 0.4725]
+2026-04-30 06:47:28,790 [INFO] Epoch 5 Current LR: 5.000000e-04
+2026-04-30 06:47:30,095 [INFO] Saved checkpoint: models/depth_2\1_kgat_checkpoint_e5.pth
+2026-04-30 07:52:14,809 [INFO] Epoch 6 done. Avg Loss: 0.2622
+2026-04-30 07:52:19,093 [INFO] Epoch 6 Evaluation - HR@[10,20,50]: [0.6186, 0.7441, 0.8980] | Precision@[10,20,50]: [0.0619, 0.0372, 0.0180] | NDCG@[10,20,50]: [0.4101, 0.4419, 0.4725]
+2026-04-30 07:52:19,093 [INFO] Epoch 6 Current LR: 5.000000e-04
+2026-04-30 07:52:20,732 [INFO] Saved checkpoint: models/depth_2\1_kgat_checkpoint_e6.pth
+2026-04-30 08:57:06,693 [INFO] Epoch 7 done. Avg Loss: 0.2586
+2026-04-30 08:57:10,998 [INFO] Epoch 7 Evaluation - HR@[10,20,50]: [0.6172, 0.7426, 0.8948] | Precision@[10,20,50]: [0.0617, 0.0371, 0.0179] | NDCG@[10,20,50]: [0.4095, 0.4413, 0.4716]
+2026-04-30 08:57:10,999 [INFO] Epoch 7 Current LR: 2.500000e-04
+2026-04-30 08:57:12,288 [INFO] Saved checkpoint: models/depth_2\1_kgat_checkpoint_e7.pth
+2026-04-30 10:02:35,325 [INFO] Epoch 8 done. Avg Loss: 0.2563
+2026-04-30 10:02:39,588 [INFO] Epoch 8 Evaluation - HR@[10,20,50]: [0.6183, 0.7421, 0.8941] | Precision@[10,20,50]: [0.0618, 0.0371, 0.0179] | NDCG@[10,20,50]: [0.4104, 0.4417, 0.4720]
+2026-04-30 10:02:39,588 [INFO] Epoch 8 Current LR: 2.500000e-04
+2026-04-30 10:02:40,850 [INFO] Saved checkpoint: models/depth_2\1_kgat_checkpoint_e8.pth
+2026-04-30 11:04:46,209 [INFO] Epoch 9 done. Avg Loss: 0.2549
+2026-04-30 11:04:50,468 [INFO] Epoch 9 Evaluation - HR@[10,20,50]: [0.6175, 0.7416, 0.8927] | Precision@[10,20,50]: [0.0618, 0.0371, 0.0179] | NDCG@[10,20,50]: [0.4102, 0.4416, 0.4717]
+2026-04-30 11:04:50,468 [INFO] Epoch 9 Current LR: 2.500000e-04
+2026-04-30 11:04:51,556 [INFO] Saved checkpoint: models/depth_2\1_kgat_checkpoint_e9.pth
+2026-04-30 12:06:56,336 [INFO] Epoch 10 done. Avg Loss: 0.2538
+2026-04-30 12:07:00,587 [INFO] Epoch 10 Evaluation - HR@[10,20,50]: [0.6184, 0.7411, 0.8917] | Precision@[10,20,50]: [0.0618, 0.0371, 0.0178] | NDCG@[10,20,50]: [0.4105, 0.4417, 0.4716]
+2026-04-30 12:07:00,587 [INFO] Epoch 10 Current LR: 1.250000e-04
+2026-04-30 12:07:01,718 [INFO] Saved checkpoint: models/depth_2\1_kgat_checkpoint_e10.pth

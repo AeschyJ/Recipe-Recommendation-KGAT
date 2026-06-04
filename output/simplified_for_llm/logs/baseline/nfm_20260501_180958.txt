@@ -1,0 +1,152 @@
+Training started. Args: Namespace(model='NFM', epochs=100, batch_size=1024, data_dir='data/processed', model_dir='models/baseline', embed_dim=64, cpu=False, debug=False, use_bf16=True, lr=0.001, log_dir='output/logs/baseline', eval_only=False, resume=None, experiment_id=3, log_file=None)
+Using Device: xpu
+Train samples: 905893, Test samples: 226474
+Epoch 1 Avg Loss: 0.6737
+Epoch 1 Evaluation - HR@[10,20,50]: [0.4829, 0.5896, 0.7628] | Precision@[10,20,50]: [0.0483, 0.0295, 0.0153] | NDCG@[10,20,50]: [0.3263, 0.3533, 0.3875]
+Epoch 1 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e1.pth
+Epoch 2 Avg Loss: 0.6535
+Epoch 2 Evaluation - HR@[10,20,50]: [0.4974, 0.6091, 0.7733] | Precision@[10,20,50]: [0.0497, 0.0305, 0.0155] | NDCG@[10,20,50]: [0.3334, 0.3616, 0.3942]
+Epoch 2 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e2.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e1.pth
+Epoch 3 Avg Loss: 0.6443
+Epoch 3 Evaluation - HR@[10,20,50]: [0.5023, 0.6171, 0.7781] | Precision@[10,20,50]: [0.0502, 0.0309, 0.0156] | NDCG@[10,20,50]: [0.3357, 0.3647, 0.3967]
+Epoch 3 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e3.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e2.pth
+Epoch 4 Avg Loss: 0.6386
+Epoch 4 Evaluation - HR@[10,20,50]: [0.5050, 0.6202, 0.7816] | Precision@[10,20,50]: [0.0505, 0.0310, 0.0156] | NDCG@[10,20,50]: [0.3366, 0.3657, 0.3979]
+Epoch 4 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e4.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e3.pth
+Epoch 5 Avg Loss: 0.6348
+Epoch 5 Evaluation - HR@[10,20,50]: [0.5074, 0.6231, 0.7843] | Precision@[10,20,50]: [0.0507, 0.0312, 0.0157] | NDCG@[10,20,50]: [0.3377, 0.3670, 0.3990]
+Epoch 5 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e5.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e4.pth
+Epoch 6 Avg Loss: 0.6321
+Epoch 6 Evaluation - HR@[10,20,50]: [0.5069, 0.6251, 0.7863] | Precision@[10,20,50]: [0.0507, 0.0313, 0.0157] | NDCG@[10,20,50]: [0.3382, 0.3681, 0.4001]
+Epoch 6 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e6.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e5.pth
+Epoch 7 Avg Loss: 0.6300
+Epoch 7 Evaluation - HR@[10,20,50]: [0.5080, 0.6261, 0.7875] | Precision@[10,20,50]: [0.0508, 0.0313, 0.0158] | NDCG@[10,20,50]: [0.3386, 0.3684, 0.4006]
+Epoch 7 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e7.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e6.pth
+Epoch 8 Avg Loss: 0.6284
+Epoch 8 Evaluation - HR@[10,20,50]: [0.5090, 0.6274, 0.7884] | Precision@[10,20,50]: [0.0509, 0.0314, 0.0158] | NDCG@[10,20,50]: [0.3390, 0.3688, 0.4009]
+Epoch 8 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e8.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e7.pth
+Epoch 9 Avg Loss: 0.6273
+Epoch 9 Evaluation - HR@[10,20,50]: [0.5087, 0.6274, 0.7892] | Precision@[10,20,50]: [0.0509, 0.0314, 0.0158] | NDCG@[10,20,50]: [0.3391, 0.3691, 0.4013]
+Epoch 9 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e9.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e8.pth
+Epoch 10 Avg Loss: 0.6265
+Epoch 10 Evaluation - HR@[10,20,50]: [0.5090, 0.6276, 0.7899] | Precision@[10,20,50]: [0.0509, 0.0314, 0.0158] | NDCG@[10,20,50]: [0.3393, 0.3692, 0.4016]
+Epoch 10 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e10.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e9.pth
+Epoch 11 Avg Loss: 0.6259
+Epoch 11 Evaluation - HR@[10,20,50]: [0.5095, 0.6283, 0.7911] | Precision@[10,20,50]: [0.0510, 0.0314, 0.0158] | NDCG@[10,20,50]: [0.3398, 0.3698, 0.4022]
+Epoch 11 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e11.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e10.pth
+Epoch 12 Avg Loss: 0.6254
+Epoch 12 Evaluation - HR@[10,20,50]: [0.5097, 0.6287, 0.7918] | Precision@[10,20,50]: [0.0510, 0.0314, 0.0158] | NDCG@[10,20,50]: [0.3397, 0.3697, 0.4022]
+Epoch 12 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e12.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e11.pth
+Epoch 13 Avg Loss: 0.6252
+Epoch 13 Evaluation - HR@[10,20,50]: [0.5098, 0.6288, 0.7920] | Precision@[10,20,50]: [0.0510, 0.0314, 0.0158] | NDCG@[10,20,50]: [0.3403, 0.3704, 0.4029]
+Epoch 13 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e13.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e12.pth
+Epoch 14 Avg Loss: 0.6248
+Epoch 14 Evaluation - HR@[10,20,50]: [0.5097, 0.6294, 0.7927] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3401, 0.3702, 0.4028]
+Epoch 14 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e14.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e13.pth
+Epoch 15 Avg Loss: 0.6244
+Epoch 15 Evaluation - HR@[10,20,50]: [0.5097, 0.6302, 0.7930] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3402, 0.3706, 0.4030]
+Epoch 15 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e15.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e14.pth
+Epoch 16 Avg Loss: 0.6243
+Epoch 16 Evaluation - HR@[10,20,50]: [0.5097, 0.6295, 0.7937] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3399, 0.3702, 0.4029]
+Epoch 16 Current LR: 1.000000e-03
+Epoch 17 Avg Loss: 0.6242
+Epoch 17 Evaluation - HR@[10,20,50]: [0.5096, 0.6303, 0.7936] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3399, 0.3704, 0.4029]
+Epoch 17 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e17.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e15.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e16.pth
+Epoch 18 Avg Loss: 0.6240
+Epoch 18 Evaluation - HR@[10,20,50]: [0.5100, 0.6303, 0.7942] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3404, 0.3707, 0.4034]
+Epoch 18 Current LR: 1.000000e-03
+Epoch 19 Avg Loss: 0.6241
+Epoch 19 Evaluation - HR@[10,20,50]: [0.5102, 0.6302, 0.7946] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3405, 0.3708, 0.4036]
+Epoch 19 Current LR: 1.000000e-03
+Epoch 20 Avg Loss: 0.6239
+Epoch 20 Evaluation - HR@[10,20,50]: [0.5098, 0.6306, 0.7931] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3303, 0.3608, 0.3932]
+Epoch 20 Current LR: 1.000000e-03
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e20.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e17.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e18.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e19.pth
+Epoch 21 Avg Loss: 0.6239
+Epoch 21 Evaluation - HR@[10,20,50]: [0.5109, 0.6305, 0.7949] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3407, 0.3709, 0.4036]
+Epoch 21 Current LR: 1.000000e-03
+Epoch 22 Avg Loss: 0.6237
+Epoch 22 Evaluation - HR@[10,20,50]: [0.5108, 0.6304, 0.7949] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3410, 0.3712, 0.4040]
+Epoch 22 Current LR: 1.000000e-03
+Epoch 23 Avg Loss: 0.6236
+Epoch 23 Evaluation - HR@[10,20,50]: [0.5114, 0.6306, 0.7946] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3413, 0.3714, 0.4040]
+Epoch 23 Current LR: 5.000000e-04
+Epoch 24 Avg Loss: 0.6237
+Epoch 24 Evaluation - HR@[10,20,50]: [0.5110, 0.6307, 0.7947] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3406, 0.3709, 0.4035]
+Epoch 24 Current LR: 5.000000e-04
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e24.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e20.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e21.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e22.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e23.pth
+Epoch 25 Avg Loss: 0.6237
+Epoch 25 Evaluation - HR@[10,20,50]: [0.5108, 0.6314, 0.7948] | Precision@[10,20,50]: [0.0511, 0.0316, 0.0159] | NDCG@[10,20,50]: [0.3408, 0.3712, 0.4037]
+Epoch 25 Current LR: 5.000000e-04
+Saved NEW BEST checkpoint: models/baseline\3_nfm_checkpoint_e25.pth
+Deleted old checkpoint: models/baseline\3_nfm_checkpoint_e24.pth
+Epoch 26 Avg Loss: 0.6236
+Epoch 26 Evaluation - HR@[10,20,50]: [0.5106, 0.6307, 0.7948] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3406, 0.3709, 0.4035]
+Epoch 26 Current LR: 5.000000e-04
+Epoch 27 Avg Loss: 0.6237
+Epoch 27 Evaluation - HR@[10,20,50]: [0.5109, 0.6307, 0.7949] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3408, 0.3710, 0.4037]
+Epoch 27 Current LR: 5.000000e-04
+Epoch 28 Avg Loss: 0.6236
+Epoch 28 Evaluation - HR@[10,20,50]: [0.5108, 0.6306, 0.7949] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3408, 0.3710, 0.4038]
+Epoch 28 Current LR: 2.500000e-04
+Epoch 29 Avg Loss: 0.6237
+Epoch 29 Evaluation - HR@[10,20,50]: [0.5113, 0.6312, 0.7948] | Precision@[10,20,50]: [0.0511, 0.0316, 0.0159] | NDCG@[10,20,50]: [0.3410, 0.3713, 0.4038]
+Epoch 29 Current LR: 2.500000e-04
+Epoch 30 Avg Loss: 0.6238
+Epoch 30 Evaluation - HR@[10,20,50]: [0.5105, 0.6304, 0.7948] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3404, 0.3707, 0.4035]
+Epoch 30 Current LR: 2.500000e-04
+Epoch 31 Avg Loss: 0.6237
+Epoch 31 Evaluation - HR@[10,20,50]: [0.5109, 0.6309, 0.7946] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3410, 0.3713, 0.4039]
+Epoch 31 Current LR: 1.250000e-04
+Epoch 32 Avg Loss: 0.6236
+Epoch 32 Evaluation - HR@[10,20,50]: [0.5110, 0.6313, 0.7954] | Precision@[10,20,50]: [0.0511, 0.0316, 0.0159] | NDCG@[10,20,50]: [0.3408, 0.3712, 0.4039]
+Epoch 32 Current LR: 1.250000e-04
+Epoch 33 Avg Loss: 0.6236
+Epoch 33 Evaluation - HR@[10,20,50]: [0.5104, 0.6306, 0.7951] | Precision@[10,20,50]: [0.0510, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3407, 0.3711, 0.4038]
+Epoch 33 Current LR: 1.250000e-04
+Epoch 34 Avg Loss: 0.6235
+Epoch 34 Evaluation - HR@[10,20,50]: [0.5111, 0.6312, 0.7948] | Precision@[10,20,50]: [0.0511, 0.0316, 0.0159] | NDCG@[10,20,50]: [0.3408, 0.3711, 0.4037]
+Epoch 34 Current LR: 6.250000e-05
+Epoch 35 Avg Loss: 0.6237
+Epoch 35 Evaluation - HR@[10,20,50]: [0.5109, 0.6306, 0.7947] | Precision@[10,20,50]: [0.0511, 0.0315, 0.0159] | NDCG@[10,20,50]: [0.3407, 0.3709, 0.4036]
+Epoch 35 Current LR: 6.250000e-05
+Early stop. No improvement for 10 epochs. Best epoch was 25 with HR@20: 0.6314

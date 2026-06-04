@@ -87,7 +87,7 @@
 % ==========================================
 \node[module, below=2cm of agg, minimum width=9.5cm] (concat) {各層特徵拼接 (跳躍連接)\\融合初始嵌入與所有跳數 $(0 \rightarrow L)$ 的特徵};
 
-\node[module, below=1cm of concat, minimum width=6cm] (pred) {內積運算層\\預測最終用戶偏好分數};
+\node[module, below=1cm of concat, minimum width=6cm] (pred) {內積運算層\\預測最終使用者偏好分數};
 
 \draw[arrow] (agg) -- (concat);
 \draw[arrow] (concat) -- (pred);

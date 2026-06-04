@@ -47,15 +47,15 @@ def get_command_for_checkpoint(ckpt_path):
         else:
             return None
     elif "wo_attn" in ckpt_path_norm:
-        cmd = [python_exe, "src/train_bi_interaction.py"]
+        cmd = [python_exe, "src/train.py", "--model_type", "bi_interaction"]
     elif "wo_kg" in ckpt_path_norm:
-        cmd = [python_exe, "src/train_att.py", "--without_kg", "--no_compile"]
+        cmd = [python_exe, "src/train.py", "--without_kg", "--no_compile"]
     elif "depth_2" in ckpt_path_norm:
-        cmd = [python_exe, "src/train_att.py", "--layers", "64", "64", "--no_compile"]
+        cmd = [python_exe, "src/train.py", "--layers", "64", "64", "--no_compile"]
     elif "depth_3" in ckpt_path_norm:
         cmd = [
             python_exe,
-            "src/train_att.py",
+            "src/train.py",
             "--layers",
             "64",
             "64",
@@ -63,7 +63,7 @@ def get_command_for_checkpoint(ckpt_path):
             "--no_compile",
         ]
     elif "full_kgat" in ckpt_path_norm:
-        cmd = [python_exe, "src/train_att.py", "--no_compile"]
+        cmd = [python_exe, "src/train.py", "--no_compile"]
     else:
         return None
 

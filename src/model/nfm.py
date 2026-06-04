@@ -7,7 +7,7 @@ class NFM(nn.Module):
     融合了二階特徵交互 (Bi-Interaction Pooling) 以及深層神經網路 (MLP)。
     由於 NFM 以單一數值為預估輸出，而非單純的 Embedding 內積，評估方式較為不同。
     """
-    def __init__(self, n_users, n_items, embed_dim=64, hidden_layers=[64, 32]):
+    def __init__(self, n_users, n_items, embed_dim=64, hidden_layers=[128, 64]):
         super(NFM, self).__init__()
         self.n_users = n_users
         self.n_items = n_items
@@ -17,13 +17,15 @@ class NFM(nn.Module):
         self.item_embed = nn.Embedding(n_items, embed_dim)
         
         # Bi-Interaction 後接的 MLP (Deep Inference)
+        # 注意：不使用 BatchNorm1d，因為 BPR pairwise 訓練下
+        # train/eval 模式切換會導致 running statistics 不一致，
+        # 造成評估指標嚴重震盪。
         mlp_modules = []
         in_dim = embed_dim
         for out_dim in hidden_layers:
             mlp_modules.append(nn.Linear(in_dim, out_dim))
-            mlp_modules.append(nn.BatchNorm1d(out_dim))
             mlp_modules.append(nn.ReLU())
-            mlp_modules.append(nn.Dropout(0.2))
+            mlp_modules.append(nn.Dropout(0.1))
             in_dim = out_dim
         
         mlp_modules.append(nn.Linear(in_dim, 1))

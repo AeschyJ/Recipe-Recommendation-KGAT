@@ -72,24 +72,28 @@ def main():
                 'metrics': best_run
             })
 
-    for model_name, runs in model_bests.items():
-        print(f"=== {model_name} ===")
-        for r in runs:
-            m = r['metrics']
-            print(f"{r['file']} - Best Epoch: {r['best_epoch']}, HR@20: {m['hr_20']:.4f}, NDCG@20: {m['ndcg_20']:.4f}, Prec@20: {m['prec_20']:.4f}, HR@10: {m['hr_10']:.4f}, NDCG@10: {m['ndcg_10']:.4f}, Prec@10: {m['prec_10']:.4f}")
-            print(f"   HR@50: {m['hr_50']:.4f}, NDCG@50: {m['ndcg_50']:.4f}, Prec@50: {m['prec_50']:.4f}")
-        
-        if len(runs) > 0:
-            avg_metrics = {}
-            for k in runs[0]['metrics'].keys():
-                if k == 'epoch': continue
-                avg_metrics[k] = np.mean([r['metrics'][k] for r in runs])
+    best_report_path = os.path.join(base_dir, "scripts/epoch_best_metrics.md")
+    with open(best_report_path, "w", encoding='utf-8') as best_out:
+        best_out.write("# 各模型最佳 Epoch 表現總結\n\n")
+        for model_name, runs in model_bests.items():
+            best_out.write(f"## {model_name}\n\n")
+            best_out.write("| File | Best Epoch | HR@10 | HR@20 | HR@50 | Prec@10 | Prec@20 | Prec@50 | NDCG@10 | NDCG@20 | NDCG@50 |\n")
+            best_out.write("|---|---|---|---|---|---|---|---|---|---|---|\n")
+            for r in runs:
+                m = r['metrics']
+                best_out.write(f"| {r['file']} | {r['best_epoch']} | {m['hr_10']:.4f} | {m['hr_20']:.4f} | {m['hr_50']:.4f} | {m['prec_10']:.4f} | {m['prec_20']:.4f} | {m['prec_50']:.4f} | {m['ndcg_10']:.4f} | {m['ndcg_20']:.4f} | {m['ndcg_50']:.4f} |\n")
             
-            print(f"AVERAGE (n={len(runs)}):")
-            print(f"HR@10: {avg_metrics['hr_10']:.4f}, HR@20: {avg_metrics['hr_20']:.4f}, HR@50: {avg_metrics['hr_50']:.4f}")
-            print(f"Prec@10: {avg_metrics['prec_10']:.4f}, Prec@20: {avg_metrics['prec_20']:.4f}, Prec@50: {avg_metrics['prec_50']:.4f}")
-            print(f"NDCG@10: {avg_metrics['ndcg_10']:.4f}, NDCG@20: {avg_metrics['ndcg_20']:.4f}, NDCG@50: {avg_metrics['ndcg_50']:.4f}")
-        print()
+            if len(runs) > 0:
+                avg_metrics = {}
+                for k in runs[0]['metrics'].keys():
+                    if k == 'epoch': continue
+                    avg_metrics[k] = np.mean([r['metrics'][k] for r in runs])
+                
+                best_out.write(f"| **AVERAGE (n={len(runs)})** | - | **{avg_metrics['hr_10']:.4f}** | **{avg_metrics['hr_20']:.4f}** | **{avg_metrics['hr_50']:.4f}** | **{avg_metrics['prec_10']:.4f}** | **{avg_metrics['prec_20']:.4f}** | **{avg_metrics['prec_50']:.4f}** | **{avg_metrics['ndcg_10']:.4f}** | **{avg_metrics['ndcg_20']:.4f}** | **{avg_metrics['ndcg_50']:.4f}** |\n")
+            best_out.write("\n")
+            
+    print(f"詳細資料在 scripts/epoch_logs_output.md")
+    print(f"簡略資料在 scripts/epoch_best_metrics.md")
 
 if __name__ == "__main__":
     main()

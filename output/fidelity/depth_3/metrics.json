@@ -1,6 +1,29 @@
 {
-  "num_evaluated": 60,
-  "total_requested": 100,
-  "avg_fidelity_plus": 0.071107550462087,
-  "avg_fidelity_minus": 0.08239506582419077
+  "num_evaluated": 278,
+  "total_requested": 500,
+  "n_hops": 2,
+  "model_layers": 3,
+  "path_coverage": {
+    "has_path": 278,
+    "no_path": 222,
+    "coverage_rate": 0.556
+  },
+  "no_path_user_stats": {
+    "avg_interactions": 1.4054054054054055,
+    "median_interactions": 1.0,
+    "avg_item_kg_degree": 33.36486486486486,
+    "median_item_kg_degree": 7.0,
+    "avg_prob": 0.9471307391518945
+  },
+  "avg_fidelity_plus": 0.03507394048807432,
+  "avg_fidelity_minus": 0.08667370687714583,
+  "std_fidelity_plus": 0.037083456584199564,
+  "std_fidelity_minus": 0.15793521708262628,
+  "path_user_stats": {
+    "avg_interactions": 5.874100719424461,
+    "median_interactions": 1.0,
+    "avg_item_kg_degree": 102.33093525179856,
+    "median_item_kg_degree": 9.0,
+    "avg_prob": 0.950506849683446
+  }
 }

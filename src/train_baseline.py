@@ -52,7 +52,33 @@ def parse_args():
     return parser.parse_args()
 
 
-def setup_logging(log_dir, model_name, log_file=None):
+def setup_logging(log_dir, model_name, log_file=None, resume_ckpt=None):
+    import glob
+    is_resume = False
+    
+    if resume_ckpt and log_file is None:
+        ckpt_norm = resume_ckpt.replace("\\", "/")
+        # 尋找包含此 checkpoint 的原始 log file
+        for fpath in glob.glob(os.path.join(log_dir, "**/*.txt"), recursive=True):
+            if "_reformatted" in fpath:
+                continue
+            try:
+                with open(fpath, "r", encoding="utf-8") as f:
+                    for line in f:
+                        if "Saved checkpoint:" in line:
+                            parts = line.split("Saved checkpoint:")
+                            if len(parts) > 1:
+                                ckpt = parts[1].strip()
+                                if ". Patience:" in ckpt:
+                                    ckpt = ckpt.split(". Patience:")[0].strip()
+                                if ckpt.replace("\\", "/") == ckpt_norm:
+                                    log_file = fpath
+                                    break
+            except:
+                pass
+            if log_file:
+                break
+
     if log_file is None:
         os.makedirs(log_dir, exist_ok=True)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -60,17 +86,57 @@ def setup_logging(log_dir, model_name, log_file=None):
         file_mode = "w"
     else:
         file_mode = "a"
+        is_resume = True
 
     # 移除舊的 handlers 以避免重複輸出
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)
 
+    class FilterResume(logging.Filter):
+        def filter(self, record):
+            if is_resume:
+                skip_phrases = [
+                    "Training started. Args:",
+                    "Log file:",
+                    "Using Intel Arc GPU",
+                    "Using NVIDIA GPU",
+                    "Using Device",
+                    "Using CPU",
+                    "Train samples:",
+                    "Expected iterations per epoch:",
+                    "Initializing BPR-MF",
+                    "Initializing NFM",
+                    "Initializing LightGCN",
+                    "Enabled BFloat16 precision",
+                    "Model compilation",
+                    "DEBUG MODE:",
+                    "Loading checkpoint:",
+                    "Restoring hyperparameters from checkpoint",
+                    "Resumed from epoch",
+                    "Running evaluation ONLY mode:",
+                    "Enabled CUDA AMP GradScaler",
+                    "Loaded model weights",
+                    "Evaluating resumed",
+                    "Resumed checkpoint HR@20:"
+                ]
+                for phrase in skip_phrases:
+                    if phrase in record.getMessage():
+                        return False
+            return True
+
+    resume_filter = FilterResume()
+    file_handler = logging.FileHandler(log_file, encoding="utf-8", mode=file_mode)
+    file_handler.addFilter(resume_filter)
+    
+    stream_handler = logging.StreamHandler()
+    # stream_handler.addFilter(resume_filter)
+
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(message)s",
         handlers=[
-            logging.FileHandler(log_file, encoding="utf-8", mode=file_mode),
-            logging.StreamHandler(),
+            file_handler,
+            stream_handler,
         ],
     )
     return log_file
@@ -107,6 +173,11 @@ def evaluate(
     通用評估腳本
     計算 HR@10, @20, @50, Precision@10, @20, @50, NDCG@10, @20, @50
     """
+    # 記錄原本的 dtype 並暫時轉為 float32 以提高計算精度
+    original_dtype = next(model.parameters()).dtype
+    if original_dtype == torch.bfloat16:
+        model = model.float()
+
     model.eval()
 
     metrics = {
@@ -176,12 +247,16 @@ def evaluate(
     for k in metrics:
         metrics[k] /= total
 
+    # 恢復原本的 dtype
+    if original_dtype == torch.bfloat16:
+        model = model.bfloat16()
+
     return metrics
 
 
 def train(args):
     model_safe_name = args.model.lower().replace("-", "")
-    log_file = setup_logging(args.log_dir, model_name=model_safe_name, log_file=args.log_file)
+    log_file = setup_logging(args.log_dir, model_name=model_safe_name, log_file=args.log_file, resume_ckpt=args.resume)
     logging.info(f"Training started. Args: {args}")
 
     if args.cpu:
@@ -235,13 +310,24 @@ def train(args):
 
     scaler = torch.cuda.amp.GradScaler() if device.type == "cuda" else None
 
+    start_epoch = 0
+    checkpoint = None
     if args.resume and os.path.exists(args.resume):
         logging.info(f"Loading checkpoint: {args.resume}")
         checkpoint = torch.load(args.resume, map_location=device, weights_only=False)
         if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
             model.load_state_dict(checkpoint["model_state_dict"], strict=False)
+            start_epoch = checkpoint.get("epoch", 0)
+            if "optimizer_state_dict" in checkpoint:
+                optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+            if "scheduler_state_dict" in checkpoint:
+                scheduler.load_state_dict(checkpoint["scheduler_state_dict"])
+            if "scaler_state_dict" in checkpoint and scaler:
+                scaler.load_state_dict(checkpoint["scaler_state_dict"])
+            logging.info(f"Resumed from epoch {start_epoch}")
         else:
             model.load_state_dict(checkpoint, strict=False)
+            logging.info("Loaded model weights (state_dict only, strict=False)")
 
     if args.eval_only:
         logging.info("Running evaluation ONLY mode...")
@@ -257,7 +343,44 @@ def train(args):
 
     os.makedirs(args.model_dir, exist_ok=True)
 
-    for epoch in range(args.epochs):
+    best_hr20 = 0.0
+    best_epoch = start_epoch
+    patience_counter = 0
+    patience = 10
+
+    if checkpoint is not None:
+        if "best_epoch" in checkpoint:
+            best_epoch = checkpoint["best_epoch"]
+            patience_counter = checkpoint.get("patience_counter", 0)
+        else:
+            best_epoch = start_epoch
+            patience_counter = 0
+        
+        model_safe_name = args.model.lower().replace("-", "")
+        best_ckpt_path = os.path.join(args.model_dir, f"{args.experiment_id}_{model_safe_name}_checkpoint_e{best_epoch}.pth")
+        
+        if best_epoch != start_epoch and os.path.exists(best_ckpt_path):
+            logging.info(f"Evaluating BEST epoch ({best_epoch}) checkpoint to establish true baseline best_hr20...")
+            best_ckpt = torch.load(best_ckpt_path, map_location=device, weights_only=False)
+            model.load_state_dict(best_ckpt["model_state_dict"], strict=False)
+            
+            metrics = evaluate(
+                model, args.model, test_data, indices, num_nodes, n_items, device=device
+            )
+            best_hr20 = metrics['hr_20']
+            logging.info(f"Best_hr20 (from epoch {best_epoch}): {best_hr20:.4f}")
+            
+            logging.info(f"Restoring model weights back to resumed epoch {start_epoch} for continued training...")
+            model.load_state_dict(checkpoint["model_state_dict"], strict=False)
+        else:
+            logging.info("Evaluating resumed checkpoint to establish baseline best_hr20 for this session...")
+            metrics = evaluate(
+                model, args.model, test_data, indices, num_nodes, n_items, device=device
+            )
+            best_hr20 = metrics['hr_20']
+            logging.info(f"Resumed checkpoint HR@20: {best_hr20:.4f}")
+
+    for epoch in range(start_epoch, args.epochs):
         model.train()
         total_loss = 0
         n_batches = len(train_data) // args.batch_size
@@ -279,7 +402,7 @@ def train(args):
                 with torch.cuda.amp.autocast():
                     pos_scores, neg_scores = model(indices, num_nodes, u, i, j)
                     loss = -torch.mean(
-                        torch.log(torch.sigmoid(pos_scores - neg_scores) + 1e-10)
+                        torch.log(torch.sigmoid(pos_scores.float() - neg_scores.float()) + 1e-10)
                     )
                 scaler.scale(loss).backward()
                 scaler.step(optimizer)
@@ -291,7 +414,7 @@ def train(args):
                 ):
                     pos_scores, neg_scores = model(indices, num_nodes, u, i, j)
                     loss = -torch.mean(
-                        torch.log(torch.sigmoid(pos_scores - neg_scores) + 1e-10)
+                        torch.log(torch.sigmoid(pos_scores.float() - neg_scores.float()) + 1e-10)
                     )
                 loss.backward()
                 optimizer.step()
@@ -313,19 +436,57 @@ def train(args):
         )
 
         scheduler.step(metrics["hr_20"])
+        current_lr = optimizer.param_groups[0]["lr"]
+        logging.info(f"Epoch {epoch + 1} Current LR: {current_lr:.6e}")
 
-        if (epoch + 1) % 1 == 0 or (epoch + 1) == args.epochs:
-            ckpt_path = os.path.join(
-                args.model_dir, f"{args.experiment_id}_{model_safe_name}_checkpoint_e{epoch + 1}.pth"
-            )
-            save_dict = {
-                "epoch": epoch + 1,
-                "model_state_dict": model.state_dict(),
-                "model_type": args.model,
-                "loss": avg_loss,
-            }
-            torch.save(save_dict, ckpt_path)
-            logging.info(f"Saved checkpoint: {ckpt_path}")
+        current_hr20 = metrics['hr_20']
+        is_best = False
+        if current_hr20 > best_hr20:
+            best_hr20 = current_hr20
+            best_epoch = epoch + 1
+            patience_counter = 0
+            is_best = True
+        else:
+            patience_counter += 1
+
+        ckpt_path = os.path.join(
+            args.model_dir, f"{args.experiment_id}_{model_safe_name}_checkpoint_e{epoch + 1}.pth"
+        )
+        save_dict = {
+            "epoch": epoch + 1,
+            "model_state_dict": model.state_dict(),
+            "optimizer_state_dict": optimizer.state_dict(),
+            "scheduler_state_dict": scheduler.state_dict(),
+            "model_type": args.model,
+            "loss": avg_loss,
+            "best_hr20": best_hr20,
+            "best_epoch": best_epoch,
+            "patience_counter": patience_counter
+        }
+        if scaler:
+            save_dict["scaler_state_dict"] = scaler.state_dict()
+        torch.save(save_dict, ckpt_path)
+
+        if is_best:
+            logging.info(f"Saved NEW BEST checkpoint: {ckpt_path}")
+            import glob
+            import re
+            pattern = os.path.join(args.model_dir, f"{args.experiment_id}_{model_safe_name}_checkpoint_e*.pth")
+            for fpath in glob.glob(pattern):
+                match = re.search(r'_e(\d+)\.pth$', fpath)
+                if match:
+                    ep = int(match.group(1))
+                    if ep < best_epoch:
+                        try:
+                            os.remove(fpath)
+                            logging.info(f"Deleted old checkpoint: {fpath}")
+                        except Exception:
+                            pass
+        else:
+            logging.info(f"Saved checkpoint: {ckpt_path}. Patience: {patience_counter}/{patience}")
+            if patience_counter >= patience:
+                logging.info(f"Early stop. No improvement for {patience} epochs. Best epoch was {best_epoch} with HR@20: {best_hr20:.4f}")
+                break
 
 
 if __name__ == "__main__":

@@ -14,7 +14,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.generate_explanations import get_node_name, load_names_and_maps
 from src.model.explainer_attention import KGATAttentionExplainer
 from src.model.kgat_attention import KGATAttention
-from src.train_att import get_adj_indices
+from src.train import get_adj_indices
 
 
 def parse_args():

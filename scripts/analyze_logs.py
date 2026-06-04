@@ -67,7 +67,7 @@ def get_avg_metric(data_list, metric_key):
 def main():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     log_dir = os.path.join(base_dir, "output/simplified_for_llm/logs")
-    out_file = os.path.join(base_dir, "output/simplified_for_llm/epoch_metrics_report.md")
+    out_file = os.path.join(base_dir, "scripts/epoch_metrics_report.md")
     results = {}
 
     for log_path in glob.glob(os.path.join(log_dir, "**/*.txt"), recursive=True):
@@ -113,19 +113,26 @@ def main():
             best_hr20 = -1
 
             f.write(
-                "| Epoch | 日誌數 | HR@20 (Avg ± Std) | NDCG@20 (Avg ± Std) | HR@10 (Avg ± Std) | NDCG@10 (Avg ± Std) |\n"
+                "| Epoch | 日誌數 | HR@10 (Avg ± Std) | HR@20 (Avg ± Std) | HR@50 (Avg ± Std) | Precision@10 (Avg ± Std) | Precision@20 (Avg ± Std) | Precision@50 (Avg ± Std) | NDCG@10 (Avg ± Std) | NDCG@20 (Avg ± Std) | NDCG@50 (Avg ± Std) |\n"
             )
             f.write(
-                "|-------|--------|-------------------|---------------------|-------------------|---------------------|\n"
+                "|-------|--------|-------------------|-------------------|-------------------|--------------------------|--------------------------|--------------------------|---------------------|---------------------|---------------------|\n"
             )
 
             sorted_epochs = sorted(list(ep_data.keys()))
             for ep in sorted_epochs:
                 runs = ep_data[ep]
-                hr20_str = format_metrics(runs, "hr_20")
-                ndcg20_str = format_metrics(runs, "ndcg_20")
                 hr10_str = format_metrics(runs, "hr_10")
+                pre10_str = format_metrics(runs, "prec_10")
                 ndcg10_str = format_metrics(runs, "ndcg_10")
+                
+                hr20_str = format_metrics(runs, "hr_20")
+                pre20_str = format_metrics(runs, "prec_20")
+                ndcg20_str = format_metrics(runs, "ndcg_20")
+                
+                hr50_str = format_metrics(runs, "hr_50")
+                pre50_str = format_metrics(runs, "prec_50")
+                ndcg50_str = format_metrics(runs, "ndcg_50")
 
                 avg_hr20 = get_avg_metric(runs, "hr_20")
                 if avg_hr20 > best_hr20:
@@ -133,7 +140,7 @@ def main():
                     best_epoch = ep
 
                 f.write(
-                    f"| {ep} | {len(runs)} | {hr20_str} | {ndcg20_str} | {hr10_str} | {ndcg10_str} |\n"
+                    f"| {ep} | {len(runs)} | {hr10_str} | {hr20_str} | {hr50_str} | {pre10_str} | {pre20_str} | {pre50_str} | {ndcg10_str} | {ndcg20_str} | {ndcg50_str} |\n"
                 )
 
             f.write(
@@ -141,6 +148,7 @@ def main():
             )
             f.write("---\n\n")
 
+    print(f"已產出統計資料至: scripts/epoch_metrics_report.md")
 
 if __name__ == "__main__":
     main()

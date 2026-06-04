@@ -7,7 +7,8 @@ import numpy as np
 def parse_args():
     parser = argparse.ArgumentParser(description="隨機抽取使用者供 XAI 解釋與 Fidelity 測試")
     parser.add_argument("--data_dir", type=str, default="data/processed", help="Data directory containing stats.pkl")
-    parser.add_argument("--num_users", type=int, default=5, help="Number of users to sample")
+    parser.add_argument("--num_users", type=int, default=500, help="Number of users to sample")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
     parser.add_argument("--output", type=str, default="output/sampled_users.json", help="Output JSON file path")
     return parser.parse_args()
 
@@ -23,7 +24,11 @@ def main():
         stats = pickle.load(f)
 
     n_users = stats["n_users"]
-    
+
+    # 設定隨機種子以確保可重複性
+    np.random.seed(args.seed)
+    print(f"隨機種子: {args.seed}")
+
     # 隨機抽取不重複的 user_id
     if args.num_users > n_users:
         print(f"警告：要求的數量 ({args.num_users}) 大於全部使用者數量 ({n_users})。將抽取全部使用者。")

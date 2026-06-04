@@ -1,0 +1,29 @@
+{
+  "num_evaluated": 230,
+  "total_requested": 500,
+  "n_hops": 2,
+  "model_layers": 2,
+  "path_coverage": {
+    "has_path": 230,
+    "no_path": 270,
+    "coverage_rate": 0.46
+  },
+  "no_path_user_stats": {
+    "avg_interactions": 1.4074074074074074,
+    "median_interactions": 1.0,
+    "avg_item_kg_degree": 27.137037037037036,
+    "median_item_kg_degree": 7.0,
+    "avg_prob": 0.8768158003135964
+  },
+  "avg_fidelity_plus": 0.06439787823220958,
+  "avg_fidelity_minus": 0.1299917014396709,
+  "std_fidelity_plus": 0.07744954029820758,
+  "std_fidelity_minus": 0.17966260764088943,
+  "path_user_stats": {
+    "avg_interactions": 6.804347826086956,
+    "median_interactions": 1.0,
+    "avg_item_kg_degree": 142.18260869565216,
+    "median_item_kg_degree": 10.0,
+    "avg_prob": 0.8795435381972272
+  }
+}

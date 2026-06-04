@@ -1,0 +1,65 @@
+=== 基本統計 ===
+分析檔案: output/fidelity/depth_2/explanations.json
+總使用者數: 500
+有解釋路徑: 230 (46.0%)
+無解釋路徑: 270 (54.0%)
+有 Fidelity 數據: 230 (46.0%)
+
+=== Fidelity+ 統計 ===
+Mean: 0.0644
+Median: 0.0266
+Std: 0.0776
+Min: -0.0044
+Max: 0.2716
+F+ > 0: 216 (93.9%)
+F+ > 0.05: 88 (38.3%)
+F+ > 0.10: 65 (28.3%)
+
+=== Fidelity- 統計 ===
+Mean: 0.1300
+Median: 0.0195
+Std: 0.1801
+Min: -0.0085
+Max: 0.6714
+abs(F-) <= 0.01: 97 (42.2%)
+
+=== 路徑類型分析 ===
+總路徑數: 446
+  KG 語意 (U->R->E->R): 208 (46.6%)
+  協同過濾 (U->R->U->R): 207 (46.4%)
+  直接連接 (User->Recipe): 31 (7.0%)
+
+=== Attention Score 按路徑類型 ===
+全部路徑 Avg: 0.0575
+  直接連接 (User->Recipe): Avg=0.8170 (n=31)
+  協同過濾 (U->R->U->R): Avg=0.0012 (n=207)
+  KG 語意 (U->R->E->R): Avg=0.0003 (n=208)
+
+=== Fidelity 按路徑類型 ===
+  直接連接: F+=0.0707, F-=-0.0012, n=31
+  協同過濾: F+=0.0813, F-=0.0138, n=86
+  KG 語意: F+=0.0498, F-=0.2544, n=113
+
+=== F+ 為負數的用戶: 14 (6.1%) ===
+
+=== 預測機率分布 ===
+Mean: 0.8781
+Min: 0.8642
+Max: 0.8883
+
+=== KG 中介實體分布 (Top 15) ===
+  weeknight: 13
+  breads: 12
+  stove-top: 10
+  seasonal: 9
+  to-go: 8
+  for-large-groups: 8
+  appetizers: 7
+  free-of-something: 6
+  seafood: 6
+  cakes: 5
+  cookies-and-brownies: 5
+  beef: 5
+  breakfast: 5
+  chocolate: 4
+  one-dish-meal: 4

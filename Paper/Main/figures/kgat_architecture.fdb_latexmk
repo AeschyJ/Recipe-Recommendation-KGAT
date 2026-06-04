@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1776354787.20382 "d:/Liao/Documents/Antigravity/Experiment/Paper/Main/figures/kgat_architecture.tex" "kgat_architecture.pdf" "kgat_architecture" 1776354787.90131 2
-  "d:/Liao/Documents/Antigravity/Experiment/Paper/Main/figures/kgat_architecture.tex" 1776354786 4928 6c0d8440c328f2ede9a7f1c0a13a7c52 ""
+["pdflatex"] 1778483513.93586 "d:/Liao/Documents/Antigravity/Experiment/Paper/Main/figures/kgat_architecture.tex" "kgat_architecture.pdf" "kgat_architecture" 1778483514.55518 2
+  "d:/Liao/Documents/Antigravity/Experiment/Paper/Main/figures/kgat_architecture.tex" 1778483509 4931 52835a9b835cf7513911fb2422ddabb2 ""
   "d:/Program Files/texlive/2026/texmf-dist/tex/generic/iftex/ifluatex.sty" 1776022322 492 1994775aa15b0d1289725a0b1bbc2d4c ""
   "d:/Program Files/texlive/2026/texmf-dist/tex/generic/iftex/iftex.sty" 1776022322 7984 7dbb9280f03c0a315425f1b4f35d43ee ""
   "d:/Program Files/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex" 1776023774 1016 1c2b89187d12a2768764b83b4945667c ""
@@ -91,8 +91,8 @@
   "d:/Program Files/texlive/2026/texmf-dist/web2c/texmf.cnf" 1776019953 43630 e9fa012910491fe5ae08a72c3c2997a7 ""
   "d:/Program Files/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1776025910 3648584 ed9139fb481206030cf0038263dc33ff ""
   "d:/Program Files/texlive/2026/texmf.cnf" 1776025795 835 15d98ed9a7362f0ac2a0fb81928d01a3 ""
-  "kgat_architecture.aux" 1776354779 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "kgat_architecture.tex" 1776354786 4928 6c0d8440c328f2ede9a7f1c0a13a7c52 ""
+  "kgat_architecture.aux" 0 -1 0 "pdflatex"
+  "kgat_architecture.tex" 1778483509 4931 52835a9b835cf7513911fb2422ddabb2 ""
   (generated)
   "kgat_architecture.aux"
   "kgat_architecture.log"
