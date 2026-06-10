@@ -51,7 +51,7 @@
 % ==========================================
 \node[module, minimum width=11.5cm] (init) {嵌入向量初始化\\(使用者、食譜、實體 $\rightarrow$ 預訓練或隨機向量)};
 
-% 模擬小圖譜：放大節點內部字體與標籤
+% 模擬小圖：放大節點內部字體與標籤
 \node[user_node, above left=0.8cm and 3cm of init.north] (u1) {用};
 \node[item_node, right=2cm of u1] (i1) {食};
 \node[entity_node, right=2cm of i1] (e1) {實};
@@ -63,7 +63,7 @@
 \begin{scope}[on background layer]
     % 加大向上偏移，給予標題空間
     \node[framebox, fill=bg_input, fit=(init)(u1)(e1), inner ysep=25pt] (input_frame) {};
-    \node[anchor=north west, font=\sffamily\bfseries, text=slate, xshift=5pt, yshift=-5pt] at (input_frame.north west) {1. 輸入層：協同知識圖譜 (CKG)};
+    \node[anchor=north west, font=\sffamily\bfseries, text=slate, xshift=5pt, yshift=-5pt] at (input_frame.north west) {1. 輸入層：協同知識圖 (CKG)};
 \end{scope}
 
 % ==========================================

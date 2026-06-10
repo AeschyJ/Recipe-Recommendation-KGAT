@@ -365,7 +365,7 @@
 % Assign variables according to configs.
 \ifthenelse{\equal{\ntu@degreeset}{master}}{
   \newcommand{\ntu@degree}{碩士}
-  \newcommand{\ntu@degree@en}{Master}
+  \newcommand{\ntu@degree@en}{Master's}
   \newcommand{\ntu@type}{論文}
   \newcommand{\ntu@type@en}{Thesis}
 }

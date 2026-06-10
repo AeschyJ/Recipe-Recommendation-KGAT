@@ -2,7 +2,7 @@
 generate_figures.py
 產生論文所需的兩類圖形：
   1. fig_training_curves.pdf  ── 訓練曲線（HR@20 與 NDCG@20 雙子圖）
-  2. fig_ckg_schema.pdf       ── 協同知識圖譜 (CKG) 架構示意圖
+  2. fig_ckg_schema.pdf       ── 協同知識圖 (CKG) 架構示意圖
 
 執行方式：
   cd Paper/Main/figures
@@ -39,8 +39,8 @@ OUT_DIR = pathlib.Path(__file__).parent
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # ─────────────────────────────────────────────
-# 資料定義（來源：epoch_metrics_report.md 三次獨立運行平均值）
-# 各模型僅取三次運行均有完整數據之 Epoch（日誌數 ≥ 3）
+# 資料定義（來源：epoch_metrics_report.md 三次獨立執行平均值）
+# 各模型僅取三次執行均有完整資料之 Epoch（日誌數 ≥ 3）
 # ─────────────────────────────────────────────
 
 # KGAT (L=1, 即 FULL-KGAT)：E1–E19 (3次平均)
@@ -109,7 +109,7 @@ STD_NDCG20_L3 = [
 ]
 
 # Baseline 最佳 Epoch 之三次平均值
-# （來源：epoch_metrics_report.md 中各模型 best epoch 數據）
+# （來源：epoch_metrics_report.md 中各模型 best epoch 資料）
 # LightGCN: Best @ E1, HR@20=0.6668, NDCG@20=0.3836
 # BPR-MF:   Best 取 E51 區間，但論文表 4.5 使用 0.5830 / 0.3355
 # NFM:      Best 取 E39 區間，但論文表 4.5 使用 0.6313 / 0.3712
@@ -256,7 +256,7 @@ def generate_training_curves() -> None:
 
 def generate_ckg_schema() -> None:
     """
-    繪製協同知識圖譜 (CKG) 架構示意圖。
+    繪製協同知識圖 (CKG) 架構示意圖。
 
     節點類型：
       - User（使用者）：深藍圓形
@@ -394,12 +394,22 @@ def generate_ckg_schema() -> None:
             linewidths=1.5,
         )
         for n in names:
-            ax.text(
-                pos[n][0], pos[n][1], n,
-                ha="center", va="center",
-                fontsize=9, fontweight="bold",
-                color="white", zorder=6,
-            )
+            if n.startswith("e:"):
+                # 實體節點名稱偏置至右側，並去除 "e: " 前綴
+                label_text = n.replace("e: ", "")
+                ax.text(
+                    pos[n][0] + 0.45, pos[n][1], label_text,
+                    ha="left", va="center",
+                    fontsize=9.5, fontweight="bold",
+                    color="#333333", zorder=6,
+                )
+            else:
+                ax.text(
+                    pos[n][0], pos[n][1], n,
+                    ha="center", va="center",
+                    fontsize=9, fontweight="bold",
+                    color="white", zorder=6,
+                )
 
     _draw_nodes(user_nodes,   NODE_COLORS["user"],   "o")
     _draw_nodes(recipe_nodes, NODE_COLORS["recipe"], "o")
@@ -421,11 +431,12 @@ def generate_ckg_schema() -> None:
     ]
     ax.legend(
         handles=legend_elements,
-        loc="lower left",
-        bbox_to_anchor=(0.0, 0.0),
+        loc="upper center",
+        bbox_to_anchor=(3.9, 0.9),
+        bbox_transform=ax.transData,
         fontsize=9,
         framealpha=0.9,
-        ncol=2,
+        ncol=4,
     )
 
     # ── 區域標籤 ──
@@ -439,7 +450,7 @@ def generate_ckg_schema() -> None:
 
     # 用大框標示 CKG 涵蓋範圍
     rect = mpatches.FancyBboxPatch(
-        (0.0, 1.2), 7.8, 6.6,
+        (0.0, 1.3), 7.8, 6.5,
         boxstyle="round,pad=0.1",
         linewidth=1.5, edgecolor="#BBBBBB",
         facecolor="none", linestyle="--", zorder=0,
@@ -447,7 +458,7 @@ def generate_ckg_schema() -> None:
     ax.add_patch(rect)
 
     ax.set_xlim(-0.5, 8.5)
-    ax.set_ylim(0.8, 8.2)
+    ax.set_ylim(-0.2, 8.2)
 
     out_path = OUT_DIR / "fig_ckg_schema.pdf"
     fig.savefig(out_path, bbox_inches="tight")

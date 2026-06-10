@@ -15,32 +15,32 @@
 \contentsline {chapter}{\numberline {2}文獻探討}{7}{chapter.2}%
 \contentsline {section}{\numberline {2.1}推薦系統}{7}{section.2.1}%
 \contentsline {section}{\numberline {2.2}圖神經網路 (Graph Neural Networks)}{8}{section.2.2}%
-\contentsline {section}{\numberline {2.3}知識圖譜與推薦系統之結合}{10}{section.2.3}%
+\contentsline {section}{\numberline {2.3}知識圖與推薦系統之結合}{10}{section.2.3}%
 \contentsline {section}{\numberline {2.4}可解釋性推薦 (Explainable Recommendation)}{12}{section.2.4}%
 \contentsline {section}{\numberline {2.5}現有方法之比較與研究缺口}{13}{section.2.5}%
 \contentsline {chapter}{\numberline {3}研究方法}{15}{chapter.3}%
 \contentsline {section}{\numberline {3.1}系統架構}{15}{section.3.1}%
-\contentsline {section}{\numberline {3.2}資料預處理與知識圖譜建構}{15}{section.3.2}%
-\contentsline {section}{\numberline {3.3}知識圖譜注意力網路 (KGAT)}{19}{section.3.3}%
+\contentsline {section}{\numberline {3.2}資料預處理與知識圖建構}{15}{section.3.2}%
+\contentsline {section}{\numberline {3.3}知識圖注意力網路 (KGAT)}{18}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Relation-Aware Attention 機制}{19}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Bi-Interaction 聚合機制}{20}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.2}Bi-Interaction 聚合機制}{19}{subsection.3.3.2}%
 \contentsline {section}{\numberline {3.4}損失函數與模型訓練}{22}{section.3.4}%
-\contentsline {section}{\numberline {3.5}可解釋性評估框架 (Fidelity)}{22}{section.3.5}%
+\contentsline {section}{\numberline {3.5}基於忠實度 (Fidelity) 的可解釋性評估框架}{22}{section.3.5}%
 \contentsline {chapter}{\numberline {4}實驗設計與結果分析}{25}{chapter.4}%
 \contentsline {section}{\numberline {4.1}實驗環境與資料集}{25}{section.4.1}%
 \contentsline {section}{\numberline {4.2}基準方法 (Baselines)}{28}{section.4.2}%
 \contentsline {section}{\numberline {4.3}實驗結果分析}{29}{section.4.3}%
 \contentsline {section}{\numberline {4.4}消融實驗 (Ablation Study)}{30}{section.4.4}%
 \contentsline {subsection}{\numberline {4.4.1}注意力機制之影響}{30}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}知識圖譜之影響}{31}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}圖神經網路深度之影響}{32}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.2}知識圖之影響}{31}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}圖神經網路深度之影響}{31}{subsection.4.4.3}%
 \contentsline {section}{\numberline {4.5}可解釋性評估 (Explainability Evaluation)}{33}{section.4.5}%
 \contentsline {subsection}{\numberline {4.5.1}跨模型解釋路徑覆蓋率比較}{34}{subsection.4.5.1}%
 \contentsline {subsection}{\numberline {4.5.2}KGAT-3L 解釋路徑類型分析}{35}{subsection.4.5.2}%
 \contentsline {subsection}{\numberline {4.5.3}Fidelity 量化評估結果}{35}{subsection.4.5.3}%
 \contentsline {subsection}{\numberline {4.5.4}路徑類型對忠實度的影響}{36}{subsection.4.5.4}%
 \contentsline {subsection}{\numberline {4.5.5}無路徑使用者特徵分析}{37}{subsection.4.5.5}%
-\contentsline {subsection}{\numberline {4.5.6}案例分析}{38}{subsection.4.5.6}%
+\contentsline {subsection}{\numberline {4.5.6}案例分析}{39}{subsection.4.5.6}%
 \contentsline {chapter}{\numberline {5}結論與未來研究方向}{43}{chapter.5}%
 \contentsline {section}{\numberline {5.1}研究結論}{43}{section.5.1}%
 \contentsline {section}{\numberline {5.2}研究限制}{47}{section.5.2}%
@@ -49,11 +49,11 @@
 \contentsline {chapter}{附錄~{A}~---~各模型最佳效能統計摘要}{55}{section*.30}%
 \contentsline {section}{\numberline {A.1}摘要指標表}{55}{section.6.1}%
 \contentsline {section}{\numberline {A.2}完整九項指標表}{55}{section.6.2}%
-\contentsline {chapter}{附錄~{B}~---~各模型三次獨立運行最佳 Epoch 實驗數據}{57}{section*.34}%
+\contentsline {chapter}{附錄~{B}~---~各模型三次獨立執行最佳 Epoch 實驗結果}{57}{section*.34}%
 \contentsline {section}{\numberline {B.1}Baseline 模型}{57}{section.7.1}%
 \contentsline {section}{\numberline {B.2}KGAT 消融實驗（$L{=}1$）}{58}{section.7.2}%
 \contentsline {section}{\numberline {B.3}KGAT 深度實驗}{59}{section.7.3}%
-\contentsline {chapter}{附錄~{C}~---~知識圖譜預處理與超級節點過濾清單}{61}{section*.44}%
+\contentsline {chapter}{附錄~{C}~---~知識圖預處理與超級節點過濾清單}{61}{section*.44}%
 \contentsline {section}{\numberline {C.1}食材 (Ingredients) 噪音與過濾清單}{61}{section.8.1}%
 \contentsline {section}{\numberline {C.2}標籤 (Tags) 噪音與過濾清單}{62}{section.8.2}%
 \contentsfinish 

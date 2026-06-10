@@ -128,6 +128,12 @@ Y.~Xian, Z.~Fu, S.~Muthukrishnan, G.~de~Melo, and Y.~Zhang.
   Research and Development in Information Retrieval}, pages 285--294. ACM,
   2019.
 
+\bibitem{xu2018jumping}
+K.~Xu, C.~Li, Y.~Tian, T.~Sonobe, K.-i. Kawarabayashi, and J.~Leskovec.
+\newblock Representation learning on graphs with jumping knowledge networks.
+\newblock In {\em Proceedings of the 35th International Conference on Machine
+  Learning}, pages 5453--5462, 2018.
+
 \bibitem{ying2019gnnexplainer}
 R.~Ying, D.~Bourgeois, J.~You, M.~Zitnik, and J.~Leskovec.
 \newblock {GNN}explainer: Generating explanations for graph neural networks.

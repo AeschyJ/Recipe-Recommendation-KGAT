@@ -1,4 +1,4 @@
-﻿\documentclass[tikz]{standalone}
+\documentclass[tikz]{standalone}
 \usepackage{fontspec}
 \usepackage{amssymb}
 \usepackage[english, bidi=basic, provide=*]{babel}
@@ -29,22 +29,22 @@
 \definecolor{bg4}{RGB}{243, 250, 246}
 
 % --- 階段 1：資料蒐集與建構 ---
-\node[box] (user) {使用者數據\\(ID, 互動紀錄)};
+\node[box] (user) {使用者資料\\(ID, 互動紀錄)};
 \node[box, left=of user] (kg) {外部知識庫\\(實體與關係)};
-\node[box, right=of user] (item) {食譜數據\\(內容屬性)};
+\node[box, right=of user] (item) {食譜資料\\(內容屬性)};
 
-\node[box, below=1.2cm of user] (build) {CKG 協同知識圖譜建構};
+\node[box, below=1.2cm of user] (build) {CKG 協同知識圖建構};
 \draw[arrow] (kg.south) |- (build.west);
 \draw[arrow] (user.south) -- (build.north);
 \draw[arrow] (item.south) |- (build.east);
 
-\node[database, below=1cm of build] (db) {結構化圖數據 (HDF5)};
+\node[database, below=1cm of build] (db) {結構化圖資料 (HDF5)};
 \draw[arrow] (build) -- (db);
 
 \begin{scope}[on background layer]
     % 增加 inner ysep
     \node[framebox, fill=bg1, fit=(kg)(item)(db), inner ysep=25pt] (frame1) {};
-    \node[anchor=north west, font=\sffamily\bfseries, text=slate, xshift=5pt, yshift=-5pt] at (frame1.north west) {1. 資料蒐集與知識圖譜建構};
+    \node[anchor=north west, font=\sffamily\bfseries, text=slate, xshift=5pt, yshift=-5pt] at (frame1.north west) {1. 資料蒐集與知識圖建構};
 \end{scope}
 
 % --- 階段 2 & 3 ---
