@@ -1,97 +1,82 @@
-# 專案實驗架構與模組設計
+# 專案實驗架構與模組設計 (Architecture & Design)
 
-本專案旨在重新實作與驗證知識圖譜注意力神經網路 (Knowledge Graph Attention Network, KGAT) 在食譜推薦上的效能。歷經多次重構後，目前的系統架構專為「嚴謹對照原論文」與「最大化 Intel XPU 硬體效能」而打造。
-
-## 1. 原論文採用的部分 (Paper Alignment)
-
-為了能在消融實驗中給出具備說服力的對比基準，我們在核心模組中嚴格對齊了 [KGAT (Wang et. al, 2019)](https://arxiv.org/abs/1909.02695) 的理論架構：
-
-* **Relation-Aware Attention 機制**: 
-  - 捨棄了一般的 GAT 節點對接。
-  - 完全實作 $\pi(h,r,t) = (W_r e_t)^\top \tanh(W_r e_h + e_r)$，這使得注意力權重能夠強烈感知不同邊（如：Ingredient 關係 vs Tag 關係）的重要性。
-* **Bi-Interaction 聚合公式**:
-  - GNN 訊息傳遞同時包含節點與鄰居的相加 ($e_u + e_v$) 與元素級相乘 ($e_u \odot e_v$) 並經由線性轉換與 LeakyReLU 激勵函式。
-* **BPR Loss 與 L2 正則化 (Weight Decay)**:
-  - 以成對比較 (Pairwise) 的 Bayesian Personalized Ranking 函數指導訓練。
-  - 加入 $L_2$ 正則化 (我們設定為 $10^{-5}$) 防範過擬合。
-* **Message Dropout**:
-  - 在 GNN 的每層訊息傳遞後與注意力權重上，皆套用 `nn.Dropout(p=0.1)` 以提升深層圖網路的抗噪能力。
+本專案旨在重新實作與驗證知識圖譜注意力神經網路 (Knowledge Graph Attention Network, KGAT) 在食譜推薦上的效能。歷經多次重構後，目前的系統架構專為「嚴謹對照原論文」與「最大化原生 PyTorch XPU 硬體效能」而打造。
 
 ---
 
-## 2. 為個人訓練優化與修改的部分 (Training Modifications)
+## 1. 原論文理論對齊 (Paper Alignment)
 
-由於原論文的架構在有限的硬體 (如 8GB VRAM 的 Intel Arc A750) 上極易發生資源枯竭與訓練速度低落，我們實施了以下大幅度的在地化改動：
+為了能在消融實驗中給出具備說服力的對比基準，我們在核心模組 (`src/model/kgat.py`) 中嚴格對齊了 [KGAT (Wang et al., KDD 2019)](https://arxiv.org/abs/1909.02695) 的理論架構：
 
-* **全 XPU、BFloat16 混合精度訓練**:
-  - 放棄雲端 Colab，全面轉向本地端 Intel Extension for PyTorch (IPEX) 支援的 XPU 訓練。
-  - 使用 BFloat16 將記憶體消耗減半，使訓練規模得以擴大。
-* **反向傳播底層替換 (`index_add_`)**:
-  - 在 XPU 上，原生的 Python Indexing 操作或部分 Sparse 乘法容易崩潰或 Fallback 至 CPU。我們全面換用基礎且效能極快的 Tensor operation `out.index_add_(0, edge_index, message)`。
-* **快取推論機制 (`get_final_embeddings`)**:
-  - 傳統的推薦預測需要在每個 testing batch 中走一遍龐大的 GNN Forward。我們改變策略，在 Validation/Test 階段開始前，僅呼叫**一次** GNN 得出所有 Nodes 的終極特徵 (Embeddings)，後續的 Recall 運算僅作簡單的 Index 取出與內積，測試時間因此從十分鐘銳減至不到 10 秒。
-* **使用 Activation Checkpointing 挑戰深層 (L=3) 極限**:
-  - 由於 Relation-Aware Attention 需要為圖上的「每一條邊」製造臨時的關聯向量矩陣，一旦疊加 3 層會輕易突破 16GB 顯存。我們引進 PyTorch `checkpoint` 技術，在 Forward 時不保留記憶範圍，強迫 Backward 時重算，最終成功在一般硬體上解鎖深層網路訓練。
-* **捨棄 KGE (Knowledge Graph Embedding) Joint Training**:
-  - 原論文設計模型需同時學習 TransR (圖結構任務) 與 CF (協同過濾任務)。為了讓消融實驗更為乾淨純粹、僅對比圖卷積本身的影響，我們拔除了 KGE 輔助優化，只單一依賴 BPR Loss。
-
----
-
-## 3. 消融實驗架構設計 (Ablation Study Architecture)
-
-為了科學驗證模組有效性，專案內置了 5 款對照實驗組，可由 `run_experiments.bat` 自動派發執行：
-
-### 實驗模塊總表
-1. **Full KGAT (基準, L=1)**: `train_att.py`
-   - 同時具備 Attention 機制與 Bi-Interaction 的完整版。
-2. **w/o Attention (KGAT-a, L=1)**: `train_bi_interaction.py`
-   - 將 Attention 權重退化為平均權重 (Mean Pooling)，但保留 Bi-Interaction。
-   - **目的**: 驗證「注意力分配」是否為增進推薦效能的核心。
-3. **w/o Knowledge Graph (L=1)**: `train_att.py --without_kg`
-   - 移除所有的 Recipe-Ingredient, Recipe-Tag 邊，模型退化為僅依賴 User-Item 互動的普通圖神經推薦。
-   - **目的**: 驗證「給系統注入外部知識」的實際效益。
-4. **Depth Variation (L=2)**: `train_att.py --layers 64 64`
-   - 將 GNN 深度推展至 2 跳 (2-hop)。
-   - **目的**: 觀察遠鄰居 (例如，與同一個 tag 相關的其他食譜) 是否帶來正面幫助。
-5. **Depth Variation (L=3)**: `train_att.py --layers 64 64 64`
-   - 將 GNN 深度推展至 3 跳 (3-hop)。
-   - **目的**: 探索神經網路極限，測試是否發生 Oversmoothing (過度平滑導致特徵無法區分)。
-6. **對照組實驗 (Baseline Matrix)**: `train_baseline.py`
-   - 包含 BPR-MF, NFM, LightGCN 三款模型。
-   - **目的**: 建立與經典 Matrix Factorization、Feature Interaction 模型以及純 GNN 模型的對比基準，驗證 KGAT 的綜合效能優勢。
+1. **Relation-Aware Attention 機制**:
+   - 捨棄普通的圖注意力網路 (GAT) 點積。
+   - 實作關係感知注意力公式：
+     $$\pi(h,r,t) = (W_{\text{att}} e_t)^\top \tanh(W_{\text{att}} e_h + e_r)$$
+   - 配合 Softmax 正規化得出邊權重 $\alpha_{h,r,t}$，使網路能感知不同關係類型（如：食譜包含食材 vs. 食譜具備標籤）之重要度。
+2. **Bi-Interaction 聚合公式**:
+   - GNN 訊息傳遞同時包含節點特徵相加與元素級乘積 (Element-wise product)：
+     $$h_{\text{out}} = \text{LeakyReLU}\left( W_1(e_u + e_v) + W_2(e_u \odot e_v) \right)$$
+3. **BPR Loss 與 $L_2$ 正則化 (Weight Decay)**:
+   - 採用成對比較 (Pairwise) 的 Bayesian Personalized Ranking 損失函數。
+   - 搭配 $L_2$ 正則化 ($10^{-5}$) 防止過擬合。
+4. **Message Dropout 防護**:
+   - 在每層 GNN 訊息傳遞後與注意力權重上套用 `nn.Dropout(p=0.1)` 增加抗噪能力。
 
 ---
 
-## 4. 可解釋性驗證框架 (Explainability Framework)
+## 2. 原生 PyTorch XPU 與效能優化策略 (Hardware Optimizations)
 
-除了推薦效能（Recall, NDCG），本專案強調對於推薦原因的量化驗證：
-* **Attention 為基的解釋器**: 利用模型學習到的關係感知注意力權重，搜尋模型路徑中貢獻度最高的解釋路徑。
-* **Fidelity 指標**: 
-  - **Fidelity+**: 通過「遮擋 (Occlusion)」解釋路徑來觀察模型分數的下降程度，驗證路徑的 **必要性**。
-  - **Fidelity-**: 通過「僅保留 (Sufficiency)」解釋路徑來觀察模型是否仍能維持預測，驗證路徑的 **充分性**。
-* **評估工具**: `src/evaluate_fidelity.py` 整合了路徑搜尋與機率變化運算。
+為了解決原論文架構在消費級硬體（如 Intel Arc A750 8GB VRAM）上的顯存與計算瓶頸，專案導入以下關鍵優化：
 
-### 專案目錄分佈
+1. **原生 PyTorch XPU & BFloat16 混合精度**:
+   - 採用 PyTorch 2.4+ 原生 XPU 後端，無需外掛 IPEX 套件。
+   - 啟用 BFloat16 混合精度將顯存佔用降低近半，使 $L=3$ 深層模型訓練成為可能。
+2. **`index_add_` 聚合與浮點退避策略**:
+   - Intel XPU 在對高頻超級節點（如鹽、水等常見食材）進行 BFloat16 原子寫入時存在極大效能退化。
+   - 專案在淺層訊息聚合時採用 float32 `out.index_add_(0, edge_index, message)`，並於深層退回 bf16 防止 OOM。
+3. **Activation Checkpointing 梯度重算**:
+   - 針對多層 ($L=3$) Relation-Aware Attention 產生的巨量臨時邊矩陣，導入 `torch.utils.checkpoint` 技術，在 Forward 階段丟棄中間激活值，Backward 階段重算，解除顯存爆滿限制。
+4. **`get_final_embeddings()` 隱含向量快取推論**:
+   - 在 Validation/Test 評估前僅執行單次前向傳播提取全圖用戶與實體 Embedding，後續測試僅作向量查表與內積，測試時間由十分鐘降至數秒。
+
+---
+
+## 3. 消融與對比實驗陣列 (Ablation & Baseline Matrix)
+
+專案提供 5 組 KGAT 消融實驗與 3 組經典 Baseline 模型，全數封裝於自動化批次腳本中：
+
+### 3.1 消融實驗組 (`run_experiments.bat` $\rightarrow$ `src/train.py`)
+| 實驗名稱 | 指令旗幟 | 核心目的 |
+| :--- | :--- | :--- |
+| **Full KGAT (L=1)** | `--layers 64` | 完整版 KGAT 基準 |
+| **w/o Attention** | `--no_attention --layers 64` | 將注意力退化為均等權重，驗證「注意力機制」效益 |
+| **w/o Knowledge Graph**| `--without_kg --layers 64` | 剔除 CKG 知識三元組，驗證「注入外部知識」效益 |
+| **Depth L=2** | `--layers 64 64` | 探討 2-hop 遠鄰居資訊傳遞效益 |
+| **Depth L=3** | `--layers 64 64 64` | 挑戰 3-hop 極限與過度平滑 (Oversmoothing) 瓶頸 |
+
+### 3.2 經典對照組 (`run_baseline_experiments.bat` $\rightarrow$ `src/train_baseline.py`)
+* **BPR-MF**：傳統矩陣分解協同過濾 (`--model BPR-MF`)。
+* **LightGCN**：無非線性變換與權重矩陣的純圖卷積協同過濾 (`--model LightGCN`)。
+* **NFM (Neural Factorization Machine)**：二階特徵交互搭配深度 MLP 網路 (`--model NFM`)。
+
+---
+
+## 4. 可解釋性評估與 Fidelity 框架 (Explainability Framework)
+
+專案除了評估傳統推薦精準度（HR@K, NDCG@K, Precision@K），亦建立量化 XAI 評估管道：
+
 ```
-Experiment/
-├── data/
-│   ├── raw/                # 原始資料 CSV
-│   └── processed/          # 預處理後的圖譜檔案 (.pkl)
-├── docs/                   # ADR 與架構文檔
-├── models/                 # 實驗訓練好的權重模型
-│   └── baseline/           # 對照組模型權重
-├── output/                 # 產出的各種 Metrics Logs
-│   ├── logs/
-│   │   └── baseline/       # 對照組訓練日誌
-│   └── explanations/       # XAI 產生的路徑解釋檔案
-├── scripts/                # 自動化批次處理與數據分析腳本 (evaluate_all, compare_metrics)
-├── src/                    # 原始程式碼
-│   ├── data/               # 資料預處理
-│   ├── model/              # 模型定義 (kgat_bi_interaction.py, kgat_attention.py, bpr_mf.py, nfm.py, lightgcn.py)
-│   ├── train_att.py        # 包含 Attention 架構的訓練腳本
-│   ├── train_bi_interaction.py # 僅 Bi-Interaction 的退化訓練腳本
-│   ├── train_baseline.py   # 對照組模型統一訓練腳本
-│   └── evaluate_fidelity.py # 可解釋性與 Fidelity 評估腳本
-├── run_experiments.bat     # 消融實驗自動化啟動腳本
-└── run_baseline_experiments.bat # 對照組實驗自動化啟動腳本
+[Target Users] ---> src/evaluate_fidelity.py ---> [KGATAttentionExplainer]
+                                                           |
+                                           +---------------+---------------+
+                                           |                               |
+                                    (Occlusion / Fid+)            (Sufficiency / Fid-)
+                                           |                               |
+                                  遮擋 Top-K 解釋路徑               僅保留 Top-K 解釋路徑
+                                           |                               |
+                                    預測分數降幅ΔP+                 預測分數殘差ΔP-
 ```
+
+1. **`KGATAttentionExplainer` (`src/model/explainer_attention.py`)**：結合 Multi-layer Attention 權重與 NetworkX 圖搜尋，提取 User 到 Item 的高貢獻路徑。
+2. **`Fidelity+` (必要性)**：$P_{\text{orig}} - P_{F+}$。數值越正，代表該解釋路徑對推薦決策越不可或缺。
+3. **`Fidelity-` (充分性)**：$P_{\text{orig}} - P_{F-}$。數值越小，代表僅保留該路徑即可維持原始推薦。

@@ -1,58 +1,84 @@
-# 開發指南 (Development Guide)
+# 開發者指南與維護手冊 (Development & Maintenance Guide)
 
-歡迎參與本專案開發。本文件涵蓋環境設定、開發規範與常見問題排解。
+本手冊專為開發者與實驗維護人員設計，涵蓋環境建置、自動化實驗執行、腳本工具維護、NotebookLM 文檔整理及 Git 版本控制防錯指南。
 
-## 環境設定 (Environment Setup)
+---
 
-本專案使用 `uv` 進行依賴管理，請確保已安裝該工具。
+## 1. 開發環境建置 (Environment Setup)
 
-### 1. 初始化環境
-
-首次 clone 專案後，請執行：
+本專案全面採用 **`uv`** 作為包管理器與虛擬環境管理工具：
 
 ```bash
+# 1. 建立虛擬環境與同步套件
 uv sync
+
+# 2. 測試 Python 環境與 PyTorch XPU
+uv run python -c "import torch; print('XPU Available:', torch.xpu.is_available() if hasattr(torch, 'xpu') else False)"
 ```
 
-此指令會讀取 `uv.lock` 並安裝所有 Python 套件 (包含 PyTorch 與相關依賴)。
+> **注意**：專案使用 PyTorch 原生 XPU 支援（PyTorch 2.4+ / 2.9+），無需單獨安裝舊版 IPEX 套件。
 
-### 2. GPU 支援
+---
 
-專案預設依賴 PyTorch。若您的環境支援 CUDA，`torch` 應能自動識別。您可以用以下指令測試：
+## 2. 批次腳本工作流 (Batch Script Workflows)
+
+專案根目錄提供 5 組 `.bat` 批次檔，分別對應不同階段的實驗任務：
+
+1. **`run_experiments.bat`**：消融實驗全流程。依序觸發 Full KGAT ($L=1$), w/o Attention, w/o KG, $L=2$, $L=3$ 訓練。
+2. **`run_baseline_experiments.bat`**：Baseline 模型訓練。觸發 BPR-MF, LightGCN, NFM 訓練。
+3. **`run_xai_pipeline.bat`**：單一模型 XAI 評估。
+4. **`run_xai_pipeline_all.bat`**：跨模型全自動 500 位使用者 Fidelity+ / Fidelity- 評估。
+5. **`run_log_pipeline.bat`**：訓練日誌簡化、資料驗證與指標解析報告。
+
+---
+
+## 3. 檢查點管理與磁碟空間釋放 (Checkpoint & Disk Management)
+
+模型訓練過程中會產生多個 Epoch 的 `.pth` 檢查點，維護人員可使用以下腳本釋放空間：
 
 ```bash
-uv run python -c "import torch; print(torch.cuda.is_available())"
+# 1. 檢視檢查點佔用情況
+uv run python scripts/analyze_checkpoints_cleanup.py
+
+# 2. 清理歷史中間 Epoch，僅留 Best Checkpoint
+uv run python scripts/cleanup_checkpoints.py
+
+# 3. 建立本地備份壓縮檔 (檔名會自動被 Git 忽略)
+uv run python scripts/create_backup_zips.py
 ```
 
-### 3. 開發工具
+---
 
-建議使用 VS Code 並安裝以下套件：
-*   Python (Microsoft)
-*   Ruff (Linter / Formatter)
-*   Markdown All in One (文件撰寫)
+## 4. NotebookLM 文檔編譯 (NotebookLM Compilation)
+
+為了方便將全專案技術文檔、日誌與論文資料匯入 Google NotebookLM 或 LLM 進行深度研讀，專案包含專屬編譯腳本：
+
+```bash
+# 執行 NotebookLM 資料編譯
+uv run python NotebookLM/compile_for_notebooklm.py
+```
+*編譯後的獨立 Markdown 檔案將存放於 `NotebookLM/` 目錄下。*
 
 ---
 
-## 程式碼規範 (Coding Standards)
+## 5. Git 版本控制規範與排除指南 (Git Submission Guidelines)
 
-*   **Python 版本**: 3.10+
-*   **格式化**: 本專案使用 [PEP 8](https://peps.python.org/pep-0008/) 標準。建議設定編輯器在存檔時自動執行 `ruff format`。
-*   **型別註釋**: 鼓勵在函數簽名中加入 Type Hints。
-    ```python
-    def process(data: pd.DataFrame, threshold: float = 0.5) -> dict:
-        ...
-    ```
-*   **語言**: 程式碼註解、文件與 Commit Message 請使用 **繁體中文**。
+本專案遵循 standard Conventional Commits 規範，且設定嚴格的檔案排除防錯。
 
----
+### 5.1 提交訊息規範 (Conventional Commits)
+* `feat(kgat)`: 新增或修改模型特徵。
+* `fix(xpu)`: 修正硬體加速或計算 Bug。
+* `docs(readme)`: 文檔新增或修訂。
+* `chore(git)`: 版本控制與雜務維護。
+* `style(code)`: 程式碼格式微調。
 
-## 常見問題 (Troubleshooting)
+### 5.2 大檔案排除防錯規則
+> [!CAUTION]
+> **警告**：GitHub 限制單檔上傳不可超過 **100 MB**。
+> 專案中的 `model_checkpoints_backup.zip` (~4 GB) 與 `paper_latex.zip` (~77 MB) 已透過 `.gitignore` 強制排除。開發者切勿使用 `git add -f` 強制加入封包。
 
-### Q1: DGL 安裝失敗或版本衝突？
-**A**: 本專案目前已逐步移除對 `dgl` 的重度依賴，改用純 PyTorch 實作核心模型 (詳見 ADR 紀錄)。若仍需使用舊版程式碼，建議優先檢查 CUDA 版本與 DGL 預編譯包的相容性。
-
-### Q2: 執行 `preprocess.py` 出現 Memory Error？
-**A**: `RAW_interactions.csv` 檔案較大。若記憶體不足，可嘗試在讀取 CSV 時加入 `nrows=100000` 參數進行測試，或分批處理。
-
-### Q3: 使用 VS Code 無法解析 Import？
-**A**: 請確保 VS Code 的 Python Interpreter 選定為 `.venv/Scripts/python.exe` (Windows) 或 `.venv/bin/python` (Linux/Mac)。
+在執行提交前，請執行以下命令確認無大型二進位檔被暫存：
+```bash
+git status
+```
+確保 `Untracked files` 中不含 `.zip`, `.pth`, `.venv/`, `output/` 等大型檔案。

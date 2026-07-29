@@ -15,15 +15,35 @@ data/
 *.csv
 *.pkl
 
-# AI Assistant
+# AI Assistant & Internal
 .agent/
+.agents/
 .gemini/
+tmp/
 
-# IDE
+# IDE & Editor
 .vscode/
 .idea/
 *.swp
 
-# Artifacts & Logs
+# Large Archives & Model Checkpoints
 *.pth
-# models/ and output/ directories are tracked, but large binaries are ignored via *.pth
+*.zip
+model_checkpoints_backup.zip
+paper_latex.zip
+
+# Diffs & Log Dumps
+latex_source_diffs.txt
+unexpected_diffs.txt
+
+# LaTeX Build Intermediate Artifacts
+*.aux
+*.log
+*.fdb_latexmk
+*.fls
+*.xdv
+*.synctex.gz
+*.out
+*.toc
+*.bbl
+*.blg

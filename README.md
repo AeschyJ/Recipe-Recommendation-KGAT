@@ -1,82 +1,188 @@
-# 食譜推薦系統 - Knowledge Graph Attention Network 消融實驗套件
+# 食譜推薦系統 - Knowledge Graph Attention Network 消融與 XAI 實驗套件 (Recipe-Recommendation-KGAT)
 
-這是一個基於知識圖譜注意力網絡 (KGAT) 的推薦系統專案。專案經過大規模重構，專為 Intel Arc (XPU) 加速、BFloat16 訓練而生，並將注意力放在嚴謹的論文覆現與消融實驗。
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-Native%20XPU-orange.svg)](https://pytorch.org/)
+[![Package Manager](https://img.shields.io/badge/uv-Package%20Manager-purple.svg)](https://github.com/astral-sh/uv)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## 功能特色
-* **資料處理**: 自動讀取 Kaggle Food.com 食譜資料，過濾雜訊後融合使用者互動建立 `Collaborative Knowledge Graph`。
-* **KGAT 模型**: 實作最純粹的 Relation-Aware Attention ($\pi(h,r,t) = (W_r e_t)^\top \tanh(W_r e_h + e_r)$)、Bi-Interaction，以及對應的正則化與 Dropout 保護。
-* **效能優化**: 具有 `get_final_embeddings()` 查詢快取機制與 PyTorch Checkpointing，能在普通 GPU/XPU 設備上達成深度的圖神經網路訓練。
-* **自動化實驗**: 內置一鍵腳本，輕鬆排程多項變數的控制對照。
-* **可解釋性評估**: 實作 Fidelity 指標 (Fid+, Fid-)，透過數學量化驗證推薦解釋的忠實度與有效性。
+本專案是一個基於 **知識圖譜注意力網絡 (Knowledge Graph Attention Network, KGAT)** 的深層食譜推薦與可解釋性 AI (XAI) 實驗系統。專案整合 Food.com 巨量食譜與使用者互動數據，建構協同知識圖譜 (Collaborative Knowledge Graph, CKG)，並透過原生 PyTorch XPU 硬體加速、BFloat16 混合精度與 Activation Checkpointing 克服深層圖神經網路訓練的記憶體瓶頸。
 
-## 專案依賴
-本專案使用 `uv` 進行套件管理。執行：
-```bash
-uv sync
-```
-這將會根據 `uv.lock` 建立虛擬環境並安裝所有必要套件 (`torch`, `pandas` etc.)，Intel XPU 需確保系統已安裝 IPEX 與對應驅動。
+此外，專案提供完整的**消融實驗套件 (Ablation Study)**、**經典對照組模型 (Baselines)**，以及基於 **Fidelity (Fid+, Fid-)** 的可解释性評估與路徑萃取框架。
 
 ---
 
-## 快速開始 (Quick Start)
+## 🌟 核心特色 (Key Features)
 
-### 1. 準備資料與前處理
-請確保已經從 Kaggle 下載 `RAW_recipes.csv` 與 `RAW_interactions.csv` 放入 `data/raw/`，接著執行建立圖譜的預處理：
-```bash
-.venv\Scripts\python.exe src/data/preprocess.py
+* **協同知識圖譜 (Collaborative Knowledge Graph, CKG)**：自動解析 Food.com 數據，過濾無鑑別力的高頻食材與泛用標籤，將 User, Recipe (Item), Ingredient, Tag 統合成多關係圖結構。
+* **原生 PyTorch XPU 硬體加速 & 效能最佳化**：
+  * 支持 Intel Arc GPU / XPU 原生加速與 BFloat16 混合精度。
+  * 引入 `index_add_` 原子聚合與浮點退避策略，解決高頻超級節點訊息聚合的效能退化。
+  * 整合 PyTorch `checkpoint` 梯度重算技術，支援 $L=3$ 以上的深層圖網路訓練。
+  * 實作 `get_final_embeddings()` 隱含向量快取推論，評估階段速度提升數十倍。
+* **關係感知注意力 (Relation-Aware Attention)**：實作 $\pi(h,r,t) = (W_{\text{att}} e_t)^\top \tanh(W_{\text{att}} e_h + e_r)$ 邊權重 Softmax，精確量化不同關係邊（如：食譜-食材 vs. 食譜-標籤）之貢獻。
+* **全自動化實驗管道 (Automated Pipelines)**：提供 Windows `.bat` 批次腳本，一鍵啟動 KGAT 消融實驗、Baseline 比較、XAI Fidelity 評估與日誌簡化分析。
+* **可解釋性評估 (XAI & Fidelity Metrics)**：實作 `Fidelity+` (必要性) 與 `Fidelity-` (充分性) 評估指標，自動擷取使用者 Top-K 推薦背後的最優解釋路徑。
+
+---
+
+## 🏗️ 系統架構與數據流 (System Architecture)
+
+```mermaid
+graph TD
+    A["RAW_recipes.csv / RAW_interactions.csv<br/>(data/raw/)"] -->|src/data/preprocess.py| B["協同知識圖譜 (.pkl)<br/>(data/processed/)"]
+    
+    B --> C{"訓練管道 (Training)"}
+    C -->|KGATAttention / BiInteraction| D["KGAT 檢查點 (.pth)<br/>(models/)"]
+    C -->|BPR-MF / LightGCN / NFM| E["Baseline 檢查點 (.pth)<br/>(models/baseline/)"]
+    
+    D & B -->|scripts/sample_users_for_xai.py| F["Target Users JSON"]
+    F & D & B -->|src/evaluate_fidelity.py| G["XAI Explanations & Metrics<br/>(output/fidelity/)"]
+    
+    C -->|Training Logs| H["output/logs/"]
+    H & G -->|run_log_pipeline.bat| I["簡化數據與統計報告<br/>(output/simplified_for_llm/)"]
 ```
-*(結果將序列化為圖譜與特徵表，存放於 `data/processed/`)*
 
-### 2. 執行消融實驗套件 (Ablation Tests)
-我們提供了 `run_experiments.bat` 來自動化所有對照組（基準 KGAT、消除 Attention、消除 KG、各種網路深度等）。
-在根目錄直接點擊或透過終端機執行：
+---
+
+## ⚡ 快速開始 (Quick Start)
+
+### 1. 環境設定 (Environment Setup)
+
+本專案推薦採用 [`uv`](https://github.com/astral-sh/uv) 進行高速依賴解析與虛擬環境管理：
+
+```bash
+# 複製專案
+git clone https://github.com/AeschyJ/Recipe-Recommendation-KGAT.git
+cd Recipe-Recommendation-KGAT
+
+# 透過 uv 安裝虛擬環境與所有依賴
+uv sync
+```
+
+> **Note**: 本專案使用 PyTorch 原生 XPU 支援（PyTorch 2.4+ / 2.9+），若在 Intel Arc 設備執行，請確保系統已安裝 Intel OneAPI / GPU 驅動。
+
+### 2. 資料準備與圖譜預處理 (Data Preprocessing)
+
+請將 Kaggle 原始檔案 `RAW_recipes.csv` 與 `RAW_interactions.csv` 放置於 `data/raw/` 目錄下，然後執行預處理腳本：
+
+```bash
+uv run python src/data/preprocess.py
+```
+*預處理結果將自動儲存至 `data/processed/interactions.pkl`, `kg_triples.pkl`, `stats.pkl`*
+
+---
+
+## 🚀 自動化實驗管道 (Execution Pipelines)
+
+專案封裝了一系列標準化的 Windows 批次腳本 (`.bat`)：
+
+### 1. 主 KGAT 消融實驗 (Ablation Experiments)
+一鍵排程 5 組對照組實驗 (Full KGAT $L=1$, w/o Attention, w/o KG, Depth $L=2$, Depth $L=3$)：
 ```powershell
-./run_experiments.bat
+.\run_experiments.bat
 ```
-腳本內建防呆機制，會自動透過專案內的虛擬環境派發下列五種基準訓練腳本：
-1. **Full KGAT** (`src/train_att.py`)
-2. **w/o Attention** (`src/train_bi_interaction.py`)
-3. **w/o KG 推薦** (`src/train_att.py --without_kg`)
-4. **Depth L=2 模型**
-5. **Depth L=3 模型**
 
-### 3. 對照組模型 (Baseline Models)
-除消融實驗外，專案亦提供三款經典推薦模型作為學術對比基準：
-* **BPR-MF**: 傳統矩陣分解。
-* **LightGCN**: 純圖捲積協同過濾。
-* **NFM**: 深度交互模型。
-
-執行對照組批次任務：
+### 2. 經典 Baseline 模型實驗 (Baseline Benchmark)
+一鍵啟動 BPR-MF, LightGCN 與 NFM 三款經典推薦模型訓練：
 ```powershell
-./run_baseline_experiments.bat
+.\run_baseline_experiments.bat
 ```
-*(結果將存放於 `models/baseline/` 與 `output/logs/baseline/`)*
 
-### 4. 可解釋性量化評估 (Fidelity)
-對於已訓練好的 KGAT 模型，可以進行解釋路徑萃取與 Fidelity 指標評估：
+### 3. 可解釋性評估管道 (XAI & Fidelity Pipeline)
+單一模型 XAI Fidelity 評估：
+```powershell
+.\run_xai_pipeline.bat
+```
+跨模型全自動 500 位使用者 Fidelity 評估 (L=1, L=2, L=3)：
+```powershell
+.\run_xai_pipeline_all.bat
+```
+
+### 4. 日誌與數據整理管道 (Log Pipeline)
+清理訓練日誌、驗證數據並產出最優指標簡報：
+```powershell
+.\run_log_pipeline.bat
+```
+
+---
+
+## 💻 獨立命令列指令 (CLI Usages)
+
+若欲手動呼叫各模組進行獨立訓練或評估：
+
 ```bash
-.venv\Scripts\python.exe src/evaluate_fidelity.py --model_path models/my_kgat/checkpoint.pth --user_ids_file data/user_test_list.json
+# 1. 訓練 Full KGAT (L=1, BFloat16)
+uv run python src/train.py --layers 64 --epochs 30 --use_bf16 --model_dir models/full_kgat
+
+# 2. 訓練深層 KGAT (L=3, 啟用 Activation Checkpointing)
+uv run python src/train.py --layers 64 64 64 --epochs 30 --use_bf16 --model_dir models/depth_3
+
+# 3. 獨立訓練 LightGCN Baseline
+uv run python src/train_baseline.py --model LightGCN --epochs 30 --model_dir models/baseline
+
+# 4. 批次評估所有檢查點 metrics (HR@K, NDCG@K, Precision@K)
+uv run python scripts/evaluate_all.py
+
+# 5. 手動執行單一 Checkpoint 的 Fidelity 評估
+uv run python src/evaluate_fidelity.py --model_path models/full_kgat/kgat_checkpoint_e30.pth --user_ids_file data/user_test_list.json --output_explain output/fidelity/explanations.json --output_metrics output/fidelity/metrics.json
 ```
 
-### 5. 可選：自訂獨立訓練
-若只想獨立訓練某一款特定配置的模型：
-```bash
-.venv\Scripts\python.exe src/train_att.py --epochs 30 --layers 64 --model_dir models/my_kgat --use_bf16
+---
+
+## 📊 評估指標 (Evaluation Metrics)
+
+| 指標類別 | 指標名稱 | 說明 |
+| :--- | :--- | :--- |
+| **推薦效能 (Accuracy)** | **HR@K** (Recall) | Top-K 推薦列表中命中真實互動項目的比率 |
+| | **NDCG@K** | 考量推薦排名位置順序折扣之累積增益 |
+| | **Precision@K** | Top-K 推薦結果中目標食譜的精準度 |
+| **可解釋性 (Explainability)** | **Fidelity+** | **必要性驗證**：遮擋 Top-K 解釋路徑後模型分數的下降幅 (越高代表越必要) |
+| | **Fidelity-** | **充分性驗證**：僅保留 Top-K 解釋路徑時與原始預測的降幅 (越接近 0 代表越充分) |
+
+---
+
+## 📂 專案目錄結構 (Directory Structure)
+
 ```
-若遭逢意外中斷，可利用 `--resume` 旗幟載入舊進度：
-```bash
-.venv\Scripts\python.exe src/train_att.py --resume models/my_kgat/kgat_checkpoint_e10.pth
+Experiment/
+├── pyproject.toml              # uv 套件與 Python 專案配置
+├── README.md                   # 專案說明主文件
+├── CHANGELOG.md                # 版本修訂紀錄
+├── .gitignore                  # Git 版本控制忽略清單 (已排除 4GB 大檔與建置產物)
+├── data/
+│   ├── raw/                    # 原始 CSV 資料 (RAW_recipes.csv, RAW_interactions.csv)
+│   └── processed/              # 協同知識圖譜 (.pkl 檔)
+├── docs/                       # 技術文檔、API 參考與 ADR 決策紀錄
+│   ├── architecture.md         # 系統架構設計與優化細節
+│   ├── api_reference.md        # 各模組與類別 API 規格說明
+│   ├── development.md          # 開發者指南與維護腳本手冊
+│   ├── data_dictionary.md      # 資料欄位與 CKG Schema 字典
+│   └── adr/                    # Architecture Decision Records (ADR-001 ~ ADR-007)
+├── models/                     # 訓練檢查點存放區 (MODELS.md 紀錄細節)
+├── output/                     # 輸出日誌、Fidelity 結果與 LLM 簡化資料
+├── scripts/                    # 實驗數據分析、檢查點維護與視覺化腳本
+├── src/                        # 核心原始碼
+│   ├── data/preprocess.py      # 圖譜前處理與特徵抽取
+│   ├── model/                  # KGAT, Baselines (BPR-MF, LightGCN, NFM) 與 Explainers
+│   ├── train.py                # 主 KGAT 訓練與消融進入點
+│   ├── train_baseline.py       # Baseline 模型訓練進入點
+│   └── evaluate_fidelity.py    # XAI Fidelity+ / Fidelity- 量化計算
+└── run_*.bat                   # 各自動化實驗與評估批次檔
 ```
 
-### 6. 實驗結果分析與比對
-專案提供一系列小腳本協助整理實驗數據：
-* **評估與統整**: 使用 `scripts/evaluate_all.py` 一鍵執行所有模型的測試評估。
-* **指標比對**: 使用 `scripts/compare_metrics.py` 自動化比對不同模型的評估結果。
-* **日誌清理**: 使用 `scripts/reformat_logs.py` 重新格式化訓練日誌，方便閱讀。
-* **XAI 分析**: 執行 `output/analyze_xai.py` 與 `output/simplify_output_data.py` 分析與簡化模型產生的解釋路徑。
+---
 
-## 文檔索引
-欲深入了解這套系統的心路歷程與各模組實作細節，請參閱：
-* [專案實驗架構與模組設計](docs/architecture.md): 本次實驗架構原理與消融變數詳解。
-* [API 參考文件](docs/api_reference.md): 兩款核心模型程式切入點與優化演算法說明。
-* [架構決策紀錄 (ADR Index)](docs/adr/README.md): 紀錄所有效能卡關與學術選擇的解決歷程。
+## 📚 延伸技術文檔 (Documentation Index)
+
+詳細的系統架構與模組設計手冊請參閱 `docs/`：
+* [專案實驗架構與模組設計](docs/architecture.md)
+* [API 參考文件](docs/api_reference.md)
+* [開發者指南與維護腳本說明](docs/development.md)
+* [資料字典與 CKG 結構說明](docs/data_dictionary.md)
+* [架構決策紀錄 (ADR Index)](docs/adr/README.md)
+
+---
+
+## 📜 授權條款 (License)
+
+本專案採用 MIT License 授權條款，詳情請參閱 [LICENSE](LICENSE) 檔案。

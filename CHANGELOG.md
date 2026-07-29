@@ -2,6 +2,19 @@
 
 本文件紀錄專案的所有重要改動。依據 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 格式撰寫。
 
+## [1.5.1] - 2026-07-29
+
+### Added
+- **Documentation**: 全面重構與升級 `README.md`、`docs/architecture.md`、`docs/api_reference.md` 與 `docs/development.md` 為結構清晰之繁體中文技術手冊，導入 Mermaid 架構圖與完整指標總覽。
+- **ADR**: 新增 [ADR-007](docs/adr/ADR-007-Documentation-Refactoring-and-Git-Exclusion.md) 紀錄全專案文檔重構與 Git 巨型檔案排除規範。
+- **Git & Build**: 擴充 `.gitignore` 配置，強制排除 4.03 GB 備份包 (`model_checkpoints_backup.zip`)、77 MB 論文包 (`paper_latex.zip`)、`.venv/`、`.agents/` 及 LaTeX 編譯產物，確保符合 GitHub 100MB 單檔限制與 Conventional Commits 規範。
+- **Maintenance**: 在 `docs/development.md` 中補全 `scripts/` 維護腳本 (包含檢查點清理 `cleanup_checkpoints.py`與 NotebookLM 編譯腳本 `compile_for_notebooklm.py`) 之開發手冊。
+
+### Fixed
+- **Documentation**: 修正舊文檔中過時的腳本檔名參照（如修正為 `src/model/kgat.py` 與 `src/train.py`），並澄清 PyTorch 原生 XPU (PyTorch 2.4+ / 2.9+) 無需外掛獨立 IPEX 套件。
+
+---
+
 ## [1.5.0] - 2026-04-22
 
 ### Added
@@ -10,6 +23,8 @@
 - **Scripts**: 新增 `scripts/reformat_logs.py` 重新格式化與清理訓練日誌輸出。
 - **Scripts**: 新增 `output/analyze_xai.py` 與 `output/simplify_output_data.py` 以分析並簡化 XAI 可解釋性結果資料。
 - **Scripts**: 新增 `models/update_models_list.py` 管理與更新模型列表狀態。
+
+---
 
 ## [1.4.0] - 2026-04-17
 
@@ -20,6 +35,7 @@
 - **Evaluation**: 實作 `src/evaluate_fidelity.py` 用於 XAI 可解釋性量化指標 (Fidelity+, Fidelity-) 評估與解釋路徑批次萃取。
 - **Log/Model**: 統一基準模型輸出軌跡於 `models/baseline/` 與 `output/logs/baseline/`。
 
+---
 
 ## [1.3.0] - 2026-03-30
 
@@ -35,8 +51,7 @@
 - **Training**: 移除與 BPR 共用的 KGE Joint Training 邏輯，轉向純粹的推薦任務優化 (ADR-004)。
 - **Hardware**: 優化 bf16 混合精度訓練流程，提升 Intel XPU 硬體利用率 (ADR-003)。
 
-
-
+---
 
 ## [1.2.0] - 2026-03-23
 
@@ -64,6 +79,8 @@
 - **Inference**: 修復 `UnboundLocalError: cannot access local variable 'os'` 錯誤。
 - **Inference**: 修復 JSON 序列化時 `float32` 型別不相容的問題，確保推理結果能正確輸出。
 
+---
+
 ## [1.1.0] - 2025-12-23
 
 ### Added
@@ -78,6 +95,7 @@
 - **Training**: 優化模型 `forward` 介面，將正樣本與負樣本分數合併計算，減少 50% 的圖遍歷開銷。
 - **Training**: 更新 `src/train.py` 與 `src/train_att.py` 以支援原生 XPU 偵測與大型 Batch Size 優化。
 
+---
 
 ## [1.0.0] - 2025-12-19
 
@@ -93,6 +111,8 @@
 - **架構調整**: 移除 `dgl` 依賴，將 KGAT 模型與資料流重構為純 PyTorch 實作，以解決 Windows 環境相容性問題 (Ref: ADR-001)。
 - `src/model/kgat.py`: 重寫 GNN Layer，使用 native torch 運算替代 DGL message passing。
 - `docs/architecture.md`: 更新架構描述以反映 DGL 的移除。
+
+---
 
 ## [0.1.0] - 2025-12-17
 ### Added
