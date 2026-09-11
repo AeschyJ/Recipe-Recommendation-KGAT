@@ -47,3 +47,12 @@ unexpected_diffs.txt
 *.toc
 *.bbl
 *.blg
+*.nav
+*.snm
+
+# Temporary review & comparison files
+Paper/main.txt
+Paper/orig.txt
+Paper/*_p*.png
+Paper/ntu-114-1.pdf
+Paper/extracted_comments.md

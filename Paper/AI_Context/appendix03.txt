@@ -1,0 +1,20 @@
+﻿C知識圖預處理與超級節點過濾清單
+chapter
+
+在構建食譜知識圖時，少數出現頻率極高的節點（如常見的調味料或無區別性的通用標籤）會成為結構中的超級節點（Hub Nodes）。在圖神經網路的訊息傳遞過程中，這些超級節點會將高度同質化的資訊無差別地廣播給大量不相關的食譜，導致協同過濾訊號被嚴重稀釋，這也是發生淺層網路「資訊污染」現象的可能原因之一。
+
+為維持知識圖中語意關聯的鑑別度並控制運算複雜度，本研究在預處理階段針對食材與標籤進行了分佈分析，設定閾值以過濾部分極高頻的超級節點。為確保本實驗的設計細節透明與可重複性（Reproducibility），具體的過濾名單詳列於本附錄中供參考。
+
+## 食材 (Ingredients) 噪音與過濾清單
+
+食材過濾清單由兩部分聯集而成：一是根據先驗常識手動加入的基礎調味料（Base Noise）；二是統計所有食譜後，出現頻率位居前 0.5% 或前十名的高頻食材。此過濾邏輯總共排除了 74 個高頻食材實體：
+
+-  基礎過濾清單 (Base Noise): salt, water, oil, sugar, all-purpose flour, butter, eggs, black pepper, garlic, onions, vanilla, baking soda, baking powder.
+
+-  高頻過濾清單 (Top 0.5%): carrot, red onion, onion, unsalted butter, green onion, zucchini, ground beef, ground cinnamon, cinnamon, honey, cream cheese, mayonnaise, fresh parsley, potatoes, celery, red bell pepper, tomatoes, parsley, dijon mustard, orange juice, cayenne pepper, margarine, olive oil, soy sauce, dried oregano, vegetable oil, garlic clove, garlic powder, worcestershire sauce, flour, carrots, powdered sugar, paprika, lemon juice, kosher salt, cheddar cheese, milk, garlic cloves, sour cream, chili powder, nutmeg, fresh lemon juice, fresh ground black pepper, mozzarella cheese, cornstarch, parmesan cheese, green onions, heavy cream, chicken broth, raisins, granulated sugar, brown sugar, vanilla extract, extra virgin olive oil, bacon, walnuts, pecans, salt and pepper, ground cumin, pepper, egg.
+
+## 標籤 (Tags) 噪音與過濾清單
+
+針對食譜標籤，考量標籤的種類總數相對較少（Total unique tags: 552），本研究直接剃除出現頻率最高的前 50 個標籤。這些標籤大多表示製作時間長短、適用場合、或是極度通用的食譜分類（對區別食譜特徵的貢獻極低），完整的過濾清單如下：
+
+-  高頻標籤過濾清單 (Top 50): 4-hours-or-less, course, 15-minutes-or-less, comfort-food, desserts, oven, time-to-make, lunch, occasion, equipment, dietary, low-saturated-fat, preparation, holiday-event, healthy-2, low-carb, inexpensive, poultry, north-american, side-dishes, 3-steps-or-less, low-fat, vegetables, 5-ingredients-or-less, taste-mood, easy, 30-minutes-or-less, 60-minutes-or-less, european, low-sodium, low-cholesterol, low-protein, eggs-dairy, pasta-rice-and-grains, presentation, vegetarian, dinner-party, beginner-cook, fruit, kid-friendly, low-in-something, american, main-ingredient, for-1-or-2, healthy, low-calorie, main-dish, cuisine, number-of-servings, meat.

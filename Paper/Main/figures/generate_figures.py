@@ -23,13 +23,14 @@ import matplotlib.ticker as ticker
 import numpy as np
 
 matplotlib.rcParams.update({
-    "font.family": "serif",
-    "font.size": 11,
-    "axes.titlesize": 12,
-    "axes.labelsize": 11,
-    "xtick.labelsize": 10,
-    "ytick.labelsize": 10,
-    "legend.fontsize": 10,
+    "font.family": "sans-serif",
+    "font.sans-serif": ["Arial", "DejaVu Sans", "Helvetica"],
+    "font.size": 12.5,
+    "axes.titlesize": 14,
+    "axes.labelsize": 13,
+    "xtick.labelsize": 11.5,
+    "ytick.labelsize": 11.5,
+    "legend.fontsize": 11,
     "figure.dpi": 150,
     "pdf.fonttype": 42,   # 確保 PDF 中字型可搜尋
     "ps.fonttype": 42,
@@ -224,7 +225,7 @@ def _plot_metric_axis(
 
 def generate_training_curves() -> None:
     """產生 HR@20 與 NDCG@20 的雙子圖訓練曲線。"""
-    fig, (ax_hr, ax_ndcg) = plt.subplots(1, 2, figsize=(11, 4.5), sharey=False)
+    fig, (ax_hr, ax_ndcg) = plt.subplots(1, 2, figsize=(11, 4.8), sharey=False)
 
     _plot_metric_axis(ax_hr,   BASELINES["HR@20"],   "HR@20",   "HR@20")
     _plot_metric_axis(ax_ndcg, BASELINES["NDCG@20"], "NDCG@20", "NDCG@20")
@@ -238,9 +239,9 @@ def generate_training_curves() -> None:
         handles, labels,
         loc="lower center",
         ncol=6,
-        bbox_to_anchor=(0.5, -0.13),
+        bbox_to_anchor=(0.5, -0.05),
         framealpha=0.9,
-        fontsize=9.5,
+        fontsize=10.5,
     )
 
     fig.tight_layout()

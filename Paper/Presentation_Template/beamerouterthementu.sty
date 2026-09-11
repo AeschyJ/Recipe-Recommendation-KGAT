@@ -1,0 +1,69 @@
+\mode<presentation>
+
+% remove navigation
+\setbeamertemplate{navigation symbols}{}
+
+
+% headline
+
+% \IfFileExists{logos/\firstcolor.png}{logos/\firstcolor.png}{logos/ntubrick.png}
+\setbeamertemplate{headline}{
+    \begin{beamercolorbox}[wd=\paperwidth, ht=3.0pt, dp=0pt]{fl}\end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=\paperwidth, ht=1.5pt, dp=0pt]{hl}\end{beamercolorbox}%
+    \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west, xshift=3mm, yshift=-3mm] at (current page.north west) 
+         {\includegraphics[height=8.5mm,keepaspectratio]{logos/ntublue.png}}; 
+    \node[anchor=north west, xshift=18mm, yshift=-4mm, align=left, text width=0.85\paperwidth] at (current page.north west) {
+        {\color{\secondcolor!80!black}\small\bfseries\insertsection}\\[0.5mm]
+        {\color{\firstcolor!90!black}\Large\bfseries\insertframetitle}
+    };
+    \end{tikzpicture}%
+    \vspace*{10mm}%
+}
+\setbeamertemplate{footline}{
+    \leavevmode%
+    \hbox{%
+        \begin{beamercolorbox}[wd=.15\paperwidth, ht=9pt, dp=3pt, left, leftskip=2ex]{fl}%
+            \usebeamerfont{footline}\fontsize{6.5}{7}\selectfont \today
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.70\paperwidth, ht=9pt, dp=3pt, center]{fl}%
+            \usebeamerfont{footline}\fontsize{6.5}{7}\selectfont \ifdefined\department\department\else 國立臺灣大學 工學院 工程科學及海洋工程學系 iCAN 智慧計算與網路實驗室\fi
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.15\paperwidth, ht=9pt, dp=3pt, right, rightskip=2ex]{fl}%
+            \usebeamerfont{footline}\fontsize{6.5}{7}\selectfont \insertframenumber\,/\,\inserttotalframenumber
+        \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+}
+
+
+
+
+
+\setbeamercolor{title in head/foot}{fg=\secondcolor}
+
+% Table of contents
+\setbeamertemplate{section in toc}{%
+  \hskip1em{\color{\firstcolor!80!black}$\bullet$  \inserttocsection} \par}
+
+\setbeamertemplate{subsection in toc}{
+  \hskip3em{\color{\firstcolor}$\bullet$ \inserttocsubsection} \par}
+
+\setbeamertemplate{subsubsection in toc}{
+  \hskip5em{\color{\firstcolor}$\circ$ \inserttocsubsubsection} \par}
+
+% Fix space between sections and subsections in toc
+\makeatletter
+\patchcmd{\beamer@sectionintoc}
+{\vfill}
+{\vskip\itemsep}
+{}
+{}
+\pretocmd{\beamer@subsectionintoc}
+{\vskip0.5\itemsep}
+{}
+{}
+\makeatother 
+
+
+\mode<all>

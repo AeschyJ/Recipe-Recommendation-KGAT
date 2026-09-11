@@ -1,0 +1,47 @@
+\documentclass[aspectratio=169, 10pt]{beamer}
+
+\usepackage{xeCJK}
+\setCJKmainfont{Microsoft JhengHei}
+\setCJKsansfont{Microsoft JhengHei}
+\setCJKmonofont{KaiTi}
+
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+
+\usetheme{ntu}
+% 設定台大藍主色與輔助色
+\setcolor[ntugold]{ntublue}
+
+\setdepartment{國立臺灣大學 工學院 工程科學及海洋工程學系 iCAN 智慧計算與網路實驗室}
+
+\title{應用知識圖注意力網路於食譜推薦之\\效能評估與可解釋性研究}
+\subtitle{碩士學位論文口試}
+\author{研究生：廖健合 \quad (指導教授：張瑞益 教授)}
+\date{\today}
+
+\begin{document}
+
+\inserttitlepage
+
+\begin{frame}{目錄 Outline}
+  \tableofcontents
+\end{frame}
+
+\section{研究背景與動機}
+\begin{frame}{食譜平台的資訊過載與推薦需求}
+  \begin{mybox}{ntublue}{背景與痛點}
+    \begin{itemize}
+      \item 食譜平台累積海量食譜、食材與使用者互動。
+      \item 純協同過濾 (CF) 受限於資料稀疏與冷啟動問題。
+    \end{itemize}
+  \end{mybox}
+  
+  \begin{examplebox}{核心研究目標}
+    如何有效利用食材與標籤等輔助知識，產生高準確且可說明的推薦結果？
+  \end{examplebox}
+\end{frame}
+
+\end{document}

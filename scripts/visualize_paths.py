@@ -13,7 +13,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.generate_explanations import get_node_name, load_names_and_maps
 from src.model.explainer_attention import KGATAttentionExplainer
-from src.model.kgat_attention import KGATAttention
+from src.model.kgat import KGATAttention
 from src.train import get_adj_indices
 
 
@@ -22,7 +22,10 @@ def parse_args():
         description="Visualize Recommendation Paths for KGAT"
     )
     parser.add_argument(
-        "--model_path", type=str, required=True, help="Path to KGAT checkpoint"
+        "--model_path",
+        type=str,
+        default="models/full_kgat/1_kgat_checkpoint_e20.pth",
+        help="Path to KGAT checkpoint",
     )
     parser.add_argument(
         "--user_ids", type=str, help="Comma-separated user IDs (remapped)"
@@ -47,7 +50,7 @@ def parse_args():
     parser.add_argument(
         "--output_dir",
         type=str,
-        default="paper/main/figures",
+        default="Paper/Main/figures",
         help="Output directory for plots",
     )
     parser.add_argument(
@@ -153,7 +156,7 @@ def visualize_user_explanations(user_id, target_item_id, explainer, model_inputs
             else:
                 G.add_edge(u, v, weight=score)
 
-    plt.figure(figsize=(13, 11))
+    plt.figure(figsize=(10, 7.5))
     color_map = {
         "USER": "#AED6F1",
         "RECIPE": "#ABEBC6",
@@ -169,56 +172,139 @@ def visualize_user_explanations(user_id, target_item_id, explainer, model_inputs
         else:
             node_colors.append(color_map.get(n_type, "lightgray"))
 
-    # 使用更加動態的佈局
-    pos = nx.spring_layout(G, k=1.2, iterations=150, seed=42)
+    # 針對不同個案數與結構採用確定性無重疊佈局 (Deterministic Layout)
+    num_nodes_cnt = len(nodes_in_graph)
+    pos = {}
+
+    target_global = n_users + target_item_id
+    target_name = str(node_labels.get(target_global, "")).lower()
+    user_lbl = str(node_labels.get(user_id, "")).lower()
+
+    if num_nodes_cnt <= 2:
+        # Case A: 直接連接
+        pos = {}
+        for nid in nodes_in_graph:
+            lbl = str(node_labels.get(nid, "")).lower()
+            if "user" in lbl or nid == user_id:
+                pos[nid] = (-0.55, 0.40)
+            else:
+                pos[nid] = (0.45, -0.35)
+        plt.xlim(-1.1, 1.25)
+        plt.ylim(-0.80, 0.80)
+    elif "bruschetta" in target_name or "573230" in user_lbl:
+        # Case B Layout (協同過濾個案)
+        pos = {}
+        for nid in nodes_in_graph:
+            lbl = str(node_labels.get(nid, "")).lower()
+            if "573230" in lbl or (nid == user_id and "user" in lbl):
+                pos[nid] = (-0.65, 0.65) # User 573230 置於左上角，遠離右側 Legend
+            elif "bruschetta" in lbl:
+                pos[nid] = (-0.75, -0.55) # Target bruschetta 置於左下角
+            elif "cajun" in lbl or "pasta" in lbl:
+                pos[nid] = (0.65, -0.45) # cajun pasta 置於右下角
+            elif "603504" in lbl:
+                pos[nid] = (-0.05, -0.58) # User 603504 置於正下方中點
+            elif "868551" in lbl:
+                pos[nid] = (0.75, 0.15)  # User 868551 置於右中
+            elif "1506604" in lbl:
+                pos[nid] = (-0.85, 0.05) # User 1506604 置於左中
+            else:
+                pos[nid] = (0.0, 0.0)
+        plt.xlim(-1.25, 1.35)
+        plt.ylim(-0.88, 0.88)
+    elif "salad" in target_name or "thai" in target_name or "963993" in user_lbl:
+        # Case C Layout (KG 語意個案)
+        pos = {}
+        for nid in nodes_in_graph:
+            lbl = str(node_labels.get(nid, "")).lower()
+            if "963993" in lbl or (nid == user_id and "user" in lbl):
+                pos[nid] = (-0.65, 0.65) # User 963993 置於左上角
+            elif "salad" in lbl or "thai" in lbl:
+                pos[nid] = (-0.75, -0.55) # Target thai salad 置於左下角
+            elif lbl == "chicken":
+                pos[nid] = (-0.05, -0.58) # chicken 食材實體置於正下
+            elif "pizza" in lbl:
+                pos[nid] = (-0.85, 0.05) # pizza chicken 置於左中
+            elif "none better" in lbl or "breast" in lbl:
+                pos[nid] = (0.75, 0.15)  # ain't none better... 置於右中
+            elif "awesome" in lbl or "sweet" in lbl:
+                pos[nid] = (0.65, -0.45) # awesome sweet and sour... 置於右下
+            else:
+                pos[nid] = (0.0, 0.0)
+        plt.xlim(-1.25, 1.35)
+        plt.ylim(-0.88, 0.88)
+    else:
+        pos = nx.spring_layout(G, k=1.6, iterations=200, seed=42)
+        plt.xlim(-1.2, 1.2)
+        plt.ylim(-0.88, 0.88)
 
     nx.draw_networkx_nodes(
         G,
         pos,
         node_color=node_colors,
-        node_size=3800,
-        alpha=0.9,
+        node_size=5800,
+        alpha=0.95,
         edgecolors="black",
-        linewidths=1.5,
+        linewidths=1.8,
     )
 
+    # 智慧文字包裹，雙行收納於圓圈內部
+    import textwrap
     wrapped_labels = {
-        k: v.replace(" ", "\n") if len(v) > 12 else v for k, v in node_labels.items()
+        k: textwrap.fill(v.strip(), width=13, break_long_words=False)
+        for k, v in node_labels.items()
     }
     nx.draw_networkx_labels(
-        G, pos, labels=wrapped_labels, font_size=9, font_weight="bold"
+        G, pos, labels=wrapped_labels, font_size=10.0, font_weight="bold"
     )
 
     edges = G.edges()
     weights = [G[u][v]["weight"] for u, v in edges]
     if weights:
         max_w = max(weights)
-        # 視覺化調整：讓邊線寬度更明顯
-        edge_widths = [(w / (max_w + 1e-9)) * 6 + 1.5 for w in weights]
+        edge_widths = [(w / (max_w + 1e-9)) * 7 + 2.0 for w in weights]
         nx.draw_networkx_edges(
             G,
             pos,
             width=edge_widths,
-            edge_color="#616A6B",
-            alpha=0.7,
+            edge_color="#515A5A",
+            alpha=0.75,
             arrowsize=25,
-            connectionstyle="arc3,rad=0.1",
+            connectionstyle="arc3,rad=0.08",
         )
 
-        # 繪製 Edge Labels 顯示分數
-        edge_labels = {(u, v): f"{G[u][v]['weight']:.4f}" for u, v in edges}
-        nx.draw_networkx_edge_labels(
-            G,
-            pos,
-            edge_labels=edge_labels,
-            font_size=11,
-            font_color="#8cdcfe",
-            font_family="sans-serif",
-            font_weight="bold",
-            bbox=dict(
-                boxstyle="round,pad=0.2", alpha=0.8, color="white", edgecolor="none"
-            ),
-        )
+        # 錯開邊標籤位置 (label_pos)，徹底消除交叉邊標籤碰撞
+        for (u, v), w in zip(edges, weights):
+            lbl = f"{w:.4f}"
+            u_lbl = str(node_labels.get(u, "")).lower()
+            v_lbl = str(node_labels.get(v, "")).lower()
+            
+            # 對角交叉邊特別錯開標籤點 (0.35 或 0.65)
+            lpos = 0.5
+            if ("user" in u_lbl and "cajun" in v_lbl) or ("user" in u_lbl and "awesome" in v_lbl):
+                lpos = 0.38
+            elif ("1506604" in u_lbl and "cajun" in v_lbl) or ("chicken" in u_lbl and "none better" in v_lbl):
+                lpos = 0.68
+            elif ("868551" in u_lbl and "bruschetta" in v_lbl):
+                lpos = 0.35
+            
+            nx.draw_networkx_edge_labels(
+                G,
+                pos,
+                edge_labels={(u, v): lbl},
+                font_size=11,
+                font_color="#002266",
+                font_family="sans-serif",
+                font_weight="bold",
+                label_pos=lpos,
+                bbox=dict(
+                    boxstyle="round,pad=0.22",
+                    alpha=0.95,
+                    color="#EBF5FB",
+                    edgecolor="#2980B9",
+                    linewidth=1.5,
+                ),
+            )
 
     _, _, user_name = get_node_name(
         user_id, n_users, n_items, user_le, item_le, entity_maps, recipe_name_map
@@ -235,8 +321,8 @@ def visualize_user_explanations(user_id, target_item_id, explainer, model_inputs
 
     plt.title(
         f"Recommendation Explanation (KGAT L=3)\nUser: {user_name} | Target: {item_name}",
-        fontsize=18,
-        pad=25,
+        fontsize=16,
+        pad=20,
         fontweight="bold",
     )
 
@@ -280,7 +366,7 @@ def visualize_user_explanations(user_id, target_item_id, explainer, model_inputs
             markersize=14,
         ),
     ]
-    plt.legend(handles=legend_elements, loc="best", frameon=True, fontsize=11)
+    plt.legend(handles=legend_elements, loc="upper right", frameon=True, fontsize=12)
 
     plt.axis("off")
 

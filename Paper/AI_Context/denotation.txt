@@ -1,0 +1,56 @@
+﻿-
+  協同知識圖 (Collaborative Knowledge Graph, CKG)
+
+-
+  使用者集合 (User Set)
+
+-
+  物品集合 (Item Set)
+
+-
+  實體集合 (Entity Set)
+
+-
+  關係集合 (Relation Set)
+
+-
+  使用者 $u$ 與物品 $v$ 的嵌入向量 (Embedding Vector)
+
+-
+  關係 $r$ 的嵌入向量
+
+-
+  嵌入維度 (Embedding Dimension)
+
+-
+  圖神經網路的訊息傳播層數 (Number of Propagation Layers)
+
+-
+  節點 $i$ 對鄰居節點 $j$ 的注意力權重 (Attention Weight)
+
+-
+  節點 $i$ 的鄰居集合 (Neighborhood Set)
+
+-
+  使用者 $u$ 對物品 $v$ 的預測偏好分數
+
+-
+  使用者 $u$ 對物品 $v$ 的預測機率 (亦即 $(y_uv)$)
+
+-
+  貝葉斯個人化排序損失函數 (BPR Loss)
+
+-
+  命中率，Top-$K$ 推薦清單中包含真實正樣本的比例
+
+-
+  歸一化折損累計增益，衡量推薦排序品質
+
+-
+  精確率，Top-$K$ 推薦清單中正確推薦的比例
+
+-
+  解釋路徑萃取框架中所選定的解釋邊集合 (Explanatory Subgraph)
+
+-
+  必要性 (Necessity) 與充分性 (Sufficiency) 忠實度量化指標 (Fidelity)

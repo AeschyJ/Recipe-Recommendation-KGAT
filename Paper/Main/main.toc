@@ -21,9 +21,9 @@
 \contentsline {chapter}{\numberline {3}研究方法}{15}{chapter.3}%
 \contentsline {section}{\numberline {3.1}系統架構}{15}{section.3.1}%
 \contentsline {section}{\numberline {3.2}資料預處理與知識圖建構}{15}{section.3.2}%
-\contentsline {section}{\numberline {3.3}知識圖注意力網路 (KGAT)}{18}{section.3.3}%
+\contentsline {section}{\numberline {3.3}知識圖注意力網路 (KGAT)}{19}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Relation-Aware Attention 機制}{19}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Bi-Interaction 聚合機制}{19}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.2}Bi-Interaction 聚合機制}{20}{subsection.3.3.2}%
 \contentsline {section}{\numberline {3.4}損失函數與模型訓練}{22}{section.3.4}%
 \contentsline {section}{\numberline {3.5}基於忠實度 (Fidelity) 的可解釋性評估框架}{22}{section.3.5}%
 \contentsline {chapter}{\numberline {4}實驗設計與結果分析}{25}{chapter.4}%
@@ -43,7 +43,7 @@
 \contentsline {subsection}{\numberline {4.5.6}案例分析}{39}{subsection.4.5.6}%
 \contentsline {chapter}{\numberline {5}結論與未來研究方向}{43}{chapter.5}%
 \contentsline {section}{\numberline {5.1}研究結論}{43}{section.5.1}%
-\contentsline {section}{\numberline {5.2}研究限制}{47}{section.5.2}%
+\contentsline {section}{\numberline {5.2}研究限制}{46}{section.5.2}%
 \contentsline {section}{\numberline {5.3}未來研究方向}{48}{section.5.3}%
 \contentsline {chapter}{參考文獻}{51}{section*.27}%
 \contentsline {chapter}{附錄~{A}~---~各模型最佳效能統計摘要}{55}{section*.30}%

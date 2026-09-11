@@ -1,0 +1,754 @@
+% ==============================================================================
+% 【封存/舊版草稿】LEGACY / ARCHIVED DRAFT
+% 注意：本檔案為早期的簡報草稿，包含舊版實驗措辭。
+% 正式口試發表請務必使用同目錄下的【main_defense_ntu.tex】！
+% ==============================================================================
+\documentclass[aspectratio=169, 10pt]{beamer}
+
+% --------------------------------------------------
+% 中文與字型設定 (xeCJK for Windows)
+% --------------------------------------------------
+\usepackage{xeCJK}
+\setCJKmainfont{Microsoft JhengHei}
+\setCJKsansfont{Microsoft JhengHei}
+\setCJKmonofont{KaiTi}
+
+% --------------------------------------------------
+% 套件載入
+% --------------------------------------------------
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta, shapes.geometric, fit, backgrounds, shadows}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{array}
+
+% --------------------------------------------------
+% 配色設定：台大藍 (#003366 / #003D74) + 淨白底
+% --------------------------------------------------
+\definecolor{NTUBlue}{HTML}{003366}       % 主色：台大藍
+\definecolor{NTUBlueDark}{HTML}{002244}   % 標題區深藍
+\definecolor{NTUBlueLight}{HTML}{F0F4F8}  % 卡片底色/淺灰藍
+\definecolor{NTUBlueAccent}{HTML}{0055A5} % 強調藍
+\definecolor{NTUGold}{HTML}{D4AF37}       % 輔助金/亮色標記
+\definecolor{TextDark}{HTML}{222222}      % 文字深灰
+\definecolor{HighlightRed}{HTML}{C00000}   % 強調紅/高亮指標
+
+% --------------------------------------------------
+% Beamer 主題微調 (簡潔白底 + 台大藍 header)
+% --------------------------------------------------
+\mode<presentation>{
+  \usecolortheme{rose}
+  \usefonttheme{professionalfonts}
+  
+  % 設定各區域顏色
+  \setbeamercolor{background canvas}{bg=white}
+  \setbeamercolor{normal text}{fg=TextDark}
+  \setbeamercolor{frametitle}{fg=white, bg=NTUBlue}
+  \setbeamercolor{title}{fg=white, bg=NTUBlue}
+  \setbeamercolor{subtitle}{fg=NTUBlueLight}
+  \setbeamercolor{author}{fg=white}
+  \setbeamercolor{date}{fg=white!90}
+  \setbeamercolor{institute}{fg=white!90}
+  
+  % Block 顏色
+  \setbeamercolor{block title}{fg=white, bg=NTUBlue}
+  \setbeamercolor{block body}{fg=TextDark, bg=NTUBlueLight}
+  \setbeamercolor{block title example}{fg=white, bg=NTUBlueAccent}
+  \setbeamercolor{block body example}{fg=TextDark, bg=NTUBlueLight}
+  \setbeamercolor{block title alert}{fg=white, bg=HighlightRed}
+  \setbeamercolor{block body alert}{fg=TextDark, bg=red!5}
+  
+  % 項目符號顏色
+  \setbeamercolor{item}{fg=NTUBlue}
+  \setbeamercolor{subitem}{fg=NTUBlueAccent}
+  
+  % 頁尾設定
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{footline}{
+    \leavevmode%
+    \hbox{%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\color{NTUBlue}國立臺灣大學 工海系 iCAN 智慧計算與網路實驗室
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\color{NTUBlue}\insertsectionhead
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+      \usebeamerfont{date in head/foot}\color{NTUBlue}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}}%
+    \vskip0pt%
+  }
+}
+
+% --------------------------------------------------
+% 論文資訊設定
+% --------------------------------------------------
+\title{應用知識圖注意力網路於食譜推薦之\\效能評估與可解釋性研究}
+\subtitle{Performance Evaluation and Explainability Study of Knowledge Graph Attention Network for Recipe Recommendation}
+\author{研究生：廖健合 \quad (R12525066)}
+\institute{國立臺灣大學 工學院 工程科學及海洋工程學系\\iCAN 智慧計算與網路實驗室\\指導教授：張瑞益 教授}
+\date{}
+
+% --------------------------------------------------
+% 正文開始
+% --------------------------------------------------
+\begin{document}
+
+% ==================================================
+% Slide 1: 封面 (Title Slide)
+% ==================================================
+{
+\setbeamercolor{background canvas}{bg=NTUBlue}
+\begin{frame}[plain]
+  \vfill
+  \begin{center}
+    % LOGO 區域
+    \hbox to \linewidth{
+      \hspace{1cm}
+      \includegraphics[height=1.2cm]{logos/ntu_logo.png} 
+      \hfill
+      \parbox[c]{5cm}{\raggedleft \color{white} \textbf{iCAN Lab}\\智慧計算與網路實驗室}
+      \hspace{1cm}
+    }
+    \vspace{0.4cm}
+    
+    {\color{white}\LARGE \textbf{應用知識圖注意力網路於食譜推薦之}}\\[0.2cm]
+    {\color{white}\LARGE \textbf{效能評估與可解釋性研究}}\\[0.3cm]
+    {\color{NTUBlueLight}\small Performance Evaluation and Explainability Study of KGAT for Recipe Recommendation}\\[0.6cm]
+    
+    \begin{beamercolorbox}[sep=6pt,center,rounded=true,shadow=true]{author}
+      {\large 研究生：廖健合 \quad (指導教授：張瑞益 教授)}\\[0.1cm]
+      {\small 國立臺灣大學 工程科學及海洋工程學系 碩士論文口試}
+    \end{beamercolorbox}
+  \end{center}
+  \vfill
+\end{frame}
+}
+
+% ==================================================
+% Slide 2: 簡報大綱 (Outline)
+% ==================================================
+\begin{frame}{簡報大綱 (Outline)}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{1. 研究背景與缺口}
+        \begin{itemize}
+          \item 食譜平台資訊過載與 CF 限制
+          \item 傳統推薦模型演進與對比
+          \item 既有 KGAT 研究之三大缺口
+        \end{itemize}
+      \end{block}
+      
+      \begin{block}{2. 研究問題與核心架構}
+        \begin{itemize}
+          \item 三大核心研究問題 (RQ1 $\sim$ RQ3)
+          \item CKG 建構與超級節點修剪
+          \item KGAT 四階段視覺化架構與公式
+        \end{itemize}
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.48\textwidth}
+      \begin{block}{3. 推薦效能與消融實驗 (RQ1 / RQ2)}
+        \begin{itemize}
+          \item 評估協定與 Food.com 720萬邊 Profile
+          \item 主要推薦效能結果 (超越 Base +31.6\%)
+          \item 淺層 KG「資訊污染」現象 (消融高光)
+          \item 訓練動態與 Early Stopping 必要性
+        \end{itemize}
+      \end{block}
+      
+      \begin{block}{4. 可解釋性 Fidelity 評估 (RQ3)}
+        \begin{itemize}
+          \item 邊擾動評估架構 ($F^+$ 必要性 / $F^-$ 充分性)
+          \item 500 位使用者 Fidelity 採樣統計
+          \item 三大路徑類型 Fidelity 分析與 Case C
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ==================================================
+% Section 1: 研究背景與動機
+% ==================================================
+\section{研究背景與缺口}
+
+% ==================================================
+% Slide 3: 食譜平台的資訊過載與 CF 限制
+% ==================================================
+\begin{frame}{食譜平台的資訊過載需要更有依據的推薦}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \begin{block}{背景與痛點}
+        \begin{itemize}
+          \item 食譜平台累積海量食譜、食材、標籤與使用者互動。
+          \item 使用者面臨資訊過載，難以快速找到符合偏好的食譜。
+          \item \textbf{傳統協同過濾 (CF)}：僅依賴歷史互動，面臨資料稀疏與冷啟動限制。
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \begin{exampleblock}{核心研究問題}
+        \centering
+        \vspace{0.3cm}
+        \textbf{如何有效利用食材與標籤等輔助知識，產生高準確且可說明的推薦結果？}
+        \vspace{0.3cm}
+      \end{exampleblock}
+      \vspace{0.2cm}
+      \small \textbf{轉場點}：知識圖譜 (KG) 提供了豐富語意關係，但其真實效益與注意力解釋的可信度不能被直接假定。
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ==================================================
+% Slide 4: 傳統推薦模型演進與對比 (P.6 視覺優化)
+% ==================================================
+\begin{frame}{推薦模型演進與對比：由協同過濾到圖注意力網路}
+  \small
+  \begin{table}
+    \centering
+    \begin{tabularx}{\textwidth}{l X X X}
+      \toprule
+      \textbf{模型類別} & \textbf{代表方法} & \textbf{優勢 (Advantages)} & \textbf{局限性 (Limitations) / 本文缺口} \\
+      \midrule
+      \textbf{矩陣分解 (CF)} & BPR-MF & 運算簡單，有效擬合高頻互動。 & 無法利用食材/標籤等富語意輔助資訊，冷啟動能力差。 \\
+      \midrule
+      \textbf{特徵互動 (FM)} & NFM & 透過神經網路捕捉非線性高階特徵互動。 & 將實體視為獨立特徵，無法利用多跳圖拓樸關聯。 \\
+      \midrule
+      \textbf{圖卷積 (GNN)} & LightGCN & 簡化 GNN，在二分圖上高效傳播協同訊號。 & 僅處理使用者--物品單一關係，忽視 KG 中異質關係差異。 \\
+      \midrule
+      \textbf{圖注意力 (KGAT)} & \textbf{KGAT (本文研究)} & \textbf{整合 CKG、關係感知注意力與多跳傳播。} & \textbf{既有研究缺乏食譜場景實證、逐層消融與 Fidelity 忠實度量化。} \\
+      \bottomrule
+    \end{tabularx}
+  \end{table}
+\end{frame}
+
+% ==================================================
+% Slide 5: KGAT 的潛力與三個未答問題
+% ==================================================
+\begin{frame}{KGAT 的潛力，也帶出三個尚未回答的問題}
+  \begin{itemize}
+    \item \textbf{協同知識圖譜 (CKG)}：將使用者--食譜互動與食譜屬性（食材、標籤）統一建構為 CKG。
+    \item \textbf{KGAT 特點}：透過關係感知注意力機制 (Relation-aware Attention) 與多跳傳播，擷取高階語意關聯。
+  \end{itemize}
+  
+  \vspace{0.3cm}
+  \begin{block}{既有研究的三大缺口 (Research Gaps)}
+    \begin{enumerate}
+      \item \textbf{食譜領域驗證}：KGAT 缺乏在大規模真實食譜場景 (Food.com) 的深度實證。
+      \item \textbf{逐層機制剖析}：缺乏對不同傳播深度 ($1L/2L/3L$) 與輔助資訊增益的深入消融分析。
+      \item \textbf{解釋真實性質疑}：注意力權重路徑是否忠實 (Fidelity) 反映模型的真正決策？
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+% ==================================================
+% Section 2: 研究問題與核心架構
+% ==================================================
+\section{研究問題與方法架構}
+
+% ==================================================
+% Slide 6: 本研究以三個 RQ 收斂問題
+% ==================================================
+\begin{frame}{本研究以三個 RQ 收斂問題}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \begin{block}{RQ1: 推薦效能}
+        傳播深度與 KG 輔助資訊整合，如何影響食譜推薦效能？
+      \end{block}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \begin{block}{RQ2: 訓練行為}
+        不同傳播深度下，訓練行為、收斂速度與泛化能力有何差異？
+      \end{block}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \begin{block}{RQ3: 可解釋忠實度}
+        模型的注意力路徑是否忠實 (Fidelity) 反映其決策依據？
+      \end{block}
+    \end{column}
+  \end{columns}
+  
+  \vspace{0.6cm}
+  \centering
+  \textbf{遞進邏輯}：效能驗證 (RQ1) $\longrightarrow$ 訓練機制解構 (RQ2) $\longrightarrow$ 解釋真實性檢驗 (RQ3)
+\end{frame}
+
+% ==================================================
+% Slide 7: 本研究的貢獻
+% ==================================================
+\begin{frame}{本研究的貢獻是效能、機制與解釋三層驗證}
+  \begin{itemize}
+    \item \textbf{貢獻 1：食譜領域大規模實證}
+      \begin{itemize}
+        \item 在 Food.com 實作 CKG，進行 KGAT-1L/2L/3L 與基線模型 (BPR-MF, NFM, LightGCN) 的嚴謹對比。
+      \end{itemize}
+    \item \textbf{貢獻 2：揭露淺層 KG 的「資訊污染」機制}
+      \begin{itemize}
+        \item 發現單跳傳播下引入 KG 輔助資訊反而可能稀釋協同過濾訊號，釐清深度整合與超級節點修剪的必要性。
+      \end{itemize}
+    \item \textbf{貢獻 3：建立注意力路徑 Fidelity 評估管線}
+      \begin{itemize}
+        \item 提出邊擾動測試檢驗路徑必要性 ($F^+$) 與充分性 ($F^-$)，跨深度與路徑類型評估解釋的真實忠實度。
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% ==================================================
+% Slide 8: CKG 結構與超級節點修剪 (Data Profile 精確對齊)
+% ==================================================
+\begin{frame}{CKG 將互動與食譜語意放進同一張圖 (Data Profile 對齊)}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \begin{block}{圖譜結構與超級節點修剪}
+        \begin{itemize}
+          \item \textbf{節點種類}：User, Recipe, Ingredient, Tag。
+          \item \textbf{關係類型}：\texttt{interact}, \texttt{has\_ingredient}, \texttt{has\_tag} 及反向邊/自迴圈邊。
+          \item \textbf{超級節點修剪 (Super-node Pruning)}：
+            \begin{itemize}
+              \item 移除出現頻率前 0.5\% (74 個) 高頻食材與 13 個通用食材 (如 salt, water, oil, sugar)。
+              \item 移除出現頻率前 50 個熱門標籤 (如 easy, dinner)。
+            \end{itemize}
+        \end{itemize}
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.45\textwidth}
+      \begin{block}{Food.com CKG 統計數據 (表 4.1)}
+        \small
+        \begin{itemize}
+          \item \textbf{使用者數}：226,570
+          \item \textbf{食譜數}：231,637
+          \item \textbf{歷史互動數}：1,132,367
+          \item \textbf{修剪後 KG 屬性實體}：15,370
+          \item \textbf{修剪後 KG 三元組}：2,230,927
+          \item \textbf{CKG 總節點數}：473,577
+          \item \textbf{CKG 總邊數}：\textbf{7,200,165}
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ==================================================
+% Slide 9: KGAT 四階段視覺化架構與公式 (P.8-10 視覺升級)
+% ==================================================
+\begin{frame}{KGAT 四階段視覺化架構與訊息傳播公式}
+  \begin{columns}[T]
+    \begin{column}{0.38\textwidth}
+      \begin{block}{高階視覺化流程}
+        \centering
+        \vspace{0.1cm}
+        \begin{tikzpicture}[node distance=0.4cm, auto, >=stealth, scale=0.8, every node/.style={transform shape}]
+          \node[draw=NTUBlue, fill=NTUBlueLight, rectangle, rounded corners, font=\small\bfseries, minimum width=3.2cm, align=center] (step1) {1. CKG 建構\\異質圖與自迴圈};
+          \node[draw=NTUBlue, fill=NTUBlueLight, rectangle, rounded corners, font=\small\bfseries, minimum width=3.2cm, align=center, below=of step1] (step2) {2. 關係感知注意力\\$\pi(h,r,t)$ 選擇權重};
+          \node[draw=NTUBlue, fill=NTUBlueLight, rectangle, rounded corners, font=\small\bfseries, minimum width=3.2cm, align=center, below=of step2] (step3) {3. 雙重互動聚合\\Bi-Interaction Agg.};
+          \node[draw=NTUBlue, fill=NTUBlueLight, rectangle, rounded corners, font=\small\bfseries, minimum width=3.2cm, align=center, below=of step3] (step4) {4. 跳躍拼接 (JK)\\$e_u^* = e_u^{(0)} \parallel \dots \parallel e_u^{(L)}$};
+          
+          \draw[->, thick, NTUBlue] (step1) -- (step2);
+          \draw[->, thick, NTUBlue] (step2) -- (step3);
+          \draw[->, thick, NTUBlue] (step3) -- (step4);
+        \end{tikzpicture}
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.59\textwidth}
+      \begin{block}{1. 關係感知注意力 (Relation-aware Attention)}
+        \[
+        \pi(h, r, t) = \text{Softmax}\left( W_r t \cdot \tanh(W_r h + e_r) \right)
+        \]
+      \end{block}
+      
+      \begin{block}{2. 雙重互動聚合 (Bi-Interaction Aggregation)}
+        \[
+        e_h^{(l)} = \text{LeakyReLU}\left( W_1^{(l)} (e_h^{(l-1)} + e_{N_h}^{(l)}) + W_2^{(l)} (e_h^{(l-1)} \odot e_{N_h}^{(l)}) \right)
+        \]
+      \end{block}
+      
+      \begin{block}{3. 跨層拼接與偏好預測 (JK Pooling)}
+        \[
+        e_u^* = e_u^{(0)} \,||\, e_u^{(1)} \,||\, \dots \,||\, e_u^{(L)}, \quad \hat{y}(u,i) = {e_u^*}^T e_i^*
+        \]
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ==================================================
+% Section 3: 推薦效能與消融實驗 (RQ1/RQ2)
+% ==================================================
+\section{推薦效能與消融實驗}
+
+% ==================================================
+% Slide 10: 評估設計與對比模型
+% ==================================================
+\begin{frame}{評估設計與超參數設定 (確保實驗可重現性)}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{評估協定 (Evaluation Setup)}
+        \begin{itemize}
+          \item \textbf{切分方式}：Leave-one-out 留一法。
+          \item \textbf{負樣本}：每筆正樣本搭配 100 個未互動食譜。
+          \item \textbf{評估指標}：HR@K, NDCG@K, Precision@K ($K=10, 20, 50$)。
+          \item \textbf{重複實驗}：每個模型獨立執行 3 次，報告平均值。
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{統一超參數與硬體設定}
+        \begin{itemize}
+          \item \textbf{嵌入維度}：$d=64$ | \textbf{Batch Size}：1,024
+          \item \textbf{學習率}：$\eta=0.001$ (Adam), StepLR 衰減
+          \item \textbf{硬體與精度}：Intel Arc A750 GPU (XPU), BFloat16 混合精度訓練。
+          \item \textbf{基線模型}：BPR-MF, NFM, LightGCN。
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ==================================================
+% Slide 11: RQ1 主要效能結果 (P.12 數據更正與視覺醒目)
+% ==================================================
+\begin{frame}{KGAT-3L 於所有主要指標上顯著優於 Baseline (表 4.3)}
+  \begin{table}
+    \centering
+    \caption{Food.com 資料集上各模型之推薦效能對比 (三次獨立運行平均值)}
+    \small
+    \begin{tabular}{l c c c c c c}
+      \toprule
+      \textbf{模型} & \textbf{HR@10} & \textbf{HR@20} & \textbf{NDCG@10} & \textbf{NDCG@20} & \textbf{Prec@10} & \textbf{Prec@20} \\
+      \midrule
+      BPR-MF & 0.4683 & \textbf{0.5830} & 0.3066 & \textbf{0.3355} & 0.0468 & \textbf{0.0291} \\
+      NFM & 0.5108 & \textbf{0.6313} & 0.3408 & \textbf{0.3712} & 0.0511 & \textbf{0.0316} \\
+      LightGCN (最速強基線) & 0.5320 & \textbf{0.6668} & 0.3495 & \textbf{0.3836} & 0.0532 & \textbf{0.0333} \\
+      \midrule
+      KGAT ($L=1$) & 0.5483 & 0.6761 & 0.3426 & 0.3749 & 0.0548 & 0.0338 \\
+      KGAT ($L=2$) & 0.6219 & 0.7711 & 0.4005 & 0.4383 & 0.0622 & 0.0386 \\
+      \textbf{KGAT ($L=3$) (本文方法)} & \textbf{0.7348} & \textbf{0.8775} & \textbf{0.4946} & \textbf{0.5309} & \textbf{0.0735} & \textbf{0.0439} \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  
+  \begin{block}{關鍵數據摘要 (相對最佳 Baseline LightGCN 之提升)}
+    \centering
+    \textbf{HR@20: \textcolor{HighlightRed}{+31.6\%}} (0.6668 $\rightarrow$ \textbf{0.8775}) \quad | \quad
+    \textbf{NDCG@20: \textcolor{HighlightRed}{+38.4\%}} (0.3836 $\rightarrow$ \textbf{0.5309}) \quad | \quad
+    \textbf{Prec@20: \textcolor{HighlightRed}{+31.8\%}}
+  \end{block}
+\end{frame}
+
+% ==================================================
+% Slide 12: 深度效能趨勢 (Depth Effect)
+% ==================================================
+\begin{frame}{效能隨深度增加而一致提升 ($L=1 \rightarrow 2 \rightarrow 3$)}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{深度對比 (以 $L=1$ 為基準提升)}
+        \begin{itemize}
+          \item \textbf{KGAT ($L=1$)}：HR@20 = 0.6761, NDCG@20 = 0.3749
+          \item \textbf{KGAT ($L=2$)}：HR@20 = 0.7711 (\textcolor{NTUBlueAccent}{+14.1\%}), NDCG@20 = 0.4383 (\textcolor{NTUBlueAccent}{+16.9\%})
+          \item \textbf{KGAT ($L=3$)}：HR@20 = \textbf{0.8775} (\textcolor{HighlightRed}{\textbf{+29.8\%}}), NDCG@20 = \textbf{0.5309} (\textcolor{HighlightRed}{\textbf{+41.6\%}})
+        \end{itemize}
+      \end{block}
+      \vspace{0.1cm}
+      \small 多跳傳播成功整合「使用者$\rightarrow$食譜$\rightarrow$食材/標籤$\rightarrow$推薦食譜」的高階拓樸關聯。
+    \end{column}
+    
+    \begin{column}{0.45\textwidth}
+      \begin{exampleblock}{實證結論}
+        在 Food.com 的實驗設定下，多跳 (Multi-hop) 知識圖譜傳播展現了顯著且一致的效能累積增益。
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ==================================================
+% Slide 13: 淺層 KG 資訊污染現象 (消融實驗高光)
+% ==================================================
+\begin{frame}{消融實驗高光：在淺層架構中，加入 KG 反而可能造成「資訊污染」}
+  \begin{columns}[T]
+    \begin{column}{0.5\textwidth}
+      \begin{block}{消融實驗 ($L=1$ 深度配置對比)}
+        \begin{itemize}
+          \item \textbf{Full KGAT-1L} (完整模型)：\\HR@20 = 0.6761, NDCG@20 = 0.3749
+          \item \textbf{w/o KG-1L} (移除 KG, 退化為純 CF)：\\HR@20 = \textbf{0.7076 (\textcolor{HighlightRed}{+4.7\%})}, NDCG@20 = \textbf{0.4114 (\textcolor{HighlightRed}{+9.7\%})}
+        \end{itemize}
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.45\textwidth}
+      \begin{alertblock}{發現：淺層 KG 資訊污染 (Information Pollution)}
+        在單跳傳播時，常見食材/標籤等高連接度屬性將過度泛化的特徵灌注至食譜中，\textbf{雜訊超越資訊增益，稀釋了協同過濾訊號}！
+      \end{alertblock}
+      \vspace{0.1cm}
+      \small \textbf{學術連結}：呼應 \textit{Zhang et al. (2025)} 關於「知識圖對推薦系統之貢獻非無條件正面」的實證觀察。
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ==================================================
+% Slide 14: RQ2 訓練動態與 Early Stopping
+% ==================================================
+\begin{frame}{深層模型極早到達峰值，更需配合 Early Stopping}
+  \begin{table}
+    \centering
+    \caption{不同深度模型前五個 Epoch 之 HR@20 演變趨勢}
+    \begin{tabular}{l c c c c c l}
+      \toprule
+      \textbf{模型} & \textbf{Epoch 1} & \textbf{Epoch 2} & \textbf{Epoch 3} & \textbf{Epoch 4} & \textbf{Epoch 5} & \textbf{收斂行為判讀} \\
+      \midrule
+      KGAT ($L=1$) & 0.6686 & 0.6690 & 0.6731 & 0.6728 & \textbf{0.6734} & 緩慢平穩上升 \\
+      KGAT ($L=2$) & \textbf{0.7711} & 0.7645 & 0.7522 & 0.7455 & 0.7439 & \textcolor{HighlightRed}{\textbf{Epoch 1 達峰值後遞減}} \\
+      KGAT ($L=3$) & 0.8682 & \textbf{0.8696} & 0.8644 & 0.8496 & 0.8427 & \textcolor{HighlightRed}{\textbf{Epoch 1--2 達峰值後遞減}} \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  
+  \begin{block}{訓練機制結論}
+    深層感受野帶來極快的高階結構特徵學習能力，但較大參數空間也使其容易在後續 Epoch 出現測試效能衰退，\textbf{凸顯了早停機制 (Early Stopping) 的重要性}。
+  \end{block}
+\end{frame}
+
+% ==================================================
+% Section 4: 可解釋性忠實度評估 (RQ3)
+% ==================================================
+\section{可解釋性忠實度評估}
+
+% ==================================================
+% Slide 15: RQ3 可解釋性 Fidelity 評估架構
+% ==================================================
+\begin{frame}{路徑要成為解釋，必須通過必要性與充分性雙重檢驗}
+  自關係感知注意力萃取 Top-3 高權重路徑，進行**邊擾動測試 (Edge Perturbation)**：
+  
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{1. 必要性 $F^+$ (Fidelity-plus)}
+        從 CKG 中\textbf{移除}解釋路徑，觀察預測機率下降程度：
+        \[
+        F^+ = p(u,i) - p(u,i \setminus \mathcal{P})
+        \]
+        \textbf{$F^+ > 0$ 代表該路徑為決策的必要條件}。
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.48\textwidth}
+      \begin{block}{2. 充分性 $F^-$ (Fidelity-minus)}
+        遮蔽其餘邊，\textbf{僅保留}解釋路徑，觀察預測維持程度：
+        \[
+        F^- = p(u,i) - p(u,i|_{\mathcal{P}})
+        \]
+        \textbf{$F^- \approx 0$ 代表該路徑本身即具充分資訊}。
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ==================================================
+% Slide 16: 跨深度 Fidelity 比較 (n=500 抽樣對齊)
+% ==================================================
+\begin{frame}{深度顯著擴大可解釋路徑覆蓋率 (500 位使用者採樣)}
+  \begin{table}
+    \centering
+    \caption{不同傳播深度下之路徑覆蓋率與 Fidelity 數據 (500 位使用者採樣)}
+    \begin{tabular}{l c c c c c}
+      \toprule
+      \textbf{模型} & \textbf{有效路徑人數} & \textbf{路徑覆蓋率} & \textbf{總萃取路徑數} & \textbf{平均 $F^+$ (必要性 $\uparrow$)} & \textbf{平均 $F^-$ (充分性 $\downarrow$)} \\
+      \midrule
+      KGAT-1L & 5 & 1.0\% & 5 & 0.0247 & -0.0002 *(樣本極少)* \\
+      KGAT-2L & 230 & 46.0\% & 446 & \textbf{0.0644} & 0.1300 \\
+      \textbf{KGAT-3L} & \textbf{278} & \textbf{55.6\%} & \textbf{488} & 0.0351 & \textbf{0.0867} (中位數 0.0072) \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  
+  \begin{exampleblock}{關鍵判讀}
+    \begin{itemize}
+      \item \textbf{覆蓋率}：多跳傳播使 3L 覆蓋率達 \textbf{55.6\%} (278/500)，遠高於 1L (1.0\%)。
+      \item \textbf{整體忠實度}：KGAT-3L 中 \textbf{94.2\%} (262/278) 使用者 $F^+ > 0$，證實注意力權重標記了正向必要貢獻。
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+% ==================================================
+% Slide 17: KGAT-3L 路徑類型 Fidelity 分析 (核心對比結果)
+% ==================================================
+\begin{frame}{解釋品質取決於路徑類型：直接與協同路徑顯著較可靠}
+  \begin{table}
+    \centering
+    \caption{KGAT-3L 不同路徑結構類型之 Fidelity 量化對比 (表 4.10)}
+    \begin{tabular}{l c c c c l}
+      \toprule
+      \textbf{路徑類型} & \textbf{結構說明} & \textbf{路徑數 $n$} & \textbf{Avg $F^+$ ($\uparrow$)} & \textbf{Avg $F^-$ ($\downarrow$)} & \textbf{忠實度評估} \\
+      \midrule
+      \textbf{直接連接} & User $\to$ Recipe & 84 (17.2\%) & \textbf{0.0494} & \textbf{-0.0004} & \textcolor{NTUBlue}{\textbf{最佳忠實度 (最可信)}} \\
+      \textbf{協同過濾} & User $\to$ Rec $\to$ User $\to$ Rec & 218 (44.7\%) & 0.0349 & 0.0134 & \textcolor{NTUBlueAccent}{\textbf{良好忠實度}} \\
+      \textbf{KG 語意} & User $\to$ Rec $\to$ Entity $\to$ Rec & 186 (38.1\%) & 0.0223 & \textbf{0.2449} & \textcolor{HighlightRed}{\textbf{部分忠實 (充分性偏低)}} \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  
+  \begin{alertblock}{重大發現：KG 語意路徑充分性偏低 ($F^- = 0.2449$)}
+    「僅保留 KG 語意路徑」會造成約 24.5\% 的預測機率損失，表明高階語意經過多層傳播後已高度壓縮進分散式嵌入中，顯式路徑無法單獨涵蓋完整決策。
+  \end{alertblock}
+\end{frame}
+
+% ==================================================
+% Slide 18: 個案說明 (真實 Case C - Tropical thai chicken salad)
+% ==================================================
+\begin{frame}{個案說明 (Case C)：語意直觀不等於模型真實決策依據}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \begin{block}{論文真實 Case C (User 963993)}
+        \begin{itemize}
+          \item \textbf{推薦食譜}：\texttt{fantastic tropical thai chicken salad} (預測機率 0.933)。
+          \item \textbf{萃取語意路徑}：User $\rightarrow$ 歷史食譜 $\rightarrow$ 共同食材 \texttt{chicken} $\rightarrow$ 推薦食譜。
+          \item \textbf{直觀感受}：極度合理（兩道食譜均含有「雞肉」）。
+        \end{itemize}
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.45\textwidth}
+      \begin{alertblock}{Fidelity 實測數據}
+        \begin{itemize}
+          \item \textbf{$F^+ = -0.001$} (移除此路徑預測不降反微升)
+          \item \textbf{$F^- = 0.5415$} (僅保留路徑損失 54\% 機率)
+        \end{itemize}
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+  
+  \vspace{0.2cm}
+  \begin{exampleblock}{案例啟示}
+    移除「雞肉」語意路徑對預測幾乎無影響 ($F^+ \approx 0$)，僅留此路徑時預測大幅崩塌 ($F^-$ 高)。證實\textbf{「直觀語意合理 $\neq$ 忠實反映模型內部決策」}，展現批判性思考。
+  \end{exampleblock}
+\end{frame}
+
+% ==================================================
+% Section 5: 結論與未來展望
+% ==================================================
+\section{結論與未來展望}
+
+% ==================================================
+% Slide 19: 結論
+% ==================================================
+\begin{frame}{結論：深度提升效能與路徑覆蓋，但 KG 與注意力需審慎驗證}
+  \begin{enumerate}
+    \item \textbf{效能層面 (RQ1)}：KGAT-3L 在 Food.com 食譜推薦上取得優於 LightGCN 的表現 (\textbf{HR@20 +31.6\%, NDCG@20 +38.4\%})。
+    \item \textbf{機制層面 (RQ2)}：揭露淺層 KG 整合可能造成資訊污染 ($L=1$ w/o KG 0.7076 > Full 0.6761)；深層模型收斂極快且更需 Early Stopping。
+    \item \textbf{解釋層面 (RQ3)}：深層模型顯著提升解釋路徑覆蓋率 (55.6\%)；但 Fidelity 證實直連與協同路徑高忠實，KG 語意路徑充分性偏低。
+  \end{enumerate}
+  
+  \vspace{0.3cm}
+  \centering
+  \textbf{核心主張}：可解釋推薦系統應同時進行\textbf{「推薦準確度」}與\textbf{「解釋忠實度 (Fidelity)」}的雙重驗證。
+\end{frame}
+
+% ==================================================
+% Slide 20: 研究限制與未來展望 (對齊論文 5.3 節)
+% ==================================================
+\begin{frame}{研究限制與未來展望 (對齊論文 5.3 節)}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{研究限制 (Limitations)}
+        \begin{itemize}
+          \item 單一 Food.com 資料集實證。
+          \item 留一法 100 負樣本與 Full-ranking 有別。
+          \item 邊遮罩式 Fidelity 可能面臨圖結構分佈偏移 (Distribution Shift) 影響。
+        \end{itemize}
+      \end{block}
+    \end{column}
+    
+    \begin{column}{0.48\textwidth}
+      \begin{block}{未來展望 (Future Work)}
+        \begin{itemize}
+          \item \textbf{探究圖資訊瓶頸 (GIB) 機制}：解析 KG 語意路徑充分性偏低之隱藏嵌入壓縮效應。
+          \item \textbf{跨領域多資料集驗證}與統計顯著性檢定。
+          \item \textbf{引入重訓練與反事實 Fidelity} 評估管線。
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ==================================================
+% Slide 21: 結束頁 / Q&A
+% ==================================================
+{
+\setbeamercolor{background canvas}{bg=NTUBlue}
+\begin{frame}[plain]
+  \vfill
+  \begin{center}
+    {\color{white}\Huge \textbf{簡報結束，敬請指教}}\\[0.6cm]
+    {\color{NTUBlueLight}\Large 多跳 KGAT 顯著提升推薦效能；可信解釋仍需以 Fidelity 驗證}\\[1.0cm]
+    
+    \begin{beamercolorbox}[sep=6pt,center,rounded=true]{author}
+      {\color{white}\small 研究生：廖健合 \quad | \quad 指導教授：張瑞益 教授}\\[0.1cm]
+      {\color{white}\small 國立臺灣大學 工程科學及海洋工程學系 iCAN Lab}
+    \end{beamercolorbox}
+  \end{center}
+  \vfill
+\end{frame}
+}
+
+% ==================================================
+% 備用投影片 (Backup Slides A ~ E)
+% ==================================================
+\appendix
+\section*{備用投影片}
+
+\begin{frame}{Backup A: 完整 9 指標對比數據 (表 4.3 完整表格)}
+  \small
+  \begin{table}
+    \centering
+    \begin{tabular}{l c c c c c c c c c}
+      \toprule
+      \textbf{模型} & \textbf{HR@10} & \textbf{HR@20} & \textbf{HR@50} & \textbf{NDCG@10} & \textbf{NDCG@20} & \textbf{NDCG@50} & \textbf{P@10} & \textbf{P@20} & \textbf{P@50} \\
+      \midrule
+      BPR-MF & 0.4683 & 0.5830 & 0.7416 & 0.3066 & 0.3355 & 0.3670 & 0.0468 & 0.0291 & 0.0148 \\
+      NFM & 0.5108 & 0.6313 & 0.7946 & 0.3408 & 0.3712 & 0.4037 & 0.0511 & 0.0316 & 0.0159 \\
+      LightGCN & 0.5320 & 0.6668 & 0.8516 & 0.3495 & 0.3836 & 0.4203 & 0.0532 & 0.0333 & 0.0170 \\
+      \midrule
+      KGAT-1L & 0.5483 & 0.6761 & 0.8366 & 0.3426 & 0.3749 & 0.4068 & 0.0548 & 0.0338 & 0.0167 \\
+      KGAT-2L & 0.6219 & 0.7711 & 0.9464 & 0.4005 & 0.4383 & 0.4735 & 0.0622 & 0.0386 & 0.0189 \\
+      \textbf{KGAT-3L} & \textbf{0.7348} & \textbf{0.8775} & \textbf{0.9830} & \textbf{0.4946} & \textbf{0.5309} & \textbf{0.5524} & \textbf{0.0735} & \textbf{0.0439} & \textbf{0.0197} \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Backup B: CKG 超級節點修剪細節}
+  \begin{itemize}
+    \item \textbf{高頻食材修剪}：過濾前 0.5\% 出現頻率最高之 74 個食材及 13 個通用調味料（如 salt, water, oil, sugar, eggs），避免全圖無差別高度連接。
+    \item \textbf{標籤過濾}：移除前 50 個過度泛化標籤（如 \texttt{easy}, \texttt{dinner}, \texttt{preparation}）。
+    \item \textbf{實證效果}：防止超級節點成為資訊傳播匯流點，大幅降噪並避免圖神經網路之過度平滑現象。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Backup C: KGAT 損失函數與細節}
+  BPR Loss 結合 L2 正則化：
+  \[
+  \mathcal{L}_{\text{KGAT}} = \sum_{(u, i, j) \in \mathcal{O}} -\ln \sigma \left( \hat{y}(u,i) - \hat{y}(u,j) \right) + \lambda \|\Theta\|_2^2
+  \]
+  其中正樣本對為 $(u,i)$，負採樣樣本為 $(u,j)$，$\lambda = 10^{-5}$。
+\end{frame}
+
+\begin{frame}{Backup D: 其餘案例 (Case A \& B)}
+  \begin{itemize}
+    \item \textbf{Case A (Direct Link, User 2410864)}：$F^+ = 0.2415, F^- = 0.0004$。展現極高之必要性與充分性（移除該邊預測降 24\%）。
+    \item \textbf{Case B (CF Path, User 573230)}：$F^+ = 0.2061, F^- = 0.0019$。協同過濾長路徑同樣展現高忠實度（$F^+ > 0.20$）。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Backup E: Fidelity 方法限制與分佈偏移 (Distribution Shift)}
+  \begin{block}{分佈偏移 (Distribution Shift)}
+    當從圖中直接移除邊 ($F^+$) 或僅保留子圖 ($F^-$) 時，輸入特徵圖之拓樸結構發生突變，可能使模型進入訓練時未曾見過的狀態，導致 $F^-$ 評估出現偏高誤差（即 KG 語意路徑 $F^- = 0.2449$ 可能部分來自模型適應不良）。未來宜結合重訓練式或反事實評估。
+  \end{block}
+\end{frame}
+
+\end{document}
