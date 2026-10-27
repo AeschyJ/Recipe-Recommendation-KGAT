@@ -27,6 +27,13 @@
 
   // DOM 元素快取
   const dom = {
+    serverConfigBtn: document.getElementById("serverConfigBtn"),
+    serverModal: document.getElementById("serverModal"),
+    serverModalCloseBtn: document.getElementById("serverModalCloseBtn"),
+    testServerBtn: document.getElementById("testServerBtn"),
+    saveServerBtn: document.getElementById("saveServerBtn"),
+    serverModalFeedback: document.getElementById("serverModalFeedback"),
+
     serverUrlInput: document.getElementById("serverUrlInput"),
     reconnectBtn: document.getElementById("reconnectBtn"),
     connectionStatus: document.getElementById("connectionStatus"),
@@ -44,6 +51,7 @@
     recipeName: document.getElementById("recipeName"),
     recipeId: document.getElementById("recipeId"),
     origProbVal: document.getElementById("origProbVal"),
+    origProbBaseFill: document.getElementById("origProbBaseFill"),
     origProbFill: document.getElementById("origProbFill"),
 
     userInteractionsVal: document.getElementById("userInteractionsVal"),
@@ -69,8 +77,12 @@
     barProbeProb: document.getElementById("barProbeProb"),
     barProbeText: document.getElementById("barProbeText"),
     probeAcademicRationale: document.getElementById("probeAcademicRationale"),
+    promptNormal: document.getElementById("promptNormal"),
+    promptFPlus: document.getElementById("promptFPlus"),
+    promptFMinus: document.getElementById("promptFMinus"),
 
     graphSection: document.getElementById("graphSection"),
+    svgBgDecoGroup: document.getElementById("svgBgDecoGroup"),
     svgEdgesGroup: document.getElementById("svgEdgesGroup"),
     svgNodesGroup: document.getElementById("svgNodesGroup"),
     graphEmptyMsg: document.getElementById("graphEmptyMsg"),
@@ -89,6 +101,11 @@
    * 初始化系統
    */
   async function init() {
+    const savedUrl = localStorage.getItem("kgat_server_url");
+    if (savedUrl) {
+      state.serverUrl = savedUrl;
+      if (dom.serverUrlInput) dom.serverUrlInput.value = savedUrl;
+    }
     bindEvents();
     await loadOfflineData();
     await checkConnection();
@@ -141,7 +158,7 @@
    * 探測後端推論伺服器連線狀態（連線狀態唯一維護點）
    */
   async function checkConnection() {
-    const url = dom.serverUrlInput.value.trim().replace(/\/+$/, "");
+    const url = (dom.serverUrlInput ? dom.serverUrlInput.value.trim() : state.serverUrl).replace(/\/+$/, "");
     state.serverUrl = url;
 
     try {
@@ -264,15 +281,67 @@
    * 綁定介面互動事件
    */
   function bindEvents() {
-    // 重新探測按鈕與連線狀態標籤點擊
-    dom.reconnectBtn.addEventListener("click", async () => {
-      await checkConnection();
-      executeInference();
-    });
-    dom.connectionStatus.addEventListener("click", async () => {
-      await checkConnection();
-      executeInference();
-    });
+    // 伺服器彈窗控制函式
+    function openServerModal() {
+      if (dom.serverUrlInput) dom.serverUrlInput.value = state.serverUrl;
+      if (dom.serverModalFeedback) dom.serverModalFeedback.textContent = "";
+      if (dom.serverModal) dom.serverModal.style.display = "flex";
+    }
+
+    function closeServerModal() {
+      if (dom.serverModal) dom.serverModal.style.display = "none";
+    }
+
+    if (dom.serverConfigBtn) {
+      dom.serverConfigBtn.addEventListener("click", openServerModal);
+    }
+    if (dom.serverModalCloseBtn) {
+      dom.serverModalCloseBtn.addEventListener("click", closeServerModal);
+    }
+    if (dom.serverModal) {
+      dom.serverModal.addEventListener("click", (e) => {
+        if (e.target === dom.serverModal) closeServerModal();
+      });
+    }
+
+    // 彈窗內部測試連線按鈕
+    if (dom.testServerBtn) {
+      dom.testServerBtn.addEventListener("click", async () => {
+        dom.testServerBtn.disabled = true;
+        dom.testServerBtn.textContent = "探測中...";
+        if (dom.serverModalFeedback) dom.serverModalFeedback.textContent = "正在測試連線...";
+        const ok = await checkConnection();
+        dom.testServerBtn.disabled = false;
+        dom.testServerBtn.textContent = "測試連線";
+        if (dom.serverModalFeedback) {
+          dom.serverModalFeedback.textContent = ok ? "● 連線成功" : "○ 無法連線至伺服器";
+          dom.serverModalFeedback.style.color = ok ? "var(--status-online)" : "var(--accent-rose)";
+        }
+      });
+    }
+
+    // 彈窗內部儲存並連線按鈕
+    if (dom.saveServerBtn) {
+      dom.saveServerBtn.addEventListener("click", async () => {
+        const url = dom.serverUrlInput.value.trim().replace(/\/+$/, "");
+        localStorage.setItem("kgat_server_url", url);
+        state.serverUrl = url;
+        const ok = await checkConnection();
+        closeServerModal();
+        if (ok) executeInference();
+      });
+    }
+
+    // 頂部狀態標籤點擊開啟伺服器彈窗
+    dom.connectionStatus.addEventListener("click", openServerModal);
+
+    // 重新探測按鈕 (向下相容)
+    if (dom.reconnectBtn) {
+      dom.reconnectBtn.addEventListener("click", async () => {
+        await checkConnection();
+        executeInference();
+      });
+    }
 
     // 背景處理按鈕
     dom.modalBackgroundBtn.addEventListener("click", () => {
@@ -623,14 +692,16 @@
 
     const prob = data.prob || 0;
     dom.origProbVal.textContent = prob.toFixed(4);
-    dom.origProbFill.style.width = `${Math.min(100, prob * 100).toFixed(1)}%`;
+    if (dom.origProbBaseFill) {
+      dom.origProbBaseFill.style.width = `${Math.min(100, prob * 100).toFixed(1)}%`;
+    }
+    if (dom.origProbFill) {
+      dom.origProbFill.style.width = `${Math.min(100, prob * 100).toFixed(1)}%`;
+      dom.origProbFill.classList.remove("dim");
+    }
 
-    if (data.is_test_hit) {
-      dom.testHitBadge.className = "badge-hit yes";
-      dom.testHitBadge.textContent = "命中測試集";
-    } else {
-      dom.testHitBadge.className = "badge-hit no";
-      dom.testHitBadge.textContent = "未命中測試集";
+    if (dom.testHitBadge) {
+      dom.testHitBadge.style.display = "none";
     }
 
     dom.userInteractionsVal.textContent = data.user_n_interactions || 0;
@@ -687,6 +758,9 @@
       dom.fMinusVal.textContent = "-";
       dom.cardFPlus.classList.remove("highlight");
       dom.cardFMinus.classList.remove("highlight");
+      if (dom.promptFPlus) dom.promptFPlus.style.display = "none";
+      if (dom.promptFMinus) dom.promptFMinus.style.display = "none";
+      if (dom.promptNormal) dom.promptNormal.style.display = "block";
       updateGraphMaskingState("normal");
       return;
     }
@@ -705,6 +779,9 @@
       dom.fMinusVal.textContent = "-";
       dom.cardFPlus.classList.remove("highlight");
       dom.cardFMinus.classList.remove("highlight");
+      if (dom.promptFPlus) dom.promptFPlus.style.display = "none";
+      if (dom.promptFMinus) dom.promptFMinus.style.display = "none";
+      if (dom.promptNormal) dom.promptNormal.style.display = "block";
       updateGraphMaskingState("normal");
       return;
     }
@@ -778,7 +855,17 @@
       }
     }
 
-    // 水位長條更新
+    // 計算完成後寫入快取，確保跨模式切換時數值持久保留
+    if (!recData.fidelity) recData.fidelity = {};
+    if (mode === "f_plus") {
+      recData.fidelity.f_plus = fidelityScore;
+      recData.fidelity.prob_f_plus = probeProb;
+    } else if (mode === "f_minus") {
+      recData.fidelity.f_minus = fidelityScore;
+      recData.fidelity.prob_f_minus = probeProb;
+    }
+
+    // 忠實度面板長條更新
     dom.barOrigProb.style.width = `${Math.min(100, origProb * 100).toFixed(1)}%`;
     dom.barOrigText.textContent = origProb.toFixed(4);
 
@@ -790,24 +877,55 @@
       dom.barProbeProb.className = "waterlevel-bar-fill fill-probe";
     }
 
-    // 更新 F+ 與 F- 數值卡片
-    const fPlusCached = recData.fidelity?.f_plus;
-    const fMinusCached = recData.fidelity?.f_minus;
-
-    if (fPlusCached !== undefined && fPlusCached !== null) {
-      dom.fPlusVal.textContent = fPlusCached.toFixed(4);
-      dom.cardFPlus.classList.toggle("highlight", mode === "f_plus");
-    } else {
-      dom.fPlusVal.textContent = mode === "f_plus" ? fidelityScore.toFixed(4) : "-";
-      dom.cardFPlus.classList.toggle("highlight", mode === "f_plus");
+    // 預測機率卡片雙層疊加進度條與數值更新
+    if (dom.origProbBaseFill) {
+      dom.origProbBaseFill.style.width = `${Math.min(100, origProb * 100).toFixed(1)}%`;
+    }
+    if (dom.origProbFill) {
+      dom.origProbFill.style.width = `${Math.min(100, probeProb * 100).toFixed(1)}%`;
+      if (mode === "f_plus") {
+        dom.origProbFill.classList.add("dim");
+      } else {
+        dom.origProbFill.classList.remove("dim");
+      }
+    }
+    if (dom.origProbVal) {
+      dom.origProbVal.textContent = probeProb.toFixed(4);
     }
 
-    if (fMinusCached !== undefined && fMinusCached !== null) {
-      dom.fMinusVal.textContent = fMinusCached.toFixed(4);
-      dom.cardFMinus.classList.toggle("highlight", mode === "f_minus");
+    // 更新 F+ 與 F- 數值卡片 (持續保留，切換模式不重置為 -)
+    const fPlusVal = recData.fidelity?.f_plus;
+    const fMinusVal = recData.fidelity?.f_minus;
+
+    if (fPlusVal !== undefined && fPlusVal !== null) {
+      dom.fPlusVal.textContent = typeof fPlusVal === "number" ? fPlusVal.toFixed(4) : fPlusVal;
     } else {
-      dom.fMinusVal.textContent = mode === "f_minus" ? fidelityScore.toFixed(4) : "-";
-      dom.cardFMinus.classList.toggle("highlight", mode === "f_minus");
+      dom.fPlusVal.textContent = "-";
+    }
+    dom.cardFPlus.classList.toggle("highlight", mode === "f_plus");
+
+    if (fMinusVal !== undefined && fMinusVal !== null) {
+      dom.fMinusVal.textContent = typeof fMinusVal === "number" ? fMinusVal.toFixed(4) : fMinusVal;
+    } else {
+      dom.fMinusVal.textContent = "-";
+    }
+    dom.cardFMinus.classList.toggle("highlight", mode === "f_minus");
+
+    // 依當前模式動態切換顯示單一斜體提示
+    if (dom.promptFPlus && dom.promptFMinus) {
+      if (mode === "f_plus") {
+        if (dom.promptNormal) dom.promptNormal.style.display = "none";
+        dom.promptFMinus.style.display = "none";
+        dom.promptFPlus.style.display = "block";
+      } else if (mode === "f_minus") {
+        if (dom.promptNormal) dom.promptNormal.style.display = "none";
+        dom.promptFPlus.style.display = "none";
+        dom.promptFMinus.style.display = "block";
+      } else {
+        dom.promptFPlus.style.display = "none";
+        dom.promptFMinus.style.display = "none";
+        if (dom.promptNormal) dom.promptNormal.style.display = "block";
+      }
     }
 
     // 更新子圖連線視覺狀態
@@ -815,16 +933,119 @@
   }
 
   /**
+   * 繪製背景裝飾實體點與虛擬連線，增進子圖空間感
+   */
+  function renderBackgroundDeco() {
+    if (!dom.svgBgDecoGroup) return;
+    dom.svgBgDecoGroup.innerHTML = "";
+
+    const decoPoints = [
+      { x: 60, y: 70 }, { x: 170, y: 48 }, { x: 280, y: 75 }, { x: 390, y: 42 },
+      { x: 510, y: 65 }, { x: 630, y: 50 }, { x: 740, y: 80 }, { x: 50, y: 390 },
+      { x: 170, y: 415 }, { x: 290, y: 395 }, { x: 420, y: 420 }, { x: 560, y: 405 },
+      { x: 710, y: 390 }, { x: 110, y: 145 }, { x: 690, y: 155 }, { x: 115, y: 305 },
+      { x: 685, y: 315 }
+    ];
+
+    const decoEdges = [
+      [0, 1], [1, 2], [3, 4], [4, 5], [5, 6],
+      [7, 8], [8, 9], [9, 10], [10, 11], [11, 12],
+      [0, 13], [6, 14], [7, 15], [12, 16]
+    ];
+
+    decoEdges.forEach(([i, j]) => {
+      const p1 = decoPoints[i];
+      const p2 = decoPoints[j];
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("x1", p1.x);
+      line.setAttribute("y1", p1.y);
+      line.setAttribute("x2", p2.x);
+      line.setAttribute("y2", p2.y);
+      line.setAttribute("class", "svg-bg-deco-line");
+      dom.svgBgDecoGroup.appendChild(line);
+    });
+
+    decoPoints.forEach((pt) => {
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("cx", pt.x);
+      circle.setAttribute("cy", pt.y);
+      circle.setAttribute("r", "5");
+      circle.setAttribute("class", "svg-bg-deco-node");
+      dom.svgBgDecoGroup.appendChild(circle);
+    });
+  }
+
+  /**
    * 根據探針模式更新子圖連線視覺狀態
    */
   function updateGraphMaskingState(mode) {
+    const activePathIdx = state.selectedPathIndex;
+
+    // 背景裝飾點：遮蔽其餘路徑時淡出消失，凸顯核心路徑之孤立充分性
+    if (dom.svgBgDecoGroup) {
+      dom.svgBgDecoGroup.classList.toggle("faded", mode === "f_minus");
+    }
+
+    // 邊線視覺狀態更新
     const edges = dom.svgEdgesGroup.querySelectorAll(".svg-edge");
     edges.forEach((edge) => {
-      edge.classList.remove("masked", "highlighted");
-      if (mode === "f_plus") {
-        edge.classList.add("masked");
+      const pathAttr = edge.getAttribute("data-paths") || "";
+      const pathIndices = pathAttr.split(",").filter((s) => s.length > 0).map(Number);
+      const isPrimary = pathIndices.includes(activePathIdx);
+      const isSecondary = pathIndices.some((idx) => idx !== activePathIdx);
+
+      edge.classList.remove("masked", "backup-active", "faded");
+
+      if (mode === "normal") {
+        if (isPrimary) {
+          edge.className.baseVal = "svg-edge path-primary";
+          edge.setAttribute("marker-end", "url(#arrow-active)");
+        } else {
+          edge.className.baseVal = "svg-edge path-secondary";
+          edge.setAttribute("marker-end", "url(#arrow)");
+        }
+      } else if (mode === "f_plus") {
+        // 遮蔽此路徑 (F+)：主要路徑淡出，點亮次要/備援解釋路徑
+        if (isPrimary && !isSecondary) {
+          edge.className.baseVal = "svg-edge path-primary masked";
+          edge.setAttribute("marker-end", "url(#arrow)");
+        } else if (isSecondary) {
+          edge.className.baseVal = "svg-edge path-secondary backup-active";
+          edge.setAttribute("marker-end", "url(#arrow-backup)");
+        }
       } else if (mode === "f_minus") {
-        edge.classList.add("highlighted");
+        // 遮蔽其餘路徑 (F-)：次要路徑淡出，主要路徑孤立充分性凸顯
+        if (isPrimary) {
+          edge.className.baseVal = "svg-edge path-primary";
+          edge.setAttribute("marker-end", "url(#arrow-active)");
+        } else {
+          edge.className.baseVal = "svg-edge path-secondary faded";
+          edge.setAttribute("marker-end", "url(#arrow)");
+        }
+      }
+    });
+
+    // 節點視覺狀態更新
+    const nodes = dom.svgNodesGroup.querySelectorAll(".svg-node");
+    nodes.forEach((nodeEl) => {
+      const pathAttr = nodeEl.getAttribute("data-paths") || "";
+      const pathIndices = pathAttr.split(",").filter((s) => s.length > 0).map(Number);
+      const isPrimary = pathIndices.includes(activePathIdx);
+      const isSecondary = pathIndices.some((idx) => idx !== activePathIdx);
+      const nodeType = nodeEl.getAttribute("data-type") || "";
+
+      nodeEl.classList.remove("node-masked", "node-backup-active");
+
+      if (mode === "f_plus") {
+        if (isPrimary && !isSecondary && nodeType !== "USER" && nodeType !== "RECIPE_TARGET") {
+          nodeEl.classList.add("node-masked");
+        } else if (isSecondary && nodeType !== "USER" && nodeType !== "RECIPE_TARGET") {
+          nodeEl.classList.add("node-backup-active");
+        }
+      } else if (mode === "f_minus") {
+        if (!isPrimary && nodeType !== "USER" && nodeType !== "RECIPE_TARGET") {
+          nodeEl.classList.add("node-masked");
+        }
       }
     });
   }
@@ -846,114 +1067,159 @@
         : "使用者節點於當前傳播深度下無相連路徑。";
       dom.graphEmptyMsg.style.display = "block";
       if (dom.graphSection) dom.graphSection.classList.toggle("disabled", isNonAttention);
+      if (dom.svgBgDecoGroup) dom.svgBgDecoGroup.innerHTML = "";
       return;
     }
 
     dom.graphEmptyMsg.style.display = "none";
     if (dom.graphSection) dom.graphSection.classList.remove("disabled");
 
-    // 渲染路徑選單
+    // 繪製背景裝飾節點
+    renderBackgroundDeco();
+
+    // 渲染路徑選單 (路徑聯合分數 π 於此統一標示)
     explanations.forEach((exp, idx) => {
       const item = document.createElement("div");
       item.className = `path-selector-item ${idx === state.selectedPathIndex ? "selected" : ""}`;
       item.innerHTML = `
         <span class="path-desc">路徑 ${idx + 1}：${exp.path_description}</span>
-        <span class="path-weight">π = ${exp.contribution_score.toExponential(3)}</span>
+        <span class="path-weight">π = ${typeof exp.contribution_score === "number" ? exp.contribution_score.toExponential(3) : "0.000e+0"}</span>
       `;
       item.addEventListener("click", () => {
         state.selectedPathIndex = idx;
         dom.pathsSelector.querySelectorAll(".path-selector-item").forEach((el, i) => {
           el.classList.toggle("selected", i === idx);
         });
-        drawSinglePath(exp);
+        drawConvergenceGraph(explanations);
+        updateGraphMaskingState(state.currentProbeMode);
       });
       dom.pathsSelector.appendChild(item);
     });
 
-    // 預設繪製第一條或選定路徑
-    drawSinglePath(explanations[state.selectedPathIndex] || explanations[0]);
+    // 繪製多交互匯聚子圖 (重現 Case C 匯聚拓撲網絡)
+    drawConvergenceGraph(explanations);
+    updateGraphMaskingState(state.currentProbeMode);
   }
 
   /**
-   * 繪製單條解釋路徑拓撲圖
+   * 繪製多交互匯聚子圖（重現論文 Case C 拓撲結構）
    */
-  function drawSinglePath(exp) {
+  function drawConvergenceGraph(explanations) {
     dom.svgEdgesGroup.innerHTML = "";
     dom.svgNodesGroup.innerHTML = "";
 
-    const details = exp.path_details || [];
-    if (details.length === 0) return;
+    const topPaths = explanations.slice(0, 3);
+    if (topPaths.length === 0) return;
 
     const svgWidth = 800;
     const svgHeight = 440;
     const paddingX = 90;
+    const paddingY = 60;
     const centerY = svgHeight / 2;
 
-    const nNodes = details.length;
-    const stepX = (svgWidth - 2 * paddingX) / Math.max(1, nNodes - 1);
+    const maxHops = Math.max(...topPaths.map((p) => (p.path_details || []).length - 1), 1);
 
-    // 計算各節點座標
-    const nodeCoords = details.map((n, i) => {
-      let offsetY = 0;
-      if (nNodes > 2) {
-        if (i === 1) offsetY = -40;
-        if (i === 2) offsetY = 40;
-      }
-      return {
-        x: paddingX + i * stepX,
-        y: centerY + offsetY,
-        node: n,
-      };
+    // 1. 節點去重與層級索引分類
+    const uniqueNodes = new Map();
+    topPaths.forEach((pathObj, pIdx) => {
+      const details = pathObj.path_details || [];
+      const pathLen = details.length;
+      details.forEach((node, hopIdx) => {
+        const nid = node.id_remapped;
+        const normalizedHop = hopIdx === pathLen - 1 ? maxHops : hopIdx;
+        if (!uniqueNodes.has(nid)) {
+          uniqueNodes.set(nid, {
+            ...node,
+            hop: normalizedHop,
+            paths: new Set([pIdx]),
+          });
+        } else {
+          uniqueNodes.get(nid).paths.add(pIdx);
+        }
+      });
     });
 
-    // 1. 繪製邊線與動態注意力權重寬度映射 (2.0px ~ 6.0px)
-    const allScores = (state.currentRecommendData?.explanations || []).map((e) => e.contribution_score || 0);
+    // 依 hop 分組計算階層坐標
+    const hopGroups = Array.from({ length: maxHops + 1 }, () => []);
+    uniqueNodes.forEach((nodeObj) => {
+      const h = Math.min(nodeObj.hop, maxHops);
+      hopGroups[h].push(nodeObj);
+    });
+
+    const nodeCoords = new Map();
+    hopGroups.forEach((group, h) => {
+      const count = group.length;
+      const x = paddingX + (h / maxHops) * (svgWidth - 2 * paddingX);
+      group.forEach((nodeObj, idx) => {
+        let y = centerY;
+        if (count > 1) {
+          const spacingY = Math.min(110, (svgHeight - 2 * paddingY) / Math.max(1, count - 1));
+          y = centerY + (idx - (count - 1) / 2) * spacingY;
+        }
+        nodeCoords.set(nodeObj.id_remapped, { x, y, node: nodeObj });
+      });
+    });
+
+    // 2. 邊緣去重與繪製 (邊線不再重複印製 π 分數，維持純淨線條)
+    const edgeMap = new Map();
+    topPaths.forEach((pathObj, pIdx) => {
+      const details = pathObj.path_details || [];
+      for (let s = 0; s < details.length - 1; s++) {
+        const fromId = details[s].id_remapped;
+        const toId = details[s + 1].id_remapped;
+        const edgeKey = `${fromId}_${toId}`;
+        if (!edgeMap.has(edgeKey)) {
+          edgeMap.set(edgeKey, { fromId, toId, paths: new Set([pIdx]) });
+        } else {
+          edgeMap.get(edgeKey).paths.add(pIdx);
+        }
+      }
+    });
+
+    const allScores = explanations.map((e) => e.contribution_score || 0);
     const maxScore = Math.max(...allScores, 1e-6);
     const minScore = Math.min(...allScores, 0);
     const scoreRange = Math.max(maxScore - minScore, 1e-6);
-    const normScore = Math.max(0, Math.min(1, ((exp.contribution_score || 0) - minScore) / scoreRange));
-    const dynamicStrokeWidth = (2.0 + normScore * 4.0).toFixed(1);
-    const weightText = (exp.contribution_score || 0).toExponential(2);
 
-    for (let i = 0; i < nodeCoords.length - 1; i++) {
-      const c1 = nodeCoords[i];
-      const c2 = nodeCoords[i + 1];
+    edgeMap.forEach((edgeObj) => {
+      const c1 = nodeCoords.get(edgeObj.fromId);
+      const c2 = nodeCoords.get(edgeObj.toId);
+      if (!c1 || !c2) return;
+
+      const isPrimary = edgeObj.paths.has(state.selectedPathIndex);
+      const selectedExp = explanations[state.selectedPathIndex] || explanations[0];
+      const normScore = Math.max(0, Math.min(1, ((selectedExp?.contribution_score || 0) - minScore) / scoreRange));
+      const dynamicStrokeWidth = isPrimary ? (3.2 + normScore * 2.2).toFixed(1) : "2.0";
 
       const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
       line.setAttribute("x1", c1.x);
       line.setAttribute("y1", c1.y);
       line.setAttribute("x2", c2.x);
       line.setAttribute("y2", c2.y);
-      line.setAttribute("class", "svg-edge");
+      line.setAttribute("data-from", edgeObj.fromId);
+      line.setAttribute("data-to", edgeObj.toId);
+      line.setAttribute("data-paths", Array.from(edgeObj.paths).join(","));
       line.setAttribute("stroke-width", dynamicStrokeWidth);
-      line.setAttribute("marker-end", "url(#arrow)");
+      line.setAttribute("class", isPrimary ? "svg-edge path-primary" : "svg-edge path-secondary");
+      line.setAttribute("marker-end", isPrimary ? "url(#arrow-active)" : "url(#arrow)");
       dom.svgEdgesGroup.appendChild(line);
+    });
 
-      // 連線文字（標註注意力權重數值）
-      const midX = (c1.x + c2.x) / 2;
-      const midY = (c1.y + c2.y) / 2 - 12;
-      const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-      text.setAttribute("x", midX);
-      text.setAttribute("y", midY);
-      text.setAttribute("class", "svg-edge-label");
-      text.setAttribute("text-anchor", "middle");
-      text.textContent = `π = ${weightText}`;
-      dom.svgEdgesGroup.appendChild(text);
-    }
-
-    // 2. 繪製節點
-    nodeCoords.forEach((coord, idx) => {
+    // 3. 繪製去重後之網路節點
+    nodeCoords.forEach((coord) => {
       const n = coord.node;
       const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
       group.setAttribute("class", "svg-node");
+      group.setAttribute("data-id", n.id_remapped);
+      group.setAttribute("data-paths", Array.from(n.paths).join(","));
+      group.setAttribute("data-type", n.hop === maxHops ? "RECIPE_TARGET" : n.type);
       group.setAttribute("transform", `translate(${coord.x}, ${coord.y})`);
 
-      // 顏色依型態映射
       let fillColor = "#2563eb"; // USER
       let typeLabel = "使用者";
       if (n.type === "RECIPE") {
         fillColor = "#d97706";
-        typeLabel = "食譜";
+        typeLabel = n.hop === maxHops ? "推薦目標" : "歷史食譜";
       } else if (n.type === "INGREDIENT") {
         fillColor = "#059669";
         typeLabel = "食材";
@@ -967,7 +1233,6 @@
       circle.setAttribute("fill", fillColor);
       group.appendChild(circle);
 
-      // 節點名稱
       const nameText = document.createElementNS("http://www.w3.org/2000/svg", "text");
       nameText.setAttribute("class", "svg-node-label");
       nameText.setAttribute("y", "36");
@@ -975,7 +1240,6 @@
       nameText.textContent = shortName;
       group.appendChild(nameText);
 
-      // 節點類型標籤
       const typeText = document.createElementNS("http://www.w3.org/2000/svg", "text");
       typeText.setAttribute("class", "svg-node-type");
       typeText.setAttribute("y", "-26");
@@ -984,9 +1248,6 @@
 
       dom.svgNodesGroup.appendChild(group);
     });
-
-    // 根據當前探針模式重繪連線遮蔽狀態
-    updateGraphMaskingState(state.currentProbeMode);
   }
 
   // 頁面載入完成後啟動

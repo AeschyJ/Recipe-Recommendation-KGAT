@@ -875,3 +875,108 @@ input.input-error {
   box-shadow: 0 0 0 2px #fecaca !important;
 }
 
+/* 雙層疊加水位條樣式 */
+.progress-bar-bg.dual-layer-meter {
+  position: relative;
+  height: 10px;
+  background-color: var(--border-light);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill.meter-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: rgba(37, 99, 235, 0.28);
+  border-radius: 9999px;
+  z-index: 1;
+  transition: width 0.35s ease;
+}
+
+.progress-bar-fill.meter-dynamic {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  border-radius: 9999px;
+  z-index: 2;
+  transition: width 0.35s ease, background 0.35s ease;
+}
+
+.progress-bar-fill.meter-dynamic.dim {
+  background: linear-gradient(90deg, #d97706, #b45309);
+}
+
+/* 背景裝飾實體點與拓撲連線過渡 */
+.svg-bg-deco-group {
+  transition: opacity 0.4s ease;
+}
+
+.svg-bg-deco-group.faded {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.svg-bg-deco-node {
+  fill: #94a3b8;
+  opacity: 0.22;
+  transition: opacity 0.4s ease;
+}
+
+.svg-bg-deco-line {
+  stroke: #cbd5e1;
+  stroke-width: 1;
+  opacity: 0.16;
+  stroke-dasharray: 3, 3;
+}
+
+/* 多路徑匯聚拓撲連線狀態 */
+.svg-edge {
+  stroke: #94a3b8;
+  transition: stroke 0.3s ease, stroke-width 0.3s ease, opacity 0.3s ease;
+}
+
+.svg-edge.path-primary {
+  stroke: #1e3a8a;
+  opacity: 0.95;
+}
+
+.svg-edge.path-secondary {
+  stroke: #64748b;
+  opacity: 0.6;
+  stroke-dasharray: 5, 3;
+}
+
+.svg-edge.path-primary.masked {
+  opacity: 0.12 !important;
+  stroke-dasharray: 3, 3 !important;
+}
+
+.svg-edge.path-secondary.backup-active {
+  stroke: #d97706 !important;
+  opacity: 1 !important;
+  stroke-width: 3.5px !important;
+  stroke-dasharray: none !important;
+}
+
+.svg-edge.path-secondary.faded {
+  opacity: 0.08 !important;
+}
+
+.svg-node {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.svg-node.node-masked {
+  opacity: 0.25;
+}
+
+.svg-node.node-backup-active circle {
+  stroke: #d97706;
+  stroke-width: 3px;
+  filter: drop-shadow(0 0 4px rgba(217, 119, 6, 0.4));
+}
+

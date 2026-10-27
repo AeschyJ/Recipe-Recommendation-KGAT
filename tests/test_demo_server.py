@@ -362,3 +362,108 @@ def test_api_fidelity_probe_uncached_user_no_path():
     assert data["fidelity_score"] == 0.0
     assert data["prob"] >= 0.0
 
+
+def test_api_dynamic_inference_all_uncached_models():
+    """驗證所有模型（包含消融與基準）在未快取自訂使用者下的動態推論健全性."""
+    uncached_uid = 99998
+    for model_key in ["1", "2", "3", "wo_kg", "wo_attn", "lightgcn", "bprmf", "nfm"]:
+        data = recommend(RecommendRequest(user_id=uncached_uid, depth=model_key))
+        assert data["user_id"] == uncached_uid
+        assert data["depth"] == model_key
+        assert data["recommended_item_id"] >= 0
+        assert data["prob"] >= 0.0
+
+
+def test_cached_final_embeddings_and_logging():
+    """驗證 KGAT 模型之節點特徵嵌入已成功預先計算並快取，且伺服器日誌已落盤寫入."""
+    model, _ = state.get_or_load_model("3")
+    assert hasattr(model, "cached_final_embed")
+    assert model.cached_final_embed is not None
+    # 節點總數為 473577，特徵維度為 256 (64 * (3 + 1))
+    assert model.cached_final_embed.shape[0] == state.num_nodes
+    assert model.cached_final_embed.shape[1] == 256
+
+    # 驗證日誌落盤
+    log_file = os.path.join(project_root, "output", "logs", "demo_server.log")
+    assert os.path.exists(log_file)
+    assert os.path.getsize(log_file) > 0
+    with open(log_file, "r", encoding="utf-8") as f:
+        log_content = f.read()
+    assert "命中快取推薦" in log_content or "推薦成功" in log_content
+
+
+def test_ui_enhancements_and_modal_features():
+    """驗證伺服器配置彈窗、雙層進度條、按鈕文案與背景裝飾元素對齊學術規範."""
+    web_dir = os.path.join(project_root, "src", "demo", "web")
+    html_file = os.path.join(web_dir, "index.html")
+    css_file = os.path.join(web_dir, "style.css")
+    js_file = os.path.join(web_dir, "app.js")
+
+    with open(html_file, "r", encoding="utf-8") as f:
+        html = f.read()
+    with open(css_file, "r", encoding="utf-8") as f:
+        css = f.read()
+    with open(js_file, "r", encoding="utf-8") as f:
+        js = f.read()
+
+    # 1. 伺服器配置彈窗驗證
+    assert 'id="serverConfigBtn"' in html
+    assert 'id="serverModal"' in html
+    assert 'id="serverUrlInput"' in html
+    assert 'id="testServerBtn"' in html
+    assert 'id="saveServerBtn"' in html
+    assert "localStorage.getItem" in js
+    assert "kgat_server_url" in js
+
+    # 2. 雙層水位條結構與樣式
+    assert "dual-layer-meter" in html
+    assert "meter-base" in html
+    assert "meter-dynamic" in html
+    assert ".dual-layer-meter" in css
+    assert ".meter-base" in css
+    assert ".meter-dynamic" in css
+
+    # 3. 忠實度按鈕名稱驗證
+    assert "原始預測" in html
+    assert "遮蔽此路徑 (F+)" in html
+    assert "遮蔽其餘路徑 (F-)" in html
+
+    # 4. 忠實度動態提示元素
+    assert 'id="promptNormal"' in html
+    assert 'id="promptFPlus"' in html
+    assert 'id="promptFMinus"' in html
+
+    # 5. 背景裝飾實體點與匯聚子圖標記
+    assert 'id="svgBgDecoGroup"' in html
+    assert "svg-bg-deco-group" in css
+    assert "renderBackgroundDeco" in js
+    assert "drawConvergenceGraph" in js
+    assert "arrow-backup" in html
+
+    # 6. 學術展示規範與冗餘標籤清理驗證
+    assert "排序：第 1 名" not in html
+    assert "全庫推薦" not in html
+    assert "未命中測試集" not in html
+    assert "命中測試集" not in html
+
+    # 7. JavaScript 腳本語法檢驗 (Node.js 語法檢核)
+    import shutil
+    import subprocess
+    node_exe = shutil.which("node")
+    if node_exe:
+        res = subprocess.run([node_exe, "-c", js_file], capture_output=True, text=True)
+        assert res.returncode == 0, f"app.js 語法錯誤: {res.stderr}"
+
+
+def test_server_state_auto_initialize_safety():
+    """驗證 ServerState 在未手動呼叫 initialize 時直接載入模型能自我修復與防護."""
+    from src.demo.server import ServerState
+    fresh_state = ServerState()
+    assert fresh_state.is_initialized is False
+    m, _ = fresh_state.get_or_load_model("1")
+    assert fresh_state.is_initialized is True
+    assert m is not None
+    assert hasattr(m, "cached_final_embed")
+    assert m.cached_final_embed is not None
+
+
