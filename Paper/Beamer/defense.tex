@@ -32,8 +32,8 @@
 \setcolor[ntugold]{ntublue}
 \setdarkframecolor{darkthemepurple!20!black}
 
-% 設定完整科系全銜 (嚴禁使用簡稱)
-\setdepartment{國立臺灣大學 工學院 工程科學及海洋工程學系 智慧計算與網路實驗室 (iCAN Lab)}
+% 設定完整科系與實驗室全銜
+\setdepartment{國立臺灣大學 工學院 工程科學及海洋工程學系 iCAN 智慧計算與網路實驗室}
 
 % 自訂高亮色彩
 \definecolor{HighlightRed}{HTML}{C00000}
@@ -44,7 +44,6 @@
 \title{\fontsize{22}{26}\selectfont\bfseries 應用知識圖注意力網路於食譜推薦之\\ 效能評估與可解釋性研究}
 \subtitle{\small Performance Evaluation and Explainability Study of Knowledge Graph Attention Network for Recipe Recommendation}
 \author{\small 研究生：廖健合 \quad (學號：R12525066)\\[0.15cm]指導教授：張瑞益 教授\\[0.15cm]iCAN 智慧計算與網路實驗室}
-\setdepartment{國立臺灣大學 工學院 工程科學及海洋工程學系 iCAN 智慧計算與網路實驗室}
 \date{}
 
 % --------------------------------------------------
@@ -69,26 +68,28 @@
 % ==================================================
 \section{研究背景與動機}
 
-\begin{frame}{食譜平台的資訊過載需要更有依據的推薦}
+\begin{frame}[t]{食譜平台的資訊過載需要更有依據的推薦}
   \begin{columns}[t]
     \begin{column}{0.48\textwidth}
+      \small
       \begin{itemize}
-        \item \alert{\textbf{海量食譜選擇困難}}：現代飲食線上平台包含數百萬筆食譜、食材組合與使用者互動數據，使用者難以快速定位符合個人偏好的餐點。
-        \item \alert{\textbf{傳統推薦系統瓶頸}}：純協同過濾 (Collaborative Filtering, CF) 僅依賴使用者歷史點擊或評分，嚴重受限於數據稀疏性與冷啟動問題。
+        \item \alert{\textbf{海量食譜選擇困難}}：現代飲食線上平台包含數百萬筆食譜、食材組合與使用者互動資料，使用者難以快速定位符合個人偏好的餐點。
+        \item \alert{\textbf{傳統推薦系統瓶頸}}：純協同過濾 (Collaborative Filtering, CF) 僅依賴歷史互動，受限於資料稀疏性與冷啟動。
       \end{itemize}
     \end{column}
     
     \begin{column}{0.48\textwidth}
+      \small
       \begin{itemize}
-        \item \alert{\textbf{知識圖 (KG) 注入}}：將食譜、食材與標籤構建為協同知識圖，可豐富輔助語意並實現跨項目推理。
-        \item \alert{\textbf{研究核心疑問}}：知識圖注意力網路 (KGAT) 在食譜推薦上的真正效能增益為何？由注意力權重導出的解釋路徑，是否能忠實反映模型的實際決策？
+        \item \alert{\textbf{知識圖 (KG) 注入}}：將食譜、食材與標籤建構為協同知識圖 (CKG)，豐富語意並實現跨物品推理。
+        \item \alert{\textbf{研究核心疑問}}：KGAT 在食譜推薦上的效能增益為何？由注意力權重導出的解釋路徑是否忠實？
       \end{itemize}
     \end{column}
   \end{columns}
   
-  \vspace{0.2cm}
+  \vspace{0.1cm}
   \begin{mybox}{ntublue}{研究核心目標}
-    本研究旨在針對 \textbf{KGAT 在食譜推薦場景}進行實證評估，系統性量化傳播深度與知識圖整合對推薦效能及訓練行為之影響，並以 Fidelity 量化指標檢驗由注意力權重所萃取之解釋路徑忠實度 (Explanation Fidelity)。
+    \small 本研究旨在針對 \textbf{KGAT 在食譜推薦場景}進行實證評估，系統性量化傳播深度與知識圖整合對推薦效能及訓練行為之影響，並以 Fidelity 量化指標檢驗由注意力權重所萃取之解釋路徑忠實度 (Explanation Fidelity)。
   \end{mybox}
 \end{frame}
 
@@ -97,7 +98,7 @@
     \begin{column}{0.5\textwidth}
       \begin{itemize}
         \item \alert{\textbf{使用者--食譜互動圖}} $\mathcal{G}_1$：
-          包含使用者 $u \in \mathcal{U}$ 對食譜 $i \in \mathcal{I}$ 的歷史互動數據。
+          包含使用者 $u \in \mathcal{U}$ 對食譜 $i \in \mathcal{I}$ 的歷史互動資料。
         \item \alert{\textbf{食譜知識圖}} $\mathcal{G}_2$：
           包含三元組 $(h, r, t) \in \mathcal{G}_2$，例如：
           \begin{itemize}
@@ -135,28 +136,30 @@
 % ==================================================
 \section{文獻探討與問題定義}
 
-\begin{frame}{推薦模型演進與對比：從矩陣分解到圖神經網路}
+\begin{frame}[t]{推薦模型演進與對比：從矩陣分解到圖神經網路 (GNN)}
   \begin{mybox}{ntublue}{}
-    \small
-    \setlength{\tabcolsep}{4pt}
-    \renewcommand{\arraystretch}{0.9}
+    \footnotesize
+    \setlength{\tabcolsep}{3.5pt}
+    \renewcommand{\arraystretch}{0.80}
     \begin{tabularx}{\textwidth}{l X X X}
       \toprule
-      \textbf{模型類別} & \textbf{代表方法} & \textbf{核心優勢 (Pros)} & \textbf{局限性 (Cons) / 本文缺口} \\
+      \textbf{技術架構類別} & \textbf{代表基準方法} & \textbf{核心優勢 (Pros)} & \textbf{局限性 (Cons) / 本文缺口} \\
       \midrule
-      \textbf{矩陣分解 (CF)} & BPR-MF & 運算簡單，擬合高頻互動 & 無法利用語意，冷啟動差 \\
+      \textbf{矩陣分解 (MF)} & BPR-MF & 運算簡單，擬合高頻互動 & 無法利用語意，冷啟動差 \\
       \midrule
-      \textbf{特徵互動 (FM)} & NFM & 捕捉非線性高階特徵互動 & 視實體為獨立特徵，無視拓樸 \\
+      \textbf{因子分解機 (FM)} & NFM & 捕捉非線性高階特徵互動 & 視實體為獨立特徵，無視拓樸 \\
       \midrule
-      \textbf{圖卷積 (GNN)} & LightGCN & 簡化 GNN，高效傳播訊號 & 僅處理單一關係，無視異質性 \\
+      \textbf{圖卷積網路 (GCN)} & LightGCN & 簡化 GCN\slash GNN，高效傳播訊號 & 僅處理單一關係，無視異質性 \\
       \midrule
-      \textbf{圖注意力 (KGAT)} & \textbf{KGAT (本文)} & \textbf{融合 CKG 與注意力多跳傳播} & \textbf{既有研究缺乏食譜實證與解釋忠實度} \\
+      \textbf{知識圖注意力 (KGAT)} & \textbf{KGAT (本文)} & \textbf{融合 CKG 與注意力多跳傳播} & \textbf{既有研究缺乏食譜實證與解釋忠實度} \\
       \bottomrule
     \end{tabularx}
+    \vspace{0.02cm}
+    {\tiny \textbf{*基準模型全稱}：\textbf{BPR-MF}: Bayesian Personalized Ranking Matrix Factorization (貝氏個人化排序矩陣分解)；\textbf{NFM}: Neural Factorization Machines (神經因子分解機)；\textbf{LightGCN}: Light Graph Convolutional Network (輕量圖卷積網路)。}
   \end{mybox}
 
-  \vspace{0.12cm}
-  \small \textbf{與食譜領域 KG 研究對比}：既有領域研究 (如 \textit{Li et al., JWS 2023}) 多專注於健康/營養之語意應用構建；本研究聚焦於 Food.com 協同知識圖中，\textbf{不同傳播深度對推薦效能與訓練行為的實證分析}，並以 Fidelity 檢驗\textbf{注意力導出解釋路徑之忠實度}。
+  \vspace{-0.05cm}
+  \footnotesize \textbf{與食譜領域 KG 研究對比}：既有領域研究 (如 \textit{Li et al., JWS 2023}，Web 語意學頂級期刊) 多專注於健康/營養之語意應用建構；本研究聚焦於 Food.com 協同知識圖中，\textbf{不同傳播深度對推薦效能與訓練行為的實證分析}，並以 Fidelity 檢驗\textbf{注意力導出解釋路徑之忠實度}。
 \end{frame}
 
 \begin{frame}{本研究解決的三大核心問題 (Research Questions)}
@@ -164,7 +167,7 @@
     \begin{column}{0.32\textwidth}
       \begin{mybox}[height=5.3cm]{ntublue}{{RQ1: 傳播深度與效能}}
         \small
-        KGAT 在具備豐富食材與風味語意的 Food.com 食譜資料集上，不同傳播深度與知識圖整合，相較於頂尖基線 (LightGCN) 帶來何種排序表現影響？
+        KGAT 在具備豐富食材與風味語意的 Food.com 食譜資料集上，不同傳播深度與知識圖整合，相較於基準模型 (LightGCN) 帶來何種排序表現影響？
       \end{mybox}
     \end{column}
     
@@ -192,7 +195,7 @@
 \begin{frame}{KGAT 模型整體架構示意圖}
   \vspace{-0.2cm}
   \makebox[\textwidth][c]{%
-    \includegraphics[width=1.12\textwidth, height=0.86\textheight, keepaspectratio]{../Main/figures/kgat_architecture.pdf}%
+    \includegraphics[width=1.12\textwidth, height=0.86\textheight, keepaspectratio]{../Main/figures/kgat_architecture_horizontal.pdf}%
   }
 \end{frame}
 
@@ -203,8 +206,8 @@
       \[
         \pi(h, r, t) = (\mathbf{W}_r \mathbf{e}_t)^\top \tanh(\mathbf{W}_r \mathbf{e}_h + \mathbf{e}_r)
       \]
-    \item \alert{\textbf{注意力 Softmax 歸一化權重}}：
-      計算頭節點 $h$ 對其所有鄰居節點之歸一化注意力權重 $\alpha_{(h, r, t)}$：
+    \item \alert{\textbf{注意力 Softmax 正規化權重}}：
+      計算頭節點 $h$ 對其所有鄰居節點之正規化注意力權重 $\alpha_{(h, r, t)}$：
       \[
         \alpha_{(h, r, t)} = \frac{\exp(\pi(h, r, t))}{\sum_{(h, r', t') \in \mathcal{N}_h} \exp(\pi(h, r', t'))}
       \]
@@ -224,7 +227,7 @@
         \mathbf{e}_{\mathcal{N}_h}^{(l)} = \sum_{(h, r, t) \in \mathcal{N}_h} \alpha_{(h, r, t)} \mathbf{e}_t^{(l-1)}
       \]
     \item \alert{\textbf{雙重互動聚合器 (Bi-Interaction Aggregator)}}：
-      同時捕捉加性累積與乘性過濾交互特徵：
+      同時捕捉加性累積與乘性過濾互動特徵：
       \[
         \mathbf{e}_h^{(l)} = \text{LeakyReLU}\Big( \mathbf{W}_1^{(l)} (\mathbf{e}_h^{(l-1)} + \mathbf{e}_{\mathcal{N}_h}^{(l)}) + \mathbf{W}_2^{(l)} (\mathbf{e}_h^{(l-1)} \odot \mathbf{e}_{\mathcal{N}_h}^{(l)}) \Big)
       \]
@@ -233,15 +236,18 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{損失函數：成對排序 BPR Loss 與模型優化}
+\begin{frame}{損失函數：成對排序 BPR 損失與模型最佳化}
   \begin{itemize}
-    \item \alert{\textbf{Bayesian Personalized Ranking (BPR) Loss}}：
+    \item \alert{\textbf{貝氏個人化排序損失 (Bayesian Personalized Ranking, BPR Loss)}}：
       鼓勵模型對使用者歷史互動過的正樣本食譜 $i^+$ 給予高於未互動負樣本 $i^-$ 的預測分數：
       \[
-        \mathcal{L}_{\text{KGAT}} = \sum_{(u, i^+, i^-) \in \mathcal{D}} -\ln \sigma\Big(\hat{y}(u, i^+) - \hat{y}(u, i^-)\Big) + \lambda \|\mathbf{\Theta}\|_2^2
+        \mathcal{L}_{\text{BPR}} = -\sum_{(u, i^+, i^-) \in \mathcal{D}} \ln \sigma\Big(\hat{y}(u, i^+) - \hat{y}(u, i^-)\Big) + \lambda \sum_{\mathbf{W} \in \Theta} \|\mathbf{W}\|_F^2
       \]
-    \item \alert{\textbf{隨機負樣本抽樣與正則化}}：
-      加入 $L_2$ 正則化項 ($\lambda=10^{-5}$) 避免嵌入向量過擬合，參數矩陣 $\mathbf{\Theta}$ 採用 Adam 優化器與 BFloat16 混合精度訓練。
+    \item \alert{\textbf{可學習參數集合與正規化}}：
+      \begin{itemize}
+        \item 參數集合 $\Theta = \{\mathbf{E}, \{\mathbf{W}_r\}_{r \in \mathcal{R}}, \{\mathbf{W}_1^{(l)}, \mathbf{W}_2^{(l)}\}_{l=1}^L\}$ 涵蓋實體嵌入、關係注意力與跨層聚合權重。
+        \item 引入 Frobenius 範數正規化 ($\lambda = 10^{-5}$) 抑制過擬合，模型採用 Adam 最佳化器與 BFloat16 混合精度訓練。
+      \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -254,7 +260,7 @@
   \begin{columns}[t]
     \begin{column}{0.48\textwidth}
       \begin{itemize}
-        \item \alert{\textbf{資料集來源}}：Food.com 真實食譜與互動數據。
+        \item \alert{\textbf{資料集來源}}：Food.com 真實食譜與互動資料。
         \item \alert{\textbf{關聯實體}}：食譜、食材 (Ingredients)、標籤 (Tags)。
         \item \alert{\textbf{超級節點修剪 (Super-node Pruning)}}：
           \begin{itemize}
@@ -285,19 +291,19 @@
 % ==================================================
 \begin{frame}{RQ1 效能評估：模型推薦表現長條圖對比}
   \begin{center}
-    \includegraphics[width=0.92\linewidth, height=0.62\textheight, keepaspectratio]{../Main/figures/fig_performance_barchart.pdf}
+    \includegraphics[width=0.92\linewidth, height=0.58\textheight, keepaspectratio]{../Main/figures/fig_performance_barchart.pdf}
   \end{center}
 
   \vspace{-0.15cm}
-  \begin{alertblock}{\small\textbf{核心數據發現：KGAT-3L 推薦表現大幅超越強基線}}
-    \small KGAT-3L 相較於最強圖卷積基線 LightGCN：\textbf{HR@20 相對提升 \textcolor{HighlightRed}{+31.6\%}} (0.6668 $\rightarrow$ \textbf{0.8775})，\textbf{NDCG@20 相對提升 \textcolor{HighlightRed}{+38.4\%}} (0.3836 $\rightarrow$ \textbf{0.5309})。(詳細數值表請見 附錄 A1/A2)
+  \begin{alertblock}{\small\textbf{核心實證發現：KGAT-3L 推薦表現顯著超越各基準模型}}
+    \small KGAT-3L 相較於表現最佳之基準模型 LightGCN：\textbf{命中率 HR@20 相對提升 \textcolor{HighlightRed}{+31.6\%}} (0.6668 $\rightarrow$ \textbf{0.8775})，\textbf{排序增益 NDCG@20 相對提升 \textcolor{HighlightRed}{+38.4\%}} (0.3836 $\rightarrow$ \textbf{0.5309})。(詳細數值表請見 附錄 A1/A2)
   \end{alertblock}
   \vspace{0.05cm}
-  {\tiny *註：評估協定為 Leave-one-out 留一法搭配 100 個未互動負樣本排序，數值為三次獨立運行平均值。}
+  {\tiny *註：\textbf{HR@20}: 命中率 (Hit Ratio @ 20)；\textbf{NDCG@20}: 正規化折損累計增益 (Normalized Discounted Cumulative Gain @ 20)。評估協定為 Leave-one-out 留一法搭配 100 個未互動負樣本排序，數值為三次獨立執行平均值。}
 \end{frame}
 
 % ==================================================
-% P13: 淺層 KG 資訊污染 (標題特別醒目，內文精簡呈現實證數據)
+% P13: 淺層 KG 資訊污染 (標題特別醒目，內文精簡呈現實證結果)
 % ==================================================
 \begin{frame}{RQ1 多跳傳播層數與淺層 KG 資訊污染}
   \begin{columns}[t]
@@ -306,7 +312,7 @@
         \item \alert{\textbf{深度遞進效能 ($L=1\to 2\to 3$)}}：
           \begin{itemize}
             \item $L=1$ (0.6761) $\to L=2$ (0.7711, 較 1L +14.1\%) $\to L=3$ (\textbf{0.8775}, 較 1L +29.8\%, 較 2L +13.8\%)。
-            \item 多跳傳播使模型能利用更高階圖拓撲資訊，且在本資料集上與效能提升呈現一致關聯。
+            \item 多跳傳播使模型能利用更高階圖拓樸資訊，且在本資料集上與效能提升呈現一致關聯。
           \end{itemize}
       \end{itemize}
     \end{column}
@@ -315,7 +321,7 @@
       \begin{alertblock}{\large\bfseries\color{HighlightRed} 發現：雜訊超越資訊增益，反而稀釋協同過濾訊號！}
         \small
         單跳傳播時高頻屬性節點灌注過度泛化特徵：\\[0.15cm]
-        \textbf{實證數據}：\textbf{w/o KG-1L (0.7076)} 數值明顯高於 \mbox{\textbf{Full KGAT-1L (0.6761)}} 達 \textbf{\textcolor{HighlightRed}{+4.7\%}}！
+        \textbf{實證結果}：\textbf{w/o KG ($L=1$) (0.7076)} 數值明顯高於 \mbox{\textbf{Full KGAT ($L=1$) (0.6761)}} 達 \textbf{\textcolor{HighlightRed}{+4.7\%}}！
       \end{alertblock}
       \vspace{0.15cm}
       \small \textbf{學術連結}：呼應 \textit{Zhang et al. (2025)} 關於「知識圖對推薦系統之貢獻非無條件正面」的實證觀察，亦可作為既有食譜 KG 研究 (如 \textit{Li et al., JWS 2023}) 採用複雜跨子圖機制的可能解釋之一。
@@ -327,7 +333,7 @@
 % P14: RQ2 訓練動態 (大字體表格)
 % ==================================================
 \begin{frame}{RQ2 訓練動態：各深度 Epoch 演變與早停機制}
-  \begin{mybox}{ntublue}{不同深度模型前五個 Epoch 之 HR@20 演變趨勢 (三次獨立運行平均值)}
+  \begin{mybox}{ntublue}{不同深度模型前五個 Epoch 之 HR@20 演變趨勢 (三次獨立執行平均值)}
     \centering
     \vspace{0.1cm}
     \small
@@ -360,26 +366,26 @@
 
 \begin{frame}{RQ3 可解釋性分析：忠實度 (Fidelity) 評估機制}
   \begin{itemize}
-    \item \alert{\textbf{正向忠實度 $F^+$ (Fidelity+ / 必要性)}}：
-      從 CKG 中\textbf{移除} Top-$K$ 解釋子圖 $S$，觀察預測機率下降程度：
+    \item \alert{\textbf{正向忠實度 $F^+$ (Fidelity+ / 必要性 / Prediction Drop)}}：
+      自 CKG 中\textbf{移除} Top-$K$ 解釋路徑邊集合 $S$，觀察模型在殘缺拓撲 $\mathcal{G}_{\setminus S}$ 上的預測降幅：
       \[
-        F^+ = p_{uv} - p_{uv \setminus S} \quad (\text{若 } F^+ > 0 \text{ 代表該子圖邊為必要條件})
+        F^+ = \hat{p}_{uv}(\mathcal{G}) - \hat{p}_{uv}(\mathcal{G}_{\setminus S}) \quad (\text{若 } F^+ > 0 \text{ 代表該子圖邊為必要決策條件})
       \]
-    \item \alert{\textbf{負向忠實度 $F^-$ (Fidelity- / 充分性)}}：
-      遮蔽其餘邊，\textbf{僅保留} Top-$K$ 解釋子圖 $S$，觀察預測維持程度：
+    \item \alert{\textbf{負向忠實度 $F^-$ (Fidelity- / 充分性 / Prediction Gap)}}：
+      遮蔽其餘所有邊，\textbf{僅保留}解釋子圖 $\mathcal{G}_S = (\mathcal{V}, S)$，觀察稀疏子圖預測落差：
       \[
-        F^- = p_{uv} - p_{uv | S} \quad (\text{若 } F^- \approx 0 \text{ 代表該子圖邊具充分資訊})
+        F^- = \hat{p}_{uv}(\mathcal{G}) - \hat{p}_{uv}(\mathcal{G}_S) \quad (\text{若 } F^- \approx 0 \text{ 代表該子圖已具備充分資訊})
       \]
   \end{itemize}
 
   \vspace{0.2cm}
-  \begin{mybox}{ntublue}{理想解釋性要求}
-    若注意力導出之路徑具備客觀解釋忠實度，解釋子圖 $S$ 之 $F^+$ 應呈現明確正值（必要），且 $F^-$ 應保持極小落差（充分）。
+  \begin{mybox}{ntublue}{理想解釋性要求 (對齊國際 GNN XAI 規範)}
+    高品質之注意力解釋路徑應同時滿足：$F^+ \gg 0$（高必要性，移除顯著衰退）且 $F^- \approx 0$（高充分性，單獨存在即可維繫決策）。
   \end{mybox}
 \end{frame}
 
 \begin{frame}{RQ3 不同路徑類型對忠實度的影響}
-  \begin{mybox}{ntublue}{{Fidelity 數據對比 ($n=278$ 位有效使用者，共 488 條解釋路徑)}}
+  \begin{mybox}{ntublue}{{Fidelity 評估結果對比 ($n=278$ 位有效使用者，共 488 條解釋路徑)}}
     \centering
     \vspace{0.05cm}
     \footnotesize
@@ -415,12 +421,12 @@
     \end{column}
 
     \begin{column}{0.44\textwidth}
-      \begin{mybox}{ntublue}{{Fidelity 評估數據與指標}}
+      \begin{mybox}{ntublue}{{Fidelity 評估數值與指標}}
         \small
         \begin{itemize}
           \item \textbf{推薦食譜}：\texttt{fantastic tropical thai chicken salad} (預測機率 0.933)
           \item \textbf{共同食材}：\texttt{chicken}
-          \item \textbf{Fidelity 數據}：
+          \item \textbf{Fidelity 數值}：
             \begin{itemize}
               \item \textbf{$F^+ = -0.001$} (移除此路徑預測不降反升)
               \item \textbf{$F^- = 0.5415$} (僅留此路徑損失 54\% 機率)
@@ -442,7 +448,7 @@
   \begin{columns}[t]
     \begin{column}{0.32\textwidth}
       \begin{mybox}[fonttitle=\small\bfseries, height=5.0cm]{ntublue}{{貢獻一：傳播深度實證}}
-        在 Food.com 食譜異質圖上系統性量化傳播深度，證實 KGAT-3L 達 0.8775 HR@20，相較強基線 LightGCN 展現大幅排序優勢 (+31.6\%)。
+        在 Food.com 食譜異質圖上系統性量化傳播深度，證實 KGAT-3L 達 0.8775 HR@20，相較表現最佳之基準模型 LightGCN 展現大幅排序優勢 (+31.6\%)。
       \end{mybox}
     \end{column}
 
@@ -478,7 +484,7 @@
 
     \item \alert{\textbf{跨領域多資料集與評估協定驗證}}
       \begin{itemize}\small
-        \item 將淺層「資訊污染」現象推廣至 Amazon-Book、Yelp2018 跨領域圖譜驗證。
+        \item 將淺層「資訊污染」現象推廣至 Amazon-Book、Yelp2018 跨領域圖驗證。
         \item 結合 Full-ranking 評估協定，檢驗抽樣條件對排序與指標絕對值之影響。
       \end{itemize}
 
@@ -497,7 +503,7 @@
       \vspace{0.8cm}
       {\Huge\bfseries\color{ntublue} 敬請 各位委員指導與賜教}\\[0.6cm]
       {\fontsize{18pt}{22pt}\selectfont\bfseries\color{ntugold} Thank You for Your Attention!}\\[1.4cm]
-      \small 國立臺灣大學 工學院 工程科學及海洋工程學系 智慧計算與網路實驗室 (iCAN Lab)
+      \small 國立臺灣大學 工學院 工程科學及海洋工程學系 iCAN 智慧計算與網路實驗室
     \end{center}
   \end{frame}
 }
@@ -509,8 +515,8 @@
 \def\insertsection{附錄 (Appendix)}
 \section*{附錄 (Appendix)}
 
-\begin{frame}{附錄 A1: 基準模型與深度對比完整數據}
-  \begin{mybox}{ntublue}{詳細對比表格 (三次獨立運行平均值)}
+\begin{frame}{附錄 A1: 基準模型與深度對比完整評估結果}
+  \begin{mybox}{ntublue}{詳細對比表格 (三次獨立執行平均值)}
     \centering
     \resizebox{0.95\textwidth}{!}{%
     \begin{tabular}{l c c c c c c c c c}
@@ -527,11 +533,13 @@
       \bottomrule
     \end{tabular}%
     }
+    \vspace{0.06cm}
+    {\tiny *指標說明：\textbf{HR@$K$}: 命中率 (Hit Ratio @ $K$)；\textbf{NDCG@$K$}: 正規化折損累計增益 (Normalized Discounted Cumulative Gain @ $K$)；\textbf{P@$K$}: 精確度 (Precision @ $K$)。在留一法單正樣本設定下，$\text{Precision}@K = \text{HR}@K / K$。}
   \end{mybox}
 \end{frame}
 
 \begin{frame}{附錄 A2: RQ1 模組消融實驗完整對比 (Ablation Study)}
-  \begin{mybox}{ntublue}{模組消融評估數據 (三次獨立運行平均值)}
+  \begin{mybox}{ntublue}{模組消融評估結果 (三次獨立執行平均值)}
     \centering
     \resizebox{0.95\textwidth}{!}{%
     \begin{tabular}{l c c c c c c c c c}
@@ -603,13 +611,13 @@
     \end{column}
 
     \begin{column}{0.44\textwidth}
-      \begin{mybox}{ntublue}{{Fidelity 評估數據與指標}}
+      \begin{mybox}{ntublue}{{Fidelity 評估數值與指標}}
         \footnotesize
         \begin{itemize}
           \item \textbf{推薦食譜}：\texttt{bacon lattice tomato muffins} (預測機率 0.952)
           \item \textbf{路徑類型}：Direct Link (User $\to$ Recipe)
           \item \textbf{注意力權重}：$\alpha = 0.767$
-          \item \textbf{Fidelity 數據}：
+          \item \textbf{Fidelity 數值}：
             \begin{itemize}
               \item \textbf{$F^+ = 0.2415$} (\textbf{高必要性}，移除預測降 24\%)
               \item \textbf{$F^- = 0.0004$} (\textbf{接近 0}，僅留此邊維繫機率)
@@ -629,12 +637,12 @@
     \end{column}
 
     \begin{column}{0.44\textwidth}
-      \begin{mybox}{ntublue}{{Fidelity 評估數據與指標}}
+      \begin{mybox}{ntublue}{{Fidelity 評估數值與指標}}
         \small
         \begin{itemize}
           \item \textbf{推薦食譜}：\texttt{joanne's creamy bruschetta} (預測機率 0.952)
           \item \textbf{路徑類型}：CF Path (User $\to$ Rec $\to$ User $\to$ Rec)
-          \item \textbf{Fidelity 數據}：
+          \item \textbf{Fidelity 數值}：
             \begin{itemize}
               \item \textbf{$F^+ = 0.2061$} (\textbf{高必要性}，移除預測降 20\%)
               \item \textbf{$F^- = 0.0019$} (\textbf{接近 0}，具備高充分性)
@@ -664,9 +672,9 @@
       \midrule
       \textbf{核心目標} & 高層健康語意引導與健康食譜推薦 & 評估 KGAT 效能增益、訓練動態與解釋忠實度 \\
       \midrule
-      \textbf{知識圖譜} & 著重營養、健康屬性與專家語意圖譜 & 融合 Food.com 食材與標籤之 CKG (>720萬邊) \\
+      \textbf{知識圖} & 著重營養、健康屬性與專家語意圖 & 融合 Food.com 食材與標籤之 CKG (>720萬邊) \\
       \midrule
-      \textbf{網絡架構} & 語意導向推薦與專家規則結合架構 & 關係感知注意力與雙重互動多跳傳播 ($L=1\sim3$) \\
+      \textbf{網路架構} & 語意導向推薦與專家規則結合架構 & 關係感知注意力與雙重互動多跳傳播 ($L=1\sim3$) \\
       \midrule
       \textbf{關鍵貢獻} & 開創食譜語意網與健康推薦框架 & 揭示淺層資訊污染現象，量化注意力解釋忠實度 ($F^-=0.2449$) \\
       \bottomrule

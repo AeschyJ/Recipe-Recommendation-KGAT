@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.13)  29 JUL 2026 10:14
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.13)  13 SEP 2026 20:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**Paper/Main/figures/kgat_architecture.tex
-(./Paper/Main/figures/kgat_architecture.tex
+**kgat_architecture.tex
+(./kgat_architecture.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
 (d:/Program Files/texlive/2026/texmf-dist/tex/latex/standalone/standalone.cls
@@ -686,7 +686,7 @@ File: tikzlibraryfadings.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (d:/Program Files/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryf
 adings.code.tex
 File: pgflibraryfadings.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-))) (Paper/Main/figures/kgat_architecture.aux)
+))) (./kgat_architecture.aux)
 \openout1 = `kgat_architecture.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
@@ -762,13 +762,13 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  OT1/cmss/bx/n --> TU/Arial(0)/b/n on input line 12.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 12.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 47.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 40.
 
 
 (d:/Program Files/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 47.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 40.
 
 
 (d:/Program Files/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -776,19 +776,19 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 ]
-(Paper/Main/figures/kgat_architecture.aux)
+(./kgat_architecture.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/08/05>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 18649 strings out of 467992
- 442652 string characters out of 5426695
- 885971 words of memory out of 5000000
- 47205 multiletter control sequences out of 15000+600000
- 635402 words of font info for 105 fonts, out of 8000000 for 9000
+ 18574 strings out of 467992
+ 441018 string characters out of 5426695
+ 887638 words of memory out of 5000000
+ 47141 multiletter control sequences out of 15000+600000
+ 633793 words of font info for 91 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 117i,7n,121p,430b,910s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 117i,7n,121p,411b,912s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on Paper/Main/figures/kgat_architecture.pdf (1 page).
+Output written on kgat_architecture.pdf (1 page).

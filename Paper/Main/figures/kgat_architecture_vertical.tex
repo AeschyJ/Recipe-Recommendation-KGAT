@@ -1,23 +1,11 @@
 \documentclass[tikz, border=10pt]{standalone}
 
-% --- UNIVERSAL PREAMBLE BLOCK ---
-\usepackage{fontspec}
-\usepackage{amssymb}
-\usepackage{amsmath}
-
-\usepackage[english, bidi=basic, provide=*]{babel}
-\babelprovide[import, onchar=ids fonts]{chinese}
-\babelprovide[import, onchar=ids fonts]{english}
-
-% Set default/Latin font to Sans Serif in the main (rm) slot
-\babelfont{rm}{Noto Sans}
-% Assign a specific font for Traditional Chinese text
-\babelfont[chinese]{rm}{Noto Sans CJK TC}
-
-% Add because main language is not English
-\usepackage{enumitem}
-\setlist[itemize]{label=-}
-% --- END UNIVERSAL PREAMBLE BLOCK ---
+\usepackage{xeCJK}
+\setCJKmainfont{Microsoft JhengHei}
+\setCJKsansfont{Microsoft JhengHei}
+\setmainfont{Arial}
+\setsansfont{Arial}
+\usepackage{amsmath, amssymb}
 
 \usetikzlibrary{positioning, arrows.meta, shapes.geometric, fit, backgrounds, calc, shadows}
 

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.13)  11 SEP 2026 02:09
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.13)  7 OCT 2026 03:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1770,11 +1770,6 @@ File: figures/seal.pdf Graphic file (type pdf)
 (./figures/kgat_architecture.tex)
 File: figures/kgat_architecture.tex Graphic file (type tex)
 
-Overfull \hbox (331.14636pt too wide) in paragraph at lines 116--117
- [][] 
- []
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 File: figures/seal.pdf Graphic file (type pdf)
@@ -1786,10 +1781,21 @@ File: figures/seal.pdf Graphic file (type pdf)
 [22]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [23]) (./contents/chapter04_experiments.tex
+ [23]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [24]
+ [24])
+(./contents/chapter04_experiments.tex
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [25]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [26
+
+]
 Chapter 4.
 
 LaTeX Font Warning: Font shape `TU/BiauKai(0)/m/it' undefined
@@ -1797,15 +1803,7 @@ LaTeX Font Warning: Font shape `TU/BiauKai(0)/m/it' undefined
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
-[25
-
-]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [26]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [27]
+[27]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [28]
@@ -1821,62 +1819,62 @@ File: figures/seal.pdf Graphic file (type pdf)
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [32]
-File: figures/fig_training_curves.pdf Graphic file (type pdf)
-<use figures/fig_training_curves.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [33]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
+ [34]
+File: figures/fig_training_curves.pdf Graphic file (type pdf)
+<use figures/fig_training_curves.pdf>
 
-[34]
+Underfull \vbox (badness 4181) has occurred while \output is active []
+
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [35]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [36]
+
+[36]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [37]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [38]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [39]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [40]
 File: figures/user_141540.pdf Graphic file (type pdf)
 <use figures/user_141540.pdf>
 File: figures/user_58074.pdf Graphic file (type pdf)
 <use figures/user_58074.pdf>
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [39]
+ [41]
 File: figures/user_83279.pdf Graphic file (type pdf)
 <use figures/user_83279.pdf>
 ) (./contents/chapter05_conclusion.tex
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [40]
+ [42]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
 
-[41]
+[43]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [42
+ [44
 
 ]
 Chapter 5.
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
-[43]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [44]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [45]
+[45]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [46]
@@ -1885,38 +1883,44 @@ File: figures/seal.pdf Graphic file (type pdf)
  [47]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [48])
+ [48]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [49]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [50
+ [50])
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [51]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [52
 
 ] (./main.bbl
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [51
+ [53
 
 ]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [52]
+ [54]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [53])
+ [55])
 (./back/appendix01.tex
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [54]) (./back/appendix02.tex
+ [56]) (./back/appendix02.tex
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [55
+ [57
 
 ]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [56]
+ [58]
 Overfull \hbox (68.63168pt too wide) in paragraph at lines 17--28
  [][] 
  []
@@ -1933,7 +1937,7 @@ Overfull \hbox (68.63168pt too wide) in paragraph at lines 55--66
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
-[57
+[59
 
 ]
 
@@ -1966,7 +1970,7 @@ Overfull \hbox (68.63168pt too wide) in paragraph at lines 135--146
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
-[58]
+[60]
 Overfull \hbox (68.63168pt too wide) in paragraph at lines 154--165
  [][] 
  []
@@ -1974,15 +1978,15 @@ Overfull \hbox (68.63168pt too wide) in paragraph at lines 154--165
 ) (./back/appendix03.tex
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [59]
+ [61]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [60
+ [62
 
 ]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [61]
+ [63]
 Overfull \hbox (7.9025pt too wide) in paragraph at lines 25--26
 \TU/TimesNewRoman(0)/m/n/12 food, desserts, oven, time-to-make, lunch, occasion
 , equipment, dietary, low-saturated-
@@ -2008,14 +2012,14 @@ sentation, vegetarian, dinner-party,
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
-[62])
+[64])
 
 Package caption Warning: Unused \captionsetup[sub] on input line 42.
 See the caption package documentation for explanation.
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
-[63] (./main.aux)
+[65] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/08/05>
@@ -2024,16 +2028,19 @@ L3 programming layer <2022/08/05>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 7B4AA5B26D7EC87D8A1F92360F34A6DD;7532.
  ) 
 Here is how much of TeX's memory you used:
- 35652 strings out of 467992
- 749787 string characters out of 5426695
- 1206188 words of memory out of 5000000
- 63782 multiletter control sequences out of 15000+600000
- 649145 words of font info for 172 fonts, out of 8000000 for 9000
+ 35582 strings out of 467992
+ 748482 string characters out of 5426695
+ 1206287 words of memory out of 5000000
+ 63717 multiletter control sequences out of 15000+600000
+ 646640 words of font info for 158 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  100i,15n,131p,2081b,1299s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (81 pages).
+Output written on main.pdf (83 pages).

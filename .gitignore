@@ -35,6 +35,8 @@ paper_latex.zip
 # Diffs & Log Dumps
 latex_source_diffs.txt
 unexpected_diffs.txt
+err.txt
+output/logs/
 
 # LaTeX Build Intermediate Artifacts
 *.aux

@@ -1,7 +1,7 @@
 """
 generate_figures.py
 產生論文所需的兩類圖形：
-  1. fig_training_curves.pdf  ── 訓練曲線（HR@20 與 NDCG@20 雙子圖）
+  1. fig_training_curves.pdf  ── 訓練曲線（Training Loss 與 HR@20 雙子圖）
   2. fig_ckg_schema.pdf       ── 協同知識圖 (CKG) 架構示意圖
 
 執行方式：
@@ -58,6 +58,12 @@ DATA_NDCG20_L1 = [
     0.3740, 0.3747, 0.3749, 0.3755, 0.3755,
     0.3747, 0.3749, 0.3747, 0.3748,
 ]
+DATA_LOSS_L1 = [
+    0.4696, 0.4146, 0.4002, 0.3901, 0.3825,
+    0.3761, 0.3713, 0.3674, 0.3640, 0.3590,
+    0.3543, 0.3514, 0.3497, 0.3480, 0.3466,
+    0.3418, 0.3401, 0.3382, 0.3457,
+]
 STD_HR20_L1 = [
     0.0027, 0.0011, 0.0005, 0.0020, 0.0010,
     0.0013, 0.0015, 0.0013, 0.0015, 0.0009,
@@ -70,6 +76,12 @@ STD_NDCG20_L1 = [
     0.0079, 0.0082, 0.0085, 0.0088, 0.0083,
     0.0098, 0.0099, 0.0102, 0.0101,
 ]
+STD_LOSS_L1 = [
+    0.0031, 0.0013, 0.0009, 0.0014, 0.0013,
+    0.0012, 0.0012, 0.0012, 0.0012, 0.0040,
+    0.0038, 0.0037, 0.0040, 0.0037, 0.0038,
+    0.0070, 0.0083, 0.0092, 0.0064,
+]
 
 # KGAT (L=2, 即 DEPTH-2)：E1–E10 (3次平均)
 EPOCHS_L2 = list(range(1, 11))
@@ -81,6 +93,10 @@ DATA_NDCG20_L2 = [
     0.4383, 0.4403, 0.4373, 0.4367, 0.4373,
     0.4370, 0.4367, 0.4369, 0.4368, 0.4370,
 ]
+DATA_LOSS_L2 = [
+    0.3479, 0.2916, 0.2817, 0.2725, 0.2654,
+    0.2604, 0.2569, 0.2547, 0.2534, 0.2522,
+]
 STD_HR20_L2 = [
     0.0044, 0.0038, 0.0011, 0.0009, 0.0013,
     0.0014, 0.0017, 0.0017, 0.0022, 0.0019,
@@ -88,6 +104,10 @@ STD_HR20_L2 = [
 STD_NDCG20_L2 = [
     0.0072, 0.0080, 0.0058, 0.0060, 0.0060,
     0.0062, 0.0061, 0.0061, 0.0062, 0.0063,
+]
+STD_LOSS_L2 = [
+    0.0025, 0.0022, 0.0040, 0.0037, 0.0031,
+    0.0029, 0.0026, 0.0026, 0.0026, 0.0026,
 ]
 
 # KGAT (L=3, 即 DEPTH-3)：E1–E10 (3次平均)
@@ -100,6 +120,10 @@ DATA_NDCG20_L3 = [
     0.5216, 0.5253, 0.5244, 0.5151, 0.5111,
     0.5081, 0.5051, 0.5040, 0.5036, 0.5025,
 ]
+DATA_LOSS_L3 = [
+    0.2835, 0.2202, 0.2042, 0.2018, 0.1954,
+    0.1939, 0.1898, 0.1871, 0.1855, 0.1843,
+]
 STD_HR20_L3 = [
     0.0161, 0.0286, 0.0381, 0.0366, 0.0328,
     0.0310, 0.0284, 0.0275, 0.0257, 0.0250,
@@ -107,6 +131,10 @@ STD_HR20_L3 = [
 STD_NDCG20_L3 = [
     0.0137, 0.0248, 0.0313, 0.0243, 0.0198,
     0.0166, 0.0146, 0.0143, 0.0140, 0.0131,
+]
+STD_LOSS_L3 = [
+    0.0010, 0.0032, 0.0024, 0.0091, 0.0080,
+    0.0073, 0.0063, 0.0059, 0.0056, 0.0054,
 ]
 
 # Baseline 最佳 Epoch 之三次平均值
@@ -223,17 +251,59 @@ def _plot_metric_axis(
     ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.2f"))
 
 
+def _plot_loss_axis(
+    ax: plt.Axes,
+    ylabel: str = "Training Loss",
+) -> None:
+    """在單個 Axes 上繪製 KGAT (L=1, 2, 3) 訓練 Loss 曲線（含 ±std 陰影帶）。"""
+    data_map = {
+        "L1": {"epochs": EPOCHS_L1, "values": DATA_LOSS_L1, "std": STD_LOSS_L1},
+        "L2": {"epochs": EPOCHS_L2, "values": DATA_LOSS_L2, "std": STD_LOSS_L2},
+        "L3": {"epochs": EPOCHS_L3, "values": DATA_LOSS_L3, "std": STD_LOSS_L3},
+    }
+
+    for key in ["L1", "L2", "L3"]:
+        d = data_map[key]
+        style = KGAT_STYLES[key]
+        epochs = np.array(d["epochs"])
+        values = np.array(d["values"])
+        std = np.array(d["std"])
+
+        # 陰影帶
+        ax.fill_between(
+            epochs, values - std, values + std,
+            color=style["color"], alpha=0.12,
+        )
+        # 主曲線
+        ax.plot(
+            epochs, values,
+            color=style["color"],
+            marker=style["marker"],
+            linestyle=style["linestyle"],
+            linewidth=2.0,
+            markersize=5,
+            label=style["label"],
+        )
+
+    ax.set_xlabel("Epoch")
+    ax.set_ylabel(ylabel)
+    ax.set_xticks(range(1, 20, 2))  # 奇數 Epoch 標記：1,3,5,...,19
+    ax.set_xlim(0.5, 19.5)
+    ax.grid(True, linestyle=":", alpha=0.5)
+    ax.yaxis.set_major_formatter(ticker.FormatStrFormatter("%.2f"))
+
+
 def generate_training_curves() -> None:
-    """產生 HR@20 與 NDCG@20 的雙子圖訓練曲線。"""
-    fig, (ax_hr, ax_ndcg) = plt.subplots(1, 2, figsize=(11, 4.8), sharey=False)
+    """產生 (a) Training Loss 與 (b) HR@20 的雙子圖訓練曲線。"""
+    fig, (ax_loss, ax_hr) = plt.subplots(1, 2, figsize=(11, 4.8), sharey=False)
 
-    _plot_metric_axis(ax_hr,   BASELINES["HR@20"],   "HR@20",   "HR@20")
-    _plot_metric_axis(ax_ndcg, BASELINES["NDCG@20"], "NDCG@20", "NDCG@20")
+    _plot_loss_axis(ax_loss, "Training Loss")
+    _plot_metric_axis(ax_hr, BASELINES["HR@20"], "HR@20", "HR@20")
 
-    ax_hr.set_title("(a) HR@20 vs. Epoch")
-    ax_ndcg.set_title("(b) NDCG@20 vs. Epoch")
+    ax_loss.set_title("(a) Training Loss vs. Epoch")
+    ax_hr.set_title("(b) HR@20 vs. Epoch")
 
-    # 共用圖例放在圖形底部
+    # 共用圖例放在圖形底部（取 ax_hr 包含 KGAT 與 Baselines 共 6 個項目的圖例）
     handles, labels = ax_hr.get_legend_handles_labels()
     fig.legend(
         handles, labels,

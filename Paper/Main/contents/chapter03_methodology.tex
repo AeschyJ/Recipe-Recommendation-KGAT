@@ -124,14 +124,14 @@ KGAT 的核心創新在於其關係感知的注意力機制。對於 CKG 中的�
 
 本研究採用貝葉斯個人化排序 (BPR)~\cite{rendle2009bpr} 作為訓練損失函數。BPR 假設使用者對已互動物品（正樣本 $v^+$）的偏好應高於隨機抽樣的未互動物品（負樣本 $v^-$）：
 \begin{equation}
-  \mathcal{L}_\text{BPR} = - \sum_{(u, v^+, v^-)} \ln \sigma\left(\hat{y}_{uv^+} - \hat{y}_{uv^-}\right) + \lambda \|\Theta\|_2^2
+  \mathcal{L}_\text{BPR} = - \sum_{(u, v^+, v^-) \in \mathcal{D}} \ln \sigma\left(\hat{y}_{uv^+} - \hat{y}_{uv^-}\right) + \lambda \sum_{\mathbf{W} \in \Theta} \|\mathbf{W}\|_F^2
   \label{eq:bpr_loss}
 \end{equation}
-其中 $\sigma(\cdot)$ 為 Sigmoid 函數，$\lambda \|\Theta\|_2^2$ 為 L2 正則化項，$\Theta$ 為模型的所有可學習參數。
+其中 $\sigma(\cdot)$ 為 Sigmoid 函數，$\mathcal{D} = \{(u, v^+, v^-) \mid (u, v^+) \in \mathcal{R}^+, (u, v^-) \notin \mathcal{R}^+\}$ 為三元組訓練資料集。$\Theta = \{\mathbf{E}, \{\mathbf{W}_r\}_{r \in \mathcal{R}}, \{\mathbf{W}_1^{(l)}, \mathbf{W}_2^{(l)}\}_{l=1}^L\}$ 代表模型中所有可學習參數集合，包含實體與關係嵌入矩陣、注意力映射權重矩陣以及各層雙重互動聚合權重矩陣；$\|\mathbf{W}\|_F$ 則表示各參數矩陣之 Frobenius 範數，用以抑制模型過擬合。
 
 \subsection*{訓練策略}
 
-模型使用 Adam 優化器進行訓練，並搭配 StepLR 學習率排程器進行學習率衰減。為支援在 Intel Arc GPU (XPU) 上高效訓練，本研究採用 BFloat16 混合精度訓練，並使用梯度檢查點 (Gradient Checkpointing) 技術緩解深層模型的記憶體壓力。
+模型使用 Adam 最佳化器進行訓練，並搭配 StepLR 學習率排程器進行學習率衰減。為支援在 Intel Arc GPU (XPU) 上高效訓練，本研究採用 BFloat16 混合精度訓練，並使用梯度檢查點 (Gradient Checkpointing) 技術緩解深層模型的記憶體壓力。
 
 \section{基於忠實度 (Fidelity) 的可解釋性評估框架}
 
@@ -156,19 +156,19 @@ KGAT 的核心創新在於其關係感知的注意力機制。對於 CKG 中的�
 
 事後解釋 (Post-hoc Explanation) 的關鍵評估準則在於其保真度 (Faithfulness，或稱忠實度)——即所萃取的解釋路徑是否真正主導了模型內部的決策邏輯。為此，本研究引進 Fidelity 評估指標~\cite{agarwal2024fidelity}，透過擾動 (Perturbation) 輸入圖結構的方式，量化評估解釋路徑的「必要性 (Necessity)」與「充分性 (Sufficiency)」。
 
-給定使用者 $u$ 與推薦物品 $v$，令 $S$ 為所萃取的解釋路徑邊集合，$p_{uv}$ 為模型對該推薦的原始預測機率（經過 Sigmoid 映射）：
+給定使用者 $u$ 與推薦物品 $v$，令 $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 為完整協同知識圖拓撲，$S \subseteq \mathcal{E}$ 為所萃取出的解釋路徑邊集合。令 $\hat{p}_{uv}(\mathcal{G}') = \sigma({\mathbf{e}_u^*(\mathcal{G}')}^\top \mathbf{e}_v^*(\mathcal{G}'))$ 表示模型在任意輸入圖結構 $\mathcal{G}'$ 下輸出之推薦預測機率。本研究遵循國際 GNN 可解釋性主流評估規範~\cite{agarwal2024fidelity}，定義兩項互補之忠實度量化指標：
 
 \begin{itemize}[leftmargin=2em]
-  \item \textbf{Fidelity$^+$（必要性忠實度）：}用於衡量解釋路徑 $S$ 是否為做出推薦的必要條件。具體做法是從協同知識圖 (CKG) 中「移除」屬於解釋路徑 $S$ 的所有關係邊，並令模型在殘缺的圖拓撲上重新進行訊息傳遞與分數預測，計算其預測機率的降幅：
+  \item \textbf{Fidelity$^+$（必要性忠實度）：}用於衡量解釋路徑 $S$ 是否為做出推薦的必要條件。具體做法是從協同知識圖中「移除」屬於解釋路徑 $S$ 的所有關係邊，令模型在殘缺的圖拓撲 $\mathcal{G}_{\setminus S} = (\mathcal{V}, \mathcal{E} \setminus S)$ 上重新進行訊息傳遞與分數預測，計算其預測機率的降幅：
     \begin{equation}
-      F^+ = p_{uv} - p_{uv \setminus S}
+      F^+ = \hat{p}_{uv}(\mathcal{G}) - \hat{p}_{uv}(\mathcal{G}_{\setminus S})
       \label{eq:fidelity_plus}
     \end{equation}
     若 $F^+ > 0$，表示移除這些解釋邊後模型的預測信心下降，證明這組解釋邊在原始決策中具有正向的必要貢獻；$F^+$ 的數值越大，代表該解釋的必要性越高。
 
-  \item \textbf{Fidelity$^-$（充分性忠實度）：}用於衡量解釋路徑 $S$ 是否已包含做出推薦的充分資訊。具體做法是「僅保留」屬於解釋路徑 $S$ 的關係邊，將 CKG 中的其他所有關係邊完全遮蔽 (Mask)，令模型在此極度稀疏的子圖上重新預測，計算其與原始預測的機率差值：
+  \item \textbf{Fidelity$^-$（充分性忠實度）：}用於衡量解釋路徑 $S$ 是否已包含做出推薦的充分資訊。具體做法是「僅保留」屬於解釋路徑 $S$ 的關係邊，將 CKG 中的其他所有關係邊完全遮蔽 (Mask)，令模型在此極度稀疏的子圖 $\mathcal{G}_S = (\mathcal{V}, S)$ 上重新預測，計算其與原始預測的機率差值：
     \begin{equation}
-      F^- = p_{uv} - p_{uv|S}
+      F^- = \hat{p}_{uv}(\mathcal{G}) - \hat{p}_{uv}(\mathcal{G}_S)
       \label{eq:fidelity_minus}
     \end{equation}
     若 $F^- \approx 0$（甚至 $F^- < 0$），表示模型僅依靠這組解釋邊所構成的極小圖結構，便能產出與原始完整圖結構相近的推薦信心，證明該解釋已涵蓋了決策所需的充分資訊；若 $F^-$ 偏高，則代表模型仍高度依賴其他未被解釋路徑覆蓋的分散式表徵。

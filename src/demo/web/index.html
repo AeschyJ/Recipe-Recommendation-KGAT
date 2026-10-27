@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KGAT推理及KGATexplainer忠實度檢測</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 頂部導航與連線狀態列 -->
+  <header class="header-bar">
+    <div class="header-inner">
+      <div class="title-group">
+        <h1>KGAT推理及KGATexplainer忠實度檢測</h1>
+      </div>
+      <div class="control-section">
+        <div id="taskStatusPill" class="task-status-pill" style="display: none;" title="點擊檢視運算進度">
+          <span class="pill-spinner" id="pillSpinner"></span>
+          <span id="taskStatusPillText">● 推論中：使用者 17049</span>
+        </div>
+        <label for="serverUrlInput" class="control-label">推論伺服器：</label>
+        <input type="text" id="serverUrlInput" class="text-input" value="http://localhost:8501" style="width: 220px;">
+        <button id="reconnectBtn" class="btn-group-item" style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 4px 10px;">重新探測</button>
+        <div id="connectionStatus" class="status-badge offline" title="點擊重新探測伺服器">○ 離線</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 頂部控制列 -->
+  <section class="control-bar">
+    <div class="control-inner">
+      <!-- 模型切換 -->
+      <div class="control-section">
+        <span class="control-label">模型選擇：</span>
+        <div class="btn-group" id="depthButtonGroup">
+          <button class="btn-group-item active" data-depth="3">KGAT L=3</button>
+          <button class="btn-group-item" data-depth="2">KGAT L=2</button>
+          <button class="btn-group-item" data-depth="1">KGAT L=1</button>
+          <button class="btn-group-item" data-depth="wo_kg">wo_kg L=1</button>
+          <button class="btn-group-item" data-depth="wo_attn">wo_attn L=1</button>
+          <button class="btn-group-item" data-depth="lightgcn">LightGCN</button>
+          <button class="btn-group-item" data-depth="nfm">NFM</button>
+          <button class="btn-group-item" data-depth="bprmf">BPR-MF</button>
+        </div>
+      </div>
+
+      <!-- 典型案例與使用者選取 -->
+      <div class="control-section">
+        <label for="caseSelect" class="control-label">典型案例：</label>
+        <select id="caseSelect" class="select-input" style="min-width: 210px;">
+          <option value="">自訂使用者編號</option>
+          <option value="deep_propagation" selected>深度傳播成功案例：使用者 17049</option>
+          <option value="high_necessity">高必要性案例：使用者 101612</option>
+          <option value="high_sufficiency">高充分性案例：使用者 154656</option>
+          <option value="shallow_noise">淺層雜訊干擾案例：使用者 173712</option>
+          <option value="isolated_node">孤立節點案例：使用者 31742</option>
+        </select>
+
+        <label for="userIdInput" class="control-label">使用者編號：</label>
+        <input type="number" id="userIdInput" class="text-input" value="17049" min="0" max="226569" placeholder="範圍 0 ~ 226569" style="width: 140px;">
+        <select id="userSelect" class="select-input" style="width: 140px;">
+          <option value="17049">使用者 17049</option>
+        </select>
+
+        <button id="runInferenceBtn" class="btn-primary">執行推論</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主版面 -->
+  <main class="main-container">
+    <!-- 左側欄位：預測機率與忠實度分析 -->
+    <div class="panel-column">
+      <!-- 預測機率卡片 -->
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">預測機率</h2>
+          <span id="testHitBadge" class="badge-hit yes">命中測試集</span>
+        </div>
+        <div class="card-body">
+          <div class="recipe-title" id="recipeName">載入中...</div>
+          <div class="recipe-sub">
+            <span>食譜編號：<strong id="recipeId">-</strong></span>
+            <span>排序：<strong>第 1 名</strong></span>
+          </div>
+
+          <!-- 預測機率量表 -->
+          <div class="prob-meter-box">
+            <div class="prob-meter-header">
+              <span class="prob-label">預測機率</span>
+              <span class="prob-value" id="origProbVal">0.0000</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="origProbFill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- 統計與模型指標 -->
+          <div class="meta-grid">
+            <div class="meta-item">
+              <div class="meta-item-label">歷史互動數量</div>
+              <div class="meta-item-value" id="userInteractionsVal">0</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-item-label">圖實體度數</div>
+              <div class="meta-item-value" id="itemDegreeVal">0</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-item-label">模型指標 HR@20</div>
+              <div class="meta-item-value" id="modelHrVal">0.8360</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-item-label">模型指標 NDCG@20</div>
+              <div class="meta-item-value" id="modelNdcgVal">0.5014</div>
+            </div>
+          </div>
+
+          <!-- 案例分析說明 -->
+          <div class="case-insight-box" id="caseInsightBox">
+            <div class="case-insight-title" id="caseInsightTitle">案例分析</div>
+            <div class="case-insight-desc" id="caseInsightDesc">
+              載入案例說明中...
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 忠實度分析面板 -->
+      <section class="card" id="fidelitySection">
+        <div class="card-header">
+          <h2 class="card-title">忠實度分析</h2>
+          <span id="noPathBadge" class="badge-no-path" style="display: none;">無路徑使用者</span>
+        </div>
+        <div class="card-body">
+          <!-- 三態切換按鈕 -->
+          <div class="probe-btn-group">
+            <button class="probe-btn active" id="probeNormalBtn" data-mode="normal">原始預測</button>
+            <button class="probe-btn" id="probeFPlusBtn" data-mode="f_plus">遮蔽此路徑</button>
+            <button class="probe-btn" id="probeFMinusBtn" data-mode="f_minus">遮蔽其餘路徑</button>
+          </div>
+
+          <!-- 忠實度量化指標卡片 -->
+          <div class="probe-result-grid">
+            <div class="probe-stat-card" id="cardFPlus">
+              <div class="probe-stat-title">必要性忠實度 F+</div>
+              <div class="probe-stat-number" id="fPlusVal">-</div>
+              <div class="probe-stat-note" id="fPlusNote">P_orig - P_f+</div>
+            </div>
+            <div class="probe-stat-card" id="cardFMinus">
+              <div class="probe-stat-title">充分性忠實度 F-</div>
+              <div class="probe-stat-number" id="fMinusVal">-</div>
+              <div class="probe-stat-note" id="fMinusNote">P_orig - P_f-</div>
+            </div>
+          </div>
+
+          <!-- 動態機率水位表 -->
+          <div class="waterlevel-container">
+            <div class="waterlevel-bars">
+              <div class="waterlevel-bar-item">
+                <span class="waterlevel-bar-label">原始預測</span>
+                <div class="waterlevel-bar-track">
+                  <div class="waterlevel-bar-fill fill-orig" id="barOrigProb" style="width: 0%;"></div>
+                </div>
+                <span style="font-size: 0.75rem; width: 50px; text-align: right;" id="barOrigText">0.000</span>
+              </div>
+              <div class="waterlevel-bar-item">
+                <span class="waterlevel-bar-label">遮蔽後預測</span>
+                <div class="waterlevel-bar-track">
+                  <div class="waterlevel-bar-fill fill-probe" id="barProbeProb" style="width: 0%;"></div>
+                </div>
+                <span style="font-size: 0.75rem; width: 50px; text-align: right;" id="barProbeText">0.000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 精簡斜體提示說明 -->
+          <div class="probe-rationale-box" id="probeAcademicRationale">
+            <p><em>機率降幅愈顯著，代表該路徑對模型推薦決策之必要性愈高。</em></p>
+            <p><em>差值 |F-| 愈趨近於零，代表該路徑單獨支撐推薦之充分性愈高。</em></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 右側欄位：協同知識圖注意力子圖 -->
+    <div class="panel-column">
+      <section class="card graph-card" id="graphSection">
+        <div class="card-header">
+          <h2 class="card-title">協同知識圖注意力子圖</h2>
+          <div class="graph-legend">
+            <div class="legend-item"><div class="legend-dot dot-user"></div><span>使用者</span></div>
+            <div class="legend-item"><div class="legend-dot dot-recipe"></div><span>食譜</span></div>
+            <div class="legend-item"><div class="legend-dot dot-ingredient"></div><span>食材</span></div>
+            <div class="legend-item"><div class="legend-dot dot-tag"></div><span>標籤</span></div>
+          </div>
+        </div>
+
+        <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
+          <!-- SVG 圖表繪製容器 -->
+          <div class="svg-container" id="svgContainer">
+            <svg class="kgat-svg" id="kgatSvg" viewBox="0 0 800 480">
+              <defs>
+                <marker id="arrow" viewBox="0 -5 10 10" refX="28" refY="0" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M0,-5L10,0L0,5" fill="#94a3b8"></path>
+                </marker>
+                <marker id="arrow-active" viewBox="0 -5 10 10" refX="28" refY="0" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M0,-5L10,0L0,5" fill="#1e3a8a"></path>
+                </marker>
+              </defs>
+              <g id="svgEdgesGroup"></g>
+              <g id="svgNodesGroup"></g>
+            </svg>
+            <div class="graph-empty-message" id="graphEmptyMsg" style="display: none;">
+              <h4 id="graphEmptyTitle">無可達解釋路徑</h4>
+              <p id="graphEmptyDesc">使用者節點於當前傳播深度下無相連路徑。</p>
+            </div>
+          </div>
+
+          <!-- 解釋路徑清單選取區 -->
+          <div style="margin-top: 14px;">
+            <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px;">
+              注意力解釋路徑清單：依注意力權重排序
+            </div>
+            <div class="paths-selector" id="pathsSelector">
+              <!-- 動態插入路徑項目 -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- 中央聚焦遮罩與推論進度指示 -->
+  <div id="inferenceModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-spinner"></div>
+      <div class="modal-title" id="modalStageTitle">推論計算中</div>
+      <div class="modal-desc" id="modalStageDesc">正在為使用者 17049 進行模型評估...</div>
+      <div class="modal-btn-group">
+        <button id="modalBackgroundBtn" class="btn-modal btn-modal-secondary">背景處理</button>
+        <button id="modalAbortBtn" class="btn-modal btn-modal-danger">中斷</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 頁尾學術註釋 -->
+  <footer class="footer-bar">
+    應用知識圖注意力網路於食譜推薦之效能評估與可解釋性研究 ‧ 碩士學位口試展示系統
+  </footer>
+
+  <script src="demo_cases_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
