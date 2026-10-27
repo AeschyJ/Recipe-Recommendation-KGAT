@@ -22,6 +22,7 @@ os.environ.setdefault("MPLCONFIGDIR", os.path.join(tempfile.gettempdir(), "mpl_c
 
 import numpy as np
 import pandas as pd
+import scipy.sparse as sp
 import torch
 import uvicorn
 from fastapi import FastAPI, HTTPException
@@ -114,7 +115,7 @@ class FidelityProbeRequest(BaseModel):
     item_id: int
     depth: Union[int, str] = 3
     mode: str = "normal"  # normal, f_plus, f_minus
-    path_nodes: Optional[List[List[int]]] = None
+    path_nodes: Optional[Union[List[int], List[List[int]]]] = None
 
 
 class ServerState:
@@ -144,12 +145,14 @@ class ServerState:
         self.dst = None
 
         self.sparse_adj = None
+        self.csr_adj = None
         self.bipartite_indices = None
         self.bipartite_num_nodes = 0
 
         self.loaded_models: Dict[str, Any] = {}
         self.explainers: Dict[str, Any] = {}
         self.demo_cache: Dict[str, Any] = {}
+        self.dynamic_user_cache: Dict[str, Any] = {}
         self.is_initialized = False
 
     def initialize(self):
@@ -245,6 +248,15 @@ class ServerState:
         self.src = self.indices[0]
         self.dst = self.indices[1]
         self.edge_hash = self.src * self.num_nodes + self.dst
+
+        # 建構全圖 CSR 鄰接索引供向量化快速尋路使用 (耗時約 0.18 秒，記憶體約 50MB)
+        src_np = indices[0].numpy()
+        dst_np = indices[1].numpy()
+        self.csr_adj = sp.csr_matrix(
+            (np.arange(len(src_np), dtype=np.int32) + 1, (src_np, dst_np)),
+            shape=(self.num_nodes, self.num_nodes),
+        )
+        self.csr_adj.sort_indices()
 
         # 提取二分圖指標供 LightGCN 使用
         bipartite_indices, bipartite_nodes = get_user_item_indices(interactions, self.n_users, self.n_items)
@@ -407,7 +419,12 @@ def recommend(req: RecommendRequest):
         if depth_key not in ("3", "2", "1", "wo_kg", "wo_attn", "lightgcn", "nfm", "bprmf"):
             raise HTTPException(status_code=400, detail="不支援的模型代碼")
 
-        # 1. 優先查閱評估快取
+        # 1. 優先查閱評估快取與動態使用者快取
+        cache_key = f"{uid}_{depth_key}"
+        if cache_key in state.dynamic_user_cache:
+            logger.info(f"命中動態使用者快取: 使用者 {uid}, 深度 {depth_key}")
+            return state.dynamic_user_cache[cache_key]
+
         cached_user = state.demo_cache.get("user_cache", {}).get(str(uid))
         if cached_user and depth_key in cached_user.get("depths", {}):
             cached_depth_data = cached_user["depths"][depth_key]
@@ -487,13 +504,18 @@ def recommend(req: RecommendRequest):
             state.recipe_name_map,
         )
 
-        # 取得注意力解釋路徑
+        # 取得注意力解釋路徑 (優先使用 CSR 向量化尋路，耗時數毫秒)
         n_hops = 1 if depth_key == "1" else (2 if depth_key == "2" else 2)
         explanations = []
         if explainer and depth_key in ("3", "2", "1"):
-            exp_res = explainer.explain(
-                state.indices, state.edge_types, state.num_nodes, uid, best_item_idx, n_hops=n_hops, top_k=3
-            )
+            if state.csr_adj is not None:
+                exp_res = explainer.explain_fast_csr(
+                    state.indices, state.edge_types, state.num_nodes, uid, best_item_idx, state.csr_adj, top_k=3, n_hops=n_hops
+                )
+            else:
+                exp_res = explainer.explain(
+                    state.indices, state.edge_types, state.num_nodes, uid, best_item_idx, n_hops=n_hops, top_k=3
+                )
             if exp_res and "top_paths" in exp_res:
                 for path, score in exp_res["top_paths"]:
                     path_details = []
@@ -527,7 +549,7 @@ def recommend(req: RecommendRequest):
         metrics = state.demo_cache.get("benchmark_metrics", {}).get(depth_key, {})
 
         logger.info(f"推薦成功: 使用者 {uid}, 深度 {depth_key}, 推薦食譜 {best_item_idx} ({rec_name})")
-        return {
+        res_data = {
             "user_id": uid,
             "user_name": user_name,
             "depth": depth_key,
@@ -545,6 +567,8 @@ def recommend(req: RecommendRequest):
             "explanations": explanations,
             "fidelity": {},
         }
+        state.dynamic_user_cache[cache_key] = res_data
+        return res_data
     except HTTPException:
         raise
     except Exception as exc:
@@ -574,12 +598,23 @@ def fidelity_probe(req: FidelityProbeRequest):
         if item_id < 0 or item_id >= state.n_items:
             raise HTTPException(status_code=400, detail=f"食譜編號超出範圍 (0 ~ {state.n_items - 1})")
 
-        # 查核快取
+        # 正規化 path_nodes 支援單一路徑 (List[int]) 或多路徑聯集 (List[List[int]])
+        normalized_paths = None
+        if req.path_nodes is not None:
+            if len(req.path_nodes) > 0 and isinstance(req.path_nodes[0], (int, np.integer)):
+                normalized_paths = [req.path_nodes]
+            else:
+                normalized_paths = req.path_nodes
+
+        # 查核快取 (含靜態評估快取與動態推論快取)
+        cache_key = f"{uid}_{depth_key}"
         cached_user = state.demo_cache.get("user_cache", {}).get(str(uid))
         cached_depth = cached_user.get("depths", {}).get(depth_key) if cached_user else None
+        if not cached_depth and cache_key in state.dynamic_user_cache:
+            cached_depth = state.dynamic_user_cache[cache_key]
 
         # 針對非圖注意力模型或無路徑使用者，優雅回傳零變化指標，絕不拋出 500
-        if depth_key not in ("3", "2", "1") or (req.path_nodes is not None and not any(len(p) >= 2 for p in req.path_nodes)):
+        if depth_key not in ("3", "2", "1") or (normalized_paths is not None and not any(len(p) >= 2 for p in normalized_paths)):
             if cached_depth and "prob" in cached_depth:
                 p_orig = cached_depth["prob"]
             else:
@@ -631,7 +666,7 @@ def fidelity_probe(req: FidelityProbeRequest):
             }
 
         # 如果有快取且為同一推薦物品（且未指定自訂 path_nodes）
-        if not req.path_nodes and cached_depth and cached_depth.get("recommended_item_id") == item_id:
+        if not normalized_paths and cached_depth and cached_depth.get("recommended_item_id") == item_id:
             p_orig = cached_depth["prob"]
             fid = cached_depth.get("fidelity", {})
             if mode == "normal":
@@ -657,7 +692,7 @@ def fidelity_probe(req: FidelityProbeRequest):
                         "prob": p_f_plus,
                         "original_prob": p_orig,
                         "fidelity_score": f_plus_val,
-                        "status_description": "遮蔽此路徑：驗證必要性",
+                        "status_description": "遮蔽解釋子圖：驗證必要性",
                     }
             elif mode == "f_minus":
                 p_f_minus = fid.get("prob_f_minus")
@@ -671,7 +706,7 @@ def fidelity_probe(req: FidelityProbeRequest):
                         "prob": p_f_minus,
                         "original_prob": p_orig,
                         "fidelity_score": f_minus_val,
-                        "status_description": "遮蔽其餘路徑：驗證充分性",
+                        "status_description": "僅保留解釋子圖：驗證充分性",
                     }
 
         # 動態圖遮蔽計算
@@ -708,8 +743,8 @@ def fidelity_probe(req: FidelityProbeRequest):
 
         # 2. 獲取解釋路徑邊緣
         important_edges = set()
-        if req.path_nodes:
-            for path in req.path_nodes:
+        if normalized_paths:
+            for path in normalized_paths:
                 for step in range(len(path) - 1):
                     n1, n2 = int(path[step]), int(path[step + 1])
                     important_edges.add((n1, n2))
@@ -723,7 +758,10 @@ def fidelity_probe(req: FidelityProbeRequest):
                     important_edges.add((n2, n1))
         elif explainer:
             n_hops = 1 if depth_key == "1" else 2
-            exp_res = explainer.explain(state.indices, state.edge_types, state.num_nodes, uid, item_id, n_hops=n_hops, top_k=3)
+            if state.csr_adj is not None:
+                exp_res = explainer.explain_fast_csr(state.indices, state.edge_types, state.num_nodes, uid, item_id, state.csr_adj, top_k=3, n_hops=n_hops)
+            else:
+                exp_res = explainer.explain(state.indices, state.edge_types, state.num_nodes, uid, item_id, n_hops=n_hops, top_k=3)
             if exp_res and "top_paths" in exp_res:
                 for path, _ in exp_res["top_paths"]:
                     for step in range(len(path) - 1):
@@ -768,7 +806,7 @@ def fidelity_probe(req: FidelityProbeRequest):
                 p_f_plus = float(torch.sigmoid(torch.tensor(f_plus_score)).item())
                 f_plus_val = p_orig - p_f_plus
             logger.info(f"F+ 遮蔽計算成功: 使用者 {uid}, 食譜 {item_id}, F+={f_plus_val:.4f}")
-            return {
+            res_data = {
                 "user_id": uid,
                 "item_id": item_id,
                 "depth": depth_key,
@@ -776,8 +814,14 @@ def fidelity_probe(req: FidelityProbeRequest):
                 "prob": p_f_plus,
                 "original_prob": p_orig,
                 "fidelity_score": f_plus_val,
-                "status_description": "遮蔽此路徑：驗證必要性",
+                "status_description": "遮蔽解釋子圖：驗證必要性",
             }
+            if cache_key in state.dynamic_user_cache:
+                if "fidelity" not in state.dynamic_user_cache[cache_key]:
+                    state.dynamic_user_cache[cache_key]["fidelity"] = {}
+                state.dynamic_user_cache[cache_key]["fidelity"]["f_plus"] = f_plus_val
+                state.dynamic_user_cache[cache_key]["fidelity"]["prob_f_plus"] = p_f_plus
+            return res_data
         else:  # f_minus
             # 僅保留重要路徑與自迴圈
             mask_f_minus = mask_important | mask_self
@@ -792,7 +836,7 @@ def fidelity_probe(req: FidelityProbeRequest):
                 p_f_minus = float(torch.sigmoid(torch.tensor(f_minus_score)).item())
                 f_minus_val = p_orig - p_f_minus
             logger.info(f"F- 遮蔽計算成功: 使用者 {uid}, 食譜 {item_id}, F-={f_minus_val:.4f}")
-            return {
+            res_data = {
                 "user_id": uid,
                 "item_id": item_id,
                 "depth": depth_key,
@@ -800,8 +844,14 @@ def fidelity_probe(req: FidelityProbeRequest):
                 "prob": p_f_minus,
                 "original_prob": p_orig,
                 "fidelity_score": f_minus_val,
-                "status_description": "遮蔽其餘路徑：驗證充分性",
+                "status_description": "僅保留解釋子圖：驗證充分性",
             }
+            if cache_key in state.dynamic_user_cache:
+                if "fidelity" not in state.dynamic_user_cache[cache_key]:
+                    state.dynamic_user_cache[cache_key]["fidelity"] = {}
+                state.dynamic_user_cache[cache_key]["fidelity"]["f_minus"] = f_minus_val
+                state.dynamic_user_cache[cache_key]["fidelity"]["prob_f_minus"] = p_f_minus
+            return res_data
     except HTTPException:
         raise
     except Exception as exc:

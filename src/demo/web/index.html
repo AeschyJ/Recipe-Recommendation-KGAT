@@ -69,10 +69,10 @@
   <main class="main-container">
     <!-- 左側欄位：預測機率與忠實度分析 -->
     <div class="panel-column">
-      <!-- 預測機率卡片 -->
+      <!-- 預測結果卡片 -->
       <section class="card">
         <div class="card-header">
-          <h2 class="card-title">預測機率</h2>
+          <h2 class="card-title">預測結果</h2>
         </div>
         <div class="card-body">
           <div class="recipe-title" id="recipeName">載入中...</div>
@@ -80,10 +80,10 @@
             <span>食譜編號：<strong id="recipeId">-</strong></span>
           </div>
 
-          <!-- 預測機率量表 (雙層疊加水位條) -->
+          <!-- 推薦信心機率量表 (雙層疊加水位條) -->
           <div class="prob-meter-box">
             <div class="prob-meter-header">
-              <span class="prob-label">預測機率</span>
+              <span class="prob-label">推薦信心機率</span>
               <span class="prob-value" id="origProbVal">0.0000</span>
             </div>
             <div class="progress-bar-bg dual-layer-meter">
@@ -132,8 +132,8 @@
           <!-- 三態切換按鈕 -->
           <div class="probe-btn-group">
             <button class="probe-btn active" id="probeNormalBtn" data-mode="normal">原始預測</button>
-            <button class="probe-btn" id="probeFPlusBtn" data-mode="f_plus">遮蔽此路徑 (F+)</button>
-            <button class="probe-btn" id="probeFMinusBtn" data-mode="f_minus">遮蔽其餘路徑 (F-)</button>
+            <button class="probe-btn" id="probeFPlusBtn" data-mode="f_plus">遮蔽解釋子圖 (F+)</button>
+            <button class="probe-btn" id="probeFMinusBtn" data-mode="f_minus">僅保留解釋子圖 (F-)</button>
           </div>
 
           <!-- 忠實度量化指標卡片 -->

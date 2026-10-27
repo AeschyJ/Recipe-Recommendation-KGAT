@@ -795,21 +795,39 @@
     let probeProb = origProb;
     let fidelityScore = 0.0;
 
-    // 取得當前選定路徑節點以供探針執行精確遮蔽
-    const currentExp = recData.explanations?.[state.selectedPathIndex];
-    let pathNodes = null;
-    if (currentExp && currentExp.path_details && currentExp.path_details.length > 0) {
-      pathNodes = [currentExp.path_details.map((d) => d.id_remapped)];
+    const fid = recData.fidelity || {};
+    let hasCachedProbe = false;
+    if (mode === "normal") {
+      probeProb = origProb;
+      fidelityScore = 0.0;
+      hasCachedProbe = true;
+    } else if (mode === "f_plus" && fid.f_plus !== undefined && fid.prob_f_plus !== undefined) {
+      probeProb = fid.prob_f_plus;
+      fidelityScore = fid.f_plus;
+      hasCachedProbe = true;
+    } else if (mode === "f_minus" && fid.f_minus !== undefined && fid.prob_f_minus !== undefined) {
+      probeProb = fid.prob_f_minus;
+      fidelityScore = fid.f_minus;
+      hasCachedProbe = true;
     }
 
-    // 優先向後端發出探針請求
-    if (state.isConnected && recData.recommended_item_id && mode !== "normal") {
+    // 取得所有 Top-K 解釋子圖節點以嚴格對齊碩士論文定義
+    let pathNodes = null;
+    if (recData.explanations && recData.explanations.length > 0) {
+      pathNodes = recData.explanations
+        .slice(0, 3)
+        .map((exp) => (exp.path_details || []).map((d) => d.id_remapped))
+        .filter((p) => p.length >= 2);
+    }
+
+    // 僅在無記憶體快取時向後端發出探針請求
+    if (!hasCachedProbe && state.isConnected && recData.recommended_item_id && mode !== "normal") {
       state.isComputing = true;
       state.activeAbortController = new AbortController();
-      const modeText = mode === "f_plus" ? "必要性忠實度" : "充分性忠實度";
+      const modeText = mode === "f_plus" ? "必要性忠實度 (F+)" : "充分性忠實度 (F-)";
       state.currentTaskLabel = `● 忠實度分析中：使用者 ${recData.user_id}`;
 
-      showInferenceModal("忠實度分析中", `正在針對選定路徑計算${modeText}...`);
+      showInferenceModal("忠實度分析中", `正在針對解釋子圖計算${modeText}...`);
 
       try {
         const res = await fetch(`${state.serverUrl}/api/fidelity_probe`, {
@@ -843,9 +861,8 @@
         hideInferenceModal();
         hideTaskPill();
       }
-    } else {
+    } else if (!hasCachedProbe) {
       // 離線快取探針數值
-      const fid = recData.fidelity || {};
       if (mode === "f_plus") {
         probeProb = fid.prob_f_plus !== undefined && fid.prob_f_plus !== null ? fid.prob_f_plus : origProb;
         fidelityScore = fid.f_plus !== undefined && fid.f_plus !== null ? fid.f_plus : 0.0;
@@ -933,26 +950,86 @@
   }
 
   /**
-   * 繪製背景裝飾實體點與虛擬連線，增進子圖空間感
+   * 繪製科技感 GNN 圖拓撲背景 (TigerGraph 風格，42 個多色光暈節點與 36 條交織細線)
    */
   function renderBackgroundDeco() {
     if (!dom.svgBgDecoGroup) return;
     dom.svgBgDecoGroup.innerHTML = "";
 
+    const bgColors = ["#0284c7", "#6366f1", "#059669", "#d97706", "#e11d48"];
+
+    // 42 個具光暈效果之多色背景節點 (包含青藍、靛紫、翡翠綠、琥珀橘、玫瑰紅)
     const decoPoints = [
-      { x: 60, y: 70 }, { x: 170, y: 48 }, { x: 280, y: 75 }, { x: 390, y: 42 },
-      { x: 510, y: 65 }, { x: 630, y: 50 }, { x: 740, y: 80 }, { x: 50, y: 390 },
-      { x: 170, y: 415 }, { x: 290, y: 395 }, { x: 420, y: 420 }, { x: 560, y: 405 },
-      { x: 710, y: 390 }, { x: 110, y: 145 }, { x: 690, y: 155 }, { x: 115, y: 305 },
-      { x: 685, y: 315 }
+      // 上部波形脈衝節點鏈 (0..6，串聯使用者至目標食譜)
+      { x: 90, y: 220, color: bgColors[0], r: 5 },
+      { x: 175, y: 140, color: bgColors[1], r: 4.5 },
+      { x: 270, y: 95, color: bgColors[2], r: 5 },
+      { x: 390, y: 130, color: bgColors[3], r: 5.5 },
+      { x: 520, y: 100, color: bgColors[4], r: 4.5 },
+      { x: 635, y: 150, color: bgColors[0], r: 5 },
+      { x: 710, y: 220, color: bgColors[1], r: 5 },
+
+      // 上緣環形拓撲 (7..14)
+      { x: 50, y: 60, color: bgColors[0], r: 4 },
+      { x: 140, y: 45, color: bgColors[1], r: 4.5 },
+      { x: 225, y: 55, color: bgColors[2], r: 4 },
+      { x: 330, y: 40, color: bgColors[3], r: 4.5 },
+      { x: 450, y: 45, color: bgColors[4], r: 5 },
+      { x: 575, y: 40, color: bgColors[0], r: 4 },
+      { x: 670, y: 55, color: bgColors[1], r: 4.5 },
+      { x: 755, y: 65, color: bgColors[2], r: 4 },
+
+      // 上層交織網 (15..20)
+      { x: 110, y: 120, color: bgColors[2], r: 3.5 },
+      { x: 200, y: 175, color: bgColors[3], r: 4 },
+      { x: 320, y: 155, color: bgColors[4], r: 4 },
+      { x: 460, y: 165, color: bgColors[0], r: 4 },
+      { x: 580, y: 170, color: bgColors[1], r: 4 },
+      { x: 695, y: 130, color: bgColors[2], r: 3.5 },
+
+      // 下層交織網 (21..27)
+      { x: 70, y: 290, color: bgColors[3], r: 4 },
+      { x: 160, y: 285, color: bgColors[4], r: 4 },
+      { x: 245, y: 310, color: bgColors[0], r: 4.5 },
+      { x: 360, y: 295, color: bgColors[1], r: 4 },
+      { x: 480, y: 315, color: bgColors[2], r: 4.5 },
+      { x: 600, y: 290, color: bgColors[3], r: 4 },
+      { x: 730, y: 295, color: bgColors[4], r: 4 },
+
+      // 下緣環形拓撲 (28..35)
+      { x: 55, y: 395, color: bgColors[1], r: 4.5 },
+      { x: 145, y: 390, color: bgColors[2], r: 4 },
+      { x: 250, y: 405, color: bgColors[3], r: 5 },
+      { x: 355, y: 385, color: bgColors[4], r: 4 },
+      { x: 450, y: 410, color: bgColors[0], r: 4.5 },
+      { x: 550, y: 390, color: bgColors[1], r: 4 },
+      { x: 655, y: 400, color: bgColors[2], r: 4.5 },
+      { x: 745, y: 390, color: bgColors[3], r: 4 },
+
+      // 外圍擴散點 (36..41)
+      { x: 30, y: 180, color: bgColors[4], r: 3.5 },
+      { x: 770, y: 175, color: bgColors[0], r: 3.5 },
+      { x: 395, y: 235, color: bgColors[1], r: 4 },
+      { x: 190, y: 230, color: bgColors[2], r: 3.5 },
+      { x: 610, y: 235, color: bgColors[3], r: 3.5 },
+      { x: 410, y: 350, color: bgColors[4], r: 4 }
     ];
 
+    // 36 條交織細線
     const decoEdges = [
-      [0, 1], [1, 2], [3, 4], [4, 5], [5, 6],
-      [7, 8], [8, 9], [9, 10], [10, 11], [11, 12],
-      [0, 13], [6, 14], [7, 15], [12, 16]
+      // 上緣邊界鏈 (7 條)
+      [7, 8], [8, 9], [9, 10], [10, 11], [11, 12], [12, 13], [13, 14],
+      // 下緣邊界鏈 (7 條)
+      [28, 29], [29, 30], [30, 31], [31, 32], [32, 33], [33, 34], [34, 35],
+      // 替代光流脈衝骨幹 (6 條)
+      [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6],
+      // 上層交互連線 (8 條)
+      [8, 1], [9, 2], [10, 3], [11, 4], [12, 5], [15, 16], [16, 17], [18, 19],
+      // 下層交互連線 (8 條)
+      [21, 22], [22, 23], [23, 24], [24, 25], [25, 26], [26, 27], [29, 22], [33, 26]
     ];
 
+    // 繪製背景交織細線
     decoEdges.forEach(([i, j]) => {
       const p1 = decoPoints[i];
       const p2 = decoPoints[j];
@@ -965,11 +1042,20 @@
       dom.svgBgDecoGroup.appendChild(line);
     });
 
+    // 繪製替換光流脈衝虛線路徑 (遮蔽 F+ 時點亮)
+    const pulsePathD = "M " + [0, 1, 2, 3, 4, 5, 6].map((idx) => `${decoPoints[idx].x} ${decoPoints[idx].y}`).join(" L ");
+    const pulsePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    pulsePath.setAttribute("d", pulsePathD);
+    pulsePath.setAttribute("class", "svg-bg-pulse-path");
+    dom.svgBgDecoGroup.appendChild(pulsePath);
+
+    // 繪製 42 個具光暈效果多色節點
     decoPoints.forEach((pt) => {
       const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       circle.setAttribute("cx", pt.x);
       circle.setAttribute("cy", pt.y);
-      circle.setAttribute("r", "5");
+      circle.setAttribute("r", pt.r || "4.5");
+      circle.setAttribute("fill", pt.color);
       circle.setAttribute("class", "svg-bg-deco-node");
       dom.svgBgDecoGroup.appendChild(circle);
     });
@@ -981,9 +1067,15 @@
   function updateGraphMaskingState(mode) {
     const activePathIdx = state.selectedPathIndex;
 
-    // 背景裝飾點：遮蔽其餘路徑時淡出消失，凸顯核心路徑之孤立充分性
+    // 科技感圖拓撲背景動態切換：
+    // 遮蔽解釋子圖 (F+)：點亮背景替換光流路徑，體現模型依賴全局表徵
+    // 僅保留解釋子圖 (F-)：背景完全淡出，突顯孤立子圖之充分性
     if (dom.svgBgDecoGroup) {
       dom.svgBgDecoGroup.classList.toggle("faded", mode === "f_minus");
+      const pulsePath = dom.svgBgDecoGroup.querySelector(".svg-bg-pulse-path");
+      if (pulsePath) {
+        pulsePath.classList.toggle("active", mode === "f_plus");
+      }
     }
 
     // 邊線視覺狀態更新
@@ -1005,7 +1097,7 @@
           edge.setAttribute("marker-end", "url(#arrow)");
         }
       } else if (mode === "f_plus") {
-        // 遮蔽此路徑 (F+)：主要路徑淡出，點亮次要/備援解釋路徑
+        // 遮蔽解釋子圖 (F+)：前景主要路徑淡出，點亮次要/備援解釋路徑
         if (isPrimary && !isSecondary) {
           edge.className.baseVal = "svg-edge path-primary masked";
           edge.setAttribute("marker-end", "url(#arrow)");
@@ -1014,7 +1106,7 @@
           edge.setAttribute("marker-end", "url(#arrow-backup)");
         }
       } else if (mode === "f_minus") {
-        // 遮蔽其餘路徑 (F-)：次要路徑淡出，主要路徑孤立充分性凸顯
+        // 僅保留解釋子圖 (F-)：次要路徑淡出，主要路徑孤立充分性凸顯
         if (isPrimary) {
           edge.className.baseVal = "svg-edge path-primary";
           edge.setAttribute("marker-end", "url(#arrow-active)");
@@ -1025,25 +1117,28 @@
       }
     });
 
-    // 節點視覺狀態更新
+    // 節點視覺狀態更新：精準依據角色屬性 (data-role) 判斷，僅豁免起點使用者與終點推薦目標
     const nodes = dom.svgNodesGroup.querySelectorAll(".svg-node");
     nodes.forEach((nodeEl) => {
       const pathAttr = nodeEl.getAttribute("data-paths") || "";
       const pathIndices = pathAttr.split(",").filter((s) => s.length > 0).map(Number);
       const isPrimary = pathIndices.includes(activePathIdx);
       const isSecondary = pathIndices.some((idx) => idx !== activePathIdx);
-      const nodeType = nodeEl.getAttribute("data-type") || "";
+      const role = nodeEl.getAttribute("data-role") || "";
+      const isEndpoint = role === "source" || role === "target";
 
       nodeEl.classList.remove("node-masked", "node-backup-active");
 
       if (mode === "f_plus") {
-        if (isPrimary && !isSecondary && nodeType !== "USER" && nodeType !== "RECIPE_TARGET") {
-          nodeEl.classList.add("node-masked");
-        } else if (isSecondary && nodeType !== "USER" && nodeType !== "RECIPE_TARGET") {
-          nodeEl.classList.add("node-backup-active");
+        if (!isEndpoint) {
+          if (isPrimary && !isSecondary) {
+            nodeEl.classList.add("node-masked");
+          } else if (isSecondary) {
+            nodeEl.classList.add("node-backup-active");
+          }
         }
       } else if (mode === "f_minus") {
-        if (!isPrimary && nodeType !== "USER" && nodeType !== "RECIPE_TARGET") {
+        if (!isEndpoint && !isPrimary) {
           nodeEl.classList.add("node-masked");
         }
       }
@@ -1213,6 +1308,7 @@
       group.setAttribute("data-id", n.id_remapped);
       group.setAttribute("data-paths", Array.from(n.paths).join(","));
       group.setAttribute("data-type", n.hop === maxHops ? "RECIPE_TARGET" : n.type);
+      group.setAttribute("data-role", n.hop === 0 ? "source" : (n.hop === maxHops ? "target" : "intermediate"));
       group.setAttribute("transform", `translate(${coord.x}, ${coord.y})`);
 
       let fillColor = "#2563eb"; // USER

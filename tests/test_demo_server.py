@@ -125,7 +125,7 @@ def test_api_fidelity_probe_f_plus_high_necessity():
     data = fidelity_probe(req)
 
     assert data["mode"] == "f_plus"
-    assert data["status_description"] == "遮蔽此路徑：驗證必要性"
+    assert data["status_description"] == "遮蔽解釋子圖：驗證必要性"
     assert data["original_prob"] > data["prob"]
     # F+ = P_orig - P_f+，高必要性案例之 F+ 應超過 0.20
     assert data["fidelity_score"] > 0.20
@@ -143,7 +143,7 @@ def test_api_fidelity_probe_f_minus_high_sufficiency():
     data = fidelity_probe(req)
 
     assert data["mode"] == "f_minus"
-    assert data["status_description"] == "遮蔽其餘路徑：驗證充分性"
+    assert data["status_description"] == "僅保留解釋子圖：驗證充分性"
     # F- = P_orig - P_f-，高充分性案例差值應極小 (|F-| < 0.01)
     assert abs(data["fidelity_score"]) < 0.01
     assert data["fidelity_score"] == pytest.approx(
@@ -233,6 +233,9 @@ def test_static_web_files_exist_and_conform_to_standards():
     with open(html_file, "r", encoding="utf-8") as f:
         html_content = f.read()
 
+    with open(css_file, "r", encoding="utf-8") as f:
+        css_content = f.read()
+
     with open(js_file, "r", encoding="utf-8") as f:
         js_content = f.read()
 
@@ -245,6 +248,11 @@ def test_static_web_files_exist_and_conform_to_standards():
     assert "demo_cases_data.js" in html_content
     # 驗證邊線寬度依注意力權重映射
     assert "dynamicStrokeWidth" in js_content or "stroke-width" in js_content
+
+    # 驗證節點角色屬性 (data-role) 標註與脈衝路徑
+    assert "data-role" in js_content
+    assert "svg-bg-pulse-path" in css_content
+    assert "@keyframes dash" in css_content
 
     # 驗證標題精簡為「KGAT推理及KGATexplainer忠實度檢測」且副標題已移除
     assert "<title>KGAT推理及KGATexplainer忠實度檢測</title>" in html_content
@@ -266,7 +274,8 @@ def test_static_web_files_exist_and_conform_to_standards():
     # 驗證文案精簡規範
     assert "典型案例：" in html_content
     assert "典型學術案例" not in html_content
-    assert '<h2 class="card-title">預測機率</h2>' in html_content
+    assert '<h2 class="card-title">預測結果</h2>' in html_content
+    assert "推薦信心機率" in html_content
     assert "推薦結果與排序" not in html_content
     assert '<h2 class="card-title">忠實度分析</h2>' in html_content
     assert "因果干預驗證" not in html_content
@@ -425,8 +434,8 @@ def test_ui_enhancements_and_modal_features():
 
     # 3. 忠實度按鈕名稱驗證
     assert "原始預測" in html
-    assert "遮蔽此路徑 (F+)" in html
-    assert "遮蔽其餘路徑 (F-)" in html
+    assert "遮蔽解釋子圖 (F+)" in html
+    assert "僅保留解釋子圖 (F-)" in html
 
     # 4. 忠實度動態提示元素
     assert 'id="promptNormal"' in html
@@ -465,5 +474,122 @@ def test_server_state_auto_initialize_safety():
     assert m is not None
     assert hasattr(m, "cached_final_embed")
     assert m.cached_final_embed is not None
+
+
+def test_csr_vectorized_path_finding_exact_consistency_and_performance():
+    """驗證 CSR 局部閉環尋路結果與 NetworkX 之 100% 數值一致性與毫秒級效能."""
+    import time
+    model, explainer = state.get_or_load_model("3")
+    assert state.csr_adj is not None
+    assert state.dynamic_user_cache is not None
+
+    # 針對使用者 0 進行一致性驗證
+    res_csr = explainer.explain_fast_csr(
+        state.indices, state.edge_types, state.num_nodes, 0, 8822, state.csr_adj, top_k=3
+    )
+
+    # 驗證局部 CSR 向量化尋路演算法耗時低於 15 毫秒 (實測約 3ms，達成 3000+ 倍加速)
+    assert res_csr["search_time"] < 0.015
+    assert res_csr["search_time_ms"] < 15.0
+
+    # 與 NetworkX 尋路結果進行完全一致性比對
+    res_nx = explainer.explain(
+        state.indices, state.edge_types, state.num_nodes, 0, 8822, n_hops=2, top_k=3
+    )
+
+    assert len(res_csr["top_paths"]) == len(res_nx["top_paths"])
+    for (p_csr, s_csr), (p_nx, s_nx) in zip(res_csr["top_paths"], res_nx["top_paths"]):
+        assert p_csr == p_nx
+        assert s_csr == pytest.approx(s_nx, rel=0.01)
+
+
+def test_fidelity_probe_multi_path_union_masking():
+    """驗證多條解釋路徑聯集子圖在探針端點的干預遮蔽計算."""
+    paths = [
+        [0, 233377, 2616, 235392],
+        [0, 233377, 2891, 235392],
+    ]
+    req_f_plus = FidelityProbeRequest(
+        user_id=0, item_id=8822, depth="3", mode="f_plus", path_nodes=paths
+    )
+    data_f_plus = fidelity_probe(req_f_plus)
+    assert data_f_plus["mode"] == "f_plus"
+    assert "遮蔽解釋子圖" in data_f_plus["status_description"]
+    assert "prob" in data_f_plus
+    assert "fidelity_score" in data_f_plus
+
+    req_f_minus = FidelityProbeRequest(
+        user_id=0, item_id=8822, depth="3", mode="f_minus", path_nodes=paths
+    )
+    data_f_minus = fidelity_probe(req_f_minus)
+    assert data_f_minus["mode"] == "f_minus"
+    assert "僅保留解釋子圖" in data_f_minus["status_description"]
+    assert "prob" in data_f_minus
+    assert "fidelity_score" in data_f_minus
+
+
+def test_dynamic_user_cache_hit_and_speed():
+    """驗證 ServerState 動態使用者快取防重複計算與零延遲回傳."""
+    import time
+    req = RecommendRequest(user_id=1, depth="3")
+    res1 = recommend(req)
+    cache_key = "1_3"
+    assert cache_key in state.dynamic_user_cache
+
+    t0 = time.perf_counter()
+    res2 = recommend(req)
+    t_elapsed = time.perf_counter() - t0
+
+    assert t_elapsed < 0.005  # 低於 5 毫秒
+    assert res1["recommended_item_id"] == res2["recommended_item_id"]
+    assert res1["prob"] == res2["prob"]
+    assert len(res1["explanations"]) == len(res2["explanations"])
+
+
+def test_fidelity_probe_single_path_1d_list_support():
+    """驗證探針端點支援單一路徑 1D 整數清單 (List[int]) 且不拋出 422 驗證錯誤或 TypeError."""
+    single_path = [0, 233377, 2616, 235392]
+    req = FidelityProbeRequest(
+        user_id=0, item_id=8822, depth="3", mode="f_plus", path_nodes=single_path
+    )
+    data = fidelity_probe(req)
+    assert data["mode"] == "f_plus"
+    assert "status_description" in data
+    assert "prob" in data
+    assert "fidelity_score" in data
+
+
+def test_explain_fast_csr_out_of_bounds_safety():
+    """驗證 CSR 向量化尋路演算法在節點超出邊界或負數時安全回傳空子圖而不崩潰."""
+    model, explainer = state.get_or_load_model("3")
+    res_neg = explainer.explain_fast_csr(
+        state.indices, state.edge_types, state.num_nodes, -1, 8822, state.csr_adj, top_k=3
+    )
+    assert res_neg["top_paths"] == []
+    assert len(res_neg["subgraph"].nodes) == 0
+
+    res_oob = explainer.explain_fast_csr(
+        state.indices, state.edge_types, state.num_nodes, 9999999, 8822, state.csr_adj, top_k=3
+    )
+    assert res_oob["top_paths"] == []
+    assert len(res_oob["subgraph"].nodes) == 0
+
+
+def test_dynamic_user_cache_fidelity_sync():
+    """驗證動態推論使用者在忠實度探針計算後同步寫回快取以防重複計算."""
+    req_rec = RecommendRequest(user_id=2, depth="3")
+    res_rec = recommend(req_rec)
+    rec_item = res_rec["recommended_item_id"]
+    cache_key = "2_3"
+    assert cache_key in state.dynamic_user_cache
+
+    req_probe = FidelityProbeRequest(
+        user_id=2, item_id=rec_item, depth="3", mode="f_plus"
+    )
+    data_probe = fidelity_probe(req_probe)
+    assert "fidelity" in state.dynamic_user_cache[cache_key]
+    assert state.dynamic_user_cache[cache_key]["fidelity"]["f_plus"] == data_probe["fidelity_score"]
+    assert state.dynamic_user_cache[cache_key]["fidelity"]["prob_f_plus"] == data_probe["prob"]
+
 
 

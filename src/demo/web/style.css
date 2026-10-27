@@ -910,7 +910,7 @@ input.input-error {
   background: linear-gradient(90deg, #d97706, #b45309);
 }
 
-/* 背景裝飾實體點與拓撲連線過渡 */
+/* 科技感 GNN 圖拓撲背景 (TigerGraph 風格) */
 .svg-bg-deco-group {
   transition: opacity 0.4s ease;
 }
@@ -921,16 +921,42 @@ input.input-error {
 }
 
 .svg-bg-deco-node {
-  fill: #94a3b8;
-  opacity: 0.22;
-  transition: opacity 0.4s ease;
+  opacity: 0.55;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+  filter: drop-shadow(0 0 4px currentColor);
 }
 
 .svg-bg-deco-line {
-  stroke: #cbd5e1;
-  stroke-width: 1;
-  opacity: 0.16;
-  stroke-dasharray: 3, 3;
+  stroke: #94a3b8;
+  stroke-width: 1.1px;
+  opacity: 0.22;
+  stroke-dasharray: 4, 3;
+  transition: opacity 0.4s ease;
+}
+
+/* 替換光流虛線脈衝路徑 (遮蔽 F+ 時自動點亮) */
+.svg-bg-pulse-path {
+  fill: none;
+  stroke: #06b6d4;
+  stroke-width: 2.8px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 8, 5;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.8));
+  pointer-events: none;
+}
+
+.svg-bg-pulse-path.active {
+  opacity: 0.95;
+  animation: dash 1.2s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -26;
+  }
 }
 
 /* 多路徑匯聚拓撲連線狀態 */
@@ -952,7 +978,7 @@ input.input-error {
 
 .svg-edge.path-primary.masked {
   opacity: 0.12 !important;
-  stroke-dasharray: 3, 3 !important;
+  stroke-dasharray: 4, 4 !important;
 }
 
 .svg-edge.path-secondary.backup-active {
@@ -971,7 +997,12 @@ input.input-error {
 }
 
 .svg-node.node-masked {
-  opacity: 0.25;
+  opacity: 0.22;
+  filter: grayscale(0.5);
+}
+
+.svg-node.node-masked circle {
+  stroke: #cbd5e1;
 }
 
 .svg-node.node-backup-active circle {
