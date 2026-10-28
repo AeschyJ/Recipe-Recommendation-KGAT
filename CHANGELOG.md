@@ -2,6 +2,20 @@
 
 本文件紀錄專案的所有重要改動。依據 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 格式撰寫。
 
+## [1.6.0] - 2026-10-28
+
+### Added
+- **Demo Module**: 獨立建立 `demo/` 碩士學位口試現場互動展示模組，涵蓋後端推論伺服器 (`server.py`)、典型案例與評估名冊萃取工具 (`export_demo_cases.py`)、一鍵啟動腳本 (`run_server.bat`、`run_offline_laptop.bat`) 以及純靜態前端介面 (`web/`)。
+- **ADR**: 新增 [ADR-009](docs/adr/ADR-009-Oral-Defense-Demo-Packaging.md) 紀錄口試展示系統獨立模組化封裝、雙軌運行機制、CSR 局部向量化尋路加速與連接埠安全規範。
+- **Documentation**: 建立 `demo/README.md` 詳細說明展示架構、雙軌運行模式（連線推論 vs 完全離線備援）、目錄結構與快取維護指南。
+
+### Changed
+- **Packaging**: 將展示系統源碼自 `src/demo/` 完整遷移至專案頂層 `demo/`，落實核心演算法與展示展示外殼之模組解耦。
+- **Scripts**: 專案根目錄雙擊腳本 `run_oral_defense_demo.bat` 與 `run_offline_demo_laptop.bat` 更新為動態轉發至 `demo/` 對應腳本，保持外部使用一致性。
+- **Testing**: 更新 `tests/test_demo_server.py` 之匯入路徑與靜態資源斷言指向 `demo/`，全套 27 項單元測試持續保持 100% 綠燈通過。
+
+---
+
 ## [1.5.1] - 2026-07-29
 
 ### Added

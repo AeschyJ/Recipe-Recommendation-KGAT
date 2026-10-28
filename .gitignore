@@ -58,3 +58,7 @@ Paper/orig.txt
 Paper/*_p*.png
 Paper/ntu-114-1.pdf
 Paper/extracted_comments.md
+
+# Session Handover Snapshot (Local only, not pushed to remote)
+HANDOVER.md
+
