@@ -13,22 +13,19 @@ echo   Oral Defense Interactive Demo System - Server
 echo ========================================================
 echo.
 
-set "PYTHON_EXE=%~dp0..\.venv\Scripts\python.exe"
-
-if not exist "%PYTHON_EXE%" (
-    set "PYTHON_EXE=%~dp0.venv\Scripts\python.exe"
+set "PYTHON_EXE="
+if exist "%~dp0..\.venv\Scripts\python.exe" set "PYTHON_EXE=%~dp0..\.venv\Scripts\python.exe"
+if not defined PYTHON_EXE if exist "%~dp0.venv\Scripts\python.exe" set "PYTHON_EXE=%~dp0.venv\Scripts\python.exe"
+if not defined PYTHON_EXE (
+    where python >nul 2>nul
+    if not errorlevel 1 set "PYTHON_EXE=python"
 )
 
-if not exist "%PYTHON_EXE%" (
-    where python >nul 2>nul
-    if %errorlevel% equ 0 (
-        set "PYTHON_EXE=python"
-    ) else (
-        echo [ERROR] Python environment was not found.
-        echo Please ensure .venv exists or python is in PATH.
-        pause
-        exit /b 1
-    )
+if not defined PYTHON_EXE (
+    echo [ERROR] Python environment was not found.
+    echo Please ensure .venv exists or python is in PATH.
+    pause
+    exit /b 1
 )
 
 echo [1/2] Checking demo pre-extracted cache...
@@ -43,7 +40,7 @@ if not exist "%~dp0web\demo_cases.json" (
 echo.
 echo [2/2] Checking Cloudflare Tunnel utility...
 where cloudflared >nul 2>nul
-if %errorlevel% equ 0 (
+if not errorlevel 1 (
     echo Cloudflared is detected on this system.
     echo To publish the demo via Cloudflare Tunnel, run:
     echo   cloudflared tunnel --url http://localhost:8501
@@ -63,5 +60,12 @@ echo ========================================================
 echo.
 
 "%PYTHON_EXE%" "%~dp0server.py" --port 8501 --host 0.0.0.0
+set "EXIT_CODE=%errorlevel%"
+if %EXIT_CODE% neq 0 (
+    echo.
+    echo [ERROR] Server terminated abnormally with exit code: %EXIT_CODE%
+    pause
+    exit /b %EXIT_CODE%
+)
 
 pause

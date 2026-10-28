@@ -19,41 +19,41 @@ set "DEMO_JS=%~dp0web\demo_cases_data.js"
 
 if not exist "%DEMO_HTML%" (
     echo [ERROR] Demo HTML file was not found at %DEMO_HTML%
+    echo Please make sure the demo\web directory exists.
     pause
     exit /b 1
 )
 
-if not exist "%DEMO_JSON%" goto :GENERATE
-if not exist "%DEMO_JS%" goto :GENERATE
-goto :LAUNCH
+if not exist "%DEMO_JSON%" goto :DO_GEN
+if not exist "%DEMO_JS%" goto :DO_GEN
+goto :DO_LAUNCH
 
-:GENERATE
+:DO_GEN
 echo [WARNING] Offline demo cache is missing. Attempting to generate...
-set "PYTHON_EXE=%~dp0..\.venv\Scripts\python.exe"
-if not exist "%PYTHON_EXE%" (
-    set "PYTHON_EXE=%~dp0.venv\Scripts\python.exe"
-)
-if not exist "%PYTHON_EXE%" (
+set "PYTHON_EXE="
+if exist "%~dp0..\.venv\Scripts\python.exe" set "PYTHON_EXE=%~dp0..\.venv\Scripts\python.exe"
+if not defined PYTHON_EXE if exist "%~dp0.venv\Scripts\python.exe" set "PYTHON_EXE=%~dp0.venv\Scripts\python.exe"
+if not defined PYTHON_EXE (
     where python >nul 2>nul
-    if %errorlevel% equ 0 set "PYTHON_EXE=python"
+    if not errorlevel 1 set "PYTHON_EXE=python"
 )
 
-if exist "%PYTHON_EXE%" (
-    "%PYTHON_EXE%" "%~dp0export_demo_cases.py"
-) else (
+if not defined PYTHON_EXE (
     echo [ERROR] Cannot generate demo cache because Python was not found.
     pause
     exit /b 1
 )
 
-:LAUNCH
+"%PYTHON_EXE%" "%~dp0export_demo_cases.py"
 
+:DO_LAUNCH
 echo Launching demo interface in your default browser...
 start "" "%DEMO_HTML%"
 
 echo.
-echo Demo page has been opened.
+echo Demo page has been opened in your default browser.
 echo You can present the five academic cases and 500 evaluation users offline.
 echo.
-timeout /t 3 >nul
+pause
 exit /b 0
+
