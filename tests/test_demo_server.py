@@ -275,12 +275,17 @@ def test_static_web_files_exist_and_conform_to_standards():
     assert "典型案例：" in html_content
     assert "典型學術案例" not in html_content
     assert '<h2 class="card-title">預測結果</h2>' in html_content
-    assert "推薦信心機率" in html_content
+    assert "推薦信心" in html_content
+    assert "推薦信心機率" not in html_content
     assert "推薦結果與排序" not in html_content
     assert '<h2 class="card-title">忠實度分析</h2>' in html_content
     assert "因果干預驗證" not in html_content
-    assert "必要性忠實度" in html_content
-    assert "充分性忠實度" in html_content
+    assert "必要性 F+" in html_content
+    assert "充分性 F-" in html_content
+    assert "必要性忠實度" not in html_content
+    assert "充分性忠實度" not in html_content
+    assert "必要性忠實度" not in js_content
+    assert "充分性忠實度" not in js_content
     assert "目前狀態：" not in html_content
     assert "差值：" not in html_content
     assert "遮蔽後預測" in html_content
@@ -440,6 +445,7 @@ def test_ui_enhancements_and_modal_features():
     # 4. 忠實度動態提示元素
     assert 'id="promptNormal"' in html
     assert 'id="promptFPlus"' in html
+    assert 'id="promptFPlusHighInteractions"' in html
     assert 'id="promptFMinus"' in html
 
     # 5. 背景裝飾實體點與匯聚子圖標記
@@ -590,6 +596,76 @@ def test_dynamic_user_cache_fidelity_sync():
     assert "fidelity" in state.dynamic_user_cache[cache_key]
     assert state.dynamic_user_cache[cache_key]["fidelity"]["f_plus"] == data_probe["fidelity_score"]
     assert state.dynamic_user_cache[cache_key]["fidelity"]["prob_f_plus"] == data_probe["prob"]
+
+
+def test_user_0_interactions_and_fidelity_probe_necessity_sufficiency():
+    """驗證使用者 0 歷史互動總數、等價通道數量，以及忠實度遮蔽探針數值."""
+    req_rec = RecommendRequest(user_id=0, depth="3")
+    rec_res = recommend(req_rec)
+    assert rec_res["user_id"] == 0
+    assert rec_res["user_n_interactions"] == 128
+    assert rec_res["n_equivalent_channels"] == 137
+    assert len(rec_res["explanations"]) == 3
+
+    rec_item_id = rec_res["recommended_item_id"]
+    paths = [[d["id_remapped"] for d in exp["path_details"]] for exp in rec_res["explanations"]]
+
+    # 驗證 F+ 遮蔽計算
+    probe_plus = fidelity_probe(
+        FidelityProbeRequest(user_id=0, item_id=rec_item_id, depth="3", mode="f_plus", path_nodes=paths)
+    )
+    assert probe_plus["mode"] == "f_plus"
+    assert probe_plus["fidelity_score"] > 0.0
+    assert probe_plus["fidelity_score"] == pytest.approx(0.00037, abs=0.0003)
+
+    # 驗證 F- 保留計算
+    probe_minus = fidelity_probe(
+        FidelityProbeRequest(user_id=0, item_id=rec_item_id, depth="3", mode="f_minus", path_nodes=paths)
+    )
+    assert probe_minus["mode"] == "f_minus"
+    assert probe_minus["fidelity_score"] > 0.0
+
+    # 驗證快取使用者 (以 13087 為例) 歷史互動總數與等價通道計算
+    req_cached = RecommendRequest(user_id=13087, depth="3")
+    res_cached = recommend(req_cached)
+    assert res_cached["user_id"] == 13087
+    assert res_cached["user_n_interactions"] == 30
+    assert res_cached["n_equivalent_channels"] == 3
+
+
+def test_frontend_svg_masking_state_machine_and_academic_hint():
+    """驗證前端三態遮蔽狀態機、背景淡出樣式與高互動數使用者動態學術提示."""
+    web_dir = os.path.join(project_root, "src", "demo", "web")
+    html_file = os.path.join(web_dir, "index.html")
+    css_file = os.path.join(web_dir, "style.css")
+    js_file = os.path.join(web_dir, "app.js")
+
+    with open(html_file, "r", encoding="utf-8") as f:
+        html = f.read()
+    with open(css_file, "r", encoding="utf-8") as f:
+        css = f.read()
+    with open(js_file, "r", encoding="utf-8") as f:
+        js = f.read()
+
+    # 驗證高互動數提示元素與內容
+    assert 'id="promptFPlusHighInteractions"' in html
+    assert "此使用者歷史互動數為" in js
+    assert "等價通道" in js
+    assert "局部路徑遮蔽對整體決策具高度結構容錯性" in js
+
+    # 驗證無不當之全域硬編碼 137 與條件判斷
+    assert "(recData.user_id === 0 ? 137 : 137)" not in js
+    assert "nInter >= 20 && nChannels > 0" in js
+
+    # 驗證背景淡出樣式為 0.05
+    assert ".svg-bg-deco-group.faded" in css
+    assert "opacity: 0.05 !important" in css
+
+    # 驗證邊線遮蔽樣式
+    assert ".svg-edge.masked" in css
+
+    # 驗證狀態機邏輯：點擊路徑時自動恢復原始預測模式
+    assert 'setProbeMode("normal")' in js
 
 
 

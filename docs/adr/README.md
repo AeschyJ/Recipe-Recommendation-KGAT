@@ -14,3 +14,6 @@
 *   [ADR-005: 消融實驗架構設計 (Ablation Study Architecture)](ADR-005-Ablation-Study-Architecture.md)
 *   [ADR-006: 對照組模型實作 (Baseline Models Implementation)](ADR-006-Baseline-Models-Implementation.md)
 *   [ADR-007: 全專案文檔重構與 Git 巨型檔案排除規範 (Documentation Refactoring & Git Exclusion Standard)](ADR-007-Documentation-Refactoring-and-Git-Exclusion.md)
+
+### 學位口試與學術嚴謹度規範 (Thesis & Oral Defense Rigor Alignment)
+*   [ADR-008: 口試簡報與學位論文學術語用、名詞一致性暨數學符號嚴謹化規範 (Oral Defense & Thesis Rigor Alignment)](ADR-008-Oral-Defense-and-Thesis-Rigor-Alignment.md)

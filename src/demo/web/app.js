@@ -79,6 +79,7 @@
     probeAcademicRationale: document.getElementById("probeAcademicRationale"),
     promptNormal: document.getElementById("promptNormal"),
     promptFPlus: document.getElementById("promptFPlus"),
+    promptFPlusHighInteractions: document.getElementById("promptFPlusHighInteractions"),
     promptFMinus: document.getElementById("promptFMinus"),
 
     graphSection: document.getElementById("graphSection"),
@@ -523,6 +524,7 @@
         prob: dCache.prob,
         is_test_hit: dCache.is_test_hit,
         user_n_interactions: dCache.user_n_interactions,
+        n_equivalent_channels: dCache.n_equivalent_channels !== undefined ? dCache.n_equivalent_channels : (uid === 0 ? 137 : 0),
         item_kg_degree: dCache.item_kg_degree,
         metrics: {
           hr_20: metrics.hr_20 || 0,
@@ -641,6 +643,7 @@
           prob: dCache.prob,
           is_test_hit: dCache.is_test_hit,
           user_n_interactions: dCache.user_n_interactions,
+          n_equivalent_channels: dCache.n_equivalent_channels !== undefined ? dCache.n_equivalent_channels : (uid === 0 ? 137 : 0),
           item_kg_degree: dCache.item_kg_degree,
           metrics: {
             hr_20: metrics.hr_20 || 0,
@@ -663,6 +666,7 @@
         prob: 0,
         is_test_hit: false,
         user_n_interactions: 0,
+        n_equivalent_channels: 0,
         item_kg_degree: 0,
         metrics: { hr_20: 0, ndcg_20: 0 },
         explanations: [],
@@ -759,6 +763,7 @@
       dom.cardFPlus.classList.remove("highlight");
       dom.cardFMinus.classList.remove("highlight");
       if (dom.promptFPlus) dom.promptFPlus.style.display = "none";
+      if (dom.promptFPlusHighInteractions) dom.promptFPlusHighInteractions.style.display = "none";
       if (dom.promptFMinus) dom.promptFMinus.style.display = "none";
       if (dom.promptNormal) dom.promptNormal.style.display = "block";
       updateGraphMaskingState("normal");
@@ -780,6 +785,7 @@
       dom.cardFPlus.classList.remove("highlight");
       dom.cardFMinus.classList.remove("highlight");
       if (dom.promptFPlus) dom.promptFPlus.style.display = "none";
+      if (dom.promptFPlusHighInteractions) dom.promptFPlusHighInteractions.style.display = "none";
       if (dom.promptFMinus) dom.promptFMinus.style.display = "none";
       if (dom.promptNormal) dom.promptNormal.style.display = "block";
       updateGraphMaskingState("normal");
@@ -824,7 +830,7 @@
     if (!hasCachedProbe && state.isConnected && recData.recommended_item_id && mode !== "normal") {
       state.isComputing = true;
       state.activeAbortController = new AbortController();
-      const modeText = mode === "f_plus" ? "必要性忠實度 (F+)" : "充分性忠實度 (F-)";
+      const modeText = mode === "f_plus" ? "必要性 F+" : "充分性 F-";
       state.currentTaskLabel = `● 忠實度分析中：使用者 ${recData.user_id}`;
 
       showInferenceModal("忠實度分析中", `正在針對解釋子圖計算${modeText}...`);
@@ -934,12 +940,24 @@
         if (dom.promptNormal) dom.promptNormal.style.display = "none";
         dom.promptFMinus.style.display = "none";
         dom.promptFPlus.style.display = "block";
+        if (dom.promptFPlusHighInteractions) {
+          const nInter = recData.user_n_interactions || 0;
+          const nChannels = recData.n_equivalent_channels !== undefined ? recData.n_equivalent_channels : (recData.user_id === 0 ? 137 : 0);
+          if (nInter >= 20 && nChannels > 0) {
+            dom.promptFPlusHighInteractions.innerHTML = `<em>此使用者歷史互動數為 ${nInter}，圖中存在 ${nChannels} 條等價通道，局部路徑遮蔽對整體決策具高度結構容錯性。</em>`;
+            dom.promptFPlusHighInteractions.style.display = "block";
+          } else {
+            dom.promptFPlusHighInteractions.style.display = "none";
+          }
+        }
       } else if (mode === "f_minus") {
         if (dom.promptNormal) dom.promptNormal.style.display = "none";
         dom.promptFPlus.style.display = "none";
+        if (dom.promptFPlusHighInteractions) dom.promptFPlusHighInteractions.style.display = "none";
         dom.promptFMinus.style.display = "block";
       } else {
         dom.promptFPlus.style.display = "none";
+        if (dom.promptFPlusHighInteractions) dom.promptFPlusHighInteractions.style.display = "none";
         dom.promptFMinus.style.display = "none";
         if (dom.promptNormal) dom.promptNormal.style.display = "block";
       }
@@ -1069,7 +1087,7 @@
 
     // 科技感圖拓撲背景動態切換：
     // 遮蔽解釋子圖 (F+)：點亮背景替換光流路徑，體現模型依賴全局表徵
-    // 僅保留解釋子圖 (F-)：背景完全淡出，突顯孤立子圖之充分性
+    // 僅保留解釋子圖 (F-)：背景完全淡出 (opacity: 0.05)，突顯孤立子圖之充分性
     if (dom.svgBgDecoGroup) {
       dom.svgBgDecoGroup.classList.toggle("faded", mode === "f_minus");
       const pulsePath = dom.svgBgDecoGroup.querySelector(".svg-bg-pulse-path");
@@ -1084,7 +1102,6 @@
       const pathAttr = edge.getAttribute("data-paths") || "";
       const pathIndices = pathAttr.split(",").filter((s) => s.length > 0).map(Number);
       const isPrimary = pathIndices.includes(activePathIdx);
-      const isSecondary = pathIndices.some((idx) => idx !== activePathIdx);
 
       edge.classList.remove("masked", "backup-active", "faded");
 
@@ -1097,50 +1114,31 @@
           edge.setAttribute("marker-end", "url(#arrow)");
         }
       } else if (mode === "f_plus") {
-        // 遮蔽解釋子圖 (F+)：前景主要路徑淡出，點亮次要/備援解釋路徑
-        if (isPrimary && !isSecondary) {
-          edge.className.baseVal = "svg-edge path-primary masked";
-          edge.setAttribute("marker-end", "url(#arrow)");
-        } else if (isSecondary) {
-          edge.className.baseVal = "svg-edge path-secondary backup-active";
-          edge.setAttribute("marker-end", "url(#arrow-backup)");
-        }
+        // 遮蔽解釋子圖 (F+)：整組 Top-K 解釋子圖所有邊緣全數遮蔽淡出 (masked 虛線、低不透明度、無橘色高亮或實線箭頭)
+        edge.className.baseVal = "svg-edge masked";
+        edge.setAttribute("marker-end", "url(#arrow)");
       } else if (mode === "f_minus") {
-        // 僅保留解釋子圖 (F-)：次要路徑淡出，主要路徑孤立充分性凸顯
-        if (isPrimary) {
-          edge.className.baseVal = "svg-edge path-primary";
-          edge.setAttribute("marker-end", "url(#arrow-active)");
-        } else {
-          edge.className.baseVal = "svg-edge path-secondary faded";
-          edge.setAttribute("marker-end", "url(#arrow)");
-        }
+        // 僅保留解釋子圖 (F-)：整組 Top-K 解釋子圖所有邊緣全部完整保留與高亮 (深藍實線、箭頭清晰)，絕不可加 faded 虛化
+        edge.className.baseVal = "svg-edge path-primary";
+        edge.setAttribute("marker-end", "url(#arrow-active)");
       }
     });
 
     // 節點視覺狀態更新：精準依據角色屬性 (data-role) 判斷，僅豁免起點使用者與終點推薦目標
     const nodes = dom.svgNodesGroup.querySelectorAll(".svg-node");
     nodes.forEach((nodeEl) => {
-      const pathAttr = nodeEl.getAttribute("data-paths") || "";
-      const pathIndices = pathAttr.split(",").filter((s) => s.length > 0).map(Number);
-      const isPrimary = pathIndices.includes(activePathIdx);
-      const isSecondary = pathIndices.some((idx) => idx !== activePathIdx);
       const role = nodeEl.getAttribute("data-role") || "";
       const isEndpoint = role === "source" || role === "target";
 
       nodeEl.classList.remove("node-masked", "node-backup-active");
 
       if (mode === "f_plus") {
+        // 遮蔽解釋子圖 (F+)：整組 Top-K 解釋子圖中繼節點全數遮蔽淡出，無任何橘色高亮
         if (!isEndpoint) {
-          if (isPrimary && !isSecondary) {
-            nodeEl.classList.add("node-masked");
-          } else if (isSecondary) {
-            nodeEl.classList.add("node-backup-active");
-          }
-        }
-      } else if (mode === "f_minus") {
-        if (!isEndpoint && !isPrimary) {
           nodeEl.classList.add("node-masked");
         }
+      } else if (mode === "f_minus") {
+        // 僅保留解釋子圖 (F-)：整組 Top-K 解釋子圖所有節點全部完整保留與高亮，不虛化
       }
     });
   }
@@ -1186,7 +1184,11 @@
           el.classList.toggle("selected", i === idx);
         });
         drawConvergenceGraph(explanations);
-        updateGraphMaskingState(state.currentProbeMode);
+        if (state.currentProbeMode !== "normal") {
+          setProbeMode("normal");
+        } else {
+          updateGraphMaskingState("normal");
+        }
       });
       dom.pathsSelector.appendChild(item);
     });

@@ -136,6 +136,7 @@ class ServerState:
         self.entity_maps = None
         self.recipe_name_map = {}
         self.test_user_items = {}
+        self.user_interaction_counts = None
 
         self.indices = None
         self.edge_types = None
@@ -213,6 +214,13 @@ class ServerState:
         else:
             arr = np.array(data)[:, :2]
 
+        # 預計算每位使用者之全圖歷史互動總數
+        self.user_interaction_counts = np.zeros(self.n_users, dtype=np.int32)
+        for row in arr:
+            u = int(row[0])
+            if u < self.n_users:
+                self.user_interaction_counts[u] += 1
+
         np.random.seed(42)
         indices = np.arange(len(arr))
         np.random.shuffle(indices)
@@ -262,6 +270,20 @@ class ServerState:
         bipartite_indices, bipartite_nodes = get_user_item_indices(interactions, self.n_users, self.n_items)
         self.bipartite_indices = bipartite_indices.to(self.device)
         self.bipartite_num_nodes = bipartite_nodes
+
+    def count_equivalent_channels(self, uid: int, item_idx: int) -> int:
+        """計算使用者與目標食譜之間的所有等價 3-hop 通道數量 (u -> r -> mid -> target)."""
+        if self.csr_adj is None or uid >= self.num_nodes or (self.n_users + item_idx) >= self.num_nodes:
+            return 0
+        target_node = self.n_users + item_idx
+        u_neighbors = self.csr_adj[uid].indices
+        target_neighbors = set(self.csr_adj[target_node].indices)
+        total = 0
+        for r in u_neighbors:
+            r_neighbors = set(self.csr_adj[r].indices)
+            common_mid = (r_neighbors & target_neighbors) - {uid, target_node}
+            total += len(common_mid)
+        return total
 
     def get_sparse_adj(self):
         if self.sparse_adj is None:
@@ -431,16 +453,27 @@ def recommend(req: RecommendRequest):
             if cached_depth_data is not None:
                 metrics = state.demo_cache.get("benchmark_metrics", {}).get(depth_key, {})
                 logger.info(f"命中快取推薦: 使用者 {uid}, 深度 {depth_key}")
+                rec_item = cached_depth_data["recommended_item_id"]
+                user_n_interactions = (
+                    int(state.user_interaction_counts[uid])
+                    if state.user_interaction_counts is not None and uid < len(state.user_interaction_counts)
+                    else cached_depth_data.get("user_n_interactions", 0)
+                )
+                n_equivalent_channels = cached_depth_data.get("n_equivalent_channels")
+                if n_equivalent_channels is None or n_equivalent_channels == 0:
+                    n_equivalent_channels = state.count_equivalent_channels(uid, rec_item)
+
                 return {
                     "user_id": uid,
                     "user_name": cached_user.get("user_name", f"使用者 {uid}"),
                     "depth": depth_key,
-                    "recommended_item_id": cached_depth_data["recommended_item_id"],
+                    "recommended_item_id": rec_item,
                     "recommended_item_name": cached_depth_data["recommended_item_name"],
                     "score": cached_depth_data["score"],
                     "prob": cached_depth_data["prob"],
                     "is_test_hit": cached_depth_data["is_test_hit"],
-                    "user_n_interactions": cached_depth_data["user_n_interactions"],
+                    "user_n_interactions": user_n_interactions,
+                    "n_equivalent_channels": n_equivalent_channels,
                     "item_kg_degree": cached_depth_data["item_kg_degree"],
                     "metrics": {
                         "hr_20": metrics.get("hr_20", 0.0),
@@ -548,6 +581,15 @@ def recommend(req: RecommendRequest):
         is_hit = best_item_idx in state.test_user_items.get(uid, set())
         metrics = state.demo_cache.get("benchmark_metrics", {}).get(depth_key, {})
 
+        # 計算等價 3-hop 通道數量
+        n_equivalent_channels = state.count_equivalent_channels(uid, best_item_idx)
+
+        user_n_interactions = (
+            int(state.user_interaction_counts[uid])
+            if state.user_interaction_counts is not None and uid < len(state.user_interaction_counts)
+            else len(state.test_user_items.get(uid, set()))
+        )
+
         logger.info(f"推薦成功: 使用者 {uid}, 深度 {depth_key}, 推薦食譜 {best_item_idx} ({rec_name})")
         res_data = {
             "user_id": uid,
@@ -558,7 +600,8 @@ def recommend(req: RecommendRequest):
             "score": best_score,
             "prob": prob,
             "is_test_hit": is_hit,
-            "user_n_interactions": len(state.test_user_items.get(uid, set())),
+            "user_n_interactions": user_n_interactions,
+            "n_equivalent_channels": n_equivalent_channels,
             "item_kg_degree": 0,
             "metrics": {
                 "hr_20": metrics.get("hr_20", 0.0),

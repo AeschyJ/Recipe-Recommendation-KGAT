@@ -916,7 +916,7 @@ input.input-error {
 }
 
 .svg-bg-deco-group.faded {
-  opacity: 0 !important;
+  opacity: 0.05 !important;
   pointer-events: none;
 }
 
@@ -976,8 +976,15 @@ input.input-error {
   stroke-dasharray: 5, 3;
 }
 
+.svg-edge.masked {
+  stroke: #94a3b8 !important;
+  opacity: 0.15 !important;
+  stroke-dasharray: 4, 4 !important;
+}
+
 .svg-edge.path-primary.masked {
-  opacity: 0.12 !important;
+  stroke: #94a3b8 !important;
+  opacity: 0.15 !important;
   stroke-dasharray: 4, 4 !important;
 }
 
