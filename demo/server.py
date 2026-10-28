@@ -30,7 +30,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-project_root = Path(__file__).resolve().parent.parent.parent
+current_dir = Path(__file__).resolve().parent
+project_root = current_dir if (current_dir / "data").exists() else current_dir.parent
 if str(project_root) not in sys.path:
     sys.path.append(str(project_root))
 
@@ -124,7 +125,11 @@ class ServerState:
         self.data_dir = os.path.join(project_root, "data", "processed")
         self.raw_data_dir = os.path.join(project_root, "data", "raw")
         self.models_dir = os.path.join(project_root, "models")
-        self.demo_cases_path = os.path.join(project_root, "src", "demo", "web", "demo_cases.json")
+        self.demo_cases_path = (
+            os.path.join(current_dir, "web", "demo_cases.json")
+            if os.path.exists(os.path.join(current_dir, "web", "demo_cases.json"))
+            else os.path.join(project_root, "demo", "web", "demo_cases.json")
+        )
 
         self.stats = {}
         self.n_users = 0
@@ -907,7 +912,9 @@ def fidelity_probe(req: FidelityProbeRequest):
 
 
 # 掛載前端網頁靜態資源
-web_dir = os.path.join(project_root, "src", "demo", "web")
+web_dir = os.path.join(current_dir, "web")
+if not os.path.exists(web_dir):
+    web_dir = os.path.join(project_root, "demo", "web")
 if os.path.exists(web_dir):
     app.mount("/", StaticFiles(directory=web_dir, html=True), name="static")
 

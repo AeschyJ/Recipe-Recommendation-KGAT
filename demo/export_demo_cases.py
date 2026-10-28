@@ -1,7 +1,7 @@
 """典型案例與展示評估資料萃取腳本.
 
 從 output/fidelity/ 現有評估產出中萃取五組典型案例與五百位評估使用者名冊，
-並匯出至 src/demo/web/demo_cases.json 供展示系統離線與快速查詢使用。
+並匯出至 demo/web/demo_cases.json 供展示系統離線與快速查詢使用。
 """
 
 import json
@@ -12,7 +12,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-project_root = Path(__file__).resolve().parent.parent.parent
+current_dir = Path(__file__).resolve().parent
+project_root = current_dir if (current_dir / "data").exists() else current_dir.parent
 if str(project_root) not in sys.path:
     sys.path.append(str(project_root))
 
@@ -55,7 +56,7 @@ def build_test_interaction_set(data_dir):
 def main():
     data_dir = os.path.join(project_root, "data", "processed")
     fidelity_dir = os.path.join(project_root, "output", "fidelity")
-    output_dir = os.path.join(project_root, "src", "demo", "web")
+    output_dir = os.path.join(current_dir, "web")
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, "demo_cases.json")
 

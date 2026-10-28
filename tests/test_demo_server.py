@@ -14,7 +14,7 @@ project_root = Path(__file__).resolve().parent.parent
 if str(project_root) not in sys.path:
     sys.path.append(str(project_root))
 
-from src.demo.server import (
+from demo.server import (
     state,
     get_status,
     recommend,
@@ -184,8 +184,8 @@ def test_api_fidelity_probe_invalid_mode():
 
 def test_demo_cases_json_integrity():
     """驗證 demo_cases.json 與 demo_cases_data.js 結構完整性 (5 組案例與 500 位評估名冊)."""
-    cases_file = os.path.join(project_root, "src", "demo", "web", "demo_cases.json")
-    cases_js_file = os.path.join(project_root, "src", "demo", "web", "demo_cases_data.js")
+    cases_file = os.path.join(project_root, "demo", "web", "demo_cases.json")
+    cases_js_file = os.path.join(project_root, "demo", "web", "demo_cases_data.js")
     assert os.path.exists(cases_file)
     assert os.path.exists(cases_js_file)
 
@@ -219,7 +219,7 @@ def test_demo_cases_json_integrity():
 
 def test_static_web_files_exist_and_conform_to_standards():
     """驗證前端介面檔案存在且全面遵守專案學術標準與精簡文案規範."""
-    web_dir = os.path.join(project_root, "src", "demo", "web")
+    web_dir = os.path.join(project_root, "demo", "web")
     html_file = os.path.join(web_dir, "index.html")
     css_file = os.path.join(web_dir, "style.css")
     js_file = os.path.join(web_dir, "app.js")
@@ -408,7 +408,7 @@ def test_cached_final_embeddings_and_logging():
 
 def test_ui_enhancements_and_modal_features():
     """驗證伺服器配置彈窗、雙層進度條、按鈕文案與背景裝飾元素對齊學術規範."""
-    web_dir = os.path.join(project_root, "src", "demo", "web")
+    web_dir = os.path.join(project_root, "demo", "web")
     html_file = os.path.join(web_dir, "index.html")
     css_file = os.path.join(web_dir, "style.css")
     js_file = os.path.join(web_dir, "app.js")
@@ -472,7 +472,7 @@ def test_ui_enhancements_and_modal_features():
 
 def test_server_state_auto_initialize_safety():
     """驗證 ServerState 在未手動呼叫 initialize 時直接載入模型能自我修復與防護."""
-    from src.demo.server import ServerState
+    from demo.server import ServerState
     fresh_state = ServerState()
     assert fresh_state.is_initialized is False
     m, _ = fresh_state.get_or_load_model("1")
@@ -635,7 +635,7 @@ def test_user_0_interactions_and_fidelity_probe_necessity_sufficiency():
 
 def test_frontend_svg_masking_state_machine_and_academic_hint():
     """驗證前端三態遮蔽狀態機、背景淡出樣式與高互動數使用者動態學術提示."""
-    web_dir = os.path.join(project_root, "src", "demo", "web")
+    web_dir = os.path.join(project_root, "demo", "web")
     html_file = os.path.join(web_dir, "index.html")
     css_file = os.path.join(web_dir, "style.css")
     js_file = os.path.join(web_dir, "app.js")

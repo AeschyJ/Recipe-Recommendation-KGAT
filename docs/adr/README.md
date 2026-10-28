@@ -17,3 +17,4 @@
 
 ### 學位口試與學術嚴謹度規範 (Thesis & Oral Defense Rigor Alignment)
 *   [ADR-008: 口試簡報與學位論文學術語用、名詞一致性暨數學符號嚴謹化規範 (Oral Defense & Thesis Rigor Alignment)](ADR-008-Oral-Defense-and-Thesis-Rigor-Alignment.md)
+*   [ADR-009: 碩士學位口試展示系統獨立模組化與雙軌運行架構 (Oral Defense Demo Packaging & Dual-Track Runtime Architecture)](ADR-009-Oral-Defense-Demo-Packaging.md)
