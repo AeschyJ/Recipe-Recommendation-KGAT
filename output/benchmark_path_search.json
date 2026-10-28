@@ -1,0 +1,621 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-28 23:32:21",
+    "num_nodes": 473577,
+    "num_edges": 7200165,
+    "num_samples": 18
+  },
+  "construction_benchmark": {
+    "csr": {
+      "time_ms_mean": 190.8211333308524,
+      "time_ms_std": 4.724685730821629,
+      "raw_array_mb": 56.73945617675781,
+      "rss_delta_mb": 113.9765625
+    },
+    "nx_static": {
+      "time_s": 7.43215139998938,
+      "time_ms": 7432.15139998938,
+      "rss_delta_mb": 852.328125,
+      "edges": 3836871
+    },
+    "nx_dynamic": {
+      "time_s": 13.007188500021584,
+      "time_ms": 13007.188500021584,
+      "rss_delta_mb": 1581.41015625
+    }
+  },
+  "traversal_benchmark_summary": {
+    "avg_latency_ms": {
+      "nx_unidirectional": 749.9463133332837,
+      "nx_bidirectional": 0.33626999971198124,
+      "csr_unidirectional": 2.577072222225575,
+      "csr_bidirectional": 0.06692833331827489
+    },
+    "overall_speedup": {
+      "traversal_pure_speedup": 11205.214236651396,
+      "end_to_end_dynamic_speedup": 205550.2375643121,
+      "algorithmic_gain_nx": 2230.190959573023,
+      "algorithmic_gain_csr": 38.504951407805365,
+      "hardware_gain_uni": 291.00709978769066,
+      "hardware_gain_bi": 5.024329503513308
+    }
+  },
+  "query_results": [
+    {
+      "case_name": "深度傳播成功案例",
+      "group": "Academic Cases",
+      "user_id": 17049,
+      "target_node": 241399,
+      "user_degree": 1,
+      "paths_count": 1,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 79.04986000503413,
+          "std": 2.444017134251783
+        },
+        "nx_bidirectional": {
+          "mean": 0.02049999893642962,
+          "std": 0.008569011402089804
+        },
+        "csr_unidirectional": {
+          "mean": 0.16374000115320086,
+          "std": 0.054021757989835766
+        },
+        "csr_bidirectional": {
+          "mean": 0.010540004586800933,
+          "std": 0.00534906317307702
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 7499.983453899718,
+      "speedup_algorithmic_nx": 3856.0909320125966,
+      "speedup_algorithmic_csr": 15.535097713168899,
+      "speedup_datastruct_uni": 482.7767158195652,
+      "speedup_datastruct_bi": 1.9449705896809018
+    },
+    {
+      "case_name": "高必要性案例",
+      "group": "Academic Cases",
+      "user_id": 101612,
+      "target_node": 237751,
+      "user_degree": 2,
+      "paths_count": 5,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 111.30519999423996,
+          "std": 2.291804619538554
+        },
+        "nx_bidirectional": {
+          "mean": 0.11049999739043415,
+          "std": 0.006644085790220692
+        },
+        "csr_unidirectional": {
+          "mean": 0.7179000007454306,
+          "std": 0.07623046645941564
+        },
+        "csr_bidirectional": {
+          "mean": 0.025039998581632972,
+          "std": 0.004543390386036035
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 4445.096098203582,
+      "speedup_algorithmic_nx": 1007.2869015639951,
+      "speedup_algorithmic_csr": 28.670129449289014,
+      "speedup_datastruct_uni": 155.0427634470906,
+      "speedup_datastruct_bi": 4.412939442875477
+    },
+    {
+      "case_name": "高充分性案例",
+      "group": "Academic Cases",
+      "user_id": 154656,
+      "target_node": 346418,
+      "user_degree": 1,
+      "paths_count": 1,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 0.012099999003112316,
+          "std": 0.008636443866990124
+        },
+        "nx_bidirectional": {
+          "mean": 0.010080001084133983,
+          "std": 0.0070158179585539816
+        },
+        "csr_unidirectional": {
+          "mean": 0.002519995905458927,
+          "std": 0.0009703638275600748
+        },
+        "csr_bidirectional": {
+          "mean": 0.010719997226260602,
+          "std": 0.0028809010143416207
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 1.1287315423432336,
+      "speedup_algorithmic_nx": 1.200396597393013,
+      "speedup_algorithmic_csr": 0.23507430573636104,
+      "speedup_datastruct_uni": 4.801594707713914,
+      "speedup_datastruct_bi": 0.9402988518916001
+    },
+    {
+      "case_name": "淺層雜訊干擾案例",
+      "group": "Academic Cases",
+      "user_id": 173712,
+      "target_node": 390577,
+      "user_degree": 1,
+      "paths_count": 2,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 33.29310000408441,
+          "std": 0.35917781878435817
+        },
+        "nx_bidirectional": {
+          "mean": 0.010439998004585505,
+          "std": 0.005664482704430024
+        },
+        "csr_unidirectional": {
+          "mean": 0.06809999467805028,
+          "std": 0.02415888458567555
+        },
+        "csr_bidirectional": {
+          "mean": 0.010489998385310173,
+          "std": 0.009178065614319053
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 3173.79457852986,
+      "speedup_algorithmic_nx": 3188.994862782661,
+      "speedup_algorithmic_csr": 6.491897536744632,
+      "speedup_datastruct_uni": 488.88550082097595,
+      "speedup_datastruct_bi": 0.9952335187396514
+    },
+    {
+      "case_name": "孤立節點案例",
+      "group": "Academic Cases",
+      "user_id": 31742,
+      "target_node": 329761,
+      "user_degree": 1,
+      "paths_count": 0,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 35.01434000208974,
+          "std": 0.312871798183788
+        },
+        "nx_bidirectional": {
+          "mean": 0.008540000999346375,
+          "std": 0.005799520371977699
+        },
+        "csr_unidirectional": {
+          "mean": 0.07485999958589673,
+          "std": 0.029920997721905995
+        },
+        "csr_bidirectional": {
+          "mean": 0.007880001794546843,
+          "std": 0.004300644881100249
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 4443.443150777013,
+      "speedup_algorithmic_nx": 4100.039333106592,
+      "speedup_algorithmic_csr": 9.499997783972805,
+      "speedup_datastruct_uni": 467.73096708226905,
+      "speedup_datastruct_bi": 1.0837562251897288
+    },
+    {
+      "case_name": "User 17905 (deg=8)",
+      "group": "Mid-Degree Users",
+      "user_id": 17905,
+      "target_node": 299249,
+      "user_degree": 8,
+      "paths_count": 5,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 390.1202400098555,
+          "std": 7.479116414752763
+        },
+        "nx_bidirectional": {
+          "mean": 0.08162000449374318,
+          "std": 0.009129813129195889
+        },
+        "csr_unidirectional": {
+          "mean": 0.7542599982116371,
+          "std": 0.08664891888005542
+        },
+        "csr_bidirectional": {
+          "mean": 0.023389997659251094,
+          "std": 0.005552011585106023
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 16678.93454685991,
+      "speedup_algorithmic_nx": 4779.713532602921,
+      "speedup_algorithmic_csr": 32.24711730201119,
+      "speedup_datastruct_uni": 517.2224974608715,
+      "speedup_datastruct_bi": 3.4895259795573876
+    },
+    {
+      "case_name": "User 36964 (deg=8)",
+      "group": "Mid-Degree Users",
+      "user_id": 36964,
+      "target_node": 283350,
+      "user_degree": 8,
+      "paths_count": 6,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 424.09416000009514,
+          "std": 4.376169957822567
+        },
+        "nx_bidirectional": {
+          "mean": 0.0851999968290329,
+          "std": 0.009242066942516813
+        },
+        "csr_unidirectional": {
+          "mean": 0.835660012671724,
+          "std": 0.05896373717677972
+        },
+        "csr_bidirectional": {
+          "mean": 0.03189999843016267,
+          "std": 0.00960801561432373
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 13294.488428535404,
+      "speedup_algorithmic_nx": 4977.631171173707,
+      "speedup_algorithmic_csr": 26.196239930895278,
+      "speedup_datastruct_uni": 507.49605529670583,
+      "speedup_datastruct_bi": 2.6708464270165306
+    },
+    {
+      "case_name": "User 95636 (deg=6)",
+      "group": "Mid-Degree Users",
+      "user_id": 95636,
+      "target_node": 260615,
+      "user_degree": 6,
+      "paths_count": 0,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 253.48375999601558,
+          "std": 3.132963588334731
+        },
+        "nx_bidirectional": {
+          "mean": 0.0769799982663244,
+          "std": 0.010994068798216444
+        },
+        "csr_unidirectional": {
+          "mean": 0.6899800035171211,
+          "std": 0.09295129302266361
+        },
+        "csr_bidirectional": {
+          "mean": 0.024279998615384102,
+          "std": 0.01093816686330798
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 10440.023659449684,
+      "speedup_algorithmic_nx": 3292.8522435016,
+      "speedup_algorithmic_csr": 28.417629442529762,
+      "speedup_datastruct_uni": 367.37841488724484,
+      "speedup_datastruct_bi": 3.1705108178032986
+    },
+    {
+      "case_name": "User 18258 (deg=4)",
+      "group": "Mid-Degree Users",
+      "user_id": 18258,
+      "target_node": 243172,
+      "user_degree": 4,
+      "paths_count": 1,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 207.25786000839435,
+          "std": 5.456394212299065
+        },
+        "nx_bidirectional": {
+          "mean": 0.04816000000573695,
+          "std": 0.00849767057225036
+        },
+        "csr_unidirectional": {
+          "mean": 0.4264199989847839,
+          "std": 0.048066384748218255
+        },
+        "csr_bidirectional": {
+          "mean": 0.016880000475794077,
+          "std": 0.0052961880259603826
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 12278.30889611657,
+      "speedup_algorithmic_nx": 4303.526993017135,
+      "speedup_algorithmic_csr": 25.261847569037112,
+      "speedup_datastruct_uni": 486.0416033531064,
+      "speedup_datastruct_bi": 2.853080488640886
+    },
+    {
+      "case_name": "User 41934 (deg=9)",
+      "group": "Mid-Degree Users",
+      "user_id": 41934,
+      "target_node": 249672,
+      "user_degree": 9,
+      "paths_count": 1,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 355.2660799934529,
+          "std": 3.8594726369011387
+        },
+        "nx_bidirectional": {
+          "mean": 0.17995999660342932,
+          "std": 0.014394800584528475
+        },
+        "csr_unidirectional": {
+          "mean": 1.2086200003977865,
+          "std": 0.09600742728276378
+        },
+        "csr_bidirectional": {
+          "mean": 0.03868000057991594,
+          "std": 0.006781706239221134
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 9184.748569469255,
+      "speedup_algorithmic_nx": 1974.1391792551462,
+      "speedup_algorithmic_csr": 31.2466386317829,
+      "speedup_datastruct_uni": 293.9435719055833,
+      "speedup_datastruct_bi": 4.652533451534411
+    },
+    {
+      "case_name": "Stress User 4 (deg=31)",
+      "group": "High-Degree Stress Users",
+      "user_id": 4,
+      "target_node": 227570,
+      "user_degree": 31,
+      "paths_count": 2,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 1620.2789999952074,
+          "std": 22.7796999970451
+        },
+        "nx_bidirectional": {
+          "mean": 0.3245800035074353,
+          "std": 0.018434245824079033
+        },
+        "csr_unidirectional": {
+          "mean": 3.1114400015212595,
+          "std": 0.1231699973322247
+        },
+        "csr_bidirectional": {
+          "mean": 0.07882999780122191,
+          "std": 0.012517187256139513
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 20554.09165532277,
+      "speedup_algorithmic_nx": 4991.924895207202,
+      "speedup_algorithmic_csr": 39.470253562191914,
+      "speedup_datastruct_uni": 520.7489134301202,
+      "speedup_datastruct_bi": 4.117468128388102
+    },
+    {
+      "case_name": "Stress User 7 (deg=31)",
+      "group": "High-Degree Stress Users",
+      "user_id": 7,
+      "target_node": 228570,
+      "user_degree": 31,
+      "paths_count": 15,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 1737.7396999945631,
+          "std": 28.995999993639998
+        },
+        "nx_bidirectional": {
+          "mean": 0.8591199992224574,
+          "std": 0.01793448667754635
+        },
+        "csr_unidirectional": {
+          "mean": 6.481920002261177,
+          "std": 0.4025011928176905
+        },
+        "csr_bidirectional": {
+          "mean": 0.14389000134542584,
+          "std": 0.008577113445417459
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 12076.862073431377,
+      "speedup_algorithmic_nx": 2022.6972967307204,
+      "speedup_algorithmic_csr": 45.047744399560614,
+      "speedup_datastruct_uni": 268.0902725409082,
+      "speedup_datastruct_bi": 5.970671979910772
+    },
+    {
+      "case_name": "Stress User 8 (deg=37)",
+      "group": "High-Degree Stress Users",
+      "user_id": 8,
+      "target_node": 229570,
+      "user_degree": 37,
+      "paths_count": 13,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 1979.7396500071045,
+          "std": 3.647450008429587
+        },
+        "nx_bidirectional": {
+          "mean": 1.4772399968933314,
+          "std": 0.015648970678714798
+        },
+        "csr_unidirectional": {
+          "mean": 9.860780002782121,
+          "std": 0.23967212380787992
+        },
+        "csr_bidirectional": {
+          "mean": 0.24676000175531954,
+          "std": 0.00921131991070318
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 8022.935791555717,
+      "speedup_algorithmic_nx": 1340.1611479316434,
+      "speedup_algorithmic_csr": 39.96101447818841,
+      "speedup_datastruct_uni": 200.76907196474727,
+      "speedup_datastruct_bi": 5.986545576207777
+    },
+    {
+      "case_name": "Stress User 22 (deg=42)",
+      "group": "High-Degree Stress Users",
+      "user_id": 22,
+      "target_node": 230570,
+      "user_degree": 42,
+      "paths_count": 9,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 2198.624349999591,
+          "std": 6.25235000916291
+        },
+        "nx_bidirectional": {
+          "mean": 0.38833999424241483,
+          "std": 0.023169855520457576
+        },
+        "csr_unidirectional": {
+          "mean": 4.00126000167802,
+          "std": 0.15214568673787432
+        },
+        "csr_bidirectional": {
+          "mean": 0.09036999836098403,
+          "std": 0.010328308314491963
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 24329.140089359742,
+      "speedup_algorithmic_nx": 5661.596494300651,
+      "speedup_algorithmic_csr": 44.276419987249966,
+      "speedup_datastruct_uni": 549.4830001243477,
+      "speedup_datastruct_bi": 4.2972225438268365
+    },
+    {
+      "case_name": "Stress User 42 (deg=38)",
+      "group": "High-Degree Stress Users",
+      "user_id": 42,
+      "target_node": 231570,
+      "user_degree": 38,
+      "paths_count": 52,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 1738.2078999944497,
+          "std": 29.984299995703623
+        },
+        "nx_bidirectional": {
+          "mean": 0.4725600068923086,
+          "std": 0.03710377530865865
+        },
+        "csr_unidirectional": {
+          "mean": 4.428940004436299,
+          "std": 0.3664627196562747
+        },
+        "csr_bidirectional": {
+          "mean": 0.11156999971717596,
+          "std": 0.009060028396308747
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 15579.527690245717,
+      "speedup_algorithmic_nx": 3678.279741498668,
+      "speedup_algorithmic_csr": 39.69651354005044,
+      "speedup_datastruct_uni": 392.4658943795476,
+      "speedup_datastruct_bi": 4.2355472626173984
+    },
+    {
+      "case_name": "SuperHub User 10 (deg=18)",
+      "group": "Super-Hub Ingredient Stress",
+      "user_id": 10,
+      "target_node": 260345,
+      "user_degree": 18,
+      "paths_count": 7,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 876.2599400011823,
+          "std": 12.264934747618867
+        },
+        "nx_bidirectional": {
+          "mean": 0.8624199952464551,
+          "std": 0.015333802814455445
+        },
+        "csr_unidirectional": {
+          "mean": 6.52413999196142,
+          "std": 0.7425959691449416
+        },
+        "csr_bidirectional": {
+          "mean": 0.1454000041121617,
+          "std": 0.01679131168887193
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 6026.546872208027,
+      "speedup_algorithmic_nx": 1016.0478013392676,
+      "speedup_algorithmic_csr": 44.87028753402711,
+      "speedup_datastruct_uni": 134.31041349217634,
+      "speedup_datastruct_bi": 5.931361560218275
+    },
+    {
+      "case_name": "SuperHub User 20 (deg=12)",
+      "group": "Super-Hub Ingredient Stress",
+      "user_id": 20,
+      "target_node": 320312,
+      "user_degree": 12,
+      "paths_count": 4,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 584.8492199904285,
+          "std": 7.5856012847277
+        },
+        "nx_bidirectional": {
+          "mean": 0.15897999983280897,
+          "std": 0.011432477866063913
+        },
+        "csr_unidirectional": {
+          "mean": 1.4813599933404475,
+          "std": 0.16134773239889408
+        },
+        "csr_bidirectional": {
+          "mean": 0.03786000015679747,
+          "std": 0.005820176252372792
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 15447.681393773672,
+      "speedup_algorithmic_nx": 3678.7597220121033,
+      "speedup_algorithmic_csr": 39.1273108083831,
+      "speedup_datastruct_uni": 394.8055993274134,
+      "speedup_datastruct_bi": 4.199154758964399
+    },
+    {
+      "case_name": "Disconnected Pair (U10-I99999)",
+      "group": "Disconnected Zero-Path",
+      "user_id": 10,
+      "target_node": 326569,
+      "user_degree": 18,
+      "paths_count": 3,
+      "is_match": true,
+      "latency_ms": {
+        "nx_unidirectional": {
+          "mean": 874.4371800043155,
+          "std": 7.180219889815689
+        },
+        "nx_bidirectional": {
+          "mean": 0.8776400063652545,
+          "std": 0.015320392180936256
+        },
+        "csr_unidirectional": {
+          "mean": 5.555399996228516,
+          "std": 0.23743857802759966
+        },
+        "csr_bidirectional": {
+          "mean": 0.15023000014480203,
+          "std": 0.007737186784236834
+        }
+      },
+      "speedup_nx_uni_vs_csr_bi": 5820.656188254494,
+      "speedup_algorithmic_nx": 996.3506376900438,
+      "speedup_algorithmic_csr": 36.97929834835811,
+      "speedup_datastruct_uni": 157.40309979442682,
+      "speedup_datastruct_bi": 5.841975674095218
+    }
+  ]
+}

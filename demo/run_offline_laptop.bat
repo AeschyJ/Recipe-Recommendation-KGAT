@@ -7,12 +7,6 @@ REM ========================================================
 cd /d "%~dp0"
 title KGAT Oral Defense Demo - Laptop Client
 
-echo ========================================================
-echo   KGAT Recipe Recommendation and Fidelity Verification
-echo   Oral Defense Interactive Demo System - Laptop Client
-echo ========================================================
-echo.
-
 set "DEMO_HTML=%~dp0web\index.html"
 set "DEMO_JSON=%~dp0web\demo_cases.json"
 set "DEMO_JS=%~dp0web\demo_cases_data.js"
@@ -47,13 +41,5 @@ if not defined PYTHON_EXE (
 "%PYTHON_EXE%" "%~dp0export_demo_cases.py"
 
 :DO_LAUNCH
-echo Launching demo interface in your default browser...
 start "" "%DEMO_HTML%"
-
-echo.
-echo Demo page has been opened in your default browser.
-echo You can present the five academic cases and 500 evaluation users offline.
-echo.
-pause
-exit /b 0
-
+exit

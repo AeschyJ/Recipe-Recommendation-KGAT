@@ -11,3 +11,4 @@ if not exist "run_offline_laptop.bat" (
     exit /b 1
 )
 call run_offline_laptop.bat
+exit
