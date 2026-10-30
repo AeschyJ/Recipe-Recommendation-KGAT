@@ -258,9 +258,12 @@
         <input type="text" id="serverUrlInput" class="text-input" value="http://localhost:8501" style="width: 100%; box-sizing: border-box;">
       </div>
       <div id="serverModalFeedback" style="font-size: 0.85rem; min-height: 20px; margin-bottom: 16px; color: var(--text-muted);"></div>
-      <div style="display: flex; justify-content: flex-end; gap: 10px;">
-        <button id="testServerBtn" class="btn-group-item" style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 6px 14px; background: #fff;">測試連線</button>
-        <button id="saveServerBtn" class="btn-primary" style="padding: 6px 16px;">儲存並連線</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+        <button id="copyShareLinkBtn" type="button" class="btn-group-item" style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 6px 12px; background: #f8fafc; font-size: 0.85rem;" title="複製包含目前伺服器網址的一鍵連線連結">🔗 複製分享連結</button>
+        <div style="display: flex; gap: 8px;">
+          <button id="testServerBtn" class="btn-group-item" style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 6px 14px; background: #fff;">測試連線</button>
+          <button id="saveServerBtn" class="btn-primary" style="padding: 6px 16px;">儲存並連線</button>
+        </div>
       </div>
     </div>
   </div>

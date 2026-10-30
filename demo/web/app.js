@@ -32,6 +32,7 @@
     serverModalCloseBtn: document.getElementById("serverModalCloseBtn"),
     testServerBtn: document.getElementById("testServerBtn"),
     saveServerBtn: document.getElementById("saveServerBtn"),
+    copyShareLinkBtn: document.getElementById("copyShareLinkBtn"),
     serverModalFeedback: document.getElementById("serverModalFeedback"),
 
     serverUrlInput: document.getElementById("serverUrlInput"),
@@ -102,11 +103,26 @@
    * 初始化系統
    */
   async function init() {
-    const savedUrl = localStorage.getItem("kgat_server_url");
-    if (savedUrl) {
-      state.serverUrl = savedUrl;
-      if (dom.serverUrlInput) dom.serverUrlInput.value = savedUrl;
+    // 優先探測網址 Query 參數 ?server= 或 ?api=（支援一鍵連線分享）
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryServer = urlParams.get("server") || urlParams.get("api");
+      if (queryServer) {
+        const cleanUrl = queryServer.trim().replace(/\/+$/, "");
+        state.serverUrl = cleanUrl;
+        localStorage.setItem("kgat_server_url", cleanUrl);
+        if (dom.serverUrlInput) dom.serverUrlInput.value = cleanUrl;
+      } else {
+        const savedUrl = localStorage.getItem("kgat_server_url");
+        if (savedUrl) {
+          state.serverUrl = savedUrl;
+          if (dom.serverUrlInput) dom.serverUrlInput.value = savedUrl;
+        }
+      }
+    } catch (e) {
+      console.warn("讀取網址參數或快取伺服器位址失敗：", e);
     }
+
     bindEvents();
     await loadOfflineData();
     executeInference();
@@ -330,6 +346,39 @@
         const ok = await checkConnection();
         closeServerModal();
         if (ok) executeInference();
+      });
+    }
+
+    // 複製一鍵連線分享連結按鈕
+    if (dom.copyShareLinkBtn) {
+      dom.copyShareLinkBtn.addEventListener("click", async () => {
+        const currentUrl = (dom.serverUrlInput ? dom.serverUrlInput.value.trim() : state.serverUrl).replace(/\/+$/, "");
+        if (!currentUrl) {
+          if (dom.serverModalFeedback) {
+            dom.serverModalFeedback.textContent = "請先輸入伺服器位址";
+            dom.serverModalFeedback.style.color = "var(--accent-rose)";
+          }
+          return;
+        }
+        const shareUrl = `${window.location.origin}${window.location.pathname}?server=${encodeURIComponent(currentUrl)}`;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(shareUrl);
+          } else {
+            const tempInput = document.createElement("input");
+            tempInput.value = shareUrl;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+          }
+          if (dom.serverModalFeedback) {
+            dom.serverModalFeedback.textContent = "✔ 已複製一鍵連線網址至剪貼簿！可直接傳給他人";
+            dom.serverModalFeedback.style.color = "var(--status-online)";
+          }
+        } catch (err) {
+          window.prompt("請手動複製以下分享連結：", shareUrl);
+        }
       });
     }
 

@@ -1,0 +1,17 @@
+*.py
+*.bat
+*.txt
+*.toml
+*.lock
+*.zip
+*.md
+data/
+docs/
+models/
+NotebookLM/
+output/
+Paper/
+scripts/
+src/
+tests/
+tmp/
