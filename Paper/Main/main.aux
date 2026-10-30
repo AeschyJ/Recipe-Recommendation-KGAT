@@ -39,6 +39,7 @@
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}緒論}{1}{chapter.1}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{loa}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}研究背景與動機}{1}{section.1.1}\protected@file@percent }
 \citation{kipf2017gcn,velickovic2018gat}
 \citation{wang2019kgat}
@@ -65,6 +66,7 @@
 \@writefile{toc}{\contentsline {chapter}{\numberline {2}文獻探討}{7}{chapter.2}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{loa}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}推薦系統}{7}{section.2.1}\protected@file@percent }
 \citation{rendle2010fm}
 \citation{he2017nfm}
@@ -95,6 +97,24 @@
 \pgfsyspdfmark {pgfid30}{19775746}{27690495}
 \@writefile{toc}{\contentsline {section}{\numberline {2.4}可解釋性推薦 (Explainable Recommendation)}{12}{section.2.4}\protected@file@percent }
 \citation{agarwal2024fidelity}
+\citation{yuan2022explainability}
+\citation{li2025can}
+\pgfsyspdfmark {pgfid31}{19775746}{27690495}
+\citation{liu2021dig}
+\citation{lucic2022cfgnnexplainer}
+\citation{agarwal2023evaluating}
+\citation{rathee2024bagel}
+\citation{kosan2024gnnxbench}
+\citation{amara2024graphframex}
+\citation{hagberg2008networkx}
+\citation{ma2025kgexplainer,sun2025expath}
+\citation{yang2024pr4sr}
+\citation{liu2025cocounter}
+\citation{ma2024xrec,zhang2024natural}
+\citation{johnson2024xlightgcn}
+\citation{pohl1971bi}
+\citation{kepner2016graphblas}
+\citation{virtanen2020scipy}
 \citation{rendle2009bpr}
 \citation{he2020lightgcn}
 \citation{wang2018ripplenet}
@@ -102,243 +122,302 @@
 \citation{xian2019kgpolicy}
 \citation{ying2019gnnexplainer}
 \citation{wang2019kgat}
-\pgfsyspdfmark {pgfid31}{19775746}{27690495}
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}現有方法之比較與研究缺口}{13}{section.2.5}\protected@file@percent }
 \pgfsyspdfmark {pgfid32}{19775746}{27690495}
-\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces 現有方法之差異比較}}{14}{table.caption.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}現有方法之比較與研究缺口}{14}{section.2.5}\protected@file@percent }
+\pgfsyspdfmark {pgfid33}{19775746}{27690495}
+\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces 現有方法之差異比較}}{15}{table.caption.8}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{tab:method_comparison}{{2.1}{14}{現有方法之差異比較}{table.caption.8}{}}
+\newlabel{tab:method_comparison}{{2.1}{15}{現有方法之差異比較}{table.caption.8}{}}
+\pgfsyspdfmark {pgfid34}{19775746}{27690495}
 \gincltex@bb{figures/system_architecture.tex}{0}{0}{373.23198}{478.01335}
 \citation{majumder2019foodcom}
-\pgfsyspdfmark {pgfid34}{19775746}{27690495}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}研究方法}{15}{chapter.3}\protected@file@percent }
+\pgfsyspdfmark {pgfid36}{19775746}{27690495}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}研究方法}{17}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}系統架構}{15}{section.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}資料預處理與知識圖建構}{15}{section.3.2}\protected@file@percent }
-\pgfsyspdfmark {pgfid35}{19775746}{27690495}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces 系統架構示意圖}}{16}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:system_architecture}{{3.1}{16}{系統架構示意圖}{figure.caption.9}{}}
-\citation{wang2019kgat}
-\pgfsyspdfmark {pgfid36}{19775746}{27690495}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces 協同知識圖 (CKG) 架構示意：整合使用者-食譜互動圖與食譜知識圖，包含互動、食材與標籤三類關係邊。}}{17}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:ckg_schema}{{3.2}{17}{協同知識圖 (CKG) 架構示意：整合使用者-食譜互動圖與食譜知識圖，包含互動、食材與標籤三類關係邊。}{figure.caption.10}{}}
-\citation{li2018deeper}
+\@writefile{loa}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}系統架構}{17}{section.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}資料預處理與知識圖建構}{17}{section.3.2}\protected@file@percent }
 \pgfsyspdfmark {pgfid37}{19775746}{27690495}
-\newlabel{sec:supernode_pruning}{{3.2}{18}{}{Item.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces 系統架構示意圖}}{18}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:system_architecture}{{3.1}{18}{系統架構示意圖}{figure.caption.9}{}}
+\citation{wang2019kgat}
 \pgfsyspdfmark {pgfid38}{19775746}{27690495}
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}知識圖注意力網路 (KGAT)}{19}{section.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Relation-Aware Attention 機制}{19}{subsection.3.3.1}\protected@file@percent }
-\newlabel{eq:attention_raw}{{3.1}{19}{Relation-Aware Attention 機制}{equation.3.1}{}}
-\newlabel{eq:attention_softmax}{{3.2}{19}{Relation-Aware Attention 機制}{equation.3.2}{}}
-\citation{xu2018jumping}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces 協同知識圖 (CKG) 架構示意：整合使用者-食譜互動圖與食譜知識圖，包含互動、食材與標籤三類關係邊。}}{19}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:ckg_schema}{{3.2}{19}{協同知識圖 (CKG) 架構示意：整合使用者-食譜互動圖與食譜知識圖，包含互動、食材與標籤三類關係邊。}{figure.caption.10}{}}
 \citation{li2018deeper}
 \pgfsyspdfmark {pgfid39}{19775746}{27690495}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Bi-Interaction 聚合機制}{20}{subsection.3.3.2}\protected@file@percent }
-\newlabel{eq:neighbor_agg}{{3.3}{20}{Bi-Interaction 聚合機制}{equation.3.3}{}}
-\newlabel{eq:bi_interaction}{{3.4}{20}{Bi-Interaction 聚合機制}{equation.3.4}{}}
-\newlabel{eq:concat}{{3.5}{20}{Bi-Interaction 聚合機制}{equation.3.5}{}}
+\newlabel{sec:supernode_pruning}{{3.2}{20}{}{Item.10}{}}
+\pgfsyspdfmark {pgfid40}{19775746}{27690495}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}知識圖注意力網路 (KGAT)}{21}{section.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Relation-Aware Attention 機制}{21}{subsection.3.3.1}\protected@file@percent }
+\newlabel{eq:attention_raw}{{3.1}{21}{Relation-Aware Attention 機制}{equation.3.1}{}}
+\newlabel{eq:attention_softmax}{{3.2}{21}{Relation-Aware Attention 機制}{equation.3.2}{}}
+\citation{xu2018jumping}
+\citation{li2018deeper}
+\pgfsyspdfmark {pgfid41}{19775746}{27690495}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Bi-Interaction 聚合機制}{22}{subsection.3.3.2}\protected@file@percent }
+\newlabel{eq:neighbor_agg}{{3.3}{22}{Bi-Interaction 聚合機制}{equation.3.3}{}}
+\newlabel{eq:bi_interaction}{{3.4}{22}{Bi-Interaction 聚合機制}{equation.3.4}{}}
+\newlabel{eq:concat}{{3.5}{22}{Bi-Interaction 聚合機制}{equation.3.5}{}}
 \gincltex@bb{figures/kgat_architecture.tex}{0}{0}{420.43509}{450.34009}
 \citation{rendle2009bpr}
-\pgfsyspdfmark {pgfid41}{19775746}{27690495}
-\newlabel{eq:prediction}{{3.6}{21}{}{equation.3.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}損失函數與模型訓練}{21}{section.3.4}\protected@file@percent }
-\newlabel{eq:bpr_loss}{{3.7}{21}{}{equation.3.7}{}}
-\pgfsyspdfmark {pgfid42}{19775746}{27690495}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces KGAT 模型架構示意圖}}{22}{figure.caption.11}\protected@file@percent }
-\newlabel{fig:kgat_architecture}{{3.3}{22}{KGAT 模型架構示意圖}{figure.caption.11}{}}
-\citation{agarwal2024fidelity}
 \pgfsyspdfmark {pgfid43}{19775746}{27690495}
-\@writefile{toc}{\contentsline {section}{\numberline {3.5}基於忠實度 (Fidelity) 的可解釋性評估框架}{23}{section.3.5}\protected@file@percent }
-\newlabel{eq:path_score}{{3.8}{23}{}{equation.3.8}{}}
-\citation{agarwal2024fidelity}
+\newlabel{eq:prediction}{{3.6}{23}{}{equation.3.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}損失函數與模型訓練}{23}{section.3.4}\protected@file@percent }
+\newlabel{eq:bpr_loss}{{3.7}{23}{}{equation.3.7}{}}
 \pgfsyspdfmark {pgfid44}{19775746}{27690495}
-\newlabel{eq:fidelity_plus}{{3.9}{24}{}{equation.3.9}{}}
-\citation{agarwal2024fidelity}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces KGAT 模型架構示意圖}}{24}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:kgat_architecture}{{3.3}{24}{KGAT 模型架構示意圖}{figure.caption.11}{}}
+\citation{agarwal2023evaluating,agarwal2024fidelity,yuan2022explainability}
 \pgfsyspdfmark {pgfid45}{19775746}{27690495}
-\newlabel{eq:fidelity_minus}{{3.10}{25}{}{equation.3.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}基於忠實度 (Fidelity) 的可解釋性評估框架}{25}{section.3.5}\protected@file@percent }
+\newlabel{eq:path_score}{{3.8}{25}{}{equation.3.8}{}}
+\citation{agarwal2023evaluating,agarwal2024fidelity,yuan2022explainability}
 \pgfsyspdfmark {pgfid46}{19775746}{27690495}
-\citation{majumder2019foodcom}
+\newlabel{eq:fidelity_plus}{{3.9}{26}{}{equation.3.9}{}}
+\citation{agarwal2024fidelity}
 \pgfsyspdfmark {pgfid47}{19775746}{27690495}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}實驗設計與結果分析}{27}{chapter.4}\protected@file@percent }
+\newlabel{eq:fidelity_minus}{{3.10}{27}{}{equation.3.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}大規模協同知識圖之 CSR 雙向局部交集尋路實作}{27}{section.3.6}\protected@file@percent }
+\newlabel{sec:csr_architecture}{{3.6}{27}{大規模協同知識圖之 CSR 雙向局部交集尋路實作}{section.3.6}{}}
+\citation{kepner2016graphblas}
+\citation{pohl1971bi}
+\pgfsyspdfmark {pgfid48}{19775746}{27690495}
+\citation{majumder2019foodcom}
+\pgfsyspdfmark {pgfid49}{19775746}{27690495}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}實驗設計與結果分析}{29}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}實驗環境與資料集}{27}{section.4.1}\protected@file@percent }
+\@writefile{loa}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}實驗環境與資料集}{29}{section.4.1}\protected@file@percent }
 \citation{wang2019kgat}
 \citation{he2020lightgcn}
-\pgfsyspdfmark {pgfid48}{19775746}{27690495}
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Food.com 資料集統計量}}{28}{table.caption.12}\protected@file@percent }
-\newlabel{tab:dataset}{{4.1}{28}{Food.com 資料集統計量}{table.caption.12}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces 實驗超參數設定}}{28}{table.caption.13}\protected@file@percent }
-\newlabel{tab:hyperparams}{{4.2}{28}{實驗超參數設定}{table.caption.13}{}}
-\pgfsyspdfmark {pgfid49}{19775746}{27690495}
+\pgfsyspdfmark {pgfid50}{19775746}{27690495}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Food.com 資料集統計量}}{30}{table.caption.12}\protected@file@percent }
+\newlabel{tab:dataset}{{4.1}{30}{Food.com 資料集統計量}{table.caption.12}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces 實驗超參數設定}}{30}{table.caption.13}\protected@file@percent }
+\newlabel{tab:hyperparams}{{4.2}{30}{實驗超參數設定}{table.caption.13}{}}
+\pgfsyspdfmark {pgfid51}{19775746}{27690495}
 \citation{rendle2009bpr}
 \citation{he2020lightgcn}
 \citation{he2017nfm}
 \citation{wang2019kgat}
 \citation{he2020lightgcn}
-\pgfsyspdfmark {pgfid50}{19775746}{27690495}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}基準方法 (Baselines)}{30}{section.4.2}\protected@file@percent }
-\pgfsyspdfmark {pgfid51}{19775746}{27690495}
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}實驗結果分析}{31}{section.4.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces 主要推薦效能比較（三次獨立運行平均值）}}{31}{table.caption.14}\protected@file@percent }
-\newlabel{tab:main_results}{{4.3}{31}{主要推薦效能比較（三次獨立運行平均值）}{table.caption.14}{}}
-\citation{zhang2024kg4receval}
 \pgfsyspdfmark {pgfid52}{19775746}{27690495}
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}消融實驗 (Ablation Study)}{32}{section.4.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces 消融實驗結果（三次獨立運行平均值）}}{32}{table.caption.15}\protected@file@percent }
-\newlabel{tab:ablation}{{4.4}{32}{消融實驗結果（三次獨立運行平均值）}{table.caption.15}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}注意力機制之影響}{32}{subsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}基準方法 (Baselines)}{32}{section.4.2}\protected@file@percent }
 \pgfsyspdfmark {pgfid53}{19775746}{27690495}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}知識圖之影響}{33}{subsection.4.4.2}\protected@file@percent }
-\newlabel{sec:kg_ablation}{{4.4.2}{33}{知識圖之影響}{subsection.4.4.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}圖神經網路深度之影響}{33}{subsection.4.4.3}\protected@file@percent }
-\newlabel{sec:depth}{{4.4.3}{33}{圖神經網路深度之影響}{subsection.4.4.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}實驗結果分析}{33}{section.4.3}\protected@file@percent }
+\newlabel{sec:main_results}{{4.3}{33}{實驗結果分析}{section.4.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces 主要推薦效能比較（三次獨立執行平均值）}}{33}{table.caption.14}\protected@file@percent }
+\newlabel{tab:main_results}{{4.3}{33}{主要推薦效能比較（三次獨立執行平均值）}{table.caption.14}{}}
 \pgfsyspdfmark {pgfid54}{19775746}{27690495}
-\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces GNN 深度對推薦效能的影響（三次獨立運行平均值）}}{34}{table.caption.16}\protected@file@percent }
-\newlabel{tab:depth_progression}{{4.5}{34}{GNN 深度對推薦效能的影響（三次獨立運行平均值）}{table.caption.16}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.6}{\ignorespaces 不同深度模型的 Epoch 效能趨勢（三次獨立運行平均值）}}{34}{table.caption.17}\protected@file@percent }
-\newlabel{tab:overfitting}{{4.6}{34}{不同深度模型的 Epoch 效能趨勢（三次獨立運行平均值）}{table.caption.17}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}消融實驗 (Ablation Study)}{34}{section.4.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces 消融實驗結果（三次獨立執行平均值）}}{34}{table.caption.15}\protected@file@percent }
+\newlabel{tab:ablation}{{4.4}{34}{消融實驗結果（三次獨立執行平均值）}{table.caption.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}注意力機制之影響}{34}{subsection.4.4.1}\protected@file@percent }
+\citation{zhang2024kg4receval}
 \pgfsyspdfmark {pgfid55}{19775746}{27690495}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces 不同傳播深度 KGAT 模型的訓練過程比較，含三條基準模型水平參考線。}}{35}{figure.caption.18}\protected@file@percent }
-\newlabel{fig:training_curves}{{4.1}{35}{不同傳播深度 KGAT 模型的訓練過程比較，含三條基準模型水平參考線。}{figure.caption.18}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}可解釋性評估 (Explainability Evaluation)}{35}{section.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}知識圖之影響}{35}{subsection.4.4.2}\protected@file@percent }
+\newlabel{sec:kg_ablation}{{4.4.2}{35}{知識圖之影響}{subsection.4.4.2}{}}
 \pgfsyspdfmark {pgfid56}{19775746}{27690495}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}跨模型解釋路徑覆蓋率比較}{36}{subsection.4.5.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.7}{\ignorespaces 不同深度 KGAT 模型之可解釋性比較（$n = 500$）}}{36}{table.caption.19}\protected@file@percent }
-\newlabel{tab:xai_depth_comparison}{{4.7}{36}{不同深度 KGAT 模型之可解釋性比較（$n = 500$）}{table.caption.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}圖神經網路深度之影響}{36}{subsection.4.4.3}\protected@file@percent }
+\newlabel{sec:depth}{{4.4.3}{36}{圖神經網路深度之影響}{subsection.4.4.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces GNN 深度對推薦效能的影響（三次獨立執行平均值）}}{36}{table.caption.16}\protected@file@percent }
+\newlabel{tab:depth_progression}{{4.5}{36}{GNN 深度對推薦效能的影響（三次獨立執行平均值）}{table.caption.16}{}}
 \pgfsyspdfmark {pgfid57}{19775746}{27690495}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}KGAT-3L 解釋路徑類型分析}{37}{subsection.4.5.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.8}{\ignorespaces KGAT-3L 解釋路徑類型分布（488 條路徑，來自 278 位使用者）}}{37}{table.caption.20}\protected@file@percent }
-\newlabel{tab:path_types}{{4.8}{37}{KGAT-3L 解釋路徑類型分布（488 條路徑，來自 278 位使用者）}{table.caption.20}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}Fidelity 量化評估結果}{37}{subsection.4.5.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.9}{\ignorespaces KGAT-3L Fidelity 量化評估結果（$n = 278$）}}{37}{table.caption.21}\protected@file@percent }
-\newlabel{tab:fidelity_overall}{{4.9}{37}{KGAT-3L Fidelity 量化評估結果（$n = 278$）}{table.caption.21}{}}
-\citation{wu2020gib}
+\@writefile{lot}{\contentsline {table}{\numberline {4.6}{\ignorespaces 不同深度模型的 Epoch 效能趨勢（三次獨立執行平均值）}}{37}{table.caption.17}\protected@file@percent }
+\newlabel{tab:overfitting}{{4.6}{37}{不同深度模型的 Epoch 效能趨勢（三次獨立執行平均值）}{table.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces 不同傳播深度 KGAT 模型的訓練過程比較，含三條基準模型水平參考線。}}{37}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:training_curves}{{4.1}{37}{不同傳播深度 KGAT 模型的訓練過程比較，含三條基準模型水平參考線。}{figure.caption.18}{}}
 \pgfsyspdfmark {pgfid58}{19775746}{27690495}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.4}路徑類型對忠實度的影響}{38}{subsection.4.5.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.10}{\ignorespaces KGAT-3L Fidelity 按路徑類型分析}}{38}{table.caption.22}\protected@file@percent }
-\newlabel{tab:fidelity_by_type}{{4.10}{38}{KGAT-3L Fidelity 按路徑類型分析}{table.caption.22}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}可解釋性評估 (Explainability Evaluation)}{38}{section.4.5}\protected@file@percent }
+\newlabel{sec:fidelity_evaluation}{{4.5}{38}{可解釋性評估 (Explainability Evaluation)}{section.4.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}跨模型解釋路徑覆蓋率比較}{38}{subsection.4.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.7}{\ignorespaces 不同深度 KGAT 模型之可解釋性比較（$n = 500$）}}{38}{table.caption.19}\protected@file@percent }
+\newlabel{tab:xai_depth_comparison}{{4.7}{38}{不同深度 KGAT 模型之可解釋性比較（$n = 500$）}{table.caption.19}{}}
 \pgfsyspdfmark {pgfid59}{19775746}{27690495}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.5}無路徑使用者特徵分析}{39}{subsection.4.5.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.11}{\ignorespaces 有路徑與無路徑使用者之特徵比較（KGAT-3L，$n = 500$）}}{39}{table.caption.23}\protected@file@percent }
-\newlabel{tab:no_path_analysis}{{4.11}{39}{有路徑與無路徑使用者之特徵比較（KGAT-3L，$n = 500$）}{table.caption.23}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}KGAT-3L 解釋路徑類型分析}{39}{subsection.4.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.8}{\ignorespaces KGAT-3L 解釋路徑類型分布（488 條路徑，來自 278 位使用者）}}{39}{table.caption.20}\protected@file@percent }
+\newlabel{tab:path_types}{{4.8}{39}{KGAT-3L 解釋路徑類型分布（488 條路徑，來自 278 位使用者）}{table.caption.20}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}Fidelity 量化評估結果}{39}{subsection.4.5.3}\protected@file@percent }
+\pgfsyspdfmark {pgfid60}{19775746}{27690495}
+\@writefile{lot}{\contentsline {table}{\numberline {4.9}{\ignorespaces KGAT-3L Fidelity 量化評估結果（$n = 278$）}}{40}{table.caption.21}\protected@file@percent }
+\newlabel{tab:fidelity_overall}{{4.9}{40}{KGAT-3L Fidelity 量化評估結果（$n = 278$）}{table.caption.21}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.4}路徑類型對忠實度的影響}{40}{subsection.4.5.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.10}{\ignorespaces KGAT-3L Fidelity 按路徑類型分析}}{40}{table.caption.22}\protected@file@percent }
+\newlabel{tab:fidelity_by_type}{{4.10}{40}{KGAT-3L Fidelity 按路徑類型分析}{table.caption.22}{}}
+\citation{wu2020gib}
+\pgfsyspdfmark {pgfid61}{19775746}{27690495}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.5}無路徑使用者特徵分析}{41}{subsection.4.5.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.11}{\ignorespaces 有路徑與無路徑使用者之特徵比較（KGAT-3L，$n = 500$）}}{41}{table.caption.23}\protected@file@percent }
+\newlabel{tab:no_path_analysis}{{4.11}{41}{有路徑與無路徑使用者之特徵比較（KGAT-3L，$n = 500$）}{table.caption.23}{}}
 \citation{gao2023chat}
 \citation{agarwal2024fidelity}
-\pgfsyspdfmark {pgfid60}{19775746}{27690495}
-\pgfsyspdfmark {pgfid61}{19775746}{27690495}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.6}案例分析}{41}{subsection.4.5.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces 案例 A：高忠實度的直接連接路徑示意圖 (User 2410864)}}{41}{figure.caption.24}\protected@file@percent }
-\newlabel{fig:case_a}{{4.2}{41}{案例 A：高忠實度的直接連接路徑示意圖 (User 2410864)}{figure.caption.24}{}}
 \pgfsyspdfmark {pgfid62}{19775746}{27690495}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces 案例 B：協同過濾路徑示意圖 (User 573230)}}{42}{figure.caption.25}\protected@file@percent }
-\newlabel{fig:case_b}{{4.3}{42}{案例 B：協同過濾路徑示意圖 (User 573230)}{figure.caption.25}{}}
 \pgfsyspdfmark {pgfid63}{19775746}{27690495}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces 案例 C：KG 語意路徑示意圖 (User 963993)}}{43}{figure.caption.26}\protected@file@percent }
-\newlabel{fig:case_c}{{4.4}{43}{案例 C：KG 語意路徑示意圖 (User 963993)}{figure.caption.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.6}案例分析}{43}{subsection.4.5.6}\protected@file@percent }
 \pgfsyspdfmark {pgfid64}{19775746}{27690495}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces 案例 A：高忠實度的直接連接路徑示意圖 (User 2410864)}}{44}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:case_a}{{4.2}{44}{案例 A：高忠實度的直接連接路徑示意圖 (User 2410864)}{figure.caption.24}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces 案例 B：協同過濾路徑示意圖 (User 573230)}}{44}{figure.caption.25}\protected@file@percent }
+\newlabel{fig:case_b}{{4.3}{44}{案例 B：協同過濾路徑示意圖 (User 573230)}{figure.caption.25}{}}
+\pgfsyspdfmark {pgfid65}{19775746}{27690495}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces 案例 C：KG 語意路徑示意圖 (User 963993)}}{45}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:case_c}{{4.4}{45}{案例 C：KG 語意路徑示意圖 (User 963993)}{figure.caption.26}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}大規模 CKG 路徑萃取效率與資源開銷分析}{45}{section.4.6}\protected@file@percent }
+\newlabel{sec:csr_experiments}{{4.6}{45}{大規模 CKG 路徑萃取效率與資源開銷分析}{section.4.6}{}}
+\citation{virtanen2020scipy}
+\citation{hagberg2008networkx}
+\pgfsyspdfmark {pgfid66}{19775746}{27690495}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}圖資料結構之建立與儲存開銷比較}{46}{subsection.4.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.12}{\ignorespaces 不同圖資料結構於 720 萬邊全圖規模下之建構開銷對比}}{46}{table.caption.27}\protected@file@percent }
+\newlabel{tab:graph_construction_overhead}{{4.12}{46}{不同圖資料結構於 720 萬邊全圖規模下之建構開銷對比}{table.caption.27}{}}
+\pgfsyspdfmark {pgfid67}{19775746}{27690495}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.2}不同搜尋策略與資料結構之延遲消融比較}{47}{subsection.4.6.2}\protected@file@percent }
+\pgfsyspdfmark {pgfid68}{19775746}{27690495}
+\@writefile{lot}{\contentsline {table}{\numberline {4.13}{\ignorespaces 18 組測試樣本在四種演算法象限下之路徑搜尋延遲與等價性基準測試 ($L \le 3$ 條邊)}}{48}{table.caption.28}\protected@file@percent }
+\newlabel{tab:csr_vs_networkx_benchmark}{{4.13}{48}{18 組測試樣本在四種演算法象限下之路徑搜尋延遲與等價性基準測試 ($L \le 3$ 條邊)}{table.caption.28}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.3}演算法複雜度與資料結構之效益解耦分析}{48}{subsection.4.6.3}\protected@file@percent }
+\pgfsyspdfmark {pgfid69}{19775746}{27690495}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.4}高連接度樞紐節點對單向與雙向搜尋之影響及實驗限制}{49}{subsection.4.6.4}\protected@file@percent }
+\pgfsyspdfmark {pgfid70}{19775746}{27690495}
 \citation{wang2019kgat}
 \citation{wang2018ripplenet}
 \citation{wang2019kgcn}
 \citation{zhang2024kg4receval}
-\pgfsyspdfmark {pgfid65}{19775746}{27690495}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}結論與未來研究方向}{45}{chapter.5}\protected@file@percent }
+\pgfsyspdfmark {pgfid71}{19775746}{27690495}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}結論與未來研究方向}{51}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}研究結論}{45}{section.5.1}\protected@file@percent }
+\@writefile{loa}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}研究結論}{51}{section.5.1}\protected@file@percent }
+\pgfsyspdfmark {pgfid72}{19775746}{27690495}
 \citation{zhang2024kg4receval}
-\pgfsyspdfmark {pgfid66}{19775746}{27690495}
-\pgfsyspdfmark {pgfid67}{19775746}{27690495}
+\pgfsyspdfmark {pgfid73}{19775746}{27690495}
 \citation{wu2020gib}
-\pgfsyspdfmark {pgfid68}{19775746}{27690495}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}研究限制}{48}{section.5.2}\protected@file@percent }
+\pgfsyspdfmark {pgfid74}{19775746}{27690495}
 \citation{wang2019kgat}
 \citation{he2020lightgcn}
-\pgfsyspdfmark {pgfid69}{19775746}{27690495}
+\pgfsyspdfmark {pgfid75}{19775746}{27690495}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}研究限制}{55}{section.5.2}\protected@file@percent }
 \citation{agarwal2024fidelity}
 \citation{rong2020dropedge}
+\pgfsyspdfmark {pgfid76}{19775746}{27690495}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}未來研究方向}{56}{section.5.3}\protected@file@percent }
 \citation{wu2020gib}
 \citation{agarwal2024fidelity}
-\pgfsyspdfmark {pgfid70}{19775746}{27690495}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}未來研究方向}{50}{section.5.3}\protected@file@percent }
-\pgfsyspdfmark {pgfid71}{19775746}{27690495}
-\pgfsyspdfmark {pgfid72}{19775746}{27690495}
+\pgfsyspdfmark {pgfid77}{19775746}{27690495}
+\pgfsyspdfmark {pgfid78}{19775746}{27690495}
 \bibstyle{abbrv}
 \bibdata{back/references}
-\bibcite{agarwal2024fidelity}{{1}{}{{}}{{}}}
-\bibcite{bordes2013transe}{{2}{}{{}}{{}}}
-\bibcite{gao2023chat}{{3}{}{{}}{{}}}
-\bibcite{gilmer2017mpnn}{{4}{}{{}}{{}}}
-\bibcite{he2017nfm}{{5}{}{{}}{{}}}
-\bibcite{he2020lightgcn}{{6}{}{{}}{{}}}
-\pgfsyspdfmark {pgfid73}{19775746}{27690495}
-\@writefile{toc}{\contentsline {chapter}{參考文獻}{53}{section*.27}\protected@file@percent }
-\bibcite{kipf2017gcn}{{7}{}{{}}{{}}}
-\bibcite{koren2009matrix}{{8}{}{{}}{{}}}
-\bibcite{li2018deeper}{{9}{}{{}}{{}}}
-\bibcite{majumder2019foodcom}{{10}{}{{}}{{}}}
-\bibcite{rendle2010fm}{{11}{}{{}}{{}}}
-\bibcite{rendle2009bpr}{{12}{}{{}}{{}}}
-\bibcite{rong2020dropedge}{{13}{}{{}}{{}}}
-\bibcite{su2009survey}{{14}{}{{}}{{}}}
-\pgfsyspdfmark {pgfid74}{19775746}{27690495}
-\bibcite{velickovic2018gat}{{15}{}{{}}{{}}}
-\bibcite{wang2018ripplenet}{{16}{}{{}}{{}}}
-\bibcite{wang2019kgcn}{{17}{}{{}}{{}}}
-\bibcite{wang2019kgat}{{18}{}{{}}{{}}}
-\bibcite{wu2020gib}{{19}{}{{}}{{}}}
-\bibcite{xian2019kgpolicy}{{20}{}{{}}{{}}}
-\bibcite{xu2018jumping}{{21}{}{{}}{{}}}
-\pgfsyspdfmark {pgfid75}{19775746}{27690495}
-\bibcite{ying2019gnnexplainer}{{22}{}{{}}{{}}}
-\bibcite{yuan2022explainability}{{23}{}{{}}{{}}}
-\bibcite{wang2019cke}{{24}{}{{}}{{}}}
-\bibcite{zhang2024kg4receval}{{25}{}{{}}{{}}}
-\bibcite{zhang2020explainable}{{26}{}{{}}{{}}}
-\bibcite{zhao2020pairnorm}{{27}{}{{}}{{}}}
-\pgfsyspdfmark {pgfid76}{19775746}{27690495}
-\pgfsyspdfmark {pgfid77}{19775746}{27690495}
-\@writefile{toc}{\contentsline {chapter}{附錄~{A}~---~各模型最佳效能統計摘要}{57}{section*.30}\protected@file@percent }
-\newlabel{app:performance_stats}{{A}{57}{\ntu@appendix ~{A}~---~各模型最佳效能統計摘要}{chapter.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A.1}摘要指標表}{57}{section.6.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces 各模型三次獨立執行最佳效能摘要（平均值 $\pm $ 標準差）}}{57}{table.caption.31}\protected@file@percent }
-\newlabel{tab:best_summary}{{A.1}{57}{各模型三次獨立執行最佳效能摘要（平均值 $\pm $ 標準差）}{table.caption.31}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A.2}完整九項指標表}{57}{section.6.2}\protected@file@percent }
-\pgfsyspdfmark {pgfid78}{19775746}{27690495}
-\@writefile{lot}{\contentsline {table}{\numberline {A.2}{\ignorespaces 各模型最佳效能完整指標（三次獨立執行平均值 $\pm $ 標準差）}}{58}{table.caption.32}\protected@file@percent }
-\newlabel{tab:best_full}{{A.2}{58}{各模型最佳效能完整指標（三次獨立執行平均值 $\pm $ 標準差）}{table.caption.32}{}}
-\pgfsyspdfmark {pgfid79}{19775746}{27690495}
-\@writefile{toc}{\contentsline {chapter}{附錄~{B}~---~各模型三次獨立執行最佳 Epoch 實驗結果}{59}{section*.34}\protected@file@percent }
-\newlabel{app:training_log}{{B}{59}{\ntu@appendix ~{B}~---~各模型三次獨立執行最佳 Epoch 實驗結果}{chapter.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.1}Baseline 模型}{59}{section.7.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.1}{\ignorespaces BPR-MF 三次執行最佳 Epoch 結果}}{59}{table.caption.35}\protected@file@percent }
-\newlabel{tab:bprmf_runs}{{B.1}{59}{BPR-MF 三次執行最佳 Epoch 結果}{table.caption.35}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {B.2}{\ignorespaces LightGCN 三次執行最佳 Epoch 結果}}{59}{table.caption.36}\protected@file@percent }
-\newlabel{tab:lightgcn_runs}{{B.2}{59}{LightGCN 三次執行最佳 Epoch 結果}{table.caption.36}{}}
-\pgfsyspdfmark {pgfid80}{19775746}{27690495}
-\@writefile{lot}{\contentsline {table}{\numberline {B.3}{\ignorespaces NFM 三次執行最佳 Epoch 結果}}{60}{table.caption.37}\protected@file@percent }
-\newlabel{tab:nfm_runs}{{B.3}{60}{NFM 三次執行最佳 Epoch 結果}{table.caption.37}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.2}KGAT 消融實驗（$L{=}1$）}{60}{section.7.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.4}{\ignorespaces Full KGAT ($L{=}1$) 三次執行最佳 Epoch 結果}}{60}{table.caption.38}\protected@file@percent }
-\newlabel{tab:full_kgat_runs}{{B.4}{60}{Full KGAT ($L{=}1$) 三次執行最佳 Epoch 結果}{table.caption.38}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {B.5}{\ignorespaces w/o Attention ($L{=}1$) 三次執行最佳 Epoch 結果}}{60}{table.caption.39}\protected@file@percent }
-\newlabel{tab:wo_attn_runs}{{B.5}{60}{w/o Attention ($L{=}1$) 三次執行最佳 Epoch 結果}{table.caption.39}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {B.6}{\ignorespaces w/o KG ($L{=}1$) 三次執行最佳 Epoch 結果}}{60}{table.caption.40}\protected@file@percent }
-\newlabel{tab:wo_kg_runs}{{B.6}{60}{w/o KG ($L{=}1$) 三次執行最佳 Epoch 結果}{table.caption.40}{}}
-\pgfsyspdfmark {pgfid81}{19775746}{27690495}
-\@writefile{toc}{\contentsline {section}{\numberline {B.3}KGAT 深度實驗}{61}{section.7.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.7}{\ignorespaces KGAT ($L{=}2$) 三次執行最佳 Epoch 結果}}{61}{table.caption.41}\protected@file@percent }
-\newlabel{tab:kgat_l2_runs}{{B.7}{61}{KGAT ($L{=}2$) 三次執行最佳 Epoch 結果}{table.caption.41}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {B.8}{\ignorespaces KGAT ($L{=}3$) 三次執行最佳 Epoch 結果}}{61}{table.caption.42}\protected@file@percent }
-\newlabel{tab:kgat_l3_runs}{{B.8}{61}{KGAT ($L{=}3$) 三次執行最佳 Epoch 結果}{table.caption.42}{}}
-\pgfsyspdfmark {pgfid82}{19775746}{27690495}
+\bibcite{agarwal2023evaluating}{{1}{}{{}}{{}}}
+\bibcite{agarwal2024fidelity}{{2}{}{{}}{{}}}
+\bibcite{amara2024graphframex}{{3}{}{{}}{{}}}
+\bibcite{bordes2013transe}{{4}{}{{}}{{}}}
+\bibcite{gao2023chat}{{5}{}{{}}{{}}}
+\bibcite{gilmer2017mpnn}{{6}{}{{}}{{}}}
+\bibcite{hagberg2008networkx}{{7}{}{{}}{{}}}
+\bibcite{he2017nfm}{{8}{}{{}}{{}}}
+\pgfsyspdfmark {pgfid79}{19758543}{27690495}
+\@writefile{toc}{\contentsline {chapter}{參考文獻}{59}{section*.29}\protected@file@percent }
+\bibcite{he2020lightgcn}{{9}{}{{}}{{}}}
+\bibcite{johnson2024xlightgcn}{{10}{}{{}}{{}}}
+\bibcite{kepner2016graphblas}{{11}{}{{}}{{}}}
+\bibcite{kipf2017gcn}{{12}{}{{}}{{}}}
+\bibcite{koren2009matrix}{{13}{}{{}}{{}}}
+\bibcite{kosan2024gnnxbench}{{14}{}{{}}{{}}}
+\bibcite{li2018deeper}{{15}{}{{}}{{}}}
+\bibcite{li2025can}{{16}{}{{}}{{}}}
+\bibcite{liu2021dig}{{17}{}{{}}{{}}}
+\bibcite{lucic2022cfgnnexplainer}{{18}{}{{}}{{}}}
+\bibcite{ma2024xrec}{{19}{}{{}}{{}}}
+\pgfsyspdfmark {pgfid80}{19758543}{27690495}
+\bibcite{ma2025kgexplainer}{{20}{}{{}}{{}}}
+\bibcite{majumder2019foodcom}{{21}{}{{}}{{}}}
+\bibcite{pohl1971bi}{{22}{}{{}}{{}}}
+\bibcite{rathee2024bagel}{{23}{}{{}}{{}}}
+\bibcite{rendle2010fm}{{24}{}{{}}{{}}}
+\bibcite{rendle2009bpr}{{25}{}{{}}{{}}}
+\bibcite{rong2020dropedge}{{26}{}{{}}{{}}}
+\bibcite{su2009survey}{{27}{}{{}}{{}}}
+\bibcite{sun2025expath}{{28}{}{{}}{{}}}
+\bibcite{velickovic2018gat}{{29}{}{{}}{{}}}
+\bibcite{virtanen2020scipy}{{30}{}{{}}{{}}}
+\pgfsyspdfmark {pgfid81}{19758543}{27690495}
+\bibcite{wang2018ripplenet}{{31}{}{{}}{{}}}
+\bibcite{wang2019kgcn}{{32}{}{{}}{{}}}
+\bibcite{wang2019kgat}{{33}{}{{}}{{}}}
+\bibcite{wu2020gib}{{34}{}{{}}{{}}}
+\bibcite{xian2019kgpolicy}{{35}{}{{}}{{}}}
+\bibcite{xu2018jumping}{{36}{}{{}}{{}}}
+\bibcite{yang2024pr4sr}{{37}{}{{}}{{}}}
+\bibcite{ying2019gnnexplainer}{{38}{}{{}}{{}}}
+\bibcite{liu2025cocounter}{{39}{}{{}}{{}}}
+\bibcite{yuan2022explainability}{{40}{}{{}}{{}}}
+\bibcite{wang2019cke}{{41}{}{{}}{{}}}
+\pgfsyspdfmark {pgfid82}{19758543}{27690495}
+\bibcite{zhang2024kg4receval}{{42}{}{{}}{{}}}
+\bibcite{zhang2024natural}{{43}{}{{}}{{}}}
+\bibcite{zhang2020explainable}{{44}{}{{}}{{}}}
+\bibcite{zhao2020pairnorm}{{45}{}{{}}{{}}}
 \pgfsyspdfmark {pgfid83}{19775746}{27690495}
-\@writefile{toc}{\contentsline {chapter}{附錄~{C}~---~知識圖預處理與超級節點過濾清單}{63}{section*.44}\protected@file@percent }
-\newlabel{app:preprocessing}{{C}{63}{\ntu@appendix ~{C}~---~知識圖預處理與超級節點過濾清單}{chapter.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {C.1}食材 (Ingredients) 噪音與過濾清單}{63}{section.8.1}\protected@file@percent }
 \pgfsyspdfmark {pgfid84}{19775746}{27690495}
-\@writefile{toc}{\contentsline {section}{\numberline {C.2}標籤 (Tags) 噪音與過濾清單}{64}{section.8.2}\protected@file@percent }
-\providecommand\NAT@force@numbers{}\NAT@force@numbers
 \pgfsyspdfmark {pgfid85}{19775746}{27690495}
+\@writefile{toc}{\contentsline {chapter}{附錄~{A}~---~各模型最佳效能統計摘要}{65}{section*.32}\protected@file@percent }
+\newlabel{app:performance_stats}{{A}{65}{\ntu@appendix ~{A}~---~各模型最佳效能統計摘要}{chapter.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.1}摘要指標表}{65}{section.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces 各模型三次獨立執行最佳效能摘要（平均值 $\pm $ 標準差）}}{65}{table.caption.33}\protected@file@percent }
+\newlabel{tab:best_summary}{{A.1}{65}{各模型三次獨立執行最佳效能摘要（平均值 $\pm $ 標準差）}{table.caption.33}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.2}完整九項指標表}{65}{section.6.2}\protected@file@percent }
+\pgfsyspdfmark {pgfid86}{19775746}{27690495}
+\@writefile{lot}{\contentsline {table}{\numberline {A.2}{\ignorespaces 各模型最佳效能完整指標（三次獨立執行平均值 $\pm $ 標準差）}}{66}{table.caption.34}\protected@file@percent }
+\newlabel{tab:best_full}{{A.2}{66}{各模型最佳效能完整指標（三次獨立執行平均值 $\pm $ 標準差）}{table.caption.34}{}}
+\pgfsyspdfmark {pgfid87}{19775746}{27690495}
+\@writefile{toc}{\contentsline {chapter}{附錄~{B}~---~各模型三次獨立執行最佳 Epoch 實驗結果}{67}{section*.36}\protected@file@percent }
+\newlabel{app:training_log}{{B}{67}{\ntu@appendix ~{B}~---~各模型三次獨立執行最佳 Epoch 實驗結果}{chapter.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.1}Baseline 模型}{67}{section.7.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.1}{\ignorespaces BPR-MF 三次執行最佳 Epoch 結果}}{67}{table.caption.37}\protected@file@percent }
+\newlabel{tab:bprmf_runs}{{B.1}{67}{BPR-MF 三次執行最佳 Epoch 結果}{table.caption.37}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {B.2}{\ignorespaces LightGCN 三次執行最佳 Epoch 結果}}{67}{table.caption.38}\protected@file@percent }
+\newlabel{tab:lightgcn_runs}{{B.2}{67}{LightGCN 三次執行最佳 Epoch 結果}{table.caption.38}{}}
+\pgfsyspdfmark {pgfid88}{19775746}{27690495}
+\@writefile{lot}{\contentsline {table}{\numberline {B.3}{\ignorespaces NFM 三次執行最佳 Epoch 結果}}{68}{table.caption.39}\protected@file@percent }
+\newlabel{tab:nfm_runs}{{B.3}{68}{NFM 三次執行最佳 Epoch 結果}{table.caption.39}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.2}KGAT 消融實驗（$L{=}1$）}{68}{section.7.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.4}{\ignorespaces Full KGAT ($L{=}1$) 三次執行最佳 Epoch 結果}}{68}{table.caption.40}\protected@file@percent }
+\newlabel{tab:full_kgat_runs}{{B.4}{68}{Full KGAT ($L{=}1$) 三次執行最佳 Epoch 結果}{table.caption.40}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {B.5}{\ignorespaces w/o Attention ($L{=}1$) 三次執行最佳 Epoch 結果}}{68}{table.caption.41}\protected@file@percent }
+\newlabel{tab:wo_attn_runs}{{B.5}{68}{w/o Attention ($L{=}1$) 三次執行最佳 Epoch 結果}{table.caption.41}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {B.6}{\ignorespaces w/o KG ($L{=}1$) 三次執行最佳 Epoch 結果}}{68}{table.caption.42}\protected@file@percent }
+\newlabel{tab:wo_kg_runs}{{B.6}{68}{w/o KG ($L{=}1$) 三次執行最佳 Epoch 結果}{table.caption.42}{}}
+\pgfsyspdfmark {pgfid89}{19775746}{27690495}
+\@writefile{toc}{\contentsline {section}{\numberline {B.3}KGAT 深度實驗}{69}{section.7.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.7}{\ignorespaces KGAT ($L{=}2$) 三次執行最佳 Epoch 結果}}{69}{table.caption.43}\protected@file@percent }
+\newlabel{tab:kgat_l2_runs}{{B.7}{69}{KGAT ($L{=}2$) 三次執行最佳 Epoch 結果}{table.caption.43}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {B.8}{\ignorespaces KGAT ($L{=}3$) 三次執行最佳 Epoch 結果}}{69}{table.caption.44}\protected@file@percent }
+\newlabel{tab:kgat_l3_runs}{{B.8}{69}{KGAT ($L{=}3$) 三次執行最佳 Epoch 結果}{table.caption.44}{}}
+\pgfsyspdfmark {pgfid90}{19775746}{27690495}
+\pgfsyspdfmark {pgfid91}{19775746}{27690495}
+\@writefile{toc}{\contentsline {chapter}{附錄~{C}~---~知識圖預處理與超級節點過濾清單}{71}{section*.46}\protected@file@percent }
+\newlabel{app:preprocessing}{{C}{71}{\ntu@appendix ~{C}~---~知識圖預處理與超級節點過濾清單}{chapter.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.1}食材 (Ingredients) 雜訊過濾清單}{71}{section.8.1}\protected@file@percent }
+\pgfsyspdfmark {pgfid92}{19775746}{27690495}
+\@writefile{toc}{\contentsline {section}{\numberline {C.2}標籤 (Tags) 雜訊過濾清單}{72}{section.8.2}\protected@file@percent }
+\pgfsyspdfmark {pgfid93}{19775746}{27690495}
+\pgfsyspdfmark {pgfid94}{19775746}{27690495}
+\pgfsyspdfmark {pgfid95}{19775746}{27690495}
+\@writefile{toc}{\contentsline {chapter}{附錄~{D}~---~CSR 雙向局部交集演算法虛擬碼與等價性理論證明}{75}{section*.48}\protected@file@percent }
+\newlabel{app:csr_proof}{{D}{75}{\ntu@appendix ~{D}~---~CSR 雙向局部交集演算法虛擬碼與等價性理論證明}{chapter.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D.1}結構性三部圖拓樸定界與推論通道推導}{75}{section.9.1}\protected@file@percent }
+\pgfsyspdfmark {pgfid96}{19775746}{27690495}
+\@writefile{toc}{\contentsline {section}{\numberline {D.2}演算法虛擬碼}{76}{section.9.2}\protected@file@percent }
+\pgfsyspdfmark {pgfid97}{19775746}{27690495}
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces 基於 CSR 稀疏矩陣之雙向局部交集路徑萃取演算法 (Bidirectional Meet-in-the-Middle Path Extraction)}}{77}{algocf.1}\protected@file@percent }
+\newlabel{alg:csr_bidirectional_search}{{1}{77}{演算法虛擬碼}{algocf.1}{}}
+\pgfsyspdfmark {pgfid98}{19775746}{27690495}
+\@writefile{toc}{\contentsline {section}{\numberline {D.3}路徑集合與權重計算之等價性證明}{78}{section.9.3}\protected@file@percent }
+\providecommand\NAT@force@numbers{}\NAT@force@numbers
+\pgfsyspdfmark {pgfid99}{19775746}{27690495}
 \ttl@finishall
-\gdef \@abspage@last{83}
+\gdef \@abspage@last{97}

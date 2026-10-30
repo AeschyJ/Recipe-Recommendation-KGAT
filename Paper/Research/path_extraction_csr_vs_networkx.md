@@ -101,8 +101,13 @@ $$\text{Score}(\mathcal{P}) = \prod_{k=1}^{|\mathcal{P}|-1} \alpha_{n_k, n_{k+1}
 ## 3. 實證基準測試數據全景 (Empirical Benchmark Results: CSR vs NetworkX)
 
 ### 3.1 測試環境與圖譜規格
+- **處理器 (CPU)**：AMD Ryzen 5 7500F 6-Core / 12-Thread Processor @ 3.70 GHz (Boost 5.0 GHz, 每核心 32 KB L1 Data / 1 MB L2 快取, 全晶片 32 MB 共享 L3 快取, Zen 4 微架構)
+- **主記憶體 (RAM)**：32 GB DDR5 雙通道 (Dual-Channel DDR5) 高頻記憶體
+- **次要儲存 (SSD)**：PCIe 4.0 NVMe M.2 固態硬碟（啟動預載用，線上推論 0 磁碟 I/O）
+- **顯示晶片 (GPU)**：Intel Arc A750 8GB VRAM（**運算解耦宣告**：GPU 僅用於離線模型訓練與注意力矩陣計算，未參與本節線上圖遍歷與路徑檢索）
 - **作業系統**：Windows 11 Professional (x64)
 - **軟體環境**：Python 3.12, PyTorch 2.9.1+xpu, NetworkX 3.6.1, SciPy 1.15.2, NumPy 2.2.3
+- **執行配置**：純 CPU 單執行緒執行（Single-threaded execution，無並行調度干擾）
 - **全圖拓撲規模**：
   - 全圖總節點數：**473,577**（使用者 226,570 + 食譜 231,637 + 實體 15,370）
   - 全圖總有向邊數：**7,200,165**（KG 雙向邊 4,461,854 + 互動雙向邊 2,264,734 + 自環 473,577）

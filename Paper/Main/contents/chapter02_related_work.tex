@@ -12,11 +12,12 @@
 
 協同過濾是目前應用最為廣泛的推薦技術，其核心假設為「擁有相似歷史行為的使用者，在未來也將展現相似的偏好」。矩陣分解 (Matrix Factorization)~\cite{koren2009matrix} 作為協同過濾的經典實現，將龐大的使用者-物品互動矩陣分解為兩個低秩矩陣的乘積，藉此在潛在空間中捕捉使用者與物品的隱含特徵。
 
-Rendle 等人~\cite{rendle2009bpr} 提出的貝葉斯個人化排序 (Bayesian Personalized Ranking, BPR) 進一步優化了矩陣分解在隱式回饋 (Implicit Feedback) 場景下的效能。BPR 採用成對排序損失 (Pairwise Ranking Loss)，假設使用者對已互動物品的偏好應高於未互動物品，並透過最大化貝葉斯後驗機率來學習最佳的排序模型。BPR-MF 至今仍被廣泛用作推薦系統研究的基準方法之一。
+Rendle 等人~\cite{rendle2009bpr} 提出的貝葉斯個人化排序 (Bayesian Personalized Ranking, BPR) 進一步最佳化了矩陣分解在隱式回饋 (Implicit Feedback) 場景下的效能。BPR 採用成對排序損失 (Pairwise Ranking Loss)，假設使用者對已互動物品的偏好應高於未互動物品，並透過最大化貝葉斯後驗機率來學習最佳的排序模型。BPR-MF 至今仍被廣泛用作推薦系統研究的基準方法之一。
 
 \subsection*{特徵互動模型}
 
-為了克服純協同過濾在特徵利用上的不足，Rendle~\cite{rendle2010fm} 提出了因子分解機 (Factorization Machines, FM)，能夠自動學習特徵之間的二階交互作用。He 與 Chua~\cite{he2017nfm} 進一步提出 Neural Factorization Machines (NFM)，以神經網路取代 FM 中的線性二階交互，透過 Bi-Interaction Pooling 層學習更複雜的非線性特徵組合。然而，FM 系列方法將每一次互動視為獨立樣本，無法建模使用者與物品之間的高階拓撲關聯。
+為了克服純協同過濾在特徵利用上的不足，Rendle~\cite{rendle2010fm} 提出了因子分解機 (Factorization Machines, FM)，能夠自動學習特徵之間的二階互動作用。He 與 Chua~\cite{he2017nfm} 進一步提出 Neural Factorization Machines (NFM)，以神經網路取代 FM 中的線性二階互動，透過 Bi-Interaction Pooling 層學習更複雜的非線性特徵組合。然而，FM 系列方法將每一次互動視為獨立樣本，無法建模使用者與物品之間的高階拓樸關聯。
+
 
 \section{圖神經網路 (Graph Neural Networks)}
 
@@ -28,7 +29,7 @@ Kipf 與 Welling~\cite{kipf2017gcn} 提出的圖卷積網路 (Graph Convolutiona
 
 \subsection*{圖注意力網路 (GAT)}
 
-Veli\v{c}kovi\'{c} 等人~\cite{velickovic2018gat} 提出的圖注意力網路 (Graph Attention Network, GAT) 引入了自注意力 (Self-attention) 機制，使得模型在聚合鄰居資訊時，能夠根據鄰居節點的重要性動態分配不同的權重。相較於 GCN 中固定的拉普拉斯歸一化權重，GAT 的注意力機制提供了更靈活且具適應性的聚合策略，同時也為模型的可解釋性提供了天然的支持——高注意力權重的邊可被視為模型的重要決策依據。
+Veli\v{c}kovi\'{c} 等人~\cite{velickovic2018gat} 提出的圖注意力網路 (Graph Attention Network, GAT) 引入了自注意力 (Self-attention) 機制，使得模型在聚合鄰居資訊時，能夠根據鄰居節點的重要性動態分配不同的權重。相較於 GCN 中固定的拉普拉斯正規化權重，GAT 的注意力機制提供了更靈活且具適應性的聚合策略，同時也為模型的可解釋性提供了天然的支持——高注意力權重的邊可被視為模型的重要決策依據。
 
 \subsection*{LightGCN}
 
@@ -36,7 +37,7 @@ He 等人~\cite{he2020lightgcn} 在推薦系統的場景中提出了 LightGCN，
 
 \subsection*{深層 GNN 的挑戰：過度平滑與訓練穩定性}
 
-隨著圖神經網路層數的增加，節點嵌入在反覆的鄰居聚合後會逐漸趨於一致，導致所謂的「過度平滑」(Over-smoothing) 現象~\cite{li2018deeper}。Zhao 與 Akoglu~\cite{zhao2020pairnorm} 提出的 PairNorm 透過保持節點嵌入的成對距離，在一定程度上緩解了此問題。Rong 等人~\cite{rong2020dropedge} 則提出 DropEdge，在每次訓練迭代中隨機移除一定比例的邊，類似於 Dropout 的正則化效果，有效提升了深層圖神經網路的訓練穩定性。這些研究為深層 GNN 推薦模型的可行性提供了技術基礎，但在知識圖推薦場景中的應用仍有待探索。
+隨著圖神經網路層數的增加，節點嵌入在反覆的鄰居聚合後會逐漸趨於一致，導致所謂的「過度平滑」(Over-smoothing) 現象~\cite{li2018deeper}。Zhao 與 Akoglu~\cite{zhao2020pairnorm} 提出的 PairNorm 透過保持節點嵌入的成對距離，在一定程度上緩解了此問題。Rong 等人~\cite{rong2020dropedge} 則提出 DropEdge，在每次訓練迭代中隨機移除一定比例的邊，類似於 Dropout 的正規化效果，有效提升了深層圖神經網路的訓練穩定性。這些研究為深層 GNN 推薦模型的可行性提供了技術基礎，但在知識圖推薦場景中的應用仍有待探索。
 
 \section{知識圖與推薦系統之結合}
 
@@ -48,7 +49,7 @@ He 等人~\cite{he2020lightgcn} 在推薦系統的場景中提出了 LightGCN，
 
 \subsection*{傳播式方法}
 
-傳播式方法直接在知識圖的拓撲結構上進行遞迴的訊息傳播。RippleNet~\cite{wang2018ripplenet} 提出「偏好傳播」(Preference Propagation) 的概念，透過使用者偏好沿知識圖的漣漪狀擴散，自動發現使用者與候選物品之間的潛在連結。KGCN~\cite{wang2019kgcn} 則借鑑了 GCN 的訊息傳遞架構，對知識圖中物品的鄰居進行遞迴聚合。
+傳播式方法直接在知識圖的拓樸結構上進行遞迴的訊息傳播。RippleNet~\cite{wang2018ripplenet} 提出「偏好傳播」(Preference Propagation) 的概念，透過使用者偏好沿知識圖的漣漪狀擴散，自動發現使用者與候選物品之間的潛在連結。KGCN~\cite{wang2019kgcn} 則借鑑了 GCN 的訊息傳遞架構，對知識圖中物品的鄰居進行遞迴聚合。
 
 \subsection*{多跳推理式方法}
 
@@ -56,13 +57,13 @@ He 等人~\cite{he2020lightgcn} 在推薦系統的場景中提出了 LightGCN，
 
 \subsection*{KGAT：協同知識圖上的注意力傳播}
 
-Wang 等人~\cite{wang2019kgat} 提出的 KGAT 是目前知識圖推薦系統中最具代表性的作品之一。KGAT 的核心創新在於：(1) 構建協同知識圖 (CKG)，將使用者-物品互動圖與物品知識圖統一為一個異質圖 (Heterogeneous Graph)；(2) 設計關係感知的注意力機制 (Relation-aware Attention)，根據三元組 $(h, r, t)$ 中不同關係的語義，動態調整鄰居聚合的權重；(3) 透過多層的注意力傳播 (Attentive Embedding Propagation)，明確建模高階連接性。原論文在 Amazon-Book、Yelp2018 及 Last-FM 三個基準資料集上，均取得了超越當時所有基準方法的效能。
+Wang 等人~\cite{wang2019kgat} 提出的 KGAT 是目前知識圖推薦系統中最具代表性的作品之一。KGAT 的核心創新在於：(1) 建構協同知識圖 (CKG)，將使用者-物品互動圖與物品知識圖統一為一個異質圖 (Heterogeneous Graph)；(2) 設計關係感知的注意力機制 (Relation-aware Attention)，根據三元組 $(h, r, t)$ 中不同關係的語義，動態調整鄰居聚合的權重；(3) 透過多層的注意力傳播 (Attentive Embedding Propagation)，明確建模高階連接性。原論文在 Amazon-Book、Yelp2018 及 Last-FM 三個基準資料集上，均取得了超越當時所有基準方法的效能。
 
 然而，KGAT 原論文在以下面向仍留有研究空間：首先，驗證領域僅涵蓋電商與娛樂場景，對於如食譜此種語義結構高度密集的領域未有著墨；其次，原文僅報告最佳深度配置結果，未進行逐層的深度消融分析；最後，原文未對注意力路徑的忠實度進行量化驗證，使得其「內在可解釋性」的主張缺乏實證支撐。
 
 \subsection*{知識增強推薦與大型語言模型之對比}
 
-近年來，大型語言模型 (Large Language Models, LLMs) 也開始被應用於推薦系統。Gao 等人~\cite{gao2023chat} 提出的 Chat-REC 嘗試將對話式 LLM 與推薦系統結合，利用自然語言理解能力來增強使用者-物品的語義匹配。然而，LLM 為主的推薦方法在處理大規模結構化圖資訊上仍面臨效率瓶頸——LLM 需要將圖結構線性化為文字序列，在此過程中不可避免地損失高階拓撲資訊。相較之下，GNN 能夠在圖的原生結構上直接進行訊息傳播，更適合建模知識圖中複雜的多跳關聯。本研究選擇以 GNN 為技術路線，正是基於此結構化建模優勢。
+近年來，大型語言模型 (Large Language Models, LLMs) 也開始被應用於推薦系統。Gao 等人~\cite{gao2023chat} 提出的 Chat-REC 嘗試將對話式 LLM 與推薦系統結合，利用自然語言理解能力來增強使用者-物品的語義匹配。然而，LLM 為主的推薦方法在處理大規模結構化圖資訊上仍面臨效率瓶頸——LLM 需要將圖結構線性化為文字序列，在此過程中不可避免地損失高階拓樸資訊。相較之下，GNN 能夠在圖的原生結構上直接進行訊息傳播，更適合建模知識圖中複雜的多跳關聯。本研究選擇以 GNN 為技術路線，正是基於此結構化建模優勢。
 
 \section{可解釋性推薦 (Explainable Recommendation)}
 
@@ -70,11 +71,12 @@ Wang 等人~\cite{wang2019kgat} 提出的 KGAT 是目前知識圖推薦系統中
 
 \subsection*{圖神經網路的事後解釋}
 
-隨著圖神經網路在推薦系統中的廣泛應用，針對 GNN 的可解釋性研究也日益受到關注。GNNExplainer~\cite{ying2019gnnexplainer} 是該領域的開創性工作，它透過學習一個邊遮罩 (Edge Mask)，尋找對模型預測結果影響最大的子圖結構。然而，GNNExplainer 屬於事後解釋 (Post-hoc Explanation) 方法，需要額外的優化過程，且可能面臨生成的解釋並非完全忠實於模型內部推理邏輯的問題~\cite{yuan2022explainability}。
+隨著圖神經網路在推薦系統中的廣泛應用，針對 GNN 的可解釋性研究也日益受到關注。GNNExplainer~\cite{ying2019gnnexplainer} 是該領域的開創性工作，它透過學習一個邊遮罩 (Edge Mask)，尋找對模型預測結果影響最大的子圖結構。然而，GNNExplainer 屬於事後解釋 (Post-hoc Explanation) 方法，需要額外的最佳化過程，且可能面臨生成的解釋並非完全忠實於模型內部推理邏輯的問題~\cite{yuan2022explainability}。
 
 \subsection*{基於注意力的內在可解釋性}
 
-相較於事後解釋，基於注意力機制的路徑萃取提供了一條更為直接的可解釋性途徑。KGAT 與 GAT 架構天然地在正向傳播過程中計算每條邊的注意力權重 $\alpha_{ij}$，這些權重反映了模型在聚合訊息時對各鄰居的關注程度。透過追蹤高權重邊，可從使用者出發，沿著圖的拓撲結構一步步追溯到推薦物品，形成一條語義連貫的解釋路徑（例如：使用者 $\rightarrow$ 歷史食譜 $\rightarrow$ 共同食材 $\rightarrow$ 推薦食譜）。
+相較於事後解釋，基於注意力機制的路徑萃取提供了一條更為直接的可解釋性途徑。KGAT 與 GAT 架構天然地在正向傳播過程中計算每條邊的注意力權重 $\alpha_{ij}$，這些權重反映了模型在聚合訊息時對各鄰居的關注程度。透過追蹤高權重邊，可從使用者出發，沿著圖的拓樸結構一步步追溯到推薦物品，形成一條語義連貫的解釋路徑（例如：使用者 $\rightarrow$ 歷史食譜 $\rightarrow$ 共同食材 $\rightarrow$ 推薦食譜）。
+
 
 \subsection*{忠實度 (Fidelity) 評估}
 
@@ -89,7 +91,18 @@ Wang 等人~\cite{wang2019kgat} 提出的 KGAT 是目前知識圖推薦系統中
 
 此外，目前多數研究在 Fidelity 評估時面臨樣本量不足、僅在淺層模型上驗證等限制，深層模型（$L \geq 3$）的可解釋性驗證仍為一個尚未被充分探索的研究方向。本研究即針對此缺口，在三種不同深度的 KGAT 模型（$L{=}1$、$L{=}2$、$L{=}3$）上，以 500 位使用者為基礎進行系統性的 Fidelity 比較評估。
 
+\subsection*{大規模圖可解釋性之計算開銷與路徑檢索實作}
+% 歷史文獻對比範疇：大規模圖可解釋性之計算瓶頸與即時推論挑戰（非稻草人比較 Strawman Comparison）
+
+儘管基於注意力權重與事後子圖擾動的可解釋方法可用於評估推薦忠實度，然而如 Yuan 等人~\cite{yuan2022explainability} 與近期圖神經網路可解釋性綜述~\cite{li2025can} 所指出，事後解釋子圖與多跳路徑檢索在大型圖結構上往往伴隨較高的鄰域擴張計算開銷。
+
+回顧現有圖神經網路可解釋性與基準測試研究（包含 DIG~\cite{liu2021dig}、CF-GNNExplainer~\cite{lucic2022cfgnnexplainer}、GraphXAI~\cite{agarwal2023evaluating}、BAGEL~\cite{rathee2024bagel}、GNNX-BENCH~\cite{kosan2024gnnxbench} 及 GraphFramEx~\cite{amara2024graphframex} 等），其開源實作在處理圖結構操作、子圖抽取與路徑檢索時，多採用 NetworkX~\cite{hagberg2008networkx} 等通用 Python 物件導向套件，或基於鄰接串列執行單向深度優先與廣度優先搜尋（DFS/BFS）。此類設計在小型基準資料集或離線批次評估（Offline Batch Evaluation）場景中具備良好的開發便利性；然而，當圖譜規模擴展至數十萬節點與數百萬條邊時，巢狀雜湊字典結構可能帶來較高的記憶體開銷與搜尋延遲。另一方面，近年針對知識圖路徑解釋~\cite{ma2025kgexplainer, sun2025expath}、路徑推理推薦~\cite{yang2024pr4sr}、反事實解釋~\cite{liu2025cocounter}、大型語言模型輔助解釋~\cite{ma2024xrec, zhang2024natural} 與線性分解~\cite{johnson2024xlightgcn} 等研究，主要聚焦於解釋生成機制或目標函數之建模，較少針對百萬邊級協同知識圖在單機環境下的多跳路徑檢索資料結構進行探討。
+
+為降低大規模食譜協同知識圖於忠實度評估與路徑檢索時之運算耗時，本研究參考 Pohl~\cite{pohl1971bi} 之雙向搜尋（Bi-directional Search）概念，將三跳路徑搜尋複雜度由單向搜尋之 $\mathcal{O}(d^3)$ 簡化為雙向交集之 $\mathcal{O}(d^2)$；同時依循 Kepner 等人~\cite{kepner2016graphblas} 於 GraphBLAS 所闡述之稀疏矩陣圖計算規範，利用 SciPy~\cite{virtanen2020scipy} 之壓縮稀疏列（Compressed Sparse Row, CSR）格式儲存圖拓樸與注意力權重，在維持路徑檢索結果一致的前提下改善搜尋效率。
+
+
 \section{現有方法之比較與研究缺口}
+
 
 表~\ref{tab:method_comparison} 彙整了本研究所涉及的主要方法在五個關鍵維度上的差異，以凸顯本研究的獨特定位。
 

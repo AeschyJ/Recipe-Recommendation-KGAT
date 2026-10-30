@@ -30,6 +30,8 @@
 % --------------------------------------------------
 
 \usepackage[numbers,sort&compress]{natbib} % 參考文獻（數字格式，與 abbrv 相容）
+\renewcommand{\bibfont}{\small}
+\setlength{\bibsep}{1.5pt}
 \usepackage{amsmath, amsthm, amssymb}   % 數學環境
 \usepackage{ulem, CJKulem}              % 下劃線、雙下劃線與波浪紋效果
 \usepackage{booktabs}                   % 改善表格設置
@@ -51,3 +53,25 @@
 % --------------------------------------------------
 % 套件設定（Packages Settings）
 % --------------------------------------------------
+
+% --------------------------------------------------
+% 演算法排版套件（Algorithm2e Settings）
+% --------------------------------------------------
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\SetAlgorithmName{演算法}{演算法}{演算法清單}
+\SetKwInput{KwIn}{輸入}
+\SetKwInput{KwOut}{輸出}
+
+% --------------------------------------------------
+% 定理環境設定（Theorem Settings）
+% --------------------------------------------------
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{proposition}[theorem]{命題}
+\renewcommand{\proofname}{證明}
+% 證畢符號設定（Halmos / Q.E.D. Symbol）：預設為 amsthm 標準空心方框 \openbox ($\square$)
+% 若因個人偏好或避免與中文缺字方塊混淆，可取消註解下方其中一行進行自訂：
+% \renewcommand{\qedsymbol}{$\blacksquare$}       % 實心黑方塊
+% \renewcommand{\qedsymbol}{\textbf{Q.E.D.}}     % 傳統英文字樣
+% \renewcommand{\qedsymbol}{（證畢）}            % 中文證畢字樣
+% \renewcommand{\qedsymbol}{}                     % 完全不顯示符號
+

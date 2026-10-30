@@ -17,43 +17,53 @@
 \contentsline {section}{\numberline {2.2}圖神經網路 (Graph Neural Networks)}{8}{section.2.2}%
 \contentsline {section}{\numberline {2.3}知識圖與推薦系統之結合}{10}{section.2.3}%
 \contentsline {section}{\numberline {2.4}可解釋性推薦 (Explainable Recommendation)}{12}{section.2.4}%
-\contentsline {section}{\numberline {2.5}現有方法之比較與研究缺口}{13}{section.2.5}%
-\contentsline {chapter}{\numberline {3}研究方法}{15}{chapter.3}%
-\contentsline {section}{\numberline {3.1}系統架構}{15}{section.3.1}%
-\contentsline {section}{\numberline {3.2}資料預處理與知識圖建構}{15}{section.3.2}%
-\contentsline {section}{\numberline {3.3}知識圖注意力網路 (KGAT)}{19}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Relation-Aware Attention 機制}{19}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Bi-Interaction 聚合機制}{20}{subsection.3.3.2}%
-\contentsline {section}{\numberline {3.4}損失函數與模型訓練}{21}{section.3.4}%
-\contentsline {section}{\numberline {3.5}基於忠實度 (Fidelity) 的可解釋性評估框架}{23}{section.3.5}%
-\contentsline {chapter}{\numberline {4}實驗設計與結果分析}{27}{chapter.4}%
-\contentsline {section}{\numberline {4.1}實驗環境與資料集}{27}{section.4.1}%
-\contentsline {section}{\numberline {4.2}基準方法 (Baselines)}{30}{section.4.2}%
-\contentsline {section}{\numberline {4.3}實驗結果分析}{31}{section.4.3}%
-\contentsline {section}{\numberline {4.4}消融實驗 (Ablation Study)}{32}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}注意力機制之影響}{32}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}知識圖之影響}{33}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}圖神經網路深度之影響}{33}{subsection.4.4.3}%
-\contentsline {section}{\numberline {4.5}可解釋性評估 (Explainability Evaluation)}{35}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}跨模型解釋路徑覆蓋率比較}{36}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}KGAT-3L 解釋路徑類型分析}{37}{subsection.4.5.2}%
-\contentsline {subsection}{\numberline {4.5.3}Fidelity 量化評估結果}{37}{subsection.4.5.3}%
-\contentsline {subsection}{\numberline {4.5.4}路徑類型對忠實度的影響}{38}{subsection.4.5.4}%
-\contentsline {subsection}{\numberline {4.5.5}無路徑使用者特徵分析}{39}{subsection.4.5.5}%
-\contentsline {subsection}{\numberline {4.5.6}案例分析}{41}{subsection.4.5.6}%
-\contentsline {chapter}{\numberline {5}結論與未來研究方向}{45}{chapter.5}%
-\contentsline {section}{\numberline {5.1}研究結論}{45}{section.5.1}%
-\contentsline {section}{\numberline {5.2}研究限制}{48}{section.5.2}%
-\contentsline {section}{\numberline {5.3}未來研究方向}{50}{section.5.3}%
-\contentsline {chapter}{參考文獻}{53}{section*.27}%
-\contentsline {chapter}{附錄~{A}~---~各模型最佳效能統計摘要}{57}{section*.30}%
-\contentsline {section}{\numberline {A.1}摘要指標表}{57}{section.6.1}%
-\contentsline {section}{\numberline {A.2}完整九項指標表}{57}{section.6.2}%
-\contentsline {chapter}{附錄~{B}~---~各模型三次獨立執行最佳 Epoch 實驗結果}{59}{section*.34}%
-\contentsline {section}{\numberline {B.1}Baseline 模型}{59}{section.7.1}%
-\contentsline {section}{\numberline {B.2}KGAT 消融實驗（$L{=}1$）}{60}{section.7.2}%
-\contentsline {section}{\numberline {B.3}KGAT 深度實驗}{61}{section.7.3}%
-\contentsline {chapter}{附錄~{C}~---~知識圖預處理與超級節點過濾清單}{63}{section*.44}%
-\contentsline {section}{\numberline {C.1}食材 (Ingredients) 噪音與過濾清單}{63}{section.8.1}%
-\contentsline {section}{\numberline {C.2}標籤 (Tags) 噪音與過濾清單}{64}{section.8.2}%
+\contentsline {section}{\numberline {2.5}現有方法之比較與研究缺口}{14}{section.2.5}%
+\contentsline {chapter}{\numberline {3}研究方法}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}系統架構}{17}{section.3.1}%
+\contentsline {section}{\numberline {3.2}資料預處理與知識圖建構}{17}{section.3.2}%
+\contentsline {section}{\numberline {3.3}知識圖注意力網路 (KGAT)}{21}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Relation-Aware Attention 機制}{21}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Bi-Interaction 聚合機制}{22}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}損失函數與模型訓練}{23}{section.3.4}%
+\contentsline {section}{\numberline {3.5}基於忠實度 (Fidelity) 的可解釋性評估框架}{25}{section.3.5}%
+\contentsline {section}{\numberline {3.6}大規模協同知識圖之 CSR 雙向局部交集尋路實作}{27}{section.3.6}%
+\contentsline {chapter}{\numberline {4}實驗設計與結果分析}{29}{chapter.4}%
+\contentsline {section}{\numberline {4.1}實驗環境與資料集}{29}{section.4.1}%
+\contentsline {section}{\numberline {4.2}基準方法 (Baselines)}{32}{section.4.2}%
+\contentsline {section}{\numberline {4.3}實驗結果分析}{33}{section.4.3}%
+\contentsline {section}{\numberline {4.4}消融實驗 (Ablation Study)}{34}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}注意力機制之影響}{34}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}知識圖之影響}{35}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}圖神經網路深度之影響}{36}{subsection.4.4.3}%
+\contentsline {section}{\numberline {4.5}可解釋性評估 (Explainability Evaluation)}{38}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}跨模型解釋路徑覆蓋率比較}{38}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}KGAT-3L 解釋路徑類型分析}{39}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Fidelity 量化評估結果}{39}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}路徑類型對忠實度的影響}{40}{subsection.4.5.4}%
+\contentsline {subsection}{\numberline {4.5.5}無路徑使用者特徵分析}{41}{subsection.4.5.5}%
+\contentsline {subsection}{\numberline {4.5.6}案例分析}{43}{subsection.4.5.6}%
+\contentsline {section}{\numberline {4.6}大規模 CKG 路徑萃取效率與資源開銷分析}{45}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}圖資料結構之建立與儲存開銷比較}{46}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}不同搜尋策略與資料結構之延遲消融比較}{47}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}演算法複雜度與資料結構之效益解耦分析}{48}{subsection.4.6.3}%
+\contentsline {subsection}{\numberline {4.6.4}高連接度樞紐節點對單向與雙向搜尋之影響及實驗限制}{49}{subsection.4.6.4}%
+\contentsline {chapter}{\numberline {5}結論與未來研究方向}{51}{chapter.5}%
+\contentsline {section}{\numberline {5.1}研究結論}{51}{section.5.1}%
+\contentsline {section}{\numberline {5.2}研究限制}{55}{section.5.2}%
+\contentsline {section}{\numberline {5.3}未來研究方向}{56}{section.5.3}%
+\contentsline {chapter}{參考文獻}{59}{section*.29}%
+\contentsline {chapter}{附錄~{A}~---~各模型最佳效能統計摘要}{65}{section*.32}%
+\contentsline {section}{\numberline {A.1}摘要指標表}{65}{section.6.1}%
+\contentsline {section}{\numberline {A.2}完整九項指標表}{65}{section.6.2}%
+\contentsline {chapter}{附錄~{B}~---~各模型三次獨立執行最佳 Epoch 實驗結果}{67}{section*.36}%
+\contentsline {section}{\numberline {B.1}Baseline 模型}{67}{section.7.1}%
+\contentsline {section}{\numberline {B.2}KGAT 消融實驗（$L{=}1$）}{68}{section.7.2}%
+\contentsline {section}{\numberline {B.3}KGAT 深度實驗}{69}{section.7.3}%
+\contentsline {chapter}{附錄~{C}~---~知識圖預處理與超級節點過濾清單}{71}{section*.46}%
+\contentsline {section}{\numberline {C.1}食材 (Ingredients) 雜訊過濾清單}{71}{section.8.1}%
+\contentsline {section}{\numberline {C.2}標籤 (Tags) 雜訊過濾清單}{72}{section.8.2}%
+\contentsline {chapter}{附錄~{D}~---~CSR 雙向局部交集演算法虛擬碼與等價性理論證明}{75}{section*.48}%
+\contentsline {section}{\numberline {D.1}結構性三部圖拓樸定界與推論通道推導}{75}{section.9.1}%
+\contentsline {section}{\numberline {D.2}演算法虛擬碼}{76}{section.9.2}%
+\contentsline {section}{\numberline {D.3}路徑集合與權重計算之等價性證明}{78}{section.9.3}%
 \contentsfinish 

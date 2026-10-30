@@ -1,11 +1,25 @@
 \begin{thebibliography}{10}
 
+\bibitem{agarwal2023evaluating}
+C.~Agarwal, O.~Queen, H.~Lakkaraju, and M.~Zitnik.
+\newblock Evaluating explainability for graph neural networks.
+\newblock {\em Scientific Data}, 10(1):144, 2023.
+
 \bibitem{agarwal2024fidelity}
 C.~Agarwal, E.~Saxena, S.~Krishna, H.~Lakkaraju, and M.~Zitnik.
 \newblock Evaluating the faithfulness of importance measures in {NLP} by
   recursively masking allegedly important tokens and retraining.
 \newblock In {\em Findings of the Association for Computational Linguistics:
   EMNLP 2024}, 2024.
+
+\bibitem{amara2024graphframex}
+K.~Amara, R.~Ying, Z.~Zhang, Z.~Han, Y.~Shan, U.~Brandes, S.~Schemm, and
+  C.~Zhang.
+\newblock {GraphFramEx}: Towards systematic evaluation of explainability
+  methods for graph neural networks.
+\newblock In {\em Proceedings of the First Learning on Graphs Conference
+  (LoG)}, volume 198 of {\em Proceedings of Machine Learning Research}, pages
+  1--25, 2022.
 
 \bibitem{bordes2013transe}
 A.~Bordes, N.~Usunier, A.~Garcia-Duran, J.~Weston, and O.~Yakhnenko.
@@ -25,6 +39,12 @@ J.~Gilmer, S.~S. Schoenholz, P.~F. Riley, O.~Vinyals, and G.~E. Dahl.
 \newblock In {\em Proceedings of the 34th International Conference on Machine
   Learning}, pages 1263--1272, 2017.
 
+\bibitem{hagberg2008networkx}
+A.~A. Hagberg, D.~A. Schult, and P.~J. Swart.
+\newblock Exploring network structure, dynamics, and function using {NetworkX}.
+\newblock In {\em Proceedings of the 7th Python in Science Conference (SciPy)},
+  pages 11--15, 2008.
+
 \bibitem{he2017nfm}
 X.~He and T.-S. Chua.
 \newblock Neural factorization machines for sparse predictive analytics.
@@ -40,6 +60,20 @@ X.~He, K.~Deng, X.~Wang, Y.~Li, Y.~Zhang, and M.~Wang.
   Research and Development in Information Retrieval}, pages 639--648. ACM,
   2020.
 
+\bibitem{johnson2024xlightgcn}
+C.~Johnson and R.~Cohen.
+\newblock {xLightGCN}: Explainable graph neural network based recommendation
+  systems with most influential peers.
+\newblock {\em arXiv preprint arXiv:2410.14725}, 2024.
+
+\bibitem{kepner2016graphblas}
+J.~Kepner, P.~Aaltonen, D.~Bader, A.~Bulu{\c{c}}, F.~Franchetti, J.~Gilbert,
+  D.~Hutchison, M.~Kumar, A.~Lumsdaine, H.~Meyerhenke, S.~McMillan, J.~Moreira,
+  J.~D. Owens, C.~Yang, M.~Zalewski, and T.~Zhou.
+\newblock Mathematical foundations of the {GraphBLAS}.
+\newblock In {\em 2016 IEEE High Performance Extreme Computing Conference
+  (HPEC)}, pages 1--9. IEEE, 2016.
+
 \bibitem{kipf2017gcn}
 T.~N. Kipf and M.~Welling.
 \newblock Semi-supervised classification with graph convolutional networks.
@@ -51,6 +85,12 @@ Y.~Koren, R.~Bell, and C.~Volinsky.
 \newblock Matrix factorization techniques for recommender systems.
 \newblock {\em Computer}, 42(8):30--37, 2009.
 
+\bibitem{kosan2024gnnxbench}
+M.~Kosan, S.~Verma, B.~Armgaan, K.~Pahwa, A.~Singh, S.~Medya, and S.~Ranu.
+\newblock {GNNX-BENCH}: Unravelling the utility of perturbation-based {GNN}
+  explainers through in-depth benchmarking.
+\newblock {\em arXiv preprint arXiv:2310.01794}, 2024.
+
 \bibitem{li2018deeper}
 Q.~Li, Z.~Han, and X.-M. Wu.
 \newblock Deeper insights into graph convolutional networks for semi-supervised
@@ -58,11 +98,54 @@ Q.~Li, Z.~Han, and X.-M. Wu.
 \newblock In {\em Proceedings of the AAAI Conference on Artificial
   Intelligence}, volume~32, 2018.
 
+\bibitem{li2025can}
+X.~Li, J.~Wang, and Z.~Yan.
+\newblock Can graph neural networks be adequately explained? a survey.
+\newblock {\em ACM Computing Surveys}, 2025.
+
+\bibitem{liu2021dig}
+M.~Liu, Y.~Luo, L.~Wang, Y.~Chen, H.~Yuan, S.~Gui, H.~Yu, Z.~Xu, J.~Zou, H.-B.
+  Qian, S.~Shen, Y.~Liu, H.~Yan, Y.-M. Shen, and S.~Ji.
+\newblock {DIG}: A turnkey library for diving into graph deep learning
+  research.
+\newblock {\em Journal of Machine Learning Research}, 22(240):1--9, 2021.
+
+\bibitem{lucic2022cfgnnexplainer}
+A.~Lucic, M.~Ter~Hoeve, G.~Tolomei, M.~De~Rijke, and F.~Silvestri.
+\newblock {CF-GNNExplainer}: Counterfactual explanations for graph neural
+  networks.
+\newblock In {\em International Conference on Artificial Intelligence and
+  Statistics (AISTATS)}, pages 4482--4499. PMLR, 2022.
+
+\bibitem{ma2024xrec}
+Q.~Ma, X.~Ren, and C.~Huang.
+\newblock {XRec}: Large language models for explainable recommendation.
+\newblock In {\em Findings of the Association for Computational Linguistics:
+  EMNLP 2024}, pages 351--362, 2024.
+
+\bibitem{ma2025kgexplainer}
+T.~Ma, X.~Song, W.~Tao, M.~Li, J.~Zhang, X.~Pan, Y.~Wang, B.~Song, and X.~Zeng.
+\newblock Towards synergistic path-based explanations for knowledge graph
+  completion: Exploration and evaluation.
+\newblock In {\em International Conference on Learning Representations (ICLR)},
+  2025.
+
 \bibitem{majumder2019foodcom}
 B.~P. Majumder, S.~Li, J.~Ni, and J.~McAuley.
 \newblock Generating personalized recipes from historical user preferences.
 \newblock In {\em Proceedings of the 2019 Conference on Empirical Methods in
   Natural Language Processing}, pages 5976--5982, 2019.
+
+\bibitem{pohl1971bi}
+I.~Pohl.
+\newblock Bi-directional search.
+\newblock {\em Machine Intelligence}, 6:127--140, 1971.
+
+\bibitem{rathee2024bagel}
+M.~Rathee, T.~Funke, A.~Anand, and M.~Khosla.
+\newblock {BAGEL}: A benchmark for assessing graph neural network explanations.
+\newblock In {\em Advances in Neural Information Processing Systems (NeurIPS)
+  Datasets and Benchmarks Track}, 2024.
 
 \bibitem{rendle2010fm}
 S.~Rendle.
@@ -88,12 +171,30 @@ X.~Su and T.~M. Khoshgoftaar.
 \newblock A survey of collaborative filtering techniques.
 \newblock {\em Advances in Artificial Intelligence}, 2009:1--19, 2009.
 
+\bibitem{sun2025expath}
+Y.~Sun, L.~Shi, and Y.~Tong.
+\newblock {eXpath}: Explaining knowledge graph link prediction with ontological
+  closed path rules.
+\newblock {\em Proceedings of the VLDB Endowment}, 18(9):2500--2513, 2025.
+
 \bibitem{velickovic2018gat}
 P.~Veli{\v{c}}kovi{\'c}, G.~Cucurull, A.~Casanova, A.~Romero, P.~Li{\`o}, and
   Y.~Bengio.
 \newblock Graph attention networks.
 \newblock In {\em International Conference on Learning Representations (ICLR)},
   2018.
+
+\bibitem{virtanen2020scipy}
+P.~Virtanen, R.~Gommers, T.~E. Oliphant, M.~Haberland, T.~Reddy, D.~Cournapeau,
+  E.~Burovski, P.~Peterson, W.~Weckesser, J.~Bright, S.~J. van~der Walt,
+  M.~Brett, J.~Wilson, K.~J. Millman, N.~Mayorov, A.~R.~J. Nelson, E.~Jones,
+  R.~Kern, E.~Larson, C.~J. Carey, {\.I}.~Polat, Y.~Feng, E.~W. Moore,
+  J.~VanderPlas, D.~Laxalde, J.~Perktold, R.~Cimrman, I.~Henriksen, E.~A.
+  Quintero, C.~R. Harris, A.~M. Archibald, A.~H. Ribeiro, F.~Pedregosa, P.~van
+  Mulbregt, and {SciPy 1.0 Contributors}.
+\newblock {{SciPy} 1.0: Fundamental Algorithms for Scientific Computing in
+  Python}.
+\newblock {\em Nature Methods}, 17(3):261--272, 2020.
 
 \bibitem{wang2018ripplenet}
 H.~Wang, F.~Zhang, J.~Wang, M.~Zhao, W.~Li, X.~Xie, and M.~Guo.
@@ -134,11 +235,24 @@ K.~Xu, C.~Li, Y.~Tian, T.~Sonobe, K.-i. Kawarabayashi, and J.~Leskovec.
 \newblock In {\em Proceedings of the 35th International Conference on Machine
   Learning}, pages 5453--5462, 2018.
 
+\bibitem{yang2024pr4sr}
+Z.~Yang, K.~Ding, et~al.
+\newblock {PR4SR}: Path reasoning for session-based recommendation with
+  hierarchical reinforcement learning.
+\newblock In {\em Proceedings of the 17th ACM International Conference on Web
+  Search and Data Mining (WSDM)}, pages 882--891, 2024.
+
 \bibitem{ying2019gnnexplainer}
 R.~Ying, D.~Bourgeois, J.~You, M.~Zitnik, and J.~Leskovec.
 \newblock {GNN}explainer: Generating explanations for graph neural networks.
 \newblock In {\em Advances in Neural Information Processing Systems},
   volume~32, 2019.
+
+\bibitem{liu2025cocounter}
+Y.~Yu and Z.~Hu.
+\newblock Comparative explanations via counterfactual reasoning in
+  recommendations.
+\newblock {\em arXiv preprint arXiv:2510.10920}, 2025.
 
 \bibitem{yuan2022explainability}
 H.~Yuan, H.~Yu, S.~Gui, and S.~Ji.
@@ -157,6 +271,13 @@ H.~Zhang, D.~Wang, Z.~Sun, Y.~Li, Y.~Sun, H.~Liang, and W.~Wang.
 \newblock Kg4receval: Does knowledge graph really matter for recommender
   systems?
 \newblock {\em ACM Trans. Inf. Syst.}, 43(3), Feb. 2025.
+
+\bibitem{zhang2024natural}
+J.~Zhang, J.~Tang, X.~Chen, W.~Yu, L.~Hu, P.~Jiang, and H.~Li.
+\newblock Natural language explainable recommendation with robustness
+  enhancement.
+\newblock In {\em Proceedings of the 30th ACM SIGKDD Conference on Knowledge
+  Discovery and Data Mining (KDD)}, pages 4200--4210, 2024.
 
 \bibitem{zhang2020explainable}
 Y.~Zhang and X.~Chen.

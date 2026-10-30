@@ -532,15 +532,7 @@ def recommend(req: RecommendRequest):
             state.entity_maps,
             state.recipe_name_map,
         )
-        _, _, user_name = get_node_name(
-            uid,
-            state.n_users,
-            state.n_items,
-            state.user_le,
-            state.item_le,
-            state.entity_maps,
-            state.recipe_name_map,
-        )
+        user_name = f"User {uid}"
 
         # 取得注意力解釋路徑 (優先使用 CSR 向量化尋路，耗時數毫秒)
         n_hops = 1 if depth_key == "1" else (2 if depth_key == "2" else 2)
@@ -569,6 +561,8 @@ def recommend(req: RecommendRequest):
                             state.entity_maps,
                             state.recipe_name_map,
                         )
+                        if n_type == "USER":
+                            n_name = f"User {node_id}"
                         path_details.append({
                             "id_remapped": node_id,
                             "id_original": n_real_id,

@@ -71,7 +71,7 @@ KGAT 的核心創新在於其關係感知的注意力機制。對於 CKG 中的�
 \end{equation}
 其中 $\bm{W}_r \in \mathbb{R}^{d' \times d}$ 為關係 $r$ 的轉換矩陣。此公式考慮了頭實體 $h$、關係 $r$ 與尾實體 $t$ 之間的語義相容性。
 
-接著，透過 Softmax 歸一化得到最終的注意力權重：
+接著，透過 Softmax 正規化得到最終的注意力權重：
 \begin{equation}
   \alpha_{(h,r,t)} = \frac{\exp\left(\pi(h,r,t)\right)}{\sum_{(h,r',t') \in \mathcal{N}_h} \exp\left(\pi(h,r',t')\right)}
   \label{eq:attention_softmax}
@@ -101,7 +101,7 @@ KGAT 的核心創新在於其關係感知的注意力機制。對於 CKG 中的�
   \label{eq:concat}
 \end{equation}
 
-此設計能有效緩解深層圖神經網路 (GNN) 中常見的「過度平滑 (Over-smoothing)」病理現象~\cite{li2018deeper}。在深層圖傳播中，隨著網路層數 $L$ 增加，各節點因遞迴聚合鄰居資訊，其嵌入表徵容易趨於一致，導致模型喪失個體區辨力。公式~(\ref{eq:concat}) 藉由明確保留第 0 層的初始特徵 $\bm{e}_h^{(0)}$（即使用者與食譜的獨特本質特徵）並與高階拓撲上下文特徵進行拼接，確保模型在深層架構（如本研究採用的 $L=3$）下依然能維持嵌入的辨識度。此外，本研究亦在訊息聚合過程與權重矩陣上施加 Dropout 正則化，進一步抑制特徵共線性與模型過擬合 (Overfitting) 的風險。
+此設計能有效緩解深層圖神經網路 (GNN) 中常見的「過度平滑 (Over-smoothing)」病理現象~\cite{li2018deeper}。在深層圖傳播中，隨著網路層數 $L$ 增加，各節點因遞迴聚合鄰居資訊，其嵌入表徵容易趨於一致，導致模型喪失個體區辨力。公式~(\ref{eq:concat}) 藉由明確保留第 0 層的初始特徵 $\bm{e}_h^{(0)}$（即使用者與食譜的獨特本質特徵）並與高階拓樸上下文特徵進行拼接，確保模型在深層架構（如本研究採用的 $L=3$）下依然能維持嵌入的辨識度。此外，本研究亦在訊息聚合過程與權重矩陣上施加 Dropout 正規化，進一步抑制特徵共線性與模型過擬合 (Overfitting) 的風險。
 
 \subsection*{預測層}
 
@@ -143,7 +143,7 @@ KGAT 的核心創新在於其關係感知的注意力機制。對於 CKG 中的�
 
 \begin{enumerate}[leftmargin=2em]
   \item \textbf{全局注意力提取：}對訓練好的模型進行一次正向傳播，擷取每層 GNN 的注意力權重矩陣，並計算跨層平均值作為全局邊重要性指標。
-  \item \textbf{路徑搜尋：}從使用者節點出發，沿 CKG 的拓撲結構搜尋所有連接至目標推薦物品的路徑（限制最大跳數為 $L$）。
+  \item \textbf{路徑搜尋：}從使用者節點出發，沿 CKG 的拓樸結構搜尋所有連接至目標推薦物品的路徑（限制最大跳數為 $L$）。
   \item \textbf{路徑評分：}對每條路徑上所有邊的注意力權重進行連乘（聯合機率），得到該路徑的整體重要性分數：
     \begin{equation}
       \text{Score}(\text{path}) = \prod_{(h,r,t) \in \text{path}} \alpha_{(h,r,t)}
@@ -154,12 +154,12 @@ KGAT 的核心創新在於其關係感知的注意力機制。對於 CKG 中的�
 
 \subsection*{忠實度 (Fidelity) 量化指標}
 
-事後解釋 (Post-hoc Explanation) 的關鍵評估準則在於其保真度 (Faithfulness，或稱忠實度)——即所萃取的解釋路徑是否真正主導了模型內部的決策邏輯。為此，本研究引進 Fidelity 評估指標~\cite{agarwal2024fidelity}，透過擾動 (Perturbation) 輸入圖結構的方式，量化評估解釋路徑的「必要性 (Necessity)」與「充分性 (Sufficiency)」。
+事後解釋 (Post-hoc Explanation) 的關鍵評估準則在於其保真度 (Faithfulness，或稱忠實度)——即所萃取的解釋路徑是否真正主導了模型內部的決策邏輯。為此，本研究引進 Fidelity 評估指標~\cite{agarwal2023evaluating, agarwal2024fidelity, yuan2022explainability}，透過擾動 (Perturbation) 輸入圖結構的方式，量化評估解釋路徑的「必要性 (Necessity)」與「充分性 (Sufficiency)」。
 
-給定使用者 $u$ 與推薦物品 $v$，令 $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 為完整協同知識圖拓撲，$S \subseteq \mathcal{E}$ 為所萃取出的解釋路徑邊集合。令 $\hat{p}_{uv}(\mathcal{G}') = \sigma({\mathbf{e}_u^*(\mathcal{G}')}^\top \mathbf{e}_v^*(\mathcal{G}'))$ 表示模型在任意輸入圖結構 $\mathcal{G}'$ 下輸出之推薦預測機率。本研究遵循國際 GNN 可解釋性主流評估規範~\cite{agarwal2024fidelity}，定義兩項互補之忠實度量化指標：
+給定使用者 $u$ 與推薦物品 $v$，令 $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ 為完整協同知識圖拓樸，$S \subseteq \mathcal{E}$ 為所萃取出的解釋路徑邊集合。令 $\hat{p}_{uv}(\mathcal{G}') = \sigma({\mathbf{e}_u^*(\mathcal{G}')}^\top \mathbf{e}_v^*(\mathcal{G}'))$ 表示模型在任意輸入圖結構 $\mathcal{G}'$ 下輸出之推薦預測機率。本研究遵循國際 GNN 可解釋性主流評估規範~\cite{agarwal2023evaluating, agarwal2024fidelity, yuan2022explainability}，定義兩項互補之忠實度量化指標：
 
 \begin{itemize}[leftmargin=2em]
-  \item \textbf{Fidelity$^+$（必要性忠實度）：}用於衡量解釋路徑 $S$ 是否為做出推薦的必要條件。具體做法是從協同知識圖中「移除」屬於解釋路徑 $S$ 的所有關係邊，令模型在殘缺的圖拓撲 $\mathcal{G}_{\setminus S} = (\mathcal{V}, \mathcal{E} \setminus S)$ 上重新進行訊息傳遞與分數預測，計算其預測機率的降幅：
+  \item \textbf{Fidelity$^+$（必要性忠實度）：}用於衡量解釋路徑 $S$ 是否為做出推薦的必要條件。具體做法是從協同知識圖中「移除」屬於解釋路徑 $S$ 的所有關係邊，令模型在殘缺的圖拓樸 $\mathcal{G}_{\setminus S} = (\mathcal{V}, \mathcal{E} \setminus S)$ 上重新進行訊息傳遞與分數預測，計算其預測機率的降幅：
     \begin{equation}
       F^+ = \hat{p}_{uv}(\mathcal{G}) - \hat{p}_{uv}(\mathcal{G}_{\setminus S})
       \label{eq:fidelity_plus}
@@ -174,4 +174,17 @@ KGAT 的核心創新在於其關係感知的注意力機制。對於 CKG 中的�
     若 $F^- \approx 0$（甚至 $F^- < 0$），表示模型僅依靠這組解釋邊所構成的極小圖結構，便能產出與原始完整圖結構相近的推薦信心，證明該解釋已涵蓋了決策所需的充分資訊；若 $F^-$ 偏高，則代表模型仍高度依賴其他未被解釋路徑覆蓋的分散式表徵。
 \end{itemize}
 
-理想的解釋路徑應同時滿足 $F^+ \gg 0$（高必要性）且 $F^- \approx 0$（高充分性）。然而需要指出的是，此類基於圖結構擾動的評估方法存在固有的學術限制：直接移除邊或遮蔽大量子圖會破壞圖的全局拓撲特性，從而引發「分佈偏移 (Distribution Shift)」問題~\cite{agarwal2024fidelity}。模型在評估階段面對其在訓練階段從未見過的殘缺圖結構，其預測行為可能產生非預期的波動。本研究在第四章的結果分析中將對此現象進行更深入的討論。
+理想的解釋路徑應同時滿足 $F^+ \gg 0$（高必要性）且 $F^- \approx 0$（高充分性）。然而需要指出的是，此類基於圖結構擾動的評估方法存在固有的學術限制：直接移除邊或遮蔽大量子圖會破壞圖的全局拓樸特性，從而引發「分佈偏移 (Distribution Shift)」問題~\cite{agarwal2024fidelity}。模型在評估階段面對其在訓練階段從未見過的殘缺圖結構，其預測行為可能產生非預期的波動。本研究在第四章的結果分析中將對此現象進行更深入的討論。
+
+\section{大規模協同知識圖之 CSR 雙向局部交集尋路實作}\label{sec:csr_architecture}
+
+在協同知識圖推薦系統中，自模型注意力權重萃取多跳推論路徑是進行可解釋性呈現與忠實度（Fidelity）評估的前置步驟。然而，當圖譜包含數十萬節點與數百萬條邊時，直接採用通用物件導向圖論套件執行單向深度優先搜尋（DFS），容易因分支展開而產生較高的搜尋延遲與記憶體佔用。為改善路徑萃取效率，本節說明基於壓縮稀疏列（Compressed Sparse Row, CSR）與雙向局部交集之尋路實作方式。
+
+本研究所建構之食譜協同知識圖 $\mathcal{G}_{\text{CKG}}$ 由使用者、食譜與知識實體構成異質三部圖。在排除訊息傳播自迴圈（Self-loops）之非平凡拓樸邊集下，同類節點之間無直連結構邊。由於使用者鄰域 $\mathcal{N}(u)$ 僅包含食譜，而目標食譜鄰域 $\mathcal{N}(v)$ 僅包含使用者與知識實體，兩者交集為空（$\mathcal{N}(u) \cap \mathcal{N}(v) = \emptyset$），故長度 $L=2$ 之簡單路徑於此結構下並不存在。當目標食譜已存在於訓練集互動圖時（如 RQ3 中部分既有偏好強化案例），可由一跳（1-hop）直連邊直接檢索；而針對未互動之候選食譜（$(u,v) \notin \mathcal{E}_{\text{UI}}$），長度 $L=3$（$u \to r_1 \to m \to v$）即為對應三層 KGAT 感受野之基礎多跳推論路徑。
+
+在資料結構與搜尋策略上，本研究參考 GraphBLAS 稀疏矩陣規範~\cite{kepner2016graphblas}，將全圖拓樸與注意力權重儲存為 CSR 連續陣列（包含列指標 \texttt{indptr}、欄位索引 \texttt{indices} 與權重數值 \texttt{data}），以具備 $\mathcal{O}(|\mathcal{V}| + |\mathcal{E}|)$ 之空間複雜度與記憶體連續存取特性。同時，結合雙向搜尋策略~\cite{pohl1971bi}，預先由目標食譜端建立後向鄰域集合 $\mathcal{S}_v = \mathcal{N}(v) \setminus \{u, v\}$；前向搜尋僅需走訪使用者之歷史互動食譜 $r_1 \in \mathcal{N}(u)$，並檢驗其鄰居節點是否滿足 $m \in \mathcal{N}(r_1) \cap \mathcal{S}_v \setminus \{u, r_1, v\}$，即可在 $\mathcal{O}(d_u \cdot d_{r_1})$ 時間複雜度內找出所有三跳簡單路徑，減少單向搜尋於第三跳展開時之計算開銷。
+
+由於上述交集條件已排除自迴圈與重複節點，且邊權重皆讀取自同一靜態注意力張量，該實作所輸出之路徑集合與路徑分數與單向簡單路徑搜尋結果保持一致。關於三部圖路徑長度之推導、演算法虛擬碼與等價性說明，詳見附錄~\ref{app:csr_proof}。
+
+
+

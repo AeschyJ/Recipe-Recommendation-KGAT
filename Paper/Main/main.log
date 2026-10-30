@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.13)  7 OCT 2026 03:17
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.4.13)  30 OCT 2026 18:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1195,7 +1195,7 @@ Package: ulem 2019/11/18
 Package ctexhook Warning: Package `CJKulem' can not be loaded with `xeCJK'.
 
 LaTeX Info: Package 'CJKulem.sty' has been disabled.
-            Load request ignored on input line 35.
+            Load request ignored on input line 37.
 (d:/Program Files/texlive/2026/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2025/02/06 v3.11 Customized lists
 \labelindent=\skip133
@@ -1350,7 +1350,59 @@ File: tikzlibraryfadings.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 (d:/Program Files/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryf
 adings.code.tex
 File: pgflibraryfadings.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-)))) (./main.aux)
+)))
+(d:/Program Files/texlive/2026/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+Invalid UTF-8 byte or sequence at line 284 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 299 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 550 replaced by U+FFFD.
+Package: algorithm2e 2017/07/18 v5.2 algorithms environments
+\c@AlgoLine=\count427
+\algocf@hangindent=\skip134
+(d:/Program Files/texlive/2026/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(d:/Program Files/texlive/2026/texmf-dist/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
+\skiptotal=\skip135
+\skiplinenumber=\skip136
+\skiprule=\skip137
+\skiphlne=\skip138
+\skiptext=\skip139
+\skiplength=\skip140
+\algomargin=\skip141
+\skipalgocfslide=\skip142
+\algowidth=\dimen391
+\inoutsize=\dimen392
+\inoutindent=\dimen393
+\interspacetitleruled=\dimen394
+\interspacealgoruled=\dimen395
+\interspacetitleboxruled=\dimen396
+\algocf@ruledwidth=\skip143
+\algocf@inoutbox=\box93
+\algocf@inputbox=\box94
+\AlCapSkip=\skip144
+\AlCapHSkip=\skip145
+\algoskipindent=\skip146
+\algocf@nlbox=\box95
+\algocf@hangingbox=\box96
+\algocf@untilbox=\box97
+\algocf@skipuntil=\skip147
+\algocf@capbox=\box98
+\algocf@lcaptionbox=\skip148
+\algoheightruledefault=\skip149
+\algoheightrule=\skip150
+\algotitleheightruledefault=\skip151
+\algotitleheightrule=\skip152
+\c@algocfline=\count428
+\c@algocfproc=\count429
+\c@algocf=\count430
+\algocf@algoframe=\box99
+\algocf@algobox=\box100
+)
+\c@theorem=\count431
+)
+(./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
@@ -1559,22 +1611,20 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 7.
 (d:/Program Files/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [5]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
 
-[6]
+[6
+
+]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [7
-
-])
+ [7])
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
 
@@ -1590,48 +1640,52 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [10])
+ [10]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [11])
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
 
-[11]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [12
-
-] (./main.lof)
+[12] (./main.lof)
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [13]
+ [13
+
+]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [14
 
-] (./main.lot)
-\tf@lot=\write7
-\openout7 = `main.lot'.
-
- (./front/denotation.tex
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [15]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
-
-[16
-
-]
+] (./main.lot
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [17])
+ [15])
+\tf@lot=\write7
+\openout7 = `main.lot'.
+
+
+(./front/denotation.tex
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [16]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [17
+
+])
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
 
@@ -1723,14 +1777,22 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [12])
-(./contents/chapter03_methodology.tex
+ [12]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [13]
+
+[13]) (./contents/chapter03_methodology.tex
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [14]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [15]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [16
+
+]
 Chapter 3.
 (./figures/system_architecture.tex
 
@@ -1743,30 +1805,28 @@ Package xeCJK Warning: Unknown CJK family `\CJKsfdefault' is being ignored.
 File: figures/system_architecture.tex Graphic file (type tex)
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [15
-
-]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [16]
-File: figures/fig_ckg_schema.pdf Graphic file (type pdf)
-<use figures/fig_ckg_schema.pdf>
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
  [17]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [18]
+File: figures/fig_ckg_schema.pdf Graphic file (type pdf)
+<use figures/fig_ckg_schema.pdf>
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [19]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [20]
 Underfull \vbox (badness 2310) has occurred while \output is active []
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [19]
+ [21]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [20]
+ [22]
 (./figures/kgat_architecture.tex)
 File: figures/kgat_architecture.tex Graphic file (type tex)
 
@@ -1774,110 +1834,108 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [21]
+ [23]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
 
-[22]
+[24]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [23]
+ [25]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [24])
-(./contents/chapter04_experiments.tex
+ [26]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [25]
+
+[27]) (./contents/chapter04_experiments.tex
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [26
+ [28]
+Chapter 4.
+
+Underfull \vbox (badness 3503) has occurred while \output is active []
+
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [29
 
 ]
-Chapter 4.
 
 LaTeX Font Warning: Font shape `TU/BiauKai(0)/m/it' undefined
 (Font)              using `TU/BiauKai(0)/m/n' instead on input line 39.
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
-[27]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [28]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [29]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [30]
+[30]
+Underfull \vbox (badness 1038) has occurred while \output is active []
+
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [31]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [32]
+
+[32]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [33]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [34]
-File: figures/fig_training_curves.pdf Graphic file (type pdf)
-<use figures/fig_training_curves.pdf>
-
-Underfull \vbox (badness 4181) has occurred while \output is active []
-
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [35]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
+ [36]
+File: figures/fig_training_curves.pdf Graphic file (type pdf)
+<use figures/fig_training_curves.pdf>
 
-[36]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [37]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [38]
+
+[38]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [39]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [40]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [41]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [42]
 File: figures/user_141540.pdf Graphic file (type pdf)
 <use figures/user_141540.pdf>
 File: figures/user_58074.pdf Graphic file (type pdf)
 <use figures/user_58074.pdf>
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [41]
 File: figures/user_83279.pdf Graphic file (type pdf)
 <use figures/user_83279.pdf>
-) (./contents/chapter05_conclusion.tex
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [42]
+ [43]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [44]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [45]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
 
-[43]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [44
-
-]
-Chapter 5.
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
-[45]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [46]
+[46]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
  [47]
@@ -1886,41 +1944,86 @@ File: figures/seal.pdf Graphic file (type pdf)
  [48]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [49]
+ [49]) (./contents/chapter05_conclusion.tex
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [50])
+ [50]
+Chapter 5.
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [51]
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [52
-
-] (./main.bbl
-File: figures/seal.pdf Graphic file (type pdf)
-<use figures/seal.pdf>
- [53
+[51
 
 ]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [54]
+ [52]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [55])
+ [53]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+
+[54]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [55]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [56]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [57])
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [58] (./main.bbl
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [59
+
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [60]
+Underfull \hbox (badness 1097) in paragraph at lines 188--198
+[]\TU/TimesNewRoman(0)/m/n/10.95 P. Virtanen, R. Gommers, T. E. Oliphant, M. Ha
+berland, T. Reddy, D. Cournapeau,
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [61]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [62])
 (./back/appendix01.tex
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [56]) (./back/appendix02.tex
+ [63]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [57
+ [64
 
-]
+]) (./back/appendix02.tex
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [58]
+ [65]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [66]
 Overfull \hbox (68.63168pt too wide) in paragraph at lines 17--28
  [][] 
  []
@@ -1937,7 +2040,7 @@ Overfull \hbox (68.63168pt too wide) in paragraph at lines 55--66
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
-[59
+[67
 
 ]
 
@@ -1970,7 +2073,7 @@ Overfull \hbox (68.63168pt too wide) in paragraph at lines 135--146
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
-[60]
+[68]
 Overfull \hbox (68.63168pt too wide) in paragraph at lines 154--165
  [][] 
  []
@@ -1978,15 +2081,15 @@ Overfull \hbox (68.63168pt too wide) in paragraph at lines 154--165
 ) (./back/appendix03.tex
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [61]
+ [69]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [62
+ [70
 
 ]
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
- [63]
+ [71]
 Overfull \hbox (7.9025pt too wide) in paragraph at lines 25--26
 \TU/TimesNewRoman(0)/m/n/12 food, desserts, oven, time-to-make, lunch, occasion
 , equipment, dietary, low-saturated-
@@ -2012,14 +2115,37 @@ sentation, vegetarian, dinner-party,
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
-[64])
+[72]) (./back/appendix04.tex
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [73]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [74
 
-Package caption Warning: Unused \captionsetup[sub] on input line 42.
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [75]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+
+[76]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [77]
+File: figures/seal.pdf Graphic file (type pdf)
+<use figures/seal.pdf>
+ [78])
+
+Package caption Warning: Unused \captionsetup[sub] on input line 44.
 See the caption package documentation for explanation.
 
 File: figures/seal.pdf Graphic file (type pdf)
 <use figures/seal.pdf>
-[65] (./main.aux)
+[79] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2022/08/05>
@@ -2028,19 +2154,16 @@ L3 programming layer <2022/08/05>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 7B4AA5B26D7EC87D8A1F92360F34A6DD;7532.
+(rerunfilecheck)             Checksum: ECA208B5BBD36A24998FAE1DBE1E8C68;9573.
  ) 
 Here is how much of TeX's memory you used:
- 35582 strings out of 467992
- 748482 string characters out of 5426695
- 1206287 words of memory out of 5000000
- 63717 multiletter control sequences out of 15000+600000
- 646640 words of font info for 158 fonts, out of 8000000 for 9000
+ 36723 strings out of 467992
+ 771143 string characters out of 5426695
+ 1235879 words of memory out of 5000000
+ 64839 multiletter control sequences out of 15000+600000
+ 646688 words of font info for 164 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 100i,15n,131p,2081b,1299s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 100i,22n,131p,1403b,1299s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (83 pages).
+Output written on main.pdf (97 pages).

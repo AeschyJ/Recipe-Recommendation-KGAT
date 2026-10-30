@@ -8,7 +8,7 @@
 
 \subsection*{硬體與軟體環境}
 
-所有實驗均在同一台配備 Intel Arc A750 GPU (XPU) 的工作站上執行，其中 XPU 為 PyTorch 框架中對應 Intel 顯示晶片的硬體加速後端。模型以 PyTorch 框架實作，採用 BFloat16 混合精度訓練以加速運算並降低記憶體需求。深層模型（$L \geq 2$）另搭配梯度檢查點 (Gradient Checkpointing) 技術，確保訓練過程不因記憶體不足而中斷。
+本研究所有實驗均在同一台單機工作站上執行，作業系統為 64 位元 Windows 11，核心硬體配備包含 AMD Ryzen 5 7500F 6 核心處理器（基頻 3.70 GHz，最大加速時脈 5.0 GHz，配備 32 MB 共享 L3 快取）、32 GB DDR5 主記憶體，以及一張 Intel Arc A750 GPU（8 GB 顯示記憶體）。在運算架構與硬體職責分工上，本研究將模型訓練與線上可解釋路徑檢索進行明確解耦：模型訓練與表徵學習（§\ref{sec:main_results}--\S\ref{sec:fidelity_evaluation}）主要由 GPU 承載，採用 PyTorch 原生 XPU 硬體加速後端與 BFloat16 混合精度訓練以加速張量運算並降低顯示記憶體需求，深層模型（$L \geq 2$）另搭配梯度檢查點技術避免記憶體不足；而圖資料結構之建置與路徑萃取基準測試（§\ref{sec:csr_experiments}）則純粹於主機 CPU 與主記憶體（RAM）中以單執行緒執行，不依賴 GPU 平行圖運算，藉此模擬推薦系統在實際輕量級線上推論伺服器上的即時解釋檢索效能。
 
 \subsection*{資料集}
 
@@ -55,7 +55,7 @@
     嵌入維度 (Embedding Dim) & 64 \\
     批次大小 (Batch Size) & 1,024 \\
     學習率 (Learning Rate) & 0.001 \\
-    優化器 & Adam \\
+    最佳化器 & Adam \\
     學習率排程 & StepLR (每 3 epoch 衰減 $\times 0.5$) \\
     訓練精度 & BFloat16 \\
     \bottomrule
@@ -83,7 +83,7 @@
   \end{equation}
   在留一法設定下，Precision@$K$ 在數值上等價於 HR@$K$/$K$，兩者提供一致的效能訊號。本研究保留此指標以符合推薦系統文獻之慣例報告格式。
     
-  \item \textbf{NDCG@$K$（歸一化折損累計增益，Normalized Discounted Cumulative Gain）：}此指標將真實正樣本在推薦清單中的具體排序位置納入考量，越靠前的正確推薦將獲得越高的權重。由於每次評估中只有 1 個正樣本，理想的折損累計增益 (IDCG) 恆為 1，因此實際計算的 NDCG 等同於 DCG。公式定義為：
+  \item \textbf{NDCG@$K$（正規化折損累計增益，Normalized Discounted Cumulative Gain）：}此指標將真實正樣本在推薦清單中的具體排序位置納入考量，越靠前的正確推薦將獲得越高的權重。由於每次評估中只有 1 個正樣本，理想的折損累計增益 (IDCG) 恆為 1，因此實際計算的 NDCG 等同於 DCG。公式定義為：
   \begin{equation}
     \text{NDCG}@K = \frac{1}{N}\sum_{i=1}^{N} \frac{\mathbb{I}(rank_i \leq K)}{\log_2(rank_i + 1)}
   \end{equation}
@@ -101,17 +101,17 @@
 
 \subsection*{評估協定說明}
 
-為確保實驗結果之可重複性 (reproducibility) 與統計信度 (statistical reliability)，本研究對所有模型採用統一之評估協定：每個模型（含三組 Baseline 與五組 KGAT 變體）均獨立訓練三次，各次運行使用不同的隨機種子以涵蓋參數初始化之隨機性。在每次運行中，皆以 HR@20（命中率）作為模型選擇準則 (model selection criterion) 選取最佳 Epoch 之模型檢查點，最終報告之數值為三次運行最佳結果之算術平均值。此設定符合如 KGAT~\cite{wang2019kgat} 與 LightGCN~\cite{he2020lightgcn} 等推薦系統研究之常見評估協定 (evaluation protocol)，確保 Baseline 與 KGAT 模型之間的比較在相同統計基礎上進行，避免因運行次數或選取方式差異所引入的系統性偏差。各模型含標準差之完整統計請見附錄~\ref{app:performance_stats}，單次運行之詳細數據請見附錄~\ref{app:training_log}。
+為確保實驗結果之可重複性 (reproducibility) 與統計信度 (statistical reliability)，本研究對所有模型採用統一之評估協定：每個模型（含三組 Baseline 與五組 KGAT 變體）均獨立訓練三次，各次執行使用不同的隨機種子以涵蓋參數初始化之隨機性。在每次執行中，皆以 HR@20（命中率）作為模型選擇準則 (model selection criterion) 選取最佳 Epoch 之模型檢查點，最終報告之數值為三次執行最佳結果之算術平均值。此設定符合如 KGAT~\cite{wang2019kgat} 與 LightGCN~\cite{he2020lightgcn} 等推薦系統研究之常見評估協定 (evaluation protocol)，確保 Baseline 與 KGAT 模型之間的比較在相同統計基礎上進行，避免因執行次數或選取方式差異所引入的系統性偏差。各模型含標準差之完整統計請見附錄~\ref{app:performance_stats}，單次執行之詳細紀錄請見附錄~\ref{app:training_log}。
 
-\section{實驗結果分析}
+\section{實驗結果分析}\label{sec:main_results}
 
 \subsection*{主要效能比較}
 
-表~\ref{tab:main_results} 呈現了所有模型的效能比較。所有結果均為三次獨立運行之平均值。
+表~\ref{tab:main_results} 呈現了所有模型的效能比較。所有結果均為三次獨立執行之平均值。
 
 \begin{table}[htbp]
   \centering
-  \caption{主要推薦效能比較（三次獨立運行平均值）}
+  \caption{主要推薦效能比較（三次獨立執行平均值）}
   \label{tab:main_results}
   \resizebox{\textwidth}{!}{%
   \begin{tabular}{l ccc ccc ccc}
@@ -137,16 +137,16 @@
 
 \begin{enumerate}[leftmargin=2em]
   \item \textbf{KGAT ($L{=}3$) 於所有指標上全面優於全部 Baseline：}KGAT ($L{=}3$) 於九項指標上皆取得最佳結果。以 HR@20 為例，KGAT 達 0.8775，相較於效能最佳之 Baseline（LightGCN, 0.6668）提升 31.6\%；在排序品質指標 NDCG@20 上，KGAT 達 0.5309，較 LightGCN (0.3836) 提升 38.4\%，顯示 KGAT 不僅提升命中率，亦改善了正樣本的排序位置。
-  \item \textbf{LightGCN 為最強 Baseline：}作為純圖卷積方法，LightGCN 在三個 Baseline 中整體效能最佳，顯示利用使用者-物品二分圖的結構訊息即能有效提升食譜推薦效能。NFM 在 HR 指標上略遜於 LightGCN，但優於 BPR-MF，整體排名居中。
+  \item \textbf{LightGCN 為表現最佳之基準模型：}作為純圖卷積方法，LightGCN 在三個 Baseline 中整體效能最佳，顯示利用使用者-物品二分圖的結構訊息即能有效提升食譜推薦效能。NFM 在 HR 指標上略遜於 LightGCN，但優於 BPR-MF，整體排名居中。
 \end{enumerate}
 
 \section{消融實驗 (Ablation Study)}
 
-為深入探究 KGAT 各模組的具體貢獻，本研究設計了三組消融實驗。表~\ref{tab:ablation} 呈現了各實驗變體的完整結果，所有數據均為三次獨立運行之平均值。
+為深入探究 KGAT 各模組的具體貢獻，本研究設計了三組消融實驗。表~\ref{tab:ablation} 呈現了各實驗變體的完整結果，所有數值均為三次獨立執行之平均值。
 
 \begin{table}[htbp]
   \centering
-  \caption{消融實驗結果（三次獨立運行平均值）}
+  \caption{消融實驗結果（三次獨立執行平均值）}
   \label{tab:ablation}
   \resizebox{\textwidth}{!}{%
   \begin{tabular}{l ccc ccc ccc}
@@ -170,7 +170,7 @@
 
 在 $L{=}1$ 的配置下，移除注意力機制（w/o Attention）後，HR@20 從 0.6761 下降至 0.6636（$-1.8\%$），但 NDCG@20 反而從 0.3749 上升至 0.3945（$+5.2\%$），呈現出值得關注的差異化趨勢。
 
-此結果可從兩個角度理解：(1) 在僅觀察一跳鄰居 ($L{=}1$) 的情況下，注意力機制的「權重差異化」與均勻聚合在命中率效能上幾乎不分軒輊；(2) w/o Attention 在排序品質 (NDCG) 上的優勢，可能源於均勻權重的隱含「正則化效果」——它避免了注意力機制在訓練初期因偶然因素而過度集中於少數邊的問題。
+此結果可從兩個角度理解：(1) 在僅觀察一跳鄰居 ($L{=}1$) 的情況下，注意力機制的「權重差異化」與均勻聚合在命中率效能上幾乎不分軒輊；(2) w/o Attention 在排序品質 (NDCG) 上的優勢，可能源於均勻權重的隱含「正規化效果」——它避免了注意力機制在訓練初期因偶然因素而過度集中於少數邊的問題。
 
 我們推測注意力機制的真正價值在更深層的架構中才會顯現：當感受野擴大到二跳、三跳時，鄰居數量呈指數級增長，此時注意力機制的「資訊篩選」功能變得不可或缺（§\ref{sec:depth}）。
 
@@ -190,7 +190,7 @@
 
 \begin{table}[htbp]
   \centering
-  \caption{GNN 深度對推薦效能的影響（三次獨立運行平均值）}
+  \caption{GNN 深度對推薦效能的影響（三次獨立執行平均值）}
   \label{tab:depth_progression}
   \resizebox{\textwidth}{!}{%
   \begin{tabular}{c cccccc}
@@ -212,11 +212,11 @@
 
 \subsubsection*{訓練行為分析}
 
-深層模型的訓練行為值得更細緻的觀察。表~\ref{tab:overfitting} 呈現了不同深度模型在前五個 Epoch 的效能演變，所有數值為三次獨立運行之平均值。
+深層模型的訓練行為值得更細緻的觀察。表~\ref{tab:overfitting} 呈現了不同深度模型在前五個 Epoch 的效能演變，所有數值為三次獨立執行之平均值。
 
 \begin{table}[htbp]
   \centering
-  \caption{不同深度模型的 Epoch 效能趨勢（三次獨立運行平均值）}
+  \caption{不同深度模型的 Epoch 效能趨勢（三次獨立執行平均值）}
   \label{tab:overfitting}
   \begin{tabular}{l cccccc}
     \toprule
@@ -244,7 +244,7 @@
 
 
 
-\section{可解釋性評估 (Explainability Evaluation)}
+\section{可解釋性評估 (Explainability Evaluation)}\label{sec:fidelity_evaluation}
 
 本節對三種不同深度的 KGAT 模型（$L{=}1$、$L{=}2$、$L{=}3$）進行系統性的可解釋性比較分析。本研究採樣規模為 \textbf{500 位} 使用者以均勻隨機抽樣方式（固定隨機種子 42）從測試集中選取，篩選條件為該使用者在測試集中至少有一筆正樣本互動。解釋路徑的 Top-$K$ 萃取設定為 $K{=}3$，即每位使用者最多保留三條最高注意力分數的路徑。各模型採用其最佳 Epoch 之 Checkpoint 進行評估，確保比較基準一致。
 
@@ -421,3 +421,106 @@
 
 \textbf{案例 C：KG 語意路徑的侷限，如圖~\ref{fig:case_c} 所示。}
 使用者 963993 被推薦 ``fantastic tropical thai chicken salad''（預測機率 0.933），解釋路徑透過共同食材 ``chicken'' 建立聯繫。然而 $F^+ = -0.001$，$F^- = 0.5415$——移除路徑反而微幅提升預測，且僅保留路徑造成 54\% 的預測損失。此案例表明 KG 語意路徑雖然提供了直覺上合理的解釋，但並非模型預測的核心依據。
+
+\section{大規模 CKG 路徑萃取效率與資源開銷分析}\label{sec:csr_experiments}
+
+本節評估食譜推薦場景下可解釋路徑萃取之計算開銷，比較通用圖論套件 NetworkX 單向深度優先搜尋，與本研究所採用之 CSR 雙向局部交集方法在資料結構之建立耗時、記憶體佔用、搜尋延遲及高連接度節點下的實測表現。
+
+\subsection{圖資料結構之建立與儲存開銷比較}
+在執行路徑檢索與事後解釋評估時，圖資料結構的初始化時間與記憶體佔用會影響整體評估流程的執行效率。本實驗在包含 473,577 個節點與 7,200,165 條有向邊之全圖規模下，比較以下三種資料結構之建立方式：
+\begin{enumerate}
+    \item \textbf{CSR 稀疏矩陣 (SciPy CSR)}：採用 SciPy 稀疏矩陣模組~\cite{virtanen2020scipy} 建立壓縮稀疏列陣列，並呼叫 \texttt{sort\_indices()} 對相鄰節點索引進行排序。
+    \item \textbf{NetworkX 靜態拓樸 (Static Unweighted)}：一次性將全圖邊列表載入 \texttt{nx.Graph} 物件中~\cite{hagberg2008networkx}。
+    \item \textbf{NetworkX 動態帶權 (Dynamic Weighted)}：模擬部分既有開源實作之處理流程，於查詢時自模型輸出之注意力矩陣過濾大於 $10^{-6}$ 之有效邊並建立帶權圖物件。
+\end{enumerate}
+實測結果如表~\ref{tab:graph_construction_overhead} 所示。
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{不同圖資料結構於 720 萬邊全圖規模下之建構開銷對比}
+  \label{tab:graph_construction_overhead}
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{lcccc}
+    \toprule
+    \textbf{資料結構與建圖模式} & \textbf{建構耗時} & \textbf{核心陣列記憶體} & \textbf{行程 RSS 增幅} & \textbf{吞吐量上限} \\
+    \midrule
+    \textbf{CSR 稀疏矩陣 (SciPy CSR)} & \textbf{190.82 $\pm$ 4.72 ms} & \textbf{56.74 MB} & \textbf{113.98 MB} & \textbf{5.24 次/秒} \\
+    NetworkX 靜態拓樸 (Static Unweighted) & 7.43 秒 (7,432.2 ms) & 無連續陣列 & 852.33 MB & 0.13 次/秒 \\
+    NetworkX 動態帶權 (Dynamic Weighted) & 13.01 秒 (13,007.2 ms) & 無連續陣列 & 1,581.41 MB (1.58 GB) & 0.077 次/秒 \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+實驗結果顯示，在本研究測試環境下，CSR 矩陣之建構耗時約為 190.82 ms，其三個核心陣列（\texttt{indptr}、\texttt{indices}、\texttt{data}）合計佔用 56.74 MB（行程 RSS 記憶體增幅為 113.98 MB）。相較之下，NetworkX 靜態建圖與動態帶權建圖分別耗時 7.43 秒與 13.01 秒，行程記憶體增幅分別達 852.33 MB 與 1.58 GB。此差異主要源於底層儲存結構之不同：NetworkX 採用三層巢狀字典（\texttt{dict-of-dicts-of-dicts}）儲存節點與邊屬性，在百萬邊級圖譜上需配置大量 Python 物件與雜湊表指標；而 CSR 格式則將邊索引與權重緊湊排列於連續陣列中，因此在儲存空間與初始化速度上具明顯優勢。
+
+\subsection{不同搜尋策略與資料結構之延遲消融比較}
+為評估不同演算法與資料結構對尋路耗時的影響，並檢驗輸出路徑之一致性，本實驗自測試集中選取 5 類不同結構特徵、共 18 組使用者與食譜配對樣本進行測試：
+\begin{itemize}
+    \item \textbf{典型展示案例 (Academic Demo Cases, 5 組)}：包含深度傳播、高必要性、高充分性、淺層雜訊及孤立節點案例（使用者度數 1--2）。
+    \item \textbf{中度互動使用者 (Mid-Degree Users, 5 組)}：使用者歷史互動度數介於 4 至 9。
+    \item \textbf{高度互動使用者 (High-Degree Users, 5 組)}：使用者歷史互動度數介於 31 至 42，用以觀察較大分支因子下之搜尋耗時。
+    \item \textbf{高連接度食材節點 (High-Degree Ingredient Nodes, 2 組)}：目標食譜包含全圖連接度超過 22,000 之高頻食材實體。
+    \item \textbf{隨機長尾配對對照組 (Random Long-tail Pair, 1 組)}：隨機配對之長尾樣本（U10-I99999）。
+\end{itemize}
+本實驗比較四種組合配置：NetworkX 單向搜尋（NX Uni）、NetworkX 雙向搜尋（NX Bi）、CSR 單向搜尋（CSR Uni）以及 CSR 雙向局部交集搜尋（CSR Bi）。實測結果整理於表~\ref{tab:csr_vs_networkx_benchmark}。
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{18 組測試樣本在四種演算法象限下之路徑搜尋延遲與等價性基準測試 ($L \le 3$ 條邊)}
+\label{tab:csr_vs_networkx_benchmark}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+\textbf{測試案例群組 / 評估指標} & \textbf{NX (Uni)} & \textbf{NX (Bi)} & \textbf{CSR (Uni)} & \textbf{CSR (Bi, 本研究)} \\
+\midrule
+\multicolumn{5}{l}{\textit{分組平均搜尋延遲 (ms)}} \\
+典型展示案例 ($n=5$, 度數 1--2) & 51.73 ms & 0.032 ms & 0.206 ms & \textbf{0.013 ms} \\
+中度互動使用者 ($n=5$, 度數 4--9) & 326.04 ms & 0.094 ms & 0.783 ms & \textbf{0.027 ms} \\
+高度互動使用者 ($n=5$, 度數 31--42) & 1,854.92 ms & 0.704 ms & 5.577 ms & \textbf{0.134 ms} \\
+高連接度食材節點 ($n=2$, 度數 12--18) & 730.56 ms & 0.511 ms & 4.003 ms & \textbf{0.092 ms} \\
+隨機長尾配對對照組 ($n=1$, 度數 18) & 874.44 ms & 0.878 ms & 5.555 ms & \textbf{0.150 ms} \\
+\midrule
+\textbf{總體平均搜尋延遲 (Overall Average)} & \textbf{749.95 ms} & \textbf{0.336 ms} & \textbf{2.577 ms} & \textbf{0.067 ms} \\
+\midrule
+\textbf{純遍歷提速倍率 (Speedup Factor)} & 基準 (1.0$\times$) & 2,230.2$\times$ & 291.0$\times$ & \textbf{11,205.2$\times$} \\
+\textbf{拓樸與數值等價性 (Equivalence)} & 100\% & 100\% & 100\% & \textbf{100\%} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+由表~\ref{tab:csr_vs_networkx_benchmark} 之實測結果可觀察到以下兩點現象：
+\begin{enumerate}
+    \item \textbf{搜尋延遲明顯降低}：在預先載入圖結構的前提下，CSR 雙向局部交集方法在本測試樣本集上的平均搜尋耗時為 0.067 ms，相較於 NetworkX 單向搜尋之 749.95 ms 有顯著降幅；在度數為 31 至 42 的高度互動使用者樣本中，平均搜尋時間亦維持於 0.134 ms 之較低延遲水準。
+    \item \textbf{路徑集合與分數完全一致}：在全部 18 組測試樣本中，四種配置所萃取之 Top-$K$ 路徑集合、節點序列與注意力連乘分數均 100\% 相同，驗證了雙向局部交集實作未改變原有路徑檢索結果。
+\end{enumerate}
+
+\subsection{演算法複雜度與資料結構之效益解耦分析}
+為進一步釐清搜尋耗時降低之來源，可將表~\ref{tab:csr_vs_networkx_benchmark} 之 $2 \times 2$ 實驗結果沿「演算法複雜度」與「底層資料結構」兩個軸向進行拆解：
+\begin{itemize}
+    \item \textbf{軸向一：演算法降階效益（$\mathcal{O}(d^3) \to \mathcal{O}(d^2)$）}：在固定資料結構的條件下，由單向搜尋改為雙向交集搜尋之平均耗時比值分別為：
+    \begin{align}
+      \text{Gain}_{\text{Algo (NX)}} &= \frac{749.95\text{ ms}}{0.336\text{ ms}} = \mathbf{2,230.2\times} \\
+      \text{Gain}_{\text{Algo (CSR)}} &= \frac{2.577\text{ ms}}{0.067\text{ ms}} = \mathbf{38.5\times}
+    \end{align}
+    此效益主要來自搜尋狀態空間的縮減：單向搜尋需依序展開三層鄰域 $\mathcal{O}(d_u \cdot d_r \cdot d_m)$；而雙向搜尋預先將目標食譜鄰域建立為雜湊集合，中繼節點僅需執行常數時間之集合成員查驗，使搜尋範圍收斂為 $\mathcal{O}(d_u \cdot d_r \cdot 1)$。
+    \item \textbf{軸向二：資料結構與記憶體局部性效益（Python Dict $\to$ C Array）}：在固定搜尋邏輯的條件下，由 NetworkX 字典結構改為 CSR 連續陣列之平均耗時比值分別為：
+    \begin{align}
+      \text{Gain}_{\text{Hardware (Uni)}} &= \frac{749.95\text{ ms}}{2.577\text{ ms}} = \mathbf{291.0\times} \\
+      \text{Gain}_{\text{Hardware (Bi)}} &= \frac{0.336\text{ ms}}{0.067\text{ ms}} = \mathbf{5.0\times}
+    \end{align}
+    此差異反映出底層記憶體佈局的影響：CSR 格式將相鄰節點編號連續儲存為 32 位元整數陣列，有利於提升 CPU 快取行（Cache Line）讀取之空間局部性（Spatial Locality）；相對地，Python 巢狀字典在走訪鄰居時需執行雜湊計算與非連續記憶體指標存取，因而產生較多額外開銷。
+\end{itemize}
+此外，若對照每次查詢時動態過濾權重並重建 NetworkX 圖物件之離線評估流程（單次建圖 13.01 秒加單向搜尋 0.75 秒，合計約 13.76 秒），採用啟動時預載 CSR 索引之方式可避免重複建圖開銷，使單次查詢維持在毫秒以下之回應時間。
+
+\subsection{高連接度樞紐節點對單向與雙向搜尋之影響及實驗限制}
+在食譜知識圖中，即便前處理階段已移除前 0.5\%（74 個）極端高頻食材，部分次高頻食材（如測試集中之 Entity 14883，連接邊數達 22,095）或常見標籤仍具有較高連接度。在單向 DFS 策略下，當搜尋路徑由歷史食譜經過此類高連接度節點時，演算法需逐一走訪其下逾兩萬個相鄰節點以檢查是否連向目標食譜，導致該類樣本之平均單向搜尋時間達 730.56 ms（單一個案最高達 876.26 ms）。
+
+相較之下，在雙向局部交集策略中，後向候選集合 $\mathcal{S}_v$ 係建立於目標食譜 $v$ 之鄰域上。由於單一食譜所包含的食材與互動使用者數量有限（通常小於 100），集合 $\mathcal{S}_v$ 規模較小。在前向搜尋過程中，演算法僅需查驗 Entity 14883 是否存在於 $\mathcal{S}_v$ 中，無須展開該高連接度節點本身的相鄰邊，因此在兩組包含高連接度食材的測試案例中，搜尋耗時分別為 0.038 ms 與 0.145 ms（平均 0.092 ms），受樞紐節點度數擴張之影響相對較小。
+
+\textbf{研究限制說明}：最後需要指出的是，本節所報告之建圖耗時、搜尋延遲絕對數值與相對加速倍率，僅為本實驗測試環境與所抽取之 18 組代表性樣本下之實測結果。實際系統之推論延遲與加速幅度仍受硬體處理器架構、快取大小、記憶體頻寬、圖譜度數分佈以及並行查詢負載等多重因素影響，本實驗結果旨在驗證資料結構與雙向尋路策略之相對改善趨勢，不代表在所有軟硬體環境或任意圖譜結構下皆具同等比例之加速效果。
+
+

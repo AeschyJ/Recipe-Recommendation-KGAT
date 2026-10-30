@@ -1,0 +1,124 @@
+% !TeX root = ../main.tex
+
+\appendix{D}{CSR 雙向局部交集演算法虛擬碼與等價性理論證明}
+\refstepcounter{chapter}
+\label{app:csr_proof}
+
+本附錄提供正文 §3.6 所述之 CSR 雙向局部交集路徑萃取演算法之完整虛擬碼（演算法~\ref{alg:csr_bidirectional_search}），以及拓樸集合雙射與浮點數值等價性之形式化數學證明。
+
+\section{結構性三部圖拓樸定界與推論通道推導}
+
+本研究所建構之食譜協同知識圖 $\mathcal{G}_{\text{CKG}} = (\mathcal{V}_{\text{all}}, \mathcal{E}_{\text{all}})$ 由三個互斥之不相交頂點子集構成：
+\begin{equation}
+  \mathcal{V}_{\text{all}} = \mathcal{U} \uplus \mathcal{V}_{\text{recipe}} \uplus \mathcal{E}_{\text{kg}}
+\end{equation}
+其中 $\mathcal{U}$ 為使用者集合（$|\mathcal{U}| = 226,570$），$\mathcal{V}_{\text{recipe}}$ 為食譜集合（$|\mathcal{V}_{\text{recipe}}| = 231,637$），$\mathcal{E}_{\text{kg}}$ 為食材與烹飪屬性之實體集合（$|\mathcal{E}_{\text{kg}}| = 15,370$）。在排除訊息傳播自迴圈（Self-loops）之非平凡拓樸邊集下，邊關係遵循異質二分連接關係：
+\begin{align}
+  \mathcal{E}_{\text{UI}} &\subseteq \mathcal{U} \times \mathcal{V}_{\text{recipe}}, \quad \mathcal{E}_{\text{KG}} \subseteq \mathcal{V}_{\text{recipe}} \times \mathcal{E}_{\text{kg}} \\
+  \mathcal{U} \times \mathcal{U} &= \emptyset, \quad \mathcal{V}_{\text{recipe}} \times \mathcal{V}_{\text{recipe}} = \emptyset, \quad \mathcal{E}_{\text{kg}} \times \mathcal{E}_{\text{kg}} = \emptyset
+\end{align}
+即同類節點之間無直連結構邊。
+
+給定查詢使用者 $u \in \mathcal{U}$ 與目標推薦食譜 $v \in \mathcal{V}_{\text{recipe}}$，推論路徑長度 $L$ 具備以下結構性特徵：
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{長度 $L=1$：}路徑形式為直連邊 $(u, v)$。當目標食譜已存在於訓練集互動圖時（如既有偏好強化案例），可由 1-hop 直連檢查直接捕捉；惟針對全新未互動之候選食譜（$(u, v) \notin \mathcal{E}_{\text{UI}}$），直連路徑為空，必須仰賴多跳路徑推論。
+  \item \textbf{長度 $L=2$：}路徑形式為 $(u \to n \to v)$。由於使用者之鄰域完全由食譜組成，即 $\mathcal{N}(u) \subseteq \mathcal{V}_{\text{recipe}}$；而候選食譜之鄰域則由使用者歷史互動者與知識圖實體構成，即 $\mathcal{N}(v) \subseteq (\mathcal{U} \uplus \mathcal{E}_{\text{kg}})$。由三部圖定義可知，兩者鄰域之交集恆為空集：
+    \begin{equation}
+      \mathcal{N}(u) \cap \mathcal{N}(v) = \emptyset
+    \end{equation}
+    因此，長度為 2 條邊之簡單路徑在三部圖結構下並不存在。
+  \item \textbf{長度 $L=3$：}路徑形式為 $(u \to r_1 \to m \to v)$。此為跨越使用者與候選食譜之最小非平凡推論通道：
+    \begin{itemize}
+      \item $r_1 \in \mathcal{N}(u) \subseteq \mathcal{V}_{\text{recipe}}$：代表使用者之歷史互動食譜；
+      \item $m \in \mathcal{N}(r_1) \cap \mathcal{N}(v)$：代表歷史食譜 $r_1$ 與推薦食譜 $v$ 之共鄰中繼實體。若中繼節點 $m \in \mathcal{U}$，對應協同過濾元路徑；若 $m \in \mathcal{E}_{\text{kg}}$，則對應知識圖語意元路徑。
+    \end{itemize}
+\end{enumerate}
+
+\section{演算法虛擬碼}
+
+演算法~\ref{alg:csr_bidirectional_search} 展示了基於 CSR 陣列之雙向局部交集尋路流程。
+
+\begin{algorithm}[htbp]
+\caption{基於 CSR 稀疏矩陣之雙向局部交集路徑萃取演算法 (Bidirectional Meet-in-the-Middle Path Extraction)}
+\label{alg:csr_bidirectional_search}
+\KwIn{查詢使用者 $u$, 目標食譜 $v$, 壓縮稀疏列圖譜 $\mathcal{G}_{\text{CSR}} = (\mathbf{indptr}, \mathbf{indices})$, 注意力張量 $\mathbf{A}$, 路徑門檻數量 $K$}
+\KwOut{排序後之 Top-$K$ 可解釋路徑集合 $\mathcal{P}^*$ 及其聯合傳播分數}
+
+$\mathcal{P} \gets \emptyset$\;
+\If{$u = v$}{\Return{$\{ ([u], 1.0) \}$}\;}
+$\mathcal{N}(u) \gets \mathbf{indices}[\mathbf{indptr}[u] : \mathbf{indptr}[u+1]]$\;
+$\mathcal{N}(v) \gets \mathbf{indices}[\mathbf{indptr}[v] : \mathbf{indptr}[v+1]]$\;
+$\mathcal{S}_v \gets \text{HashSet}(\mathcal{N}(v)) \setminus \{u, v\}$ \tcp*{目標端後向候選集合剪枝}
+
+\If{$v \in \mathcal{N}(u)$}{
+    $w_{u, v} \gets \text{GetEdgeWeight}(u, v, \mathbf{A})$\;
+    \If{$w_{u, v} > 10^{-6}$}{
+        $\mathcal{P} \gets \mathcal{P} \cup \{ ([u, v], w_{u, v}) \}$\;
+    }
+}
+
+\ForEach{$n \in \text{Set}(\mathcal{N}(u)) \cap \mathcal{S}_v$}{
+    $w_{u, n} \gets \text{GetEdgeWeight}(u, n, \mathbf{A})$\;
+    $w_{n, v} \gets \text{GetEdgeWeight}(n, v, \mathbf{A})$\;
+    \If{$w_{u, n} > 10^{-6} \land w_{n, v} > 10^{-6}$}{
+        $\mathcal{P} \gets \mathcal{P} \cup \{ ([u, n, v], w_{u, n} \cdot w_{n, v}) \}$\;
+    }
+}
+
+\ForEach{$r_1 \in \mathcal{N}(u) \setminus \{u, v\}$}{
+    $w_{u, r_1} \gets \text{GetEdgeWeight}(u, r_1, \mathbf{A})$\;
+    \If{$w_{u, r_1} \le 10^{-6}$}{\textbf{continue}\;}
+    
+    $\mathcal{N}(r_1) \gets \mathbf{indices}[\mathbf{indptr}[r_1] : \mathbf{indptr}[r_1+1]]$\;
+    \ForEach{$m \in \mathcal{N}(r_1)$}{
+        \If{$m \in \mathcal{S}_v \land m \ne r_1$}{
+            $w_{r_1, m} \gets \text{GetEdgeWeight}(r_1, m, \mathbf{A})$\;
+            $w_{m, v} \gets \text{GetEdgeWeight}(m, v, \mathbf{A})$\;
+            \If{$w_{r_1, m} > 10^{-6} \land w_{m, v} > 10^{-6}$}{
+                $\text{Score} \gets w_{u, r_1} \times w_{r_1, m} \times w_{m, v}$\;
+                $\mathcal{P} \gets \mathcal{P} \cup \{ ([u, r_1, m, v], \text{Score}) \}$\;
+            }
+        }
+    }
+}
+$\mathcal{P}^* \gets \text{SortByScoreDescending}(\mathcal{P})[1:K]$\;
+\Return{$\mathcal{P}^*$}
+\end{algorithm}
+
+\section{路徑集合與權重計算之等價性證明}
+% 歷史標題對照：拓樸雙射與浮點數值等價性定理證明
+
+\begin{proposition}[路徑集合與分數等價性]
+令 $\mathcal{P}_{\text{NX}}(u, v, 3)$ 為全圖 $\mathcal{G}$ 上由 NetworkX 單向深度優先搜尋 (\texttt{all\_simple\_paths}) 檢索出由 $u$ 至 $v$ 且邊數 $\le 3$ 之所有簡單路徑集合。令 $\mathcal{P}_{\text{CSR}}(u, v)$ 為演算法~\ref{alg:csr_bidirectional_search} 所輸出之路徑集合，則兩者構成嚴格集合相等：
+\begin{equation}
+  \mathcal{P}_{\text{CSR}}(u, v) \equiv \mathcal{P}_{\text{NX}}(u, v, 3)
+\end{equation}
+且對任意路徑 $p \in \mathcal{P}_{\text{CSR}}(u, v)$，其路徑乘積得分滿足 $\text{Score}_{\text{CSR}}(p) = \text{Score}_{\text{NX}}(p)$。
+\end{proposition}
+
+\begin{proof}
+本證明採用雙向子集包含法分別證明 $\mathcal{P}_{\text{CSR}} \subseteq \mathcal{P}_{\text{NX}}$ 與 $\mathcal{P}_{\text{NX}} \subseteq \mathcal{P}_{\text{CSR}}$：
+
+\textbf{1. 證明 $\mathcal{P}_{\text{CSR}} \subseteq \mathcal{P}_{\text{NX}}$：}
+對於演算法~\ref{alg:csr_bidirectional_search} 產出之任意長度為 3 之路徑 $p = [u, r_1, m, v]$：
+\begin{itemize}[leftmargin=2em]
+  \item 由演算法步驟，$r_1 \in \mathcal{N}(u)$ 確保 $(u, r_1) \in \mathcal{E}$；$m \in \mathcal{N}(r_1)$ 確保 $(r_1, m) \in \mathcal{E}$；$m \in \mathcal{S}_v \subset \mathcal{N}(v)$ 確保 $(m, v) \in \mathcal{E}$。因此 $p$ 在圖 $\mathcal{G}$ 上為合法行走 (Walk)。
+  \item 節點相異性：因 $r_1 \in \mathcal{N}(u) \setminus \{u, v\}$，故 $r_1 \ne u$ 且 $r_1 \ne v$；因 $m \in \mathcal{S}_v = \mathcal{N}(v) \setminus \{u, v\}$ 且演算法嚴格檢查 $m \ne r_1$，故 $m \notin \{u, v, r_1\}$。因此路徑中四個頂點互不相同，完全滿足圖論簡單路徑 (Simple Path) 定義。
+  \item 該路徑邊數為 3，滿足長度約束 $\le 3$。因此 $p$ 必被 NetworkX 單向 DFS 遍歷並輸出，故 $p \in \mathcal{P}_{\text{NX}}(u, v, 3)$。長度為 1 與 2 之路徑依相同條件亦必然屬於 $\mathcal{P}_{\text{NX}}(u, v, 3)$。
+\end{itemize}
+
+\textbf{2. 證明 $\mathcal{P}_{\text{NX}} \subseteq \mathcal{P}_{\text{CSR}}$：}
+對於 NetworkX 單向 DFS 輸出之任意簡單路徑 $p \in \mathcal{P}_{\text{NX}}(u, v, 3)$：
+\begin{itemize}[leftmargin=2em]
+  \item 若邊數為 1，則必為 $[u, v]$，由直連檢查直接加入 $\mathcal{P}_{\text{CSR}}$；
+  \item 若邊數為 2，設為 $[u, n, v]$。因其為簡單路徑，$n \notin \{u, v\}$ 且 $n \in \mathcal{N}(u) \cap \mathcal{N}(v)$，演算法之 2-hop 檢查必將其納入；
+  \item 若邊數為 3，設頂點序列為 $[n_0, n_1, n_2, n_3]$，其中 $n_0 = u, n_3 = v$。由簡單路徑定義，頂點兩兩互異。由邊之存在性，$(u, n_1) \in \mathcal{E} \implies n_1 \in \mathcal{N}(u) \setminus \{u, v\}$；$(n_1, n_2) \in \mathcal{E} \implies n_2 \in \mathcal{N}(n_1)$；$(n_2, v) \in \mathcal{E} \implies n_2 \in \mathcal{N}(v)$。令 $r_1 = n_1, m = n_2$，由於 $n_2 \notin \{u, v\}$，得 $m \in \mathcal{S}_v$；且因 $n_2 \ne n_1$，得 $m \ne r_1$。此完全符合演算法雙向搜尋之匹配條件，故 $p$ 必然被演算法收錄於 $\mathcal{P}_{\text{CSR}}$。
+\end{itemize}
+
+\textbf{3. 數值精確等價性：}
+路徑分數定義為各邊注意力權重之連乘積：
+\begin{equation}
+  \text{Score}(p) = \prod_{k=0}^{|p|-2} w_{n_k, n_{k+1}}
+\end{equation}
+由於兩者演算法均讀取相同 KGAT 檢查點之靜態注意力陣列 $\mathbf{A}$，查詢相同邊所取得之單精度浮點數值完全一致，浮點乘法滿足可交換律與確定性，故兩者計算得出之路徑權重在 IEEE 754 浮點精度下恆等。
+\end{proof}

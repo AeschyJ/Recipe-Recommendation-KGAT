@@ -2,6 +2,33 @@
 
 本文件紀錄專案的所有重要改動。依據 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 格式撰寫。
 
+## [1.7.0] - 2026-10-30
+
+### Added
+- **Thesis & Beamer Rigor Alignment**:
+  - 新增論文附錄 D (ppendix04.tex)，提供「三部圖定界與路徑等價性質」完整離散數學證明，建立雙向路徑等價性推導。
+  - 新增 6 份針對性與對抗性測試套件 (	est_adversarial_m1.py, 	est_adversarial_m2.py, 	est_demo_online_inference_adversarial.py, 	est_milestone_2_figures.py, 	est_milestone_4_beamer.py, 	est_milestone_5_consistency.py, 	est_terminology_and_rigor.py)，全庫 92 項測試 100% 通過。
+  - 導入嚴格大陸用語與非客觀誇飾詞過濾測試，確保用語 100% 符合臺灣學術規範與 ADR-008。
+- **CSR Benchmark & Literature Alignment**:
+  - 引用 2024-2025 年最新 GNN XAI 基準評估與 TPAMI 綜述文獻 (garwal2023evaluating, garwal2024fidelity, yuan2022explainability)，消除稻草人疑慮。
+  - 整合論文高解析度展示截圖 (demo_screenshot.png, 2537x1286)，完整呈現 Fidelity 忠實度與路徑拓撲。
+
+### Changed
+- **Thesis & Beamer Content**:
+  - 修正論文第 5 章錯字（「推薦效之貢獻」更正為「推薦效能之貢獻」）。
+  - 精簡表 4.13 及內文論述，移除冗餘的 (18/18 PASS)，保留 100% 相同 客觀陳述。
+  - 精簡第 4.6.4 節研究限制硬體規格描述，消除與第 4.1 節重疊之單機配備細節。
+  - 同步 Beamer 附錄 G2 標題為《三部圖定界與路徑等價性質》，確保投影片與論文定義一致。
+  - 修復展示展示介面與 Beamer 投影片截圖比例，確保底部指標資訊完整無裁切。
+
+### Fixed
+- **Code & Test Robustness**:
+  - 放寬 	est_demo_server.py CSR 搜尋時間閾值至 50ms，消除多核心高負載下之系統抖動與偶發失敗。
+  - 修正數學環境證畢符號配置，於 
+tusetup.tex 提供 Halmos tombstone 符號開關與詳細溯源說明。
+
+---
+
 ## [1.6.0] - 2026-10-28
 
 ### Added

@@ -367,7 +367,7 @@
 \begin{frame}{RQ3 可解釋性分析：忠實度 (Fidelity) 評估機制}
   \begin{itemize}
     \item \alert{\textbf{正向忠實度 $F^+$ (Fidelity+ / 必要性 / Prediction Drop)}}：
-      自 CKG 中\textbf{移除} Top-$K$ 解釋路徑邊集合 $S$，觀察模型在殘缺拓撲 $\mathcal{G}_{\setminus S}$ 上的預測降幅：
+      自 CKG 中\textbf{移除} Top-$K$ 解釋路徑邊集合 $S$，觀察模型在殘缺拓樸 $\mathcal{G}_{\setminus S}$ 上的預測降幅：
       \[
         F^+ = \hat{p}_{uv}(\mathcal{G}) - \hat{p}_{uv}(\mathcal{G}_{\setminus S}) \quad (\text{若 } F^+ > 0 \text{ 代表該子圖邊為必要決策條件})
       \]
@@ -440,27 +440,64 @@
 \end{frame}
 
 % ==================================================
+% P19: RQ3 延伸實踐：大規模 CKG 即時路徑萃取加速與互動展示
+% ==================================================
+\begin{frame}{RQ3 延伸實踐：大規模 CKG 即時路徑萃取加速與互動展示}
+  \begin{columns}[c]
+    \begin{column}{0.49\textwidth}
+      \begin{mybox}{ntublue}{CSR 雙向局部交集向量化演算法效益}
+        \footnotesize
+        \begin{itemize}
+          \setlength{\itemsep}{0pt}
+          \item \alert{\textbf{百萬邊動態建圖開銷}}：\\
+            CSR 連續陣列僅 \textbf{56.74 MB / 190.8 ms}（NetworkX 需 1.58 GB / 13.01 s，記憶體\textbf{節省 93\%}）。
+          \item \alert{\textbf{三跳路徑搜尋延遲}}：\\
+            平均自 749.95 ms 降至 \textbf{0.067 ms}（於本測試環境中明顯降低單次搜尋耗時，僅供特定硬體配置參考）。% 基準消融歷史記錄：純遍歷提速 11,205 倍；端到端提速 20.5 萬倍
+          \item \alert{\textbf{拓樸雙射與數值等價}}：\\
+            18 組嚴格基準測試全數 \textbf{100\% PASS}。
+          \item \alert{\textbf{高連接度樞紐節點旁路機制}}：\\
+            度數 22,095 之高連接度實體延遲鎖定在 \textbf{0.145 ms}，藉由目標端集合查驗避免展開高連接度節點之相鄰邊。
+        \end{itemize}
+      \end{mybox}
+    \end{column}
+
+    \begin{column}{0.49\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.67\textheight, keepaspectratio]{../Main/figures/demo_screenshot.png}
+      \vspace{0.04cm}
+      {\scriptsize \textbf{展示系統}：線上推論 / 離線快取雙軌架構 (Web Serving)}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ==================================================
 % Section 5: 結論與未來展望
 % ==================================================
 \section{結論與未來展望}
 
-\begin{frame}{論文主要貢獻總結}
+\begin{frame}{結論與核心研究貢獻}
   \begin{columns}[t]
-    \begin{column}{0.32\textwidth}
-      \begin{mybox}[fonttitle=\small\bfseries, height=5.0cm]{ntublue}{{貢獻一：傳播深度實證}}
-        在 Food.com 食譜異質圖上系統性量化傳播深度，證實 KGAT-3L 達 0.8775 HR@20，相較表現最佳之基準模型 LightGCN 展現大幅排序優勢 (+31.6\%)。
+    \begin{column}{0.49\textwidth}
+      \begin{mybox}[fonttitle=\footnotesize\bfseries, height=2.35cm]{ntublue}{{貢獻一：傳播深度實證與邊際增益}}
+        \scriptsize
+        在 Food.com 食譜異質圖上系統性量化傳播深度，證實深層模型 (KGAT-3L) 達 0.8775 HR@20，相較表現最佳之基準模型 LightGCN 展現大幅排序優勢 (+31.6\%)。
       \end{mybox}
-    \end{column}
-
-    \begin{column}{0.32\textwidth}
-      \begin{mybox}[fonttitle=\small\bfseries, height=5.0cm]{ntublue}{{貢獻二：淺層 KG 污染現象}}
-        揭示淺層 ($L=1$) 整合 KG 之條件式效能下降現象 (w/o KG 0.7076 > Full 0.6761)，對「外部知識必然改善推薦」的假設提出條件式質疑。
-      \end{mybox}
-    \end{column}
-
-    \begin{column}{0.32\textwidth}
-      \begin{mybox}[fonttitle=\small\bfseries, height=5.0cm]{ntublue}{{貢獻三：解釋路徑忠實度量化}}
+      \vspace{0.15cm}
+      \begin{mybox}[fonttitle=\footnotesize\bfseries, height=2.35cm]{ntublue}{{貢獻三：解釋路徑忠實度量化評估}}
+        \scriptsize
         建立 $F^+ / F^-$ 擾動評估流程，實證注意力導出路徑之忠實度：直連與協同路徑具高忠實度，而 KG 語意路徑充分性偏低 ($F^- = 0.2449$)。
+      \end{mybox}
+    \end{column}
+
+    \begin{column}{0.49\textwidth}
+      \begin{mybox}[fonttitle=\footnotesize\bfseries, height=2.35cm]{ntublue}{{貢獻二：淺層 KG 資訊污染現象}}
+        \scriptsize
+        揭示淺層 ($L=1$) 整合 KG 之條件式效能下降現象 (w/o KG 0.7076 > Full 0.6761)，實證淺層雜訊超越資訊增益，對外部知識必然有益提出質疑。
+      \end{mybox}
+      \vspace{0.15cm}
+      \begin{mybox}[fonttitle=\footnotesize\bfseries, height=2.35cm]{ntublue}{{貢獻四：即時路徑萃取與互動展示}}
+        \scriptsize
+        針對 720 萬邊圖譜實作 CSR 雙向局部交集尋路，在維持 100\% 路徑等價性下明顯降低記憶體與搜尋耗時，支撐即時互動展示。
       \end{mybox}
     \end{column}
   \end{columns}
@@ -560,25 +597,25 @@
   \begin{alertblock}{\small 關鍵發現與消融啟示}
     \footnotesize
     \begin{itemize}
-      \item \textbf{w/o Attention ($L=1$)}：HR@20 略降 1.8\%，但均勻聚合具隱含正則化使 NDCG@20 略升 5.2\%；目前僅在 $L{=}1$ 觀察到均勻聚合對 HR@20 影響有限，注意力機制在 $L\ge 2$ 的邊際效益仍待後續消融實驗驗證。
+      \item \textbf{w/o Attention ($L=1$)}：HR@20 略降 1.8\%，但均勻聚合具隱含正規化使 NDCG@20 略升 5.2\%；目前僅在 $L{=}1$ 觀察到均勻聚合對 HR@20 影響有限，注意力機制在 $L\ge 2$ 的邊際效益仍待後續消融實驗驗證。
       \item \textbf{w/o KG ($L=1$)}：退化為純二分圖反而使 HR@20 提升 4.7\%，顯示即使經過超級節點修剪，淺層 KG 中殘留的高連接度資訊仍可能稀釋協同過濾訊號。
     \end{itemize}
   \end{alertblock}
 \end{frame}
 
-\begin{frame}{附錄 B1: 食材 (Ingredients) 噪音過濾清單}
-  \begin{mybox}{ntublue}{基礎調味料噪音清單 (Base Noise - 13 個實體)}
+\begin{frame}{附錄 B1: 食材 (Ingredients) 雜訊過濾清單}
+  \begin{mybox}{ntublue}{基礎調味料雜訊清單 (Base Noise - 13 個實體)}
     \small \texttt{salt, water, oil, sugar, all-purpose flour, butter, eggs, black pepper, garlic, onions, vanilla, baking soda, baking powder}
   \end{mybox}
   
   \vspace{0.1cm}
   \begin{examplebox}{高頻食材過濾清單 (Top 0.5\% - 61 個實體)}
     \tiny
-    \texttt{carrot, red onion, unsalted butter, green onion, zucchini, ground beef, ground cinnamon, honey, cream cheese, mayonnaise, fresh parsley, potatoes, celery, red bell pepper, tomatoes, dijon mustard, orange juice, cayenne pepper, margarine, olive oil, soy sauce, dried oregano, vegetable oil, garlic powder, worcestershire sauce, flour, powdered sugar, paprika, lemon juice, kosher salt, cheddar cheese, milk, sour cream, chili powder, nutmeg, fresh lemon juice, fresh ground black pepper, mozzarella cheese, cornstarch, parmesan cheese, heavy cream, chicken broth, raisins, granulated sugar, brown sugar, vanilla extract, extra virgin olive oil, bacon, walnuts, pecans, salt and pepper, ground cumin, pepper, egg}
+    \texttt{carrot, red onion, onion, unsalted butter, green onion, zucchini, ground beef, ground cinnamon, cinnamon, honey, cream cheese, mayonnaise, fresh parsley, potatoes, celery, red bell pepper, tomatoes, parsley, dijon mustard, orange juice, cayenne pepper, margarine, olive oil, soy sauce, dried oregano, vegetable oil, garlic clove, garlic powder, worcestershire sauce, flour, carrots, powdered sugar, paprika, lemon juice, kosher salt, cheddar cheese, milk, garlic cloves, sour cream, chili powder, nutmeg, fresh lemon juice, fresh ground black pepper, mozzarella cheese, cornstarch, parmesan cheese, green onions, heavy cream, chicken broth, raisins, granulated sugar, brown sugar, vanilla extract, extra virgin olive oil, bacon, walnuts, pecans, salt and pepper, ground cumin, pepper, egg}
   \end{examplebox}
 \end{frame}
 
-\begin{frame}{附錄 B2: 標籤 (Tags) 噪音過濾清單}
+\begin{frame}{附錄 B2: 標籤 (Tags) 雜訊過濾清單}
   \begin{mybox}{ntublue}{高頻過濾標籤清單 (Top 50 實體 - 共 552 個類別)}
     \tiny
     \texttt{4-hours-or-less, course, 15-minutes-or-less, comfort-food, desserts, oven, time-to-make, lunch, occasion, equipment, dietary, low-saturated-fat, preparation, holiday-event, healthy-2, low-carb, inexpensive, poultry, north-american, side-dishes, 3-steps-or-less, low-fat, vegetables, 5-ingredients-or-less, taste-mood, easy, 30-minutes-or-less, 60-minutes-or-less, european, low-sodium, low-cholesterol, low-protein, eggs-dairy, pasta-rice-and-grains, presentation, vegetarian, dinner-party, beginner-cook, fruit, kid-friendly, low-in-something, american, main-ingredient, for-1-or-2, healthy, low-calorie, main-dish, cuisine, number-of-servings, meat}
@@ -686,6 +723,59 @@
     \footnotesize
     Li et al. (JWS 2023) 著重於\textbf{高層健康語意與領域知識}整合，而本論文著重於\textbf{不同傳播深度之實證比較與解釋路徑忠實度評估}。本研究在 Food.com 食譜推薦場景下，提供了淺層 KG 整合效果與注意力導出解釋路徑忠實度的實證分析（如 $F^- = 0.2449$ 暗示顯式路徑充分性不足）。
   \end{alertblock}
+\end{frame}
+
+\begin{frame}{附錄 G1: 大規模 CKG 路徑萃取基準測試完整數據}
+  \begin{mybox}{ntublue}{18 組代表性案例 $2 \times 2$ 因子消融延遲表 (Traversal Latency Benchmark)}
+    \centering
+    \resizebox{0.95\textwidth}{!}{%
+    \begin{tabular}{l c c c c c c c c}
+      \toprule
+      \textbf{測試案例 / 使用者群組} & \textbf{度數} & \textbf{路徑數} & \textbf{NX 單向} & \textbf{NX 雙向} & \textbf{CSR 單向} & \textbf{CSR 雙向} & \textbf{遍歷提速比} & \textbf{等價性} \\
+      \midrule
+      深度傳播成功案例 (User 17049) & 1 & 1 & 79.05 ms & 0.020 ms & 0.164 ms & \textbf{0.011 ms} & 7,500.0$\times$ & PASS \\
+      高必要性案例 (User 101612) & 2 & 5 & 111.31 ms & 0.110 ms & 0.718 ms & \textbf{0.025 ms} & 4,445.1$\times$ & PASS \\
+      高充分性案例 (User 154656) & 1 & 1 & 0.01 ms & 0.010 ms & 0.003 ms & \textbf{0.011 ms} & 1.1$\times$ & PASS \\
+      淺層雜訊干擾案例 (User 173712) & 1 & 2 & 33.29 ms & 0.010 ms & 0.068 ms & \textbf{0.010 ms} & 3,173.8$\times$ & PASS \\
+      孤立節點案例 (User 31742) & 1 & 0 & 35.01 ms & 0.009 ms & 0.075 ms & \textbf{0.008 ms} & 4,443.4$\times$ & PASS \\
+      \midrule
+      中度互動使用者 (5組平均, 度數 4--9) & 7.0 & 2.6 & 326.04 ms & 0.095 ms & 0.783 ms & \textbf{0.027 ms} & 12,375.3$\times$ & PASS \\
+      高度互動使用者 (5組平均, 度數 31--42) & 35.8 & 18.2 & 1,854.91 ms & 0.704 ms & 5.577 ms & \textbf{0.133 ms} & 16,112.5$\times$ & PASS \\ % 歷史名稱對照：高度壓力使用者 (5組平均, 度數 31--42)
+      高連接度食材實體 (2組平均, 度數 22,095) & 15.0 & 5.5 & 730.55 ms & 0.510 ms & 4.002 ms & \textbf{0.091 ms} & 10,737.1$\times$ & PASS \\ % 歷史名稱對照：超熱門食材實體 (2組平均, 度數 22,095)
+      隨機長尾對照組 (U10--I99999) & 18 & 3 & 874.44 ms & 0.878 ms & 5.555 ms & \textbf{0.150 ms} & 5,820.7$\times$ & PASS \\
+      \midrule
+      \textbf{總體平均 (Overall Average)} & \textbf{15.6} & \textbf{7.1} & \textbf{749.95 ms} & \textbf{0.336 ms} & \textbf{2.577 ms} & \textbf{0.067 ms} & \textbf{11,205.2$\times$} & \textbf{100\% PASS} \\
+      \bottomrule
+    \end{tabular}%
+    }
+  \end{mybox}
+  \vspace{0.05cm}
+  {\tiny *註：上述延遲與加速比為單機測試環境（AMD Ryzen 5 7500F CPU / 32 GB RAM / Python 3.12 單執行緒）下之實測結果；GPU 僅用於離線模型訓練。}
+\end{frame}
+
+\begin{frame}{附錄 G2: CSR 雙向局部交集演算法等價性證明與快取親和性}
+  \begin{columns}[t]
+    \begin{column}{0.49\textwidth}
+      \begin{mybox}{ntublue}{三部圖定界與路徑等價性質}
+        \footnotesize
+        \begin{itemize}
+          \item \textbf{三部圖排他性}：在使用者 $\mathcal{U}$、食譜 $\mathcal{V}$、知識實體 $\mathcal{E}_{\text{kg}}$ 構成之三部圖中，$\mathcal{N}(u) \cap \mathcal{N}(v) = \emptyset$，長度 $L=2$ 並不存在，$L=3$ ($u \to r_1 \to m \to v$) 為最小非平凡推論路徑。
+          \item \textbf{雙向相交雙射性}：後向雜湊集合 $\mathcal{S}_v = \mathcal{N}(v) \setminus \{u, v\}$，在前向展開時僅於 $m \in \mathcal{N}(r_1) \cap \mathcal{S}_v \setminus \{r_1\}$ 相交，嚴格保證 $\mathcal{P}_{\text{CSR}} \equiv \mathcal{P}_{\text{NX}}$ 且權重代數連乘 100\% 等價。
+        \end{itemize}
+      \end{mybox}
+    \end{column}
+
+    \begin{column}{0.49\textwidth}
+      \begin{mybox}{ntublue}{硬體快取親和性與超節點免疫}
+        \footnotesize
+        \begin{itemize}
+          \item \textbf{連續記憶體佈局}：CSR 將鄰接表扁平化為 \texttt{indptr} 與 \texttt{indices}，符合 CPU 64-byte Cache-Line 空間局部性，杜絕 Python 字典指標跳轉。
+          \item \textbf{非對稱 L1 Cache 屏障}：目標食譜度數通常 $<100$，其後向雜湊表 $<2\text{ KB}$，完全常駐於 L1 Data Cache (32 KB)。
+          \item \textbf{旁路超級節點展開}：途經度數 22,095 之熱門食材時，僅需 $O(1)$ 成員查驗，徹底免除展開 2 萬鄰居之直譯器阻塞。
+        \end{itemize}
+      \end{mybox}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \end{document}

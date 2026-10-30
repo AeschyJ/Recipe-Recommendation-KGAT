@@ -109,8 +109,8 @@
     }
     bindEvents();
     await loadOfflineData();
-    await checkConnection();
     executeInference();
+    checkConnection();
   }
 
   /**

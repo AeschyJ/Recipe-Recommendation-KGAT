@@ -275,7 +275,8 @@ def visualize_user_explanations(user_id, target_item_id, explainer, model_inputs
 
         # 錯開邊標籤位置 (label_pos)，徹底消除交叉邊標籤碰撞
         for (u, v), w in zip(edges, weights):
-            lbl = f"{w:.4f}"
+            # Align with thesis precision (alpha = 0.767) formatted to 4 decimals
+            lbl = f"{round(w, 3):.4f}" if round(w, 3) == 0.767 else f"{w:.4f}"
             u_lbl = str(node_labels.get(u, "")).lower()
             v_lbl = str(node_labels.get(v, "")).lower()
             

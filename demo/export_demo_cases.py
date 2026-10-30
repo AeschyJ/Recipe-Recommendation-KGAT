@@ -149,10 +149,17 @@ def main():
 
         exps = []
         for exp in rec.get("explanations", []):
+            fixed_details = []
+            for node in exp.get("path_details", []):
+                node_copy = dict(node)
+                if node_copy.get("type") == "USER":
+                    node_copy["name"] = f"User {node_copy['id_remapped']}"
+                fixed_details.append(node_copy)
+            fixed_desc = " -> ".join(n["name"] for n in fixed_details)
             exps.append({
                 "path_structure": exp.get("path_structure", ""),
-                "path_description": exp.get("path_description", ""),
-                "path_details": exp.get("path_details", []),
+                "path_description": fixed_desc if fixed_details else exp.get("path_description", ""),
+                "path_details": fixed_details,
                 "contribution_score": exp.get("contribution_score", 0.0),
             })
 
@@ -186,7 +193,7 @@ def main():
         if not base_rec:
             continue
 
-        uname = base_rec.get("user_name", f"使用者 {uid}")
+        uname = f"User {uid}"
         n_inter = base_rec.get("user_n_interactions", 0)
         test_hit_3 = False
         if r3:

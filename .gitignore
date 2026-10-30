@@ -62,3 +62,6 @@ Paper/extracted_comments.md
 # Session Handover Snapshot (Local only, not pushed to remote)
 HANDOVER.md
 
+
+# Visual inspection generated images
+output/visual_inspection/
