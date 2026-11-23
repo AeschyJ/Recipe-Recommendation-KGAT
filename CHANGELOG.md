@@ -2,6 +2,17 @@
 
 本文件紀錄專案的所有重要改動。依據 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 格式撰寫。
 
+## [1.7.1] - 2026-11-24
+
+### Added
+- **GitHub Pages 自動部署工作流**：新增 `.github/workflows/deploy-pages.yml`，當 `demo/web/**` 變更推送至 `main` 時自動部署互動展示網頁。
+- **論文符號表增補**：於 `Paper/Main/front/denotation.tex` 補入 `CSR`（Compressed Sparse Row）條目定義。
+
+### Changed
+- **論文專有名詞縮寫規範修訂**：補齊摘要（`Paper/Main/front/abstract.tex`）與第 1–5 章首次提及之全稱與縮寫標註（`Compressed Sparse Row, CSR`、`graph neural network (GNN)` 等），同步更新口試簡報 `Paper/Beamer/defense.pdf` 並將已追蹤之編譯產物 `Paper/Main/main.pdf` 與 `Paper/Main/main.log` 移出追蹤。
+
+---
+
 ## [1.7.0] - 2026-10-30
 
 ### Added

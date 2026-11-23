@@ -96,9 +96,9 @@ Wang 等人~\cite{wang2019kgat} 提出的 KGAT 是目前知識圖推薦系統中
 
 儘管基於注意力權重與事後子圖擾動的可解釋方法可用於評估推薦忠實度，然而如 Yuan 等人~\cite{yuan2022explainability} 與近期圖神經網路可解釋性綜述~\cite{li2025can} 所指出，事後解釋子圖與多跳路徑檢索在大型圖結構上往往伴隨較高的鄰域擴張計算開銷。
 
-回顧現有圖神經網路可解釋性與基準測試研究（包含 DIG~\cite{liu2021dig}、CF-GNNExplainer~\cite{lucic2022cfgnnexplainer}、GraphXAI~\cite{agarwal2023evaluating}、BAGEL~\cite{rathee2024bagel}、GNNX-BENCH~\cite{kosan2024gnnxbench} 及 GraphFramEx~\cite{amara2024graphframex} 等），其開源實作在處理圖結構操作、子圖抽取與路徑檢索時，多採用 NetworkX~\cite{hagberg2008networkx} 等通用 Python 物件導向套件，或基於鄰接串列執行單向深度優先與廣度優先搜尋（DFS/BFS）。此類設計在小型基準資料集或離線批次評估（Offline Batch Evaluation）場景中具備良好的開發便利性；然而，當圖譜規模擴展至數十萬節點與數百萬條邊時，巢狀雜湊字典結構可能帶來較高的記憶體開銷與搜尋延遲。另一方面，近年針對知識圖路徑解釋~\cite{ma2025kgexplainer, sun2025expath}、路徑推理推薦~\cite{yang2024pr4sr}、反事實解釋~\cite{liu2025cocounter}、大型語言模型輔助解釋~\cite{ma2024xrec, zhang2024natural} 與線性分解~\cite{johnson2024xlightgcn} 等研究，主要聚焦於解釋生成機制或目標函數之建模，較少針對百萬邊級協同知識圖在單機環境下的多跳路徑檢索資料結構進行探討。
+回顧現有圖神經網路可解釋性與基準測試研究（包含 DIG~\cite{liu2021dig}、CF-GNNExplainer~\cite{lucic2022cfgnnexplainer}、GraphXAI~\cite{agarwal2023evaluating}、BAGEL~\cite{rathee2024bagel}、GNNX-BENCH~\cite{kosan2024gnnxbench} 及 GraphFramEx~\cite{amara2024graphframex} 等），其開源實作在處理圖結構操作、子圖抽取與路徑檢索時，多採用 NetworkX~\cite{hagberg2008networkx} 等通用 Python 物件導向套件，或基於鄰接串列執行單向深度優先搜尋（Depth-First Search, DFS）與廣度優先搜尋（Breadth-First Search, BFS）。此類設計在小型基準資料集或離線批次評估（Offline Batch Evaluation）場景中具備良好的開發便利性；然而，當圖譜規模擴展至數十萬節點與數百萬條邊時，巢狀雜湊字典結構可能帶來較高的記憶體開銷與搜尋延遲。另一方面，近年針對知識圖路徑解釋~\cite{ma2025kgexplainer, sun2025expath}、路徑推理推薦~\cite{yang2024pr4sr}、反事實解釋~\cite{liu2025cocounter}、大型語言模型輔助解釋~\cite{ma2024xrec, zhang2024natural} 與線性分解~\cite{johnson2024xlightgcn} 等研究，主要聚焦於解釋生成機制或目標函數之建模，較少針對百萬邊級協同知識圖在單機環境下的多跳路徑檢索資料結構進行探討。
 
-為降低大規模食譜協同知識圖於忠實度評估與路徑檢索時之運算耗時，本研究參考 Pohl~\cite{pohl1971bi} 之雙向搜尋（Bi-directional Search）概念，將三跳路徑搜尋複雜度由單向搜尋之 $\mathcal{O}(d^3)$ 簡化為雙向交集之 $\mathcal{O}(d^2)$；同時依循 Kepner 等人~\cite{kepner2016graphblas} 於 GraphBLAS 所闡述之稀疏矩陣圖計算規範，利用 SciPy~\cite{virtanen2020scipy} 之壓縮稀疏列（Compressed Sparse Row, CSR）格式儲存圖拓樸與注意力權重，在維持路徑檢索結果一致的前提下改善搜尋效率。
+為降低大規模食譜協同知識圖於忠實度評估與路徑檢索時之運算耗時，本研究參考 Pohl~\cite{pohl1971bi} 之雙向搜尋（Bi-directional Search）概念，將三跳路徑搜尋複雜度由單向搜尋之 $\mathcal{O}(d^3)$ 簡化為雙向交集之 $\mathcal{O}(d^2)$；同時依循 Kepner 等人~\cite{kepner2016graphblas} 於 GraphBLAS 所闡述之稀疏矩陣圖計算規範，利用 SciPy~\cite{virtanen2020scipy} 之壓縮稀疏列（CSR）格式儲存圖拓樸與注意力權重，在維持路徑檢索結果一致的前提下改善搜尋效率。
 
 
 \section{現有方法之比較與研究缺口}
