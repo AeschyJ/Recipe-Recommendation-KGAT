@@ -1,8 +1,0 @@
-torch
-dgl
-pandas
-numpy
-scikit-learn
-tqdm
-matplotlib
-networkx

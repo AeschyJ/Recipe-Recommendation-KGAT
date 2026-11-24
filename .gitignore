@@ -65,3 +65,9 @@ HANDOVER.md
 
 # Visual inspection generated images
 output/visual_inspection/
+
+# Local sensitive notes, private configs & temporary tool caches
+Paper/Needs/
+local_config.py
+gemini4_*.md
+.ruff_cache/

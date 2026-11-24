@@ -16,6 +16,17 @@ dependencies = [
     "markupsafe<3.0.0"
 ]
 
+[project.optional-dependencies]
+demo = [
+    "fastapi",
+    "uvicorn[standard]",
+    "pydantic",
+    "scipy",
+]
+dev = [
+    "pytest",
+]
+
 [[tool.uv.index]]
 name = "pytorch-xpu"
 url = "https://download.pytorch.org/whl/xpu"
