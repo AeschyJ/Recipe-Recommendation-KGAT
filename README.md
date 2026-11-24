@@ -39,7 +39,7 @@ graph TD
     F & D & B -->|src/evaluate_fidelity.py| G["XAI Explanations & Metrics<br/>(output/fidelity/)"]
     
     C -->|Training Logs| H["output/logs/"]
-    H & G -->|run_log_pipeline.bat| I["簡化數據與統計報告<br/>(output/simplified_for_llm/)"]
+    H & G -->|run.bat logs| I["簡化數據與統計報告<br/>(output/simplified_for_llm/)"]
 ```
 
 ---
@@ -74,34 +74,44 @@ uv run python src/data/preprocess.py
 
 ## 🚀 自動化實驗管道 (Execution Pipelines)
 
-專案封裝了一系列標準化的 Windows 批次腳本 (`.bat`)：
+專案提供單一薄入口 `run.bat`（無參數雙擊可開啟互動式選單，終端機可帶入子命令直通執行），並由 `main.py` 統一分派至 `scripts/pipelines/`：
 
 ### 1. 主 KGAT 消融實驗 (Ablation Experiments)
-一鍵排程 5 組對照組實驗 (Full KGAT $L=1$, w/o Attention, w/o KG, Depth $L=2$, Depth $L=3$)：
+排程消融對照組實驗（預設執行 `wo_kg` 與 `depth_2`，加上 `--all` 涵蓋 Full KGAT $L=1$、w/o Attention、w/o KG、$L=2$、$L=3$）：
 ```powershell
-.\run_experiments.bat
+.\run.bat exp
 ```
 
 ### 2. 經典 Baseline 模型實驗 (Baseline Benchmark)
-一鍵啟動 BPR-MF, LightGCN 與 NFM 三款經典推薦模型訓練：
+啟動 LightGCN（加上 `--all` 涵蓋 BPR-MF、LightGCN、NFM）訓練：
 ```powershell
-.\run_baseline_experiments.bat
+.\run.bat baseline
 ```
 
 ### 3. 可解釋性評估管道 (XAI & Fidelity Pipeline)
-單一模型 XAI Fidelity 評估：
+單一模型 XAI Fidelity 評估（100 位使用者）：
 ```powershell
-.\run_xai_pipeline.bat
+.\run.bat xai
 ```
-跨模型全自動 500 位使用者 Fidelity 評估 (L=1, L=2, L=3)：
+跨模型全自動 500 位使用者 Fidelity 評估 ($L=1$, $L=2$, $L=3$)：
 ```powershell
-.\run_xai_pipeline_all.bat
+.\run.bat xai --all
 ```
 
 ### 4. 日誌與數據整理管道 (Log Pipeline)
 清理訓練日誌、驗證數據並產出最優指標簡報：
 ```powershell
-.\run_log_pipeline.bat
+.\run.bat logs
+```
+
+### 5. 口試互動展示系統 (Oral Defense Demo)
+啟動連線推論伺服器（支援 `$env:PORT` 覆蓋，預設 `8501`）：
+```powershell
+.\run.bat demo
+```
+開啟離線展示網頁（自動檢查 `demo_cases` 快取）：
+```powershell
+.\run.bat demo-offline
 ```
 
 ---
@@ -160,14 +170,16 @@ Experiment/
 │   └── adr/                    # Architecture Decision Records (ADR-001 ~ ADR-007)
 ├── models/                     # 訓練檢查點存放區 (MODELS.md 紀錄細節)
 ├── output/                     # 輸出日誌、Fidelity 結果與 LLM 簡化資料
-├── scripts/                    # 實驗數據分析、檢查點維護與視覺化腳本
+├── scripts/                    # 實驗數據分析、檢查點維護、管線模組與視覺化腳本
+│   └── pipelines/              # 實驗、XAI、日誌與展示啟動管線
 ├── src/                        # 核心原始碼
 │   ├── data/preprocess.py      # 圖譜前處理與特徵抽取
 │   ├── model/                  # KGAT, Baselines (BPR-MF, LightGCN, NFM) 與 Explainers
 │   ├── train.py                # 主 KGAT 訓練與消融進入點
 │   ├── train_baseline.py       # Baseline 模型訓練進入點
 │   └── evaluate_fidelity.py    # XAI Fidelity+ / Fidelity- 量化計算
-└── run_*.bat                   # 各自動化實驗與評估批次檔
+├── main.py                     # 統一子命令與互動選單路由器
+└── run.bat                     # 單一 Windows 薄點火啟動器
 ```
 
 ---

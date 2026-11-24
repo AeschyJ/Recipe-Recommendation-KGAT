@@ -20,15 +20,16 @@ uv run python -c "import torch; print('XPU Available:', torch.xpu.is_available()
 
 ---
 
-## 2. 批次腳本工作流 (Batch Script Workflows)
+## 2. 單一薄入口工作流 (Thin Entrypoint Workflows)
 
-專案根目錄提供 5 組 `.bat` 批次檔，分別對應不同階段的實驗任務：
+專案根目錄收斂為單一薄點火器 `run.bat` 搭配 `main.py` 路由器（無參數雙擊開啟互動選單，帶參數直通執行）：
 
-1. **`run_experiments.bat`**：消融實驗全流程。依序觸發 Full KGAT ($L=1$), w/o Attention, w/o KG, $L=2$, $L=3$ 訓練。
-2. **`run_baseline_experiments.bat`**：Baseline 模型訓練。觸發 BPR-MF, LightGCN, NFM 訓練。
-3. **`run_xai_pipeline.bat`**：單一模型 XAI 評估。
-4. **`run_xai_pipeline_all.bat`**：跨模型全自動 500 位使用者 Fidelity+ / Fidelity- 評估。
-5. **`run_log_pipeline.bat`**：訓練日誌簡化、資料驗證與指標解析報告。
+1. **`.\run.bat exp`（加 `--all` 覆蓋全組）**：消融實驗流程。依序觸發 w/o KG、$L=2$（`--all` 含 Full KGAT $L=1$、w/o Attention、w/o KG、$L=2$、$L=3$）訓練。
+2. **`.\run.bat baseline`（加 `--all` 覆蓋全組）**：Baseline 模型訓練。觸發 LightGCN（`--all` 含 BPR-MF、LightGCN、NFM）訓練。
+3. **`.\run.bat xai`**：單一模型 XAI 評估（100 位使用者）。
+4. **`.\run.bat xai --all`**：跨模型全自動 500 位使用者 Fidelity+ / Fidelity- 評估。
+5. **`.\run.bat logs`**：訓練日誌簡化、資料驗證與指標解析報告。
+6. **`.\run.bat demo` / `.\run.bat demo-offline`**：啟動展示推論伺服器（支援 `$env:PORT` 覆蓋，預設 `8501`）或離線展示網頁。
 
 ---
 

@@ -41,10 +41,13 @@ demo/
 適用於具備網路連線且後端推論伺服器正常運行的情境，可針對資料集中任意使用者進行全庫即時推論。
 
 1. **啟動後端伺服器**：
-   在具備運算資源之主機（如桌上型電腦）雙擊執行 `run_server.bat`，或在終端機執行：
+   在具備運算資源之主機（如桌上型電腦）雙擊執行 `demo/run_server.bat`（轉發至根目錄 `run.bat demo`），或在專案根目錄執行：
    ```powershell
+   .\run.bat demo
+   # 或直接使用 uv 啟動
    uv run demo/server.py --port 8501 --host 0.0.0.0
    ```
+   支援透過環境變數 `PORT` 覆蓋預設監聽連接埠（預設 `8501`，嚴禁使用 `8000`）。
 2. **連接展示介面**：
    開啟瀏覽器訪問 `http://localhost:8501`。
 3. **跨網路展示**：
@@ -55,7 +58,7 @@ demo/
 適用於口試現場網路不穩或無外部伺服器連線之離線備援情境。
 
 1. **啟動展示介面**：
-   直接雙擊執行 `run_offline_laptop.bat`，或以任意現代瀏覽器直接開啟 `demo/web/index.html`。
+   雙擊執行 `demo/run_offline_laptop.bat`（轉發至根目錄 `run.bat demo-offline`）、執行 `.\run.bat demo-offline`，或以任意現代瀏覽器直接開啟 `demo/web/index.html`。
 2. **無跨來源資源共用限制**：
    系統透過 `demo_cases_data.js` 以全域物件注入離線資料，即使在檔案協定下直接開啟亦不會觸發瀏覽器安全性阻擋。
 3. **展示內容**：
