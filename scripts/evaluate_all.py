@@ -1,12 +1,15 @@
 import glob
+import logging
 import os
 import subprocess
 import time
 
+logger = logging.getLogger(__name__)
 
-def build_ckpt_to_log_map():
+
+def build_ckpt_to_log_map(log_pattern: str = "output/logs/**/*.txt"):
     ckpt_to_log = {}
-    for log_file in glob.glob("output/logs/**/*.txt", recursive=True):
+    for log_file in glob.glob(log_pattern, recursive=True):
         # 跳過已經被重新格式化過的記錄檔，避免重複讀取或輸出
         if "_reformatted" in log_file:
             continue
@@ -19,8 +22,8 @@ def build_ckpt_to_log_map():
                             ckpt = parts[1].strip()
                             ckpt_norm = ckpt.replace("\\", "/")
                             ckpt_to_log[ckpt_norm] = log_file.replace("\\", "/")
-        except:
-            pass
+        except (OSError, UnicodeDecodeError) as exc:
+            logger.warning("無法讀取日誌檔 %s: %s", log_file, exc)
     return ckpt_to_log
 
 
