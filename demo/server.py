@@ -96,14 +96,42 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# 啟用跨來源資源共享
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+DEFAULT_PORT = 8501
+FORBIDDEN_PORT = 8000
+DEFAULT_CORS_ORIGIN_REGEX = (
+    r"^https?://(127\.0\.0\.1|localhost)(:\d+)?$"
+    r"|^https://([a-zA-Z0-9-]+\.)?(github\.io|vercel\.app|trycloudflare\.com)$"
 )
+
+
+def get_default_port() -> int:
+    """讀取環境變數 PORT，無效值或禁占 8000 時回退至 8501."""
+    raw = os.environ.get("PORT", str(DEFAULT_PORT)).strip()
+    try:
+        port = int(raw)
+    except ValueError:
+        return DEFAULT_PORT
+    return DEFAULT_PORT if port == FORBIDDEN_PORT or port <= 0 or port > 65535 else port
+
+
+def build_cors_config() -> Dict[str, Any]:
+    """建立 CORS 設定；停用憑證傳輸，支援 CORS_ORIGINS 環境變數顯式覆蓋."""
+    raw_origins = os.environ.get("CORS_ORIGINS", "").strip()
+    config: Dict[str, Any] = {
+        "allow_credentials": False,
+        "allow_methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["*"],
+    }
+    if raw_origins:
+        config["allow_origins"] = [o.strip() for o in raw_origins.split(",") if o.strip()]
+    else:
+        config["allow_origins"] = []
+        config["allow_origin_regex"] = DEFAULT_CORS_ORIGIN_REGEX
+    return config
+
+
+# 啟用跨來源資源共享
+app.add_middleware(CORSMiddleware, **build_cors_config())
 
 
 class RecommendRequest(BaseModel):
@@ -122,6 +150,7 @@ class FidelityProbeRequest(BaseModel):
 class ServerState:
     def __init__(self):
         self.device = torch.device("cpu")
+        self.port = get_default_port()
         self.data_dir = os.path.join(project_root, "data", "processed")
         self.raw_data_dir = os.path.join(project_root, "data", "raw")
         self.models_dir = os.path.join(project_root, "models")
@@ -421,7 +450,7 @@ def get_status():
     return {
         "status": "連線",
         "device": str(state.device),
-        "port": 8501,
+        "port": state.port,
         "n_users": state.n_users,
         "n_items": state.n_items,
         "n_entities": state.n_entities,
@@ -915,13 +944,19 @@ if os.path.exists(web_dir):
 
 def run():
     parser = argparse.ArgumentParser(description="KGAT 展示推論伺服器")
-    parser.add_argument("--port", type=int, default=8501, help="伺服器監聽端口，預設為 8501")
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=get_default_port(),
+        help="伺服器監聽端口，預設讀取環境變數 PORT 或使用 8501",
+    )
     parser.add_argument("--host", type=str, default="0.0.0.0", help="伺服器監聽位址")
     args = parser.parse_args()
 
-    if args.port == 8000:
-        print("錯誤：為防止連接埠衝突，嚴禁使用 8000 端口，自動重設為 8501")
-        args.port = 8501
+    if args.port == FORBIDDEN_PORT or args.port <= 0 or args.port > 65535:
+        print(f"錯誤：為防止連接埠衝突或範圍異常，嚴禁使用 {args.port} 端口，自動重設為 {DEFAULT_PORT}")
+        args.port = DEFAULT_PORT
+    state.port = args.port
 
     print(f"啟動展示推論伺服器：http://{args.host}:{args.port}")
     uvicorn.run(app, host=args.host, port=args.port)
