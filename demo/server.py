@@ -15,7 +15,7 @@ import pickle
 import sys
 import tempfile
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 # 配置 Matplotlib 快取目錄以加快載入
 os.environ.setdefault("MPLCONFIGDIR", os.path.join(tempfile.gettempdir(), "mpl_cache"))
@@ -59,6 +59,26 @@ from src.model.lightgcn import LightGCN
 from src.model.nfm import NFM
 from src.train import construct_adj, get_adj_indices
 from src.train_baseline import get_user_item_indices
+
+
+MODEL_CHECKPOINT_RELPATHS: Dict[str, Tuple[str, ...]] = {
+    "3": ("depth_3", "1_kgat_checkpoint_e3.pth"),
+    "2": ("depth_2", "1_kgat_checkpoint_e1.pth"),
+    "1": ("full_kgat", "2_kgat_checkpoint_e9.pth"),
+    "wo_kg": ("wo_kg", "2_kgat_checkpoint_e10.pth"),
+    "wo_attn": ("wo_attn", "3_kgat_checkpoint_e23.pth"),
+    "lightgcn": ("baseline", "3_lightgcn_checkpoint_e11.pth"),
+    "nfm": ("baseline", "3_nfm_checkpoint_e35.pth"),
+    "bprmf": ("baseline", "3_bprmf_checkpoint_e61.pth"),
+}
+
+
+def _clear_accelerator_cache() -> None:
+    """清空可用的 XPU 或 CUDA 裝置記憶體快取."""
+    if hasattr(torch, "xpu") and torch.xpu.is_available():
+        torch.xpu.empty_cache()
+    elif torch.cuda.is_available():
+        torch.cuda.empty_cache()
 
 
 def fast_load_names_and_maps(data_dir, raw_data_dir):
@@ -334,6 +354,67 @@ class ServerState:
             ).to(self.device)
         return self.sparse_adj
 
+    def _build_model_and_explainer(self, depth_key: str, state_dict: dict, saved_args: Any):
+        """依模型代碼實例化對應架構、載入權重並預計算節點嵌入快取."""
+        if depth_key in ("3", "2", "1", "wo_kg"):
+            embed_dim = getattr(saved_args, "embed_dim", 64) if saved_args else 64
+            layers = getattr(saved_args, "layers", [64, 32]) if saved_args else [64, 32]
+            model = KGATAttention(
+                self.n_users,
+                self.n_items + self.n_entities,
+                self.n_relations + 2,
+                embed_dim=embed_dim,
+                layers=layers,
+            )
+            model.load_state_dict(state_dict, strict=False)
+            if getattr(saved_args, "use_bf16", False):
+                model = model.to(dtype=torch.bfloat16)
+                for layer in model.aggregator_layers:
+                    layer.force_fp32_agg = False
+            model = model.to(self.device)
+            model.eval()
+            with torch.no_grad():
+                model.cached_final_embed = model.get_final_embeddings(
+                    self.indices, self.edge_types, self.num_nodes
+                )
+            explainer = KGATAttentionExplainer(model) if depth_key != "wo_kg" else None
+            return model, explainer
+
+        if depth_key == "wo_attn":
+            embed_dim = getattr(saved_args, "embed_dim", 64) if saved_args else 64
+            layers = getattr(saved_args, "layers", [64]) if saved_args else [64]
+            model = KGAT_BiInteraction(
+                self.n_users,
+                self.n_items + self.n_entities,
+                self.n_relations,
+                embed_dim=embed_dim,
+                layers=layers,
+            ).to(self.device)
+            model.load_state_dict(state_dict, strict=False)
+            model.eval()
+            with torch.no_grad():
+                model.cached_final_embed = model.get_final_embeddings(self.get_sparse_adj())
+            return model, None
+
+        if depth_key == "lightgcn":
+            model = LightGCN(self.n_users, self.n_items, embed_dim=64, layers=3).to(self.device)
+            model.load_state_dict(state_dict, strict=False)
+            model.eval()
+            with torch.no_grad():
+                model.cached_final_embed = model.get_final_embeddings(
+                    self.bipartite_indices, self.bipartite_num_nodes
+                )
+            return model, None
+
+        if depth_key in ("bprmf", "nfm"):
+            cls = BPRMF if depth_key == "bprmf" else NFM
+            model = cls(self.n_users, self.n_items, embed_dim=64).to(self.device)
+            model.load_state_dict(state_dict, strict=False)
+            model.eval()
+            return model, None
+
+        return None, None
+
     def get_or_load_model(self, depth: Union[int, str]):
         if not self.is_initialized:
             self.initialize()
@@ -341,18 +422,8 @@ class ServerState:
         if depth_key in self.loaded_models:
             return self.loaded_models[depth_key], self.explainers.get(depth_key)
 
-        ckpt_map = {
-            "3": os.path.join(self.models_dir, "depth_3", "1_kgat_checkpoint_e3.pth"),
-            "2": os.path.join(self.models_dir, "depth_2", "1_kgat_checkpoint_e1.pth"),
-            "1": os.path.join(self.models_dir, "full_kgat", "2_kgat_checkpoint_e9.pth"),
-            "wo_kg": os.path.join(self.models_dir, "wo_kg", "2_kgat_checkpoint_e10.pth"),
-            "wo_attn": os.path.join(self.models_dir, "wo_attn", "3_kgat_checkpoint_e23.pth"),
-            "lightgcn": os.path.join(self.models_dir, "baseline", "3_lightgcn_checkpoint_e11.pth"),
-            "nfm": os.path.join(self.models_dir, "baseline", "3_nfm_checkpoint_e35.pth"),
-            "bprmf": os.path.join(self.models_dir, "baseline", "3_bprmf_checkpoint_e61.pth"),
-        }
-
-        ckpt_path = ckpt_map.get(depth_key)
+        rel_parts = MODEL_CHECKPOINT_RELPATHS.get(depth_key)
+        ckpt_path = os.path.join(self.models_dir, *rel_parts) if rel_parts else None
         if not ckpt_path or not os.path.exists(ckpt_path):
             print(f"模型檔案不存在: {ckpt_path}")
             return None, None
@@ -367,81 +438,281 @@ class ServerState:
         saved_args = checkpoint.get("args") if isinstance(checkpoint, dict) else None
         del checkpoint
         gc.collect()
-        if hasattr(torch, "xpu") and torch.xpu.is_available():
-            torch.xpu.empty_cache()
-        elif torch.cuda.is_available():
-            torch.cuda.empty_cache()
+        _clear_accelerator_cache()
 
-        if depth_key in ("3", "2", "1", "wo_kg"):
-            embed_dim = getattr(saved_args, "embed_dim", 64) if saved_args else 64
-            layers = getattr(saved_args, "layers", [64, 32]) if saved_args else [64, 32]
-
-            model = KGATAttention(
-                self.n_users,
-                self.n_items + self.n_entities,
-                self.n_relations + 2,
-                embed_dim=embed_dim,
-                layers=layers,
-            )
-            model.load_state_dict(state_dict, strict=False)
-            if getattr(saved_args, "use_bf16", False):
-                model = model.to(dtype=torch.bfloat16)
-                for l in model.aggregator_layers:
-                    l.force_fp32_agg = False
-            model = model.to(self.device)
-            model.eval()
-            with torch.no_grad():
-                model.cached_final_embed = model.get_final_embeddings(
-                    self.indices, self.edge_types, self.num_nodes
-                )
-            explainer = KGATAttentionExplainer(model) if depth_key != "wo_kg" else None
-        elif depth_key == "wo_attn":
-            embed_dim = getattr(saved_args, "embed_dim", 64) if saved_args else 64
-            layers = getattr(saved_args, "layers", [64]) if saved_args else [64]
-
-            model = KGAT_BiInteraction(
-                self.n_users,
-                self.n_items + self.n_entities,
-                self.n_relations,
-                embed_dim=embed_dim,
-                layers=layers,
-            ).to(self.device)
-            model.load_state_dict(state_dict, strict=False)
-            model.eval()
-            with torch.no_grad():
-                model.cached_final_embed = model.get_final_embeddings(self.get_sparse_adj())
-            explainer = None
-        elif depth_key == "lightgcn":
-            model = LightGCN(self.n_users, self.n_items, embed_dim=64, layers=3).to(self.device)
-            model.load_state_dict(state_dict, strict=False)
-            model.eval()
-            with torch.no_grad():
-                model.cached_final_embed = model.get_final_embeddings(self.bipartite_indices, self.bipartite_num_nodes)
-            explainer = None
-        elif depth_key == "bprmf":
-            model = BPRMF(self.n_users, self.n_items, embed_dim=64).to(self.device)
-            model.load_state_dict(state_dict, strict=False)
-            model.eval()
-            explainer = None
-        elif depth_key == "nfm":
-            model = NFM(self.n_users, self.n_items, embed_dim=64).to(self.device)
-            model.load_state_dict(state_dict, strict=False)
-            model.eval()
-            explainer = None
-        else:
+        model, explainer = self._build_model_and_explainer(depth_key, state_dict, saved_args)
+        if model is None:
             return None, None
 
-        if hasattr(torch, "xpu") and torch.xpu.is_available():
-            torch.xpu.empty_cache()
-        elif torch.cuda.is_available():
-            torch.cuda.empty_cache()
-
+        _clear_accelerator_cache()
         self.loaded_models[depth_key] = model
         self.explainers[depth_key] = explainer
         return model, explainer
 
 
 state = ServerState()
+
+
+def _lookup_cached_recommendation(uid: int, depth_key: str) -> Optional[Dict[str, Any]]:
+    """查詢動態與靜態快取中的推薦結果，命中時回傳標準化回應字典."""
+    cache_key = f"{uid}_{depth_key}"
+    if cache_key in state.dynamic_user_cache:
+        logger.info(f"命中動態使用者快取: 使用者 {uid}, 深度 {depth_key}")
+        return state.dynamic_user_cache[cache_key]
+
+    cached_user = state.demo_cache.get("user_cache", {}).get(str(uid))
+    if not cached_user or depth_key not in cached_user.get("depths", {}):
+        return None
+
+    cached_depth_data = cached_user["depths"][depth_key]
+    if cached_depth_data is None:
+        return None
+
+    metrics = state.demo_cache.get("benchmark_metrics", {}).get(depth_key, {})
+    logger.info(f"命中快取推薦: 使用者 {uid}, 深度 {depth_key}")
+    rec_item = cached_depth_data["recommended_item_id"]
+    user_n_interactions = (
+        int(state.user_interaction_counts[uid])
+        if state.user_interaction_counts is not None and uid < len(state.user_interaction_counts)
+        else cached_depth_data.get("user_n_interactions", 0)
+    )
+    n_equivalent_channels = cached_depth_data.get("n_equivalent_channels")
+    if not n_equivalent_channels:
+        n_equivalent_channels = state.count_equivalent_channels(uid, rec_item)
+
+    return {
+        "user_id": uid,
+        "user_name": cached_user.get("user_name", f"使用者 {uid}"),
+        "depth": depth_key,
+        "recommended_item_id": rec_item,
+        "recommended_item_name": cached_depth_data["recommended_item_name"],
+        "score": cached_depth_data["score"],
+        "prob": cached_depth_data["prob"],
+        "is_test_hit": cached_depth_data["is_test_hit"],
+        "user_n_interactions": user_n_interactions,
+        "n_equivalent_channels": n_equivalent_channels,
+        "item_kg_degree": cached_depth_data["item_kg_degree"],
+        "metrics": {
+            "hr_20": metrics.get("hr_20", 0.0),
+            "ndcg_20": metrics.get("ndcg_20", 0.0),
+        },
+        "explanations": cached_depth_data["explanations"],
+        "fidelity": cached_depth_data.get("fidelity", {}),
+    }
+
+
+def _score_top_item(model, depth_key: str, uid: int) -> Tuple[int, float, float]:
+    """對全體候選食譜計算分數並回傳最高分之 (item_idx, score, prob)."""
+    with torch.no_grad():
+        if depth_key in ("3", "2", "1", "wo_kg", "wo_attn", "lightgcn"):
+            u_embed = model.cached_final_embed[uid]
+            items_embed = model.cached_final_embed[state.n_users : state.n_users + state.n_items]
+            pos_scores = torch.matmul(items_embed, u_embed).float()
+        elif depth_key == "bprmf":
+            u_embed = model.user_embed.weight[uid]
+            pos_scores = torch.matmul(model.item_embed.weight, u_embed).float()
+        elif depth_key == "nfm":
+            u_emb = model.user_embed.weight[uid]
+            u_b = model.user_bias.weight[uid]
+            bi = u_emb * model.item_embed.weight
+            mlp = model.mlp(bi).squeeze(-1)
+            pos_scores = u_b + model.item_bias.weight.squeeze(-1) + model.global_bias + mlp
+        else:
+            raise HTTPException(status_code=400, detail="不支援的模型代碼")
+
+        best_item_idx = int(torch.argmax(pos_scores).item())
+        best_score = float(pos_scores[best_item_idx].item())
+        prob = float(torch.sigmoid(torch.tensor(best_score)).item())
+    return best_item_idx, best_score, prob
+
+
+def _normalize_path_nodes(
+    path_nodes: Optional[Union[List[int], List[List[int]]]],
+) -> Optional[List[List[int]]]:
+    """將單一路徑 (1D) 或多路徑聯集 (2D) 正規化為二維整數串列."""
+    if path_nodes is None:
+        return None
+    if len(path_nodes) > 0 and isinstance(path_nodes[0], (int, np.integer)):
+        return [list(path_nodes)]  # type: ignore[arg-type]
+    return [list(p) for p in path_nodes]  # type: ignore[arg-type]
+
+
+def _build_no_path_probe_response(
+    uid: int, item_id: int, depth_key: str, mode: str, p_orig: float
+) -> Dict[str, Any]:
+    """建構無路徑或非注意力模型的安全零變化探針回應."""
+    return {
+        "user_id": uid,
+        "item_id": item_id,
+        "depth": depth_key,
+        "mode": mode,
+        "prob": p_orig,
+        "original_prob": p_orig,
+        "fidelity_score": 0.0,
+        "status_description": "無路徑使用者",
+        "is_no_path": True,
+        "note": "無路徑使用者",
+        "f_plus": 0.0,
+        "f_minus": 0.0,
+    }
+
+
+def _compute_pair_prob(model, depth_key: str, uid: int, item_id: int) -> float:
+    """計算指定 (uid, item_id) 的原始預測機率."""
+    if model is None:
+        return 0.0
+    with torch.no_grad():
+        if hasattr(model, "cached_final_embed"):
+            u_embed = model.cached_final_embed[uid]
+            item_embed = model.cached_final_embed[state.n_users + item_id]
+            score_orig = float(torch.sum(u_embed.float() * item_embed.float()).item())
+        elif depth_key in ("3", "2", "1", "wo_kg") and state.indices is not None:
+            u_tensor = torch.tensor([uid], dtype=torch.long, device=state.device)
+            i_tensor = torch.tensor([item_id], dtype=torch.long, device=state.device)
+            score_orig = model(state.indices, state.edge_types, state.num_nodes, u_tensor, i_tensor)[0].item()
+        elif depth_key == "bprmf":
+            u_embed = model.user_embed.weight[uid]
+            item_embed = model.item_embed.weight[item_id]
+            score_orig = float(torch.sum(u_embed.float() * item_embed.float()).item())
+        elif depth_key == "nfm":
+            u_emb = model.user_embed.weight[uid]
+            i_emb = model.item_embed.weight[item_id]
+            u_b = model.user_bias.weight[uid]
+            i_b = model.item_bias.weight[item_id]
+            bi = (u_emb * i_emb).unsqueeze(0)
+            mlp = model.mlp(bi).squeeze()
+            score_orig = float((u_b + i_b + model.global_bias + mlp).item())
+        else:
+            return 0.0
+        return float(torch.sigmoid(torch.tensor(score_orig)).item())
+
+
+def _lookup_cached_probe_response(
+    uid: int, item_id: int, depth_key: str, mode: str, cached_depth: Dict[str, Any]
+) -> Optional[Dict[str, Any]]:
+    """自快取中直接組裝 normal / f_plus / f_minus 探針結果；缺漏時回傳 None."""
+    p_orig = cached_depth["prob"]
+    if mode == "normal":
+        return {
+            "user_id": uid,
+            "item_id": item_id,
+            "depth": depth_key,
+            "mode": "normal",
+            "prob": p_orig,
+            "original_prob": p_orig,
+            "fidelity_score": 0.0,
+            "status_description": "原始預測狀態",
+        }
+
+    fid = cached_depth.get("fidelity", {})
+    p_masked = fid.get(f"prob_{mode}")
+    fid_val = fid.get(mode)
+    if p_masked is None or fid_val is None:
+        return None
+
+    desc = "遮蔽解釋子圖：驗證必要性" if mode == "f_plus" else "僅保留解釋子圖：驗證充分性"
+    return {
+        "user_id": uid,
+        "item_id": item_id,
+        "depth": depth_key,
+        "mode": mode,
+        "prob": p_masked,
+        "original_prob": p_orig,
+        "fidelity_score": fid_val,
+        "status_description": desc,
+    }
+
+
+def _collect_important_edges(
+    uid: int,
+    item_id: int,
+    depth_key: str,
+    normalized_paths: Optional[List[List[int]]],
+    cached_depth: Optional[Dict[str, Any]],
+    explainer,
+) -> Set[Tuple[int, int]]:
+    """依自訂路徑、快取解釋或即時尋路收集雙向重要邊緣集合."""
+    important_edges: Set[Tuple[int, int]] = set()
+
+    def _add_path_edges(nodes_seq: List[int]) -> None:
+        for step in range(len(nodes_seq) - 1):
+            n1, n2 = int(nodes_seq[step]), int(nodes_seq[step + 1])
+            important_edges.add((n1, n2))
+            important_edges.add((n2, n1))
+
+    if normalized_paths:
+        for path in normalized_paths:
+            _add_path_edges(path)
+    elif cached_depth and cached_depth.get("explanations"):
+        for exp in cached_depth["explanations"]:
+            details = exp.get("path_details", [])
+            _add_path_edges([int(d["id_remapped"]) for d in details])
+    elif explainer:
+        n_hops = 1 if depth_key == "1" else 2
+        if state.csr_adj is not None:
+            exp_res = explainer.explain_fast_csr(
+                state.indices, state.edge_types, state.num_nodes, uid, item_id, state.csr_adj, top_k=3, n_hops=n_hops
+            )
+        else:
+            exp_res = explainer.explain(
+                state.indices, state.edge_types, state.num_nodes, uid, item_id, n_hops=n_hops, top_k=3
+            )
+        if exp_res and "top_paths" in exp_res:
+            for path, _ in exp_res["top_paths"]:
+                _add_path_edges([int(n) for n in path])
+
+    return important_edges
+
+
+def _evaluate_masked_subgraph(
+    model,
+    uid: int,
+    item_id: int,
+    depth_key: str,
+    mode: str,
+    p_orig: float,
+    mask_important,
+    mask_self,
+    cache_key: str,
+) -> Dict[str, Any]:
+    """依 f_plus (遮蔽) 或 f_minus (僅保留) 執行圖遮蔽前向計算並同步動態快取."""
+    u_tensor = torch.tensor([uid], dtype=torch.long, device=state.device)
+    i_tensor = torch.tensor([item_id], dtype=torch.long, device=state.device)
+    edge_mask = (~mask_important) if mode == "f_plus" else (mask_important | mask_self)
+
+    with torch.no_grad():
+        masked_score = model(
+            state.indices[:, edge_mask],
+            state.edge_types[edge_mask],
+            state.num_nodes,
+            u_tensor,
+            i_tensor,
+        )[0].item()
+        p_masked = float(torch.sigmoid(torch.tensor(masked_score)).item())
+        fid_val = p_orig - p_masked
+
+    tag, desc = (
+        ("F+", "遮蔽解釋子圖：驗證必要性")
+        if mode == "f_plus"
+        else ("F-", "僅保留解釋子圖：驗證充分性")
+    )
+    logger.info(f"{tag} 遮蔽計算成功: 使用者 {uid}, 食譜 {item_id}, {tag}={fid_val:.4f}")
+
+    if cache_key in state.dynamic_user_cache:
+        state.dynamic_user_cache[cache_key].setdefault("fidelity", {})
+        state.dynamic_user_cache[cache_key]["fidelity"][mode] = fid_val
+        state.dynamic_user_cache[cache_key]["fidelity"][f"prob_{mode}"] = p_masked
+
+    return {
+        "user_id": uid,
+        "item_id": item_id,
+        "depth": depth_key,
+        "mode": mode,
+        "prob": p_masked,
+        "original_prob": p_orig,
+        "fidelity_score": fid_val,
+        "status_description": desc,
+    }
 
 
 @app.get("/api/status")
@@ -467,92 +738,21 @@ def recommend(req: RecommendRequest):
         uid = req.user_id
         depth_key = str(req.depth)
 
-        # 驗證使用者編號有效邊界
         if uid < 0 or uid >= state.n_users:
             raise HTTPException(status_code=400, detail=f"使用者編號超出範圍 (0 ~ {state.n_users - 1})")
-
-        # 驗證模型代碼
-        if depth_key not in ("3", "2", "1", "wo_kg", "wo_attn", "lightgcn", "nfm", "bprmf"):
+        if depth_key not in MODEL_CHECKPOINT_RELPATHS:
             raise HTTPException(status_code=400, detail="不支援的模型代碼")
 
-        # 1. 優先查閱評估快取與動態使用者快取
-        cache_key = f"{uid}_{depth_key}"
-        if cache_key in state.dynamic_user_cache:
-            logger.info(f"命中動態使用者快取: 使用者 {uid}, 深度 {depth_key}")
-            return state.dynamic_user_cache[cache_key]
+        cached_res = _lookup_cached_recommendation(uid, depth_key)
+        if cached_res is not None:
+            return cached_res
 
-        cached_user = state.demo_cache.get("user_cache", {}).get(str(uid))
-        if cached_user and depth_key in cached_user.get("depths", {}):
-            cached_depth_data = cached_user["depths"][depth_key]
-            if cached_depth_data is not None:
-                metrics = state.demo_cache.get("benchmark_metrics", {}).get(depth_key, {})
-                logger.info(f"命中快取推薦: 使用者 {uid}, 深度 {depth_key}")
-                rec_item = cached_depth_data["recommended_item_id"]
-                user_n_interactions = (
-                    int(state.user_interaction_counts[uid])
-                    if state.user_interaction_counts is not None and uid < len(state.user_interaction_counts)
-                    else cached_depth_data.get("user_n_interactions", 0)
-                )
-                n_equivalent_channels = cached_depth_data.get("n_equivalent_channels")
-                if n_equivalent_channels is None or n_equivalent_channels == 0:
-                    n_equivalent_channels = state.count_equivalent_channels(uid, rec_item)
-
-                return {
-                    "user_id": uid,
-                    "user_name": cached_user.get("user_name", f"使用者 {uid}"),
-                    "depth": depth_key,
-                    "recommended_item_id": rec_item,
-                    "recommended_item_name": cached_depth_data["recommended_item_name"],
-                    "score": cached_depth_data["score"],
-                    "prob": cached_depth_data["prob"],
-                    "is_test_hit": cached_depth_data["is_test_hit"],
-                    "user_n_interactions": user_n_interactions,
-                    "n_equivalent_channels": n_equivalent_channels,
-                    "item_kg_degree": cached_depth_data["item_kg_degree"],
-                    "metrics": {
-                        "hr_20": metrics.get("hr_20", 0.0),
-                        "ndcg_20": metrics.get("ndcg_20", 0.0),
-                    },
-                    "explanations": cached_depth_data["explanations"],
-                    "fidelity": cached_depth_data.get("fidelity", {}),
-                }
-
-        # 2. 動態推論 (以快取 Embeddings 向量內積計算，消除顯存壓力)
         model, explainer = state.get_or_load_model(depth_key)
         if model is None:
             raise HTTPException(status_code=500, detail="模型未載入")
 
-        if depth_key in ("3", "2", "1", "wo_kg", "wo_attn", "lightgcn"):
-            with torch.no_grad():
-                u_embed = model.cached_final_embed[uid]
-                items_embed = model.cached_final_embed[state.n_users : state.n_users + state.n_items]
-                pos_scores = torch.matmul(items_embed, u_embed).float()
-                best_item_idx = int(torch.argmax(pos_scores).item())
-                best_score = float(pos_scores[best_item_idx].item())
-                prob = float(torch.sigmoid(torch.tensor(best_score)).item())
-        elif depth_key == "bprmf":
-            with torch.no_grad():
-                u_embed = model.user_embed.weight[uid]
-                items_embed = model.item_embed.weight
-                pos_scores = torch.matmul(items_embed, u_embed).float()
-                best_item_idx = int(torch.argmax(pos_scores).item())
-                best_score = float(pos_scores[best_item_idx].item())
-                prob = float(torch.sigmoid(torch.tensor(best_score)).item())
-        elif depth_key == "nfm":
-            with torch.no_grad():
-                u_emb = model.user_embed.weight[uid]
-                u_b = model.user_bias.weight[uid]
-                bi = u_emb * model.item_embed.weight
-                mlp = model.mlp(bi).squeeze(-1)
-                pos_scores = u_b + model.item_bias.weight.squeeze(-1) + model.global_bias + mlp
-                best_item_idx = int(torch.argmax(pos_scores).item())
-                best_score = float(pos_scores[best_item_idx].item())
-                prob = float(torch.sigmoid(torch.tensor(best_score)).item())
-        else:
-            raise HTTPException(status_code=400, detail="不支援的模型代碼")
-
-        # 取得節點名稱
-        _, rec_real_id, rec_name = get_node_name(
+        best_item_idx, best_score, prob = _score_top_item(model, depth_key, uid)
+        _, _, rec_name = get_node_name(
             state.n_users + best_item_idx,
             state.n_users,
             state.n_items,
@@ -564,7 +764,7 @@ def recommend(req: RecommendRequest):
         user_name = f"User {uid}"
 
         # 取得注意力解釋路徑 (優先使用 CSR 向量化尋路，耗時數毫秒)
-        n_hops = 1 if depth_key == "1" else (2 if depth_key == "2" else 2)
+        n_hops = 1 if depth_key == "1" else 2
         explanations = []
         if explainer and depth_key in ("3", "2", "1"):
             if state.csr_adj is not None:
@@ -608,10 +808,7 @@ def recommend(req: RecommendRequest):
 
         is_hit = best_item_idx in state.test_user_items.get(uid, set())
         metrics = state.demo_cache.get("benchmark_metrics", {}).get(depth_key, {})
-
-        # 計算等價 3-hop 通道數量
         n_equivalent_channels = state.count_equivalent_channels(uid, best_item_idx)
-
         user_n_interactions = (
             int(state.user_interaction_counts[uid])
             if state.user_interaction_counts is not None and uid < len(state.user_interaction_counts)
@@ -638,16 +835,13 @@ def recommend(req: RecommendRequest):
             "explanations": explanations,
             "fidelity": {},
         }
-        state.dynamic_user_cache[cache_key] = res_data
+        state.dynamic_user_cache[f"{uid}_{depth_key}"] = res_data
         return res_data
     except HTTPException:
         raise
     except Exception as exc:
         logger.exception(f"推薦端點執行異常: 使用者 {req.user_id}, 深度 {req.depth}: {exc}")
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
-        elif hasattr(torch, "xpu") and torch.xpu.is_available():
-            torch.xpu.empty_cache()
+        _clear_accelerator_cache()
         raise HTTPException(status_code=500, detail=f"推論伺服器執行異常: {str(exc)}")
 
 
@@ -662,22 +856,13 @@ def fidelity_probe(req: FidelityProbeRequest):
 
         if mode not in ("normal", "f_plus", "f_minus"):
             raise HTTPException(status_code=400, detail="無效探針模式，支援 normal, f_plus, f_minus")
-
-        # 驗證使用者編號與食譜編號邊界
         if uid < 0 or uid >= state.n_users:
             raise HTTPException(status_code=400, detail=f"使用者編號超出範圍 (0 ~ {state.n_users - 1})")
         if item_id < 0 or item_id >= state.n_items:
             raise HTTPException(status_code=400, detail=f"食譜編號超出範圍 (0 ~ {state.n_items - 1})")
 
-        # 正規化 path_nodes 支援單一路徑 (List[int]) 或多路徑聯集 (List[List[int]])
-        normalized_paths = None
-        if req.path_nodes is not None:
-            if len(req.path_nodes) > 0 and isinstance(req.path_nodes[0], (int, np.integer)):
-                normalized_paths = [req.path_nodes]
-            else:
-                normalized_paths = req.path_nodes
+        normalized_paths = _normalize_path_nodes(req.path_nodes)
 
-        # 查核快取 (含靜態評估快取與動態推論快取)
         cache_key = f"{uid}_{depth_key}"
         cached_user = state.demo_cache.get("user_cache", {}).get(str(uid))
         cached_depth = cached_user.get("depths", {}).get(depth_key) if cached_user else None
@@ -685,120 +870,27 @@ def fidelity_probe(req: FidelityProbeRequest):
             cached_depth = state.dynamic_user_cache[cache_key]
 
         # 針對非圖注意力模型或無路徑使用者，優雅回傳零變化指標，絕不拋出 500
-        if depth_key not in ("3", "2", "1") or (normalized_paths is not None and not any(len(p) >= 2 for p in normalized_paths)):
+        if depth_key not in ("3", "2", "1") or (
+            normalized_paths is not None and not any(len(p) >= 2 for p in normalized_paths)
+        ):
             if cached_depth and "prob" in cached_depth:
                 p_orig = cached_depth["prob"]
             else:
                 model, _ = state.get_or_load_model(depth_key)
-                if model is not None and hasattr(model, "cached_final_embed"):
-                    with torch.no_grad():
-                        u_embed = model.cached_final_embed[uid]
-                        item_embed = model.cached_final_embed[state.n_users + item_id]
-                        score_orig = float(torch.sum(u_embed.float() * item_embed.float()).item())
-                        p_orig = float(torch.sigmoid(torch.tensor(score_orig)).item())
-                elif model is not None and depth_key in ("3", "2", "1", "wo_kg") and state.indices is not None:
-                    u_tensor = torch.tensor([uid], dtype=torch.long, device=state.device)
-                    i_tensor = torch.tensor([item_id], dtype=torch.long, device=state.device)
-                    with torch.no_grad():
-                        score_orig = model(state.indices, state.edge_types, state.num_nodes, u_tensor, i_tensor)[0].item()
-                        p_orig = float(torch.sigmoid(torch.tensor(score_orig)).item())
-                elif model is not None and depth_key == "bprmf":
-                    with torch.no_grad():
-                        u_embed = model.user_embed.weight[uid]
-                        item_embed = model.item_embed.weight[item_id]
-                        score_orig = float(torch.sum(u_embed.float() * item_embed.float()).item())
-                        p_orig = float(torch.sigmoid(torch.tensor(score_orig)).item())
-                elif model is not None and depth_key == "nfm":
-                    with torch.no_grad():
-                        u_emb = model.user_embed.weight[uid]
-                        i_emb = model.item_embed.weight[item_id]
-                        u_b = model.user_bias.weight[uid]
-                        i_b = model.item_bias.weight[item_id]
-                        bi = (u_emb * i_emb).unsqueeze(0)
-                        mlp = model.mlp(bi).squeeze()
-                        score_orig = float((u_b + i_b + model.global_bias + mlp).item())
-                        p_orig = float(torch.sigmoid(torch.tensor(score_orig)).item())
-                else:
-                    p_orig = 0.0
+                p_orig = _compute_pair_prob(model, depth_key, uid, item_id)
             logger.info(f"無路徑或基準模型探針回傳: 使用者 {uid}, 食譜 {item_id}, 深度 {depth_key}")
-            return {
-                "user_id": uid,
-                "item_id": item_id,
-                "depth": depth_key,
-                "mode": mode,
-                "prob": p_orig,
-                "original_prob": p_orig,
-                "fidelity_score": 0.0,
-                "status_description": "無路徑使用者",
-                "is_no_path": True,
-                "note": "無路徑使用者",
-                "f_plus": 0.0,
-                "f_minus": 0.0,
-            }
+            return _build_no_path_probe_response(uid, item_id, depth_key, mode, p_orig)
 
-        # 如果有快取且為同一推薦物品（且未指定自訂 path_nodes）
         if not normalized_paths and cached_depth and cached_depth.get("recommended_item_id") == item_id:
-            p_orig = cached_depth["prob"]
-            fid = cached_depth.get("fidelity", {})
-            if mode == "normal":
-                return {
-                    "user_id": uid,
-                    "item_id": item_id,
-                    "depth": depth_key,
-                    "mode": "normal",
-                    "prob": p_orig,
-                    "original_prob": p_orig,
-                    "fidelity_score": 0.0,
-                    "status_description": "原始預測狀態",
-                }
-            elif mode == "f_plus":
-                p_f_plus = fid.get("prob_f_plus")
-                f_plus_val = fid.get("f_plus")
-                if p_f_plus is not None and f_plus_val is not None:
-                    return {
-                        "user_id": uid,
-                        "item_id": item_id,
-                        "depth": depth_key,
-                        "mode": "f_plus",
-                        "prob": p_f_plus,
-                        "original_prob": p_orig,
-                        "fidelity_score": f_plus_val,
-                        "status_description": "遮蔽解釋子圖：驗證必要性",
-                    }
-            elif mode == "f_minus":
-                p_f_minus = fid.get("prob_f_minus")
-                f_minus_val = fid.get("f_minus")
-                if p_f_minus is not None and f_minus_val is not None:
-                    return {
-                        "user_id": uid,
-                        "item_id": item_id,
-                        "depth": depth_key,
-                        "mode": "f_minus",
-                        "prob": p_f_minus,
-                        "original_prob": p_orig,
-                        "fidelity_score": f_minus_val,
-                        "status_description": "僅保留解釋子圖：驗證充分性",
-                    }
+            cached_probe = _lookup_cached_probe_response(uid, item_id, depth_key, mode, cached_depth)
+            if cached_probe is not None:
+                return cached_probe
 
-        # 動態圖遮蔽計算
         model, explainer = state.get_or_load_model(depth_key)
         if model is None or state.indices is None:
             raise HTTPException(status_code=500, detail="模型或圖結構未載入")
 
-        u_tensor = torch.tensor([uid], dtype=torch.long, device=state.device)
-        i_tensor = torch.tensor([item_id], dtype=torch.long, device=state.device)
-
-        # 1. 計算原始預測 (優先採用特徵快取)
-        with torch.no_grad():
-            if hasattr(model, "cached_final_embed"):
-                u_embed = model.cached_final_embed[uid]
-                item_embed = model.cached_final_embed[state.n_users + item_id]
-                score_orig = float(torch.sum(u_embed.float() * item_embed.float()).item())
-                p_orig = float(torch.sigmoid(torch.tensor(score_orig)).item())
-            else:
-                score_orig = model(state.indices, state.edge_types, state.num_nodes, u_tensor, i_tensor)[0].item()
-                p_orig = float(torch.sigmoid(torch.tensor(score_orig)).item())
-
+        p_orig = _compute_pair_prob(model, depth_key, uid, item_id)
         if mode == "normal":
             logger.info(f"原始探針查詢: 使用者 {uid}, 食譜 {item_id}, 機率 {p_orig:.4f}")
             return {
@@ -812,125 +904,26 @@ def fidelity_probe(req: FidelityProbeRequest):
                 "status_description": "原始預測狀態",
             }
 
-        # 2. 獲取解釋路徑邊緣
-        important_edges = set()
-        if normalized_paths:
-            for path in normalized_paths:
-                for step in range(len(path) - 1):
-                    n1, n2 = int(path[step]), int(path[step + 1])
-                    important_edges.add((n1, n2))
-                    important_edges.add((n2, n1))
-        elif cached_depth and cached_depth.get("explanations"):
-            for exp in cached_depth["explanations"]:
-                details = exp.get("path_details", [])
-                for step in range(len(details) - 1):
-                    n1, n2 = int(details[step]["id_remapped"]), int(details[step + 1]["id_remapped"])
-                    important_edges.add((n1, n2))
-                    important_edges.add((n2, n1))
-        elif explainer:
-            n_hops = 1 if depth_key == "1" else 2
-            if state.csr_adj is not None:
-                exp_res = explainer.explain_fast_csr(state.indices, state.edge_types, state.num_nodes, uid, item_id, state.csr_adj, top_k=3, n_hops=n_hops)
-            else:
-                exp_res = explainer.explain(state.indices, state.edge_types, state.num_nodes, uid, item_id, n_hops=n_hops, top_k=3)
-            if exp_res and "top_paths" in exp_res:
-                for path, _ in exp_res["top_paths"]:
-                    for step in range(len(path) - 1):
-                        n1, n2 = int(path[step]), int(path[step + 1])
-                        important_edges.add((n1, n2))
-                        important_edges.add((n2, n1))
-
+        important_edges = _collect_important_edges(
+            uid, item_id, depth_key, normalized_paths, cached_depth, explainer
+        )
         if not important_edges:
-            # 若無重要邊緣可遮蔽，返回原值
             logger.info(f"無可遮蔽邊緣: 使用者 {uid}, 食譜 {item_id}")
-            return {
-                "user_id": uid,
-                "item_id": item_id,
-                "depth": depth_key,
-                "mode": mode,
-                "prob": p_orig,
-                "original_prob": p_orig,
-                "fidelity_score": 0.0,
-                "status_description": "無路徑使用者",
-                "is_no_path": True,
-                "note": "無路徑使用者",
-                "f_plus": 0.0,
-                "f_minus": 0.0,
-            }
+            return _build_no_path_probe_response(uid, item_id, depth_key, mode, p_orig)
 
         hashed_important = [n1 * state.num_nodes + n2 for n1, n2 in important_edges]
         hashed_tensor = torch.tensor(hashed_important, device=state.device)
         mask_important = torch.isin(state.edge_hash, hashed_tensor)
         mask_self = state.src == state.dst
 
-        if mode == "f_plus":
-            # 移除重要路徑
-            mask_f_plus = ~mask_important
-            with torch.no_grad():
-                f_plus_score = model(
-                    state.indices[:, mask_f_plus],
-                    state.edge_types[mask_f_plus],
-                    state.num_nodes,
-                    u_tensor,
-                    i_tensor,
-                )[0].item()
-                p_f_plus = float(torch.sigmoid(torch.tensor(f_plus_score)).item())
-                f_plus_val = p_orig - p_f_plus
-            logger.info(f"F+ 遮蔽計算成功: 使用者 {uid}, 食譜 {item_id}, F+={f_plus_val:.4f}")
-            res_data = {
-                "user_id": uid,
-                "item_id": item_id,
-                "depth": depth_key,
-                "mode": "f_plus",
-                "prob": p_f_plus,
-                "original_prob": p_orig,
-                "fidelity_score": f_plus_val,
-                "status_description": "遮蔽解釋子圖：驗證必要性",
-            }
-            if cache_key in state.dynamic_user_cache:
-                if "fidelity" not in state.dynamic_user_cache[cache_key]:
-                    state.dynamic_user_cache[cache_key]["fidelity"] = {}
-                state.dynamic_user_cache[cache_key]["fidelity"]["f_plus"] = f_plus_val
-                state.dynamic_user_cache[cache_key]["fidelity"]["prob_f_plus"] = p_f_plus
-            return res_data
-        else:  # f_minus
-            # 僅保留重要路徑與自迴圈
-            mask_f_minus = mask_important | mask_self
-            with torch.no_grad():
-                f_minus_score = model(
-                    state.indices[:, mask_f_minus],
-                    state.edge_types[mask_f_minus],
-                    state.num_nodes,
-                    u_tensor,
-                    i_tensor,
-                )[0].item()
-                p_f_minus = float(torch.sigmoid(torch.tensor(f_minus_score)).item())
-                f_minus_val = p_orig - p_f_minus
-            logger.info(f"F- 遮蔽計算成功: 使用者 {uid}, 食譜 {item_id}, F-={f_minus_val:.4f}")
-            res_data = {
-                "user_id": uid,
-                "item_id": item_id,
-                "depth": depth_key,
-                "mode": "f_minus",
-                "prob": p_f_minus,
-                "original_prob": p_orig,
-                "fidelity_score": f_minus_val,
-                "status_description": "僅保留解釋子圖：驗證充分性",
-            }
-            if cache_key in state.dynamic_user_cache:
-                if "fidelity" not in state.dynamic_user_cache[cache_key]:
-                    state.dynamic_user_cache[cache_key]["fidelity"] = {}
-                state.dynamic_user_cache[cache_key]["fidelity"]["f_minus"] = f_minus_val
-                state.dynamic_user_cache[cache_key]["fidelity"]["prob_f_minus"] = p_f_minus
-            return res_data
+        return _evaluate_masked_subgraph(
+            model, uid, item_id, depth_key, mode, p_orig, mask_important, mask_self, cache_key
+        )
     except HTTPException:
         raise
     except Exception as exc:
         logger.exception(f"探針端點執行異常: 使用者 {req.user_id}, 食譜 {req.item_id}, 模式 {req.mode}: {exc}")
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
-        elif hasattr(torch, "xpu") and torch.xpu.is_available():
-            torch.xpu.empty_cache()
+        _clear_accelerator_cache()
         raise HTTPException(status_code=500, detail=f"探針運算異常: {str(exc)}")
 
 

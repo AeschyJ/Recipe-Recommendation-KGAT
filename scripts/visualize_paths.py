@@ -2,8 +2,10 @@ import argparse
 import os
 import pickle
 import sys
+import textwrap
 
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 import networkx as nx
 import pandas as pd
 import torch
@@ -80,166 +82,149 @@ def setup_chinese_font():
         pass
 
 
-def visualize_user_explanations(user_id, target_item_id, explainer, model_inputs, args):
-    """為單一使用者產出路徑視覺化圖表"""
-    (
-        indices,
-        edge_types,
-        num_nodes,
-        n_users,
-        n_items,
-        user_le,
-        item_le,
-        entity_maps,
-        recipe_name_map,
-        device,
-    ) = model_inputs
+_NODE_COLOR_MAP = {
+    "USER": "#AED6F1",
+    "RECIPE": "#ABEBC6",
+    "INGREDIENT": "#FAD7A0",
+    "TAG": "#F9E79F",
+}
 
-    # 如果沒指定，才用 Argmax
-    if target_item_id is None:
-        all_items = torch.arange(n_items, device=device)
-        u_batch = torch.full((n_items,), user_id, dtype=torch.long, device=device)
-        with torch.no_grad():
-            scores = explainer.model(indices, edge_types, num_nodes, u_batch, all_items)
-        target_item_id = torch.argmax(scores).item()
+_CASE_B_LAYOUT_RULES = [
+    (("bruschetta",), (-0.75, -0.55)),
+    (("cajun", "pasta"), (0.65, -0.45)),
+    (("603504",), (-0.05, -0.58)),
+    (("868551",), (0.75, 0.15)),
+    (("1506604",), (-0.85, 0.05)),
+]
 
-    print(f"Targeting User: {user_id}, Item: {target_item_id}")
+_CASE_C_LAYOUT_RULES = [
+    (("salad", "thai"), (-0.75, -0.55)),
+    (("pizza",), (-0.85, 0.05)),
+    (("none better", "breast"), (0.75, 0.15)),
+    (("awesome", "sweet"), (0.65, -0.45)),
+]
 
-    n_hops = 3
-    explanation = explainer.explain(
-        indices,
-        edge_types,
-        num_nodes,
-        user_id,
-        target_item_id,
-        n_hops=n_hops,
-        top_k=args.top_k,
-    )
 
-    if not explanation or not explanation.get("top_paths"):
-        print(f"Warning: User {user_id} and Item {target_item_id} have no valid paths.")
-        return
+def resolve_target_item(user_id, target_item_id, explainer, indices, edge_types, num_nodes, n_items, device) -> int:
+    """若未指定目標食譜，則透過模型全物品評分取最高分項目."""
+    if target_item_id is not None:
+        return int(target_item_id)
+    all_items = torch.arange(n_items, device=device)
+    u_batch = torch.full((n_items,), user_id, dtype=torch.long, device=device)
+    with torch.no_grad():
+        scores = explainer.model(indices, edge_types, num_nodes, u_batch, all_items)
+    return int(torch.argmax(scores).item())
 
-    print(f"\n--- User {user_id} Explanation Paths ---")
-    for idx, (path, score) in enumerate(explanation["top_paths"]):
-        names = []
-        for nid in path:
-            _, _, n_name = get_node_name(
-                nid, n_users, n_items, user_le, item_le, entity_maps, recipe_name_map
-            )
-            names.append(n_name)
-        print(f"Path {idx + 1} (Score: {score:.6f}): {' -> '.join(names)}")
-    print("------------------------------------------\n")
 
-    G = nx.DiGraph()
+def build_explanation_graph(top_paths, n_users, n_items, user_le, item_le, entity_maps, recipe_name_map):
+    """由 Top-K 解釋路徑組裝加權有向子圖與節點中繼資料，並輸出路徑摘要."""
+    graph = nx.DiGraph()
     node_labels = {}
-    node_colors = []
     node_types = {}
 
-    def add_node_to_graph(nid):
+    def register_node(nid: int) -> str:
         if nid not in node_labels:
             n_type, _, n_name = get_node_name(
                 nid, n_users, n_items, user_le, item_le, entity_maps, recipe_name_map
             )
             node_labels[nid] = n_name
             node_types[nid] = n_type
-            return n_type, n_name
-        return node_types[nid], node_labels[nid]
+        return node_labels[nid]
 
-    for path, score in explanation["top_paths"]:
+    for idx, (path, score) in enumerate(top_paths):
+        names = [register_node(int(nid)) for nid in path]
+        print(f"Path {idx + 1} (Score: {score:.6f}): {' -> '.join(names)}")
         for i in range(len(path) - 1):
             u, v = int(path[i]), int(path[i + 1])
-            add_node_to_graph(u)
-            add_node_to_graph(v)
-            if G.has_edge(u, v):
-                G[u][v]["weight"] = max(G[u][v]["weight"], score)
+            if graph.has_edge(u, v):
+                graph[u][v]["weight"] = max(graph[u][v]["weight"], score)
             else:
-                G.add_edge(u, v, weight=score)
+                graph.add_edge(u, v, weight=score)
 
-    plt.figure(figsize=(10, 7.5))
-    color_map = {
-        "USER": "#AED6F1",
-        "RECIPE": "#ABEBC6",
-        "INGREDIENT": "#FAD7A0",
-        "TAG": "#F9E79F",
-    }
+    return graph, node_labels, node_types
 
-    nodes_in_graph = list(G.nodes())
-    for nid in nodes_in_graph:
-        n_type = node_types[nid]
-        if nid == n_users + target_item_id:
-            node_colors.append("#EC7063")  # Target
-        else:
-            node_colors.append(color_map.get(n_type, "lightgray"))
 
-    # 針對不同個案數與結構採用確定性無重疊佈局 (Deterministic Layout)
-    num_nodes_cnt = len(nodes_in_graph)
+def _assign_case_positions(nodes, user_id, node_labels, user_anchor_token, rules, exact_chicken=False):
     pos = {}
+    for nid in nodes:
+        lbl = str(node_labels.get(nid, "")).lower()
+        if user_anchor_token in lbl or (nid == user_id and "user" in lbl):
+            pos[nid] = (-0.65, 0.65)
+        elif exact_chicken and lbl == "chicken":
+            pos[nid] = (-0.05, -0.58)
+        else:
+            coord = next(
+                (xy for keywords, xy in rules if any(kw in lbl for kw in keywords)),
+                (0.0, 0.0),
+            )
+            pos[nid] = coord
+    return pos
 
-    target_global = n_users + target_item_id
+
+def compute_deterministic_layout(graph, user_id, target_global, node_labels):
+    """針對代表性個案與一般結構計算確定性無重疊座標與畫布邊界."""
+    nodes = list(graph.nodes())
     target_name = str(node_labels.get(target_global, "")).lower()
     user_lbl = str(node_labels.get(user_id, "")).lower()
 
-    if num_nodes_cnt <= 2:
-        # Case A: 直接連接
-        pos = {}
-        for nid in nodes_in_graph:
-            lbl = str(node_labels.get(nid, "")).lower()
-            if "user" in lbl or nid == user_id:
-                pos[nid] = (-0.55, 0.40)
-            else:
-                pos[nid] = (0.45, -0.35)
-        plt.xlim(-1.1, 1.25)
-        plt.ylim(-0.80, 0.80)
-    elif "bruschetta" in target_name or "573230" in user_lbl:
-        # Case B Layout (協同過濾個案)
-        pos = {}
-        for nid in nodes_in_graph:
-            lbl = str(node_labels.get(nid, "")).lower()
-            if "573230" in lbl or (nid == user_id and "user" in lbl):
-                pos[nid] = (-0.65, 0.65) # User 573230 置於左上角，遠離右側 Legend
-            elif "bruschetta" in lbl:
-                pos[nid] = (-0.75, -0.55) # Target bruschetta 置於左下角
-            elif "cajun" in lbl or "pasta" in lbl:
-                pos[nid] = (0.65, -0.45) # cajun pasta 置於右下角
-            elif "603504" in lbl:
-                pos[nid] = (-0.05, -0.58) # User 603504 置於正下方中點
-            elif "868551" in lbl:
-                pos[nid] = (0.75, 0.15)  # User 868551 置於右中
-            elif "1506604" in lbl:
-                pos[nid] = (-0.85, 0.05) # User 1506604 置於左中
-            else:
-                pos[nid] = (0.0, 0.0)
-        plt.xlim(-1.25, 1.35)
-        plt.ylim(-0.88, 0.88)
-    elif "salad" in target_name or "thai" in target_name or "963993" in user_lbl:
-        # Case C Layout (KG 語意個案)
-        pos = {}
-        for nid in nodes_in_graph:
-            lbl = str(node_labels.get(nid, "")).lower()
-            if "963993" in lbl or (nid == user_id and "user" in lbl):
-                pos[nid] = (-0.65, 0.65) # User 963993 置於左上角
-            elif "salad" in lbl or "thai" in lbl:
-                pos[nid] = (-0.75, -0.55) # Target thai salad 置於左下角
-            elif lbl == "chicken":
-                pos[nid] = (-0.05, -0.58) # chicken 食材實體置於正下
-            elif "pizza" in lbl:
-                pos[nid] = (-0.85, 0.05) # pizza chicken 置於左中
-            elif "none better" in lbl or "breast" in lbl:
-                pos[nid] = (0.75, 0.15)  # ain't none better... 置於右中
-            elif "awesome" in lbl or "sweet" in lbl:
-                pos[nid] = (0.65, -0.45) # awesome sweet and sour... 置於右下
-            else:
-                pos[nid] = (0.0, 0.0)
-        plt.xlim(-1.25, 1.35)
-        plt.ylim(-0.88, 0.88)
-    else:
-        pos = nx.spring_layout(G, k=1.6, iterations=200, seed=42)
-        plt.xlim(-1.2, 1.2)
-        plt.ylim(-0.88, 0.88)
+    if len(nodes) <= 2:
+        pos = {
+            nid: ((-0.55, 0.40) if ("user" in str(node_labels.get(nid, "")).lower() or nid == user_id) else (0.45, -0.35))
+            for nid in nodes
+        }
+        return pos, (-1.1, 1.25), (-0.80, 0.80)
 
+    if "bruschetta" in target_name or "573230" in user_lbl:
+        pos = _assign_case_positions(nodes, user_id, node_labels, "573230", _CASE_B_LAYOUT_RULES)
+        return pos, (-1.25, 1.35), (-0.88, 0.88)
+
+    if "salad" in target_name or "thai" in target_name or "963993" in user_lbl:
+        pos = _assign_case_positions(
+            nodes, user_id, node_labels, "963993", _CASE_C_LAYOUT_RULES, exact_chicken=True
+        )
+        return pos, (-1.25, 1.35), (-0.88, 0.88)
+
+    pos = nx.spring_layout(graph, k=1.6, iterations=200, seed=42)
+    return pos, (-1.2, 1.2), (-0.88, 0.88)
+
+
+def compute_edge_label_pos(u_label: str, v_label: str) -> float:
+    """依起訖節點標籤計算錯開的邊權重標籤位置，防止交叉文字重疊."""
+    u_lbl = str(u_label).lower()
+    v_lbl = str(v_label).lower()
+    if ("user" in u_lbl and "cajun" in v_lbl) or ("user" in u_lbl and "awesome" in v_lbl):
+        return 0.38
+    if ("1506604" in u_lbl and "cajun" in v_lbl) or ("chicken" in u_lbl and "none better" in v_lbl):
+        return 0.68
+    if "868551" in u_lbl and "bruschetta" in v_lbl:
+        return 0.35
+    return 0.5
+
+
+def render_explanation_figure(
+    graph,
+    pos,
+    xlim,
+    ylim,
+    node_labels,
+    node_types,
+    target_global,
+    user_name,
+    item_name,
+    output_path,
+) -> None:
+    """繪製解釋子圖並儲存為 PDF 檔案."""
+    plt.figure(figsize=(10, 7.5))
+    plt.xlim(*xlim)
+    plt.ylim(*ylim)
+
+    nodes_in_graph = list(graph.nodes())
+    node_colors = [
+        "#EC7063" if nid == target_global else _NODE_COLOR_MAP.get(node_types[nid], "lightgray")
+        for nid in nodes_in_graph
+    ]
     nx.draw_networkx_nodes(
-        G,
+        graph,
         pos,
         node_color=node_colors,
         node_size=5800,
@@ -248,23 +233,19 @@ def visualize_user_explanations(user_id, target_item_id, explainer, model_inputs
         linewidths=1.8,
     )
 
-    # 智慧文字包裹，雙行收納於圓圈內部
-    import textwrap
     wrapped_labels = {
         k: textwrap.fill(v.strip(), width=13, break_long_words=False)
         for k, v in node_labels.items()
     }
-    nx.draw_networkx_labels(
-        G, pos, labels=wrapped_labels, font_size=10.0, font_weight="bold"
-    )
+    nx.draw_networkx_labels(graph, pos, labels=wrapped_labels, font_size=10.0, font_weight="bold")
 
-    edges = G.edges()
-    weights = [G[u][v]["weight"] for u, v in edges]
+    edges = list(graph.edges())
+    weights = [graph[u][v]["weight"] for u, v in edges]
     if weights:
         max_w = max(weights)
         edge_widths = [(w / (max_w + 1e-9)) * 7 + 2.0 for w in weights]
         nx.draw_networkx_edges(
-            G,
+            graph,
             pos,
             width=edge_widths,
             edge_color="#515A5A",
@@ -272,25 +253,11 @@ def visualize_user_explanations(user_id, target_item_id, explainer, model_inputs
             arrowsize=25,
             connectionstyle="arc3,rad=0.08",
         )
-
-        # 錯開邊標籤位置 (label_pos)，徹底消除交叉邊標籤碰撞
         for (u, v), w in zip(edges, weights):
-            # Align with thesis precision (alpha = 0.767) formatted to 4 decimals
             lbl = f"{round(w, 3):.4f}" if round(w, 3) == 0.767 else f"{w:.4f}"
-            u_lbl = str(node_labels.get(u, "")).lower()
-            v_lbl = str(node_labels.get(v, "")).lower()
-            
-            # 對角交叉邊特別錯開標籤點 (0.35 或 0.65)
-            lpos = 0.5
-            if ("user" in u_lbl and "cajun" in v_lbl) or ("user" in u_lbl and "awesome" in v_lbl):
-                lpos = 0.38
-            elif ("1506604" in u_lbl and "cajun" in v_lbl) or ("chicken" in u_lbl and "none better" in v_lbl):
-                lpos = 0.68
-            elif ("868551" in u_lbl and "bruschetta" in v_lbl):
-                lpos = 0.35
-            
+            lpos = compute_edge_label_pos(node_labels.get(u, ""), node_labels.get(v, ""))
             nx.draw_networkx_edge_labels(
-                G,
+                graph,
                 pos,
                 edge_labels={(u, v): lbl},
                 font_size=11,
@@ -307,76 +274,78 @@ def visualize_user_explanations(user_id, target_item_id, explainer, model_inputs
                 ),
             )
 
-    _, _, user_name = get_node_name(
-        user_id, n_users, n_items, user_le, item_le, entity_maps, recipe_name_map
-    )
-    _, _, item_name = get_node_name(
-        n_users + target_item_id,
-        n_users,
-        n_items,
-        user_le,
-        item_le,
-        entity_maps,
-        recipe_name_map,
-    )
-
     plt.title(
         f"Recommendation Explanation (KGAT L=3)\nUser: {user_name} | Target: {item_name}",
         fontsize=16,
         pad=20,
         fontweight="bold",
     )
-
-    from matplotlib.lines import Line2D
-
     legend_elements = [
-        Line2D(
-            [0],
-            [0],
-            marker="o",
-            color="w",
-            label="User",
-            markerfacecolor="#AED6F1",
-            markersize=14,
-        ),
-        Line2D(
-            [0],
-            [0],
-            marker="o",
-            color="w",
-            label="History/Neighbor Recipe",
-            markerfacecolor="#ABEBC6",
-            markersize=14,
-        ),
-        Line2D(
-            [0],
-            [0],
-            marker="o",
-            color="w",
-            label="Entity (Ingredient/Tag)",
-            markerfacecolor="#FAD7A0",
-            markersize=14,
-        ),
-        Line2D(
-            [0],
-            [0],
-            marker="o",
-            color="w",
-            label="Recommended Item",
-            markerfacecolor="#EC7063",
-            markersize=14,
-        ),
+        Line2D([0], [0], marker="o", color="w", label="User", markerfacecolor="#AED6F1", markersize=14),
+        Line2D([0], [0], marker="o", color="w", label="History/Neighbor Recipe", markerfacecolor="#ABEBC6", markersize=14),
+        Line2D([0], [0], marker="o", color="w", label="Entity (Ingredient/Tag)", markerfacecolor="#FAD7A0", markersize=14),
+        Line2D([0], [0], marker="o", color="w", label="Recommended Item", markerfacecolor="#EC7063", markersize=14),
     ]
     plt.legend(handles=legend_elements, loc="upper right", frameon=True, fontsize=12)
-
     plt.axis("off")
 
-    os.makedirs(args.output_dir, exist_ok=True)
-    out_name = f"user_{user_id}.pdf"
-    output_path = os.path.join(args.output_dir, out_name)
+    os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
     plt.savefig(output_path, bbox_inches="tight", format="pdf")
     plt.close()
     print(f"[OK] Visualization saved to: {output_path}")
+
+
+def visualize_user_explanations(user_id, target_item_id, explainer, model_inputs, args):
+    """為單一使用者產出路徑視覺化圖表."""
+    (
+        indices,
+        edge_types,
+        num_nodes,
+        n_users,
+        n_items,
+        user_le,
+        item_le,
+        entity_maps,
+        recipe_name_map,
+        device,
+    ) = model_inputs
+
+    target_item_id = resolve_target_item(
+        user_id, target_item_id, explainer, indices, edge_types, num_nodes, n_items, device
+    )
+    print(f"Targeting User: {user_id}, Item: {target_item_id}")
+
+    explanation = explainer.explain(
+        indices, edge_types, num_nodes, user_id, target_item_id, n_hops=3, top_k=args.top_k
+    )
+    if not explanation or not explanation.get("top_paths"):
+        print(f"Warning: User {user_id} and Item {target_item_id} have no valid paths.")
+        return
+
+    print(f"\n--- User {user_id} Explanation Paths ---")
+    graph, node_labels, node_types = build_explanation_graph(
+        explanation["top_paths"], n_users, n_items, user_le, item_le, entity_maps, recipe_name_map
+    )
+    print("------------------------------------------\n")
+
+    target_global = n_users + target_item_id
+    pos, xlim, ylim = compute_deterministic_layout(graph, user_id, target_global, node_labels)
+    _, _, user_name = get_node_name(user_id, n_users, n_items, user_le, item_le, entity_maps, recipe_name_map)
+    _, _, item_name = get_node_name(target_global, n_users, n_items, user_le, item_le, entity_maps, recipe_name_map)
+
+    output_path = os.path.join(args.output_dir, f"user_{user_id}.pdf")
+    render_explanation_figure(
+        graph,
+        pos,
+        xlim,
+        ylim,
+        node_labels,
+        node_types,
+        target_global,
+        user_name,
+        item_name,
+        output_path,
+    )
 
 
 def main():
