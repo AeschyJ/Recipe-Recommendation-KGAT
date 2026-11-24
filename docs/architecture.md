@@ -45,7 +45,7 @@
 
 專案提供 5 組 KGAT 消融實驗與 3 組經典 Baseline 模型，全數封裝於自動化批次腳本中：
 
-### 3.1 消融實驗組 (`run_experiments.bat` $\rightarrow$ `src/train.py`)
+### 3.1 消融實驗組 (`run.bat exp` $\rightarrow$ `src/train.py`)
 | 實驗名稱 | 指令旗幟 | 核心目的 |
 | :--- | :--- | :--- |
 | **Full KGAT (L=1)** | `--layers 64` | 完整版 KGAT 基準 |
@@ -54,7 +54,7 @@
 | **Depth L=2** | `--layers 64 64` | 探討 2-hop 遠鄰居資訊傳遞效益 |
 | **Depth L=3** | `--layers 64 64 64` | 挑戰 3-hop 極限與過度平滑 (Oversmoothing) 瓶頸 |
 
-### 3.2 經典對照組 (`run_baseline_experiments.bat` $\rightarrow$ `src/train_baseline.py`)
+### 3.2 經典對照組 (`run.bat baseline` $\rightarrow$ `src/train_baseline.py`)
 * **BPR-MF**：傳統矩陣分解協同過濾 (`--model BPR-MF`)。
 * **LightGCN**：無非線性變換與權重矩陣的純圖卷積協同過濾 (`--model LightGCN`)。
 * **NFM (Neural Factorization Machine)**：二階特徵交互搭配深度 MLP 網路 (`--model NFM`)。

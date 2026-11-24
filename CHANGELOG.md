@@ -2,6 +2,34 @@
 
 本文件紀錄專案的所有重要改動。依據 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 格式撰寫。
 
+## [1.8.0] - 2026-11-24
+
+### Added
+- **單一薄入口三層架構**：新增根目錄純 ASCII / CRLF 點火器 `run.bat`（32 行）、子命令與互動選單路由器 `main.py`（115 行），並建立獨立管線子模組 `scripts/pipelines/{__init__,experiments,xai,logs,demo}.py`。
+- **共用日誌解析模組**：新增 `scripts/log_utils.py`，集中封裝檢查點檔名解析（`extract_checkpoint_info` / `extract_info`）與訓練日誌最佳 Epoch 提取（`parse_logs_for_best_epochs`）。
+- **自動化測試覆蓋擴充**：新增 `tests/test_wave2a_entrypoint_and_config.py`（15 項）與 `tests/test_wave2b_refactoring.py`（6 項），全專案測試擴充至 113 項。
+
+### Changed
+- **核心熱點函式拆解**：
+  - `src/train.py:train` 拆分為 `select_device()`、`load_resume_checkpoint()`、`build_training_dataloaders()`、`build_model_and_optimizer()`、`establish_resume_baseline()`、`run_epoch()` 與 `save_best_checkpoint()`。
+  - `demo/server.py` 抽離 `MODEL_CHECKPOINT_RELPATHS`、`ServerState._build_model_and_explainer()`、推薦快取查詢、Top-K 評分、成對機率推論與圖遮蔽子圖評估共用 helper。
+  - `scripts/visualize_paths.py:visualize_user_explanations` 拆分為目標選擇、子圖建構、確定性佈局與圖表渲染層。
+  - `scripts/analyze_checkpoints_cleanup.py`、`scripts/cleanup_checkpoints.py` 與 `scripts/create_backup_zips.py` 改為共用 `scripts/log_utils.py`。
+- **依賴與啟動入口對齊**：於 `pyproject.toml` 補齊 `[project.optional-dependencies]`（`demo`、`dev`）並升版至 `1.8.0`；`demo/run_server.bat` 與 `demo/run_offline_laptop.bat` 瘦身為指向 `run.bat` 之薄轉發器；同步更新 `README.md`、`demo/README.md`、`docs/development.md` 與 `docs/architecture.md`。
+- **論文主檔基線恢復**：以 `latexmk -xelatex` 重編 97 頁 `Paper/Main/main.pdf`，使 `tests/test_milestone_5_consistency.py` 恢復全數通過。
+
+### Fixed
+- **展示伺服器端口覆蓋與 CORS 安全強化**：`demo/server.py` 支援 `PORT` 環境變數動態覆蓋（預設 `8501`、自動防護禁占 `8000`），停用 `allow_credentials` 並改採白名單正規表達式放行本機與 `github.io` / `vercel.app` / `trycloudflare.com` 來源（支援 `CORS_ORIGINS` 覆蓋）。
+- **例外處理補強**：修復 `scripts/evaluate_all.py:build_ckpt_to_log_map` 裸 `except: pass`，改捕捉 `(OSError, UnicodeDecodeError)` 並記錄警告。
+
+### Removed
+- 移除根目錄 7 支舊版 `.bat`（`run_baseline_experiments.bat`、`run_experiments.bat`、`run_log_pipeline.bat`、`run_offline_demo_laptop.bat`、`run_oral_defense_demo.bat`、`run_xai_pipeline.bat`、`run_xai_pipeline_all.bat`）與殘留過時 `dgl` 套件之根目錄 `requirements.txt`。
+
+### Security
+- 於 `.gitignore` 補入 `Paper/Needs/`、`local_config.py`、`gemini4_*.md` 與 `.ruff_cache/`，並透過 `git rm --cached` 解除 `Paper/Needs/` 與 `Paper/Main/figures/kgat_architecture.{fdb_latexmk,fls,log}` 追蹤（保留本機實體檔），文字追蹤檔本機絕對路徑掃描為 0 筆命中。
+
+---
+
 ## [1.7.1] - 2026-11-24
 
 ### Added
